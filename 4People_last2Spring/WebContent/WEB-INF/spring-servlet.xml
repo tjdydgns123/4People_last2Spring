@@ -38,7 +38,6 @@
 	<mvc:resources location="/common/" mapping="/common/**"/>
 	<mvc:resources location="/login/" mapping="/login/**"/>
 	<mvc:resources location="/images/" mapping="/images/**"/>
-<!-- 	<context:component-scan base-package="com.web"/> -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/view/</value>
