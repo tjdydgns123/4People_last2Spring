@@ -398,7 +398,7 @@ $(function() {
               <ul class="dropdown-menu">
               
                 <li ><a href="#" style='background-color:white;'>프로필</a></li>
-                <li><a href="../note/note.for?command=myBoard" style='background-color:white;'>쪽지함</a></li>
+                <li><a href="../note/myBoard" style='background-color:white;'>쪽지함</a></li>
                 <li><a href="#" style='background-color:white;'>설정</a></li>
                 <li class="divider"></li>
                 <li><a href="#" style='background-color:white;'>로그아웃</a></li>
@@ -420,7 +420,7 @@ $(function() {
           <i class="fas fa-bell fa-fw"></i>
           <span class="badge badge-danger">9+</span>
         </a>
-        <a class="btn btn-default" href="../note/note.for?command=myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-default" href="../note/myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger" id='messageCount'></span>
         </a>

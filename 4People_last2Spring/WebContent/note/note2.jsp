@@ -209,7 +209,7 @@ $(document).ready(function () {
 		var param = "searchName="+searchName;
 			$.ajax({
 				type:"POST"
-			   ,url:"./note.for?command=sendSearch"
+			   ,url:"./sendSearch"
 			   ,data:param
 			   ,dataType:"json"
 			   ,success:function(data){
@@ -253,7 +253,7 @@ $(document).ready(function () {
 		
 		$.ajax({
 			type:"POST"
-			,url:"./note.for?command=sendNote"
+			,url:"./sendNote"
 			,data:param
 			,dataType:"html"
 			,success:function(data){
@@ -281,7 +281,7 @@ $(document).ready(function () {
 	
 				$.ajax({
 					type:"POST"
-				   ,url:"./note.for?command=newNote"
+				   ,url:"./newNote"
 				   ,data:param
 				   ,dataType:"text"
 				   ,success:function(data){
@@ -335,7 +335,7 @@ $(document).ready(function () {
 		var param = "mb_code="+note_id;
 		$.ajax({
 					type:"POST"
-				   ,url:"./note.for?command=noteDelete"
+				   ,url:"./noteDelete"
 				   ,data:param
 				   ,dataType:"html"
 				   ,success:function(data){
@@ -436,7 +436,7 @@ $(document).ready(function () {
 		var param ="#";
 		$.ajax({
 			type:"POST"
-				   ,url:"./note.for?command=noteMessage"
+				   ,url:"./noteMessage"
 				   ,data:param
 				   ,dataType:"json"
 				   ,success:function(data){
