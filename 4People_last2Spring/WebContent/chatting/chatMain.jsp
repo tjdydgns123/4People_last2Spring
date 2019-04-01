@@ -193,7 +193,7 @@ function chatClose(){
   </div>
 <!-- 새로운 대화 모달 -->
 <script type="text/javascript">
-	var chatSocket = new WebSocket('ws://192.168.0.6:9001/4people/ChatServer')
+	var chatSocket = new WebSocket('ws://192.168.0.6:9000/4People_last2Spring/ChatServer')
 	var mem_id = '<%=mem_id%>';
 	var msg;
 	var mem_name;
