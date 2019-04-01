@@ -22,7 +22,7 @@ $(document).ready(function () {
 	function count(){
 		$.ajax({
 			type:"POST"
-			,url:"include/include.for?command=messageCount"
+			,url:"../include/messageCount"
 			,dataType:"json"
 			,success:function(data){
 // 				alert(data);
@@ -35,7 +35,7 @@ $(document).ready(function () {
 	$('#sidebarToggle').click(function(){
 		$.ajax({
 			type:"POST"
-		   ,url:"include/include.for?command=sidebarTeam"
+		   ,url:"../include/sidebarTeam"
 		   ,dataType:"json"
 		   ,success:function(data){
 			   $('#sideTeamList').empty();
@@ -478,7 +478,7 @@ function dismiss(){
     	  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
     	});
     /* 웹소켓 카운트 */
-   		 var socket = new WebSocket('ws://192.168.0.6:9001/4people/WebSocketServer')
+   		 var socket = new WebSocket('ws://192.168.0.6:9000/4People_last2Spring/WebSocketServer')
 		 var data = []
     	 var mem_id = "<%= id %>";
 		socket.onopen = function() {
