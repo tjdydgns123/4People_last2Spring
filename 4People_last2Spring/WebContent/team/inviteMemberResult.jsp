@@ -59,7 +59,7 @@ $("#btn_invite").bind("click", function(){
 			var param ="inviteMember="+mem_email;
 			$.ajax({
 				type:"POST"
-				,url:"./team.for?command=invite"
+				,url:"./invite"
 				,data:param
 				,dataType:"html"
 				,success:function(){
