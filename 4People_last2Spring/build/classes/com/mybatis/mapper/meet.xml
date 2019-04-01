@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.meetMapper">
+<!-- 	<select id="meetRoomIns" parameterType="map"  statementType="CALLABLE" resultType="int">
+	          {call proc_meetingRoomINS(#{mr_image, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_name, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_loc, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_master, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_capacity, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_starttime, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_endtime, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_facility, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						,#{mr_memo, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		)}
+	
+	</select> -->
+	<select id="meetRoomList" parameterType="com.vo.MeetRoomVO" resultType="map" >
+		SELECT mr_no,mr_image,mr_name,mr_loc,mr_master,mr_capacity, mr_starttime,mr_endtime,mr_facility,mr_memo
+		 FROM meeting_room
+	</select>
+	
+	<insert id="meetRoomIns" parameterType="map"  >
+	INSERT INTO MEETING_ROOM(mr_no,mr_image,mr_name,mr_loc
+							,mr_master,mr_capacity,mr_starttime,mr_endtime
+							,mr_facility,mr_memo) 
+        		VALUES(seq_mr_no.nextval,#{mr_image},#{mr_name},#{mr_loc}
+       				 ,#{mr_master},#{mr_capacity},#{mr_starttime},#{mr_endtime}
+       				 ,#{mr_facility},#{mr_memo})
+	</insert>
+
+
+</mapper>

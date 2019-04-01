@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.calendar">
+	<select id="calList" parameterType="com.vo.CalendarVO" resultType="java.util.Map">
+		SELECT CAL_NO, CAL_TITLE, CAL_STARTDATE, CAL_ENDDATE
+    		  ,CAL_STARTTIME, CAL_ENDTIME, CAL_COLOR
+ 		  FROM CALENDAR
+ 		 <where>
+		<if test="mem_id!=null">
+					AND MEM_ID = #{mem_id}
+		</if>
+		</where>
+	</select>
+	<insert id="calIns" parameterType="java.util.Map">
+		INSERT INTO CALENDAR (CAL_NO, mem_id, CAL_TITLE, CAL_STARTDATE, CAL_ENDDATE)
+               VALUES(SEQ_CALENDAR_NO.NEXTVAL, #{mem_id}, #{cal_title}, #{cal_startdate}, #{cal_enddate})	
+	</insert>
+</mapper>

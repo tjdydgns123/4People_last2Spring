@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.card">
+<resultMap id="labelMap" type="java.util.Map">
+	<result property="label_color" column="label_color"/>
+	<result property="label_content" column="label_content"/>
+	<result property="label_code" column="label_code"/>
+	</resultMap>
+	<resultMap id="commentsMap" type="java.util.Map">
+	<result property="comm_no" column="comm_no"/>
+	<result property="comm_time" column="comm_time"/>
+	<result property="comm_content" column="comm_content"/>
+	<result property="comm_maker" column="comm_maker"/>
+	</resultMap>
+	<resultMap id="desMap" type="java.util.Map">
+	<result property="des_no" column="des_no"/>
+	<result property="des_content" column="des_content"/>
+	</resultMap>
+	<select id="commentIns" parameterType="map" statementType="CALLABLE">
+	{call proc_commentIns(#{comment,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{team_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{r_card_code,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
+	<select id="labelIns" parameterType="map" statementType="CALLABLE">
+	{call proc_label_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{label_color,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{label_content,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{team_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{r_label_color,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{r_label_content,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{r_label_code,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						  )}
+	</select>
+	<update id="labelUpd">
+	<choose>
+		<when test="label_content.length()>0">
+		update label set label_content =#{label_content}
+		                ,label_color = #{label_color}
+		                where label_code = #{label_code}
+		</when>
+		<otherwise>
+			update label set 
+		                label_color = #{label_color}
+		                where label_code = #{label_code}
+		</otherwise>
+		</choose>
+	</update>
+<!-- 	<insert id="labelIns" parameterType="map"> -->
+<!-- 		INSERT INTO LABEL(label_color,label_content,card_code,label_code,label_date,team_code,label_maker) -->
+<!-- 		            VALUES(#{label_color},#{label_content},#{card_code},seq_label_no.nextval,to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{team_code},#{mem_id}) -->
+<!-- 	</insert> -->
+	<delete id="labelDel" parameterType="map">
+	   DELETE FROM LABEL WHERE label_code = #{label_code}
+	</delete>
+	
+	<select id="cardSEL" parameterType="map" statementType="CALLABLE">
+	{call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
+						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
+						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
+						  )}
+	</select>
+	<insert id="desIns" parameterType="map">
+		INSERT INTO description(des_content,card_code,des_no,team_code,des_maker) 
+		VALUES(#{des_content},#{card_code},seq_des_no.nextval,#{team_code},#{des_maker})
+	</insert>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.chatting">
+	<select id="getPrivateCode" parameterType="java.lang.String" resultType="map">
+		select pvroom_code,mem_id
+		from private_chatroom
+		<where>
+		and mem_id = #{mem_id}
+		</where>
+		
+	</select>
+	<select id="getPrivate" parameterType="map" resultType="map">
+		select mem_name,val.pvroom_code,val.pvlog_content,val.pvlog_time,member.mem_id
+        from member,(select chat.mem_id,chat.pvroom_code,(select pvlog_content from pv_chat_log where  pvroom_code=#{PVROOM_CODE} and pvlog_time = (select max(pvlog_time) from pv_chat_log where pvroom_code=#{PVROOM_CODE})) pvlog_content
+                     ,(select pvlog_time from pv_chat_log where pvroom_code=#{PVROOM_CODE} and pvlog_time = (select max(pvlog_time) from pv_chat_log where pvroom_code=#{PVROOM_CODE})) pvlog_time
+        from private_chatroom chat,member
+        where chat.mem_id = member.mem_id
+        and chat.mem_id !=#{MEM_ID}
+        and pvroom_code =#{PVROOM_CODE}) val
+        where member.mem_id = val.mem_id
+
+	</select>
+	<select id="privateChatlog" parameterType="map" resultType="map">
+	select mem_id,pvlog_time,pvlog_content,pvroom_code
+		from pv_chat_log
+		where pvroom_code =#{pvroom_code}
+	</select>
+</mapper>

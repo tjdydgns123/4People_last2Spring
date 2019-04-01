@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.note">
+<!-- 새 노트 작성시 호출 -->
+	<select id="proc_newNote" parameterType="map" statementType="CALLABLE">
+		{call proc_newNote(#{note_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mb_content,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mb_sender,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mb_code,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
+	<select id="DeleteNote" parameterType="map">
+			<if test="mb_code!=null">
+				delete from myboard
+				<where>
+				AND mb_code =#{mb_code}
+				</where>
+			</if>
+	</select>
+	<select id="getNote" parameterType="map" resultType="map">
+		select mb_code,mb_content,mb_time,mb_sender,mb_check,note_code from myboard 
+		<where>
+				AND mem_id =#{mem_id}
+				AND mb_check = '1'
+				order by mb_time desc
+		</where>
+	</select>
+	<select id="getTeamCode" parameterType="java.lang.String" resultType="map">
+		select TEAM_MEMBER.TEAM_CODE
+		from member,team_member
+		<where>
+		AND member.mem_id=team_member.mem_id
+		AND member.mem_id=#{mem_id}
+		</where>
+	</select>
+	<select id="getSend" parameterType="map" resultType="map">
+		select member.mem_id,member.mem_name
+		from member,team_member
+		<where>
+		AND member.mem_id = team_member.mem_id
+		
+		</where>
+		<if test="mem_id!=null">
+		and member.mem_id !=#{mem_id}
+		</if>
+		<if test="team_code!=null">
+		and team_member.team_code = #{team_code}
+		</if>
+		<if test="searchName!=null">
+		and member.mem_name like #{searchName}||'%'
+		</if>
+	</select>
+	<select id="noteMessage" parameterType="map" resultType="map">
+		select mb_code,mb_sender,mb_content from myboard
+		<where>
+			<if test="value!=null">
+				AND mem_id = #{mem_id}
+				AND mb_check = '0'
+			</if>
+		</where>
+	</select>
+	<select id="insertMessage" parameterType="map" resultType="map">
+		update myboard set(mb_check) = '1'
+		<where>
+    	AND mb_code = #{mb_code}
+		</where>
+	</select>
+	<select id="deleteMessage" parameterType="map" resultType="map">
+		
+		<if test="mb_code!=null">
+			delete from myboard
+			<where>
+			AND mb_code=#{mb_code}
+			</where>
+		</if>
+	</select>
+</mapper>

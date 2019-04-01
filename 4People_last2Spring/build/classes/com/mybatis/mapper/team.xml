@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.team">
+	<select id="teamInfo" parameterType="map" resultType="map">
+		select team_name,team_leader
+		from team
+		<where>
+			AND team_code = #{team_code}
+		</where>
+	</select>
+	<select id="boardList" parameterType="map" resultType="map">
+		select team.team_name, BOARD.BOARD_COLOR,board.board_title,board.board_no,team.team_leader
+		from team,team_member,board
+		<where>
+			AND team.team_code=team_member.team_code
+			AND team.team_code=board.team_code
+			AND team_member.mem_id = #{mem_id}
+			AND team.team_code = #{team_code}
+		</where>
+		
+	</select>
+	<!-- 팀에 참여한 회원정보 뽑아내는 select문 -->
+	<select id="getMember" parameterType="map" resultType="map">
+          select member.mem_name,member.mem_id,team_member.tm_role
+       ,case when (select team_leader from team where team_code=#{team_code})=member.mem_id then 1 else 0 end p_m
+          from member,team_member
+	<where>
+			AND  MEMBER.mem_id=team_member.mem_id
+		<if test="team_code!=null">
+		    AND team_member.team_code =#{team_code}
+		</if>
+		<if test="mem_name!=null and mem_name.length()>0">
+		  AND member.mem_name like #{mem_name}||'%'
+		</if>
+	</where>
+	</select>
+	
+	<!-- 팀원초대를 위해 검색을할때 정보를 뽑아내는 프로시저 -->
+	<select id="getInvite" parameterType="map" statementType="CALLABLE">
+		{call proc_inviteMember(#{mem_email,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{team_code}
+		                ,#{r_mem_name,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_email,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_dept,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_lank,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
+	<!-- 검색한 회원을 insert하는 구문 -->
+	<insert id="inviteMember" parameterType="map">
+		INSERT INTO team_member(team_code,tm_role,mem_id,tm_time)
+		 VALUES(#{team_code},#{p_role},#{inviteMember},(select TO_CHAR(sysdate,'YYYY.MM.DD.HH.MM.SS') from dual)) 
+		      
+	</insert>
+
+<!-- 	<select id="pm" parameterType="map" resultType="map"> -->
+<!-- 		select p_m from t_member -->
+<!-- 		<where> -->
+<!-- 			<if test="mem_email!null"> -->
+<!-- 				AND mem_email=#{mem_email} -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+<!-- 	</select> -->
+</mapper>

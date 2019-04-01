@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.board">
+	
+	
+	<insert id="BoardIns" parameterType="java.util.Map" >
+		INSERT INTO BOARD(board_no,team_code,board_title,board_update,board_color,board_maker) 
+		VALUES(seq_board_no2.nextval,#{team_code},#{boardtitle},1,#{color},#{mem_id})
+	
+	</insert>
+	<insert id="CardIns" parameterType="java.util.Map" >
+		INSERT INTO CARD(card_code,card_date,blist_no,card_name,team_code,card_maker) 
+		VALUES(seq_card_no.nextval,to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{BLIST_NO},#{card_name},#{team_code},#{mem_id})
+	</insert>
+
+	<resultMap id="teamMap" type="java.util.Map">
+	<result property="team_name" column="team_name"/>
+	<result property="team_code" column="team_code"/>
+	</resultMap>
+	
+	<resultMap id="boardMap" type="java.util.Map">
+	<result property="team_code" column="team_code"/>
+	<result property="board_title" column="board_title"/>
+	<result property="board_no" column="board_no"/>
+	<result property="board_update" column="board_update"/>
+	<result property="board_color" column="board_color"/>
+	</resultMap>
+	<resultMap id="BLISTMAP" type="java.util.Map">
+	<result property="BLIST_NO" column="BLIST_NO"/>
+	<result property="BLIST_TITLE" column="BLIST_TITLE"/>
+	<result property="TEAM_CODE" column="TEAM_CODE"/>
+	</resultMap>
+	<resultMap id="CARDLISTMAP" type="java.util.Map">
+	<result property="CARD_CODE" column="CARD_CODE"/>
+	<result property="CARD_NAME" column="CARD_NAME"/>
+	<result property="BLIST_NO" column="BLIST_NO"/>
+	</resultMap>
+	<select id="BoardSel"  statementType="CALLABLE" parameterType="map"   >
+		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		               ,#{teamMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=teamMap  }
+		               ,#{boardMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap}
+		)}
+	</select>
+	                
+
+	<update id="BoardUpd" parameterType="java.util.Map">
+	 update board
+	 set board_update = 0
+	 where board_no = #{board_no}
+	</update>
+	
+	<insert id="BoardListIns" parameterType="map">
+		insert into board_List(BLIST_NO,BOARD_NO,BLIST_TITLE,TEAM_CODE,BLIST_MAKER)
+		       VALUES(seq_boardList_no.nextval,#{board_no},#{BLIST_TITLE},#{team_code},#{mem_id})
+	</insert>
+	<select id="BoardListSel" parameterType="map" statementType="CALLABLE">
+		{call proc_board_list_sel(#{board_no ,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{r_team_code, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{BLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=BLISTMAP}
+		                          ,#{CARDLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=CARDLISTMAP}
+		                          
+		)}
+	</select>
+</mapper>

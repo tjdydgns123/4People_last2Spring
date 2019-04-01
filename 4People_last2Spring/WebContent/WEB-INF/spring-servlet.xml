@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xmlns:context="http://www.springframework.org/schema/context" 
+           xmlns:mvc="http://www.springframework.org/schema/mvc" 
+           xmlns:tx="http://www.springframework.org/schema/tx"
+           xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" 
+           xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                                          http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+                                          http://www.springframework.org/schema/mvc 
+                                          http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                                          http://mybatis.org/schema/mybatis-spring 
+                                          http://mybatis.org/schema/mybatis-spring.xsd
+                                          http://www.springframework.org/schema/tx 
+                                          http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                                          http://www.springframework.org/schema/context 
+                                          http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<bean id="default-handler-mapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<mvc:annotation-driven/>
+	<!-- spring에서 제공되는 네임스페이스를 사용할 경우 반드시 먼저 선언하고 사용할 것. -->
+	<tx:annotation-driven/>
+	<!-- 첨부파일 관련 설정 추가 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+	<context:component-scan base-package="com.board"/>
+	<context:component-scan base-package="com.boardlist"/>
+	<context:component-scan base-package="com.calendar"/>
+	<context:component-scan base-package="com.card"/>
+	<context:component-scan base-package="com.chatting"/>
+	<context:component-scan base-package="com.include"/>
+	<context:component-scan base-package="com.login"/>
+	<context:component-scan base-package="com.meetRoom"/>
+	<context:component-scan base-package="com.models"/>
+	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
+
+	<mybatis:scan base-package="com.mybatis.mapper"/>
+	<mvc:resources location="/common/" mapping="/common/**"/>
+	<mvc:resources location="/login/" mapping="/login/**"/>
+<!-- 	<context:component-scan base-package="com.web"/> -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+</beans>
+

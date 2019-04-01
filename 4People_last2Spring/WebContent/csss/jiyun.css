@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/* 파일첨부 및 이미지 업로드 css 시작  */
+.filebox{
+	margin-left:3%;
+}
+.filebox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+	
+}
+
+.filebox label {
+	margin-top: 5px; width : 70px;
+	height: 35px;
+	display: inline-block;
+	padding: .5em .70em;
+	color: #999;
+	font-size: 0.5em;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	width: 70px;
+} /* named upload */
+.filebox .upload-name {
+
+	width: 300px;
+	height: 35px; display : inline-block;
+	padding: .5em .70em; /* label의 패딩값과 일치 */
+	font-size: 0.5em;
+	font-family: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+	display: inline-block;
+}
+
+/* imaged preview */
+.filebox .upload-display { /* 이미지가 표시될 지역 */
+	margin-bottom: 5px;
+}
+
+@media ( min-width : 768px) {
+	.filebox .upload-display {
+		display: inline-block;
+		margin-right: 5px;
+		margin-bottom: 0;
+	}
+}
+
+.filebox .upload-thumb-wrap { /* 추가될 이미지를 감싸는 요소 */
+	display: inline-block;
+	width: 700px;
+	padding: 2px;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.filebox .upload-display img { /* 추가될 이미지 */
+	display: block;
+	max-width: 100%;
+	width: 100% \9;
+	height: auto;
+}
+
+/* 파일첨부 및 이미지 업로드 css 끝  */
+
+
+/* 입력 폼 태그 수정  */
+
+.inputbox{
+	
+	margin:3%;
+	width:90%;
+}
+.inputbox label{
+	margin-right:700px;
+	width:150px;
+	align:left;
+	text-align:left;
+	
+}
+.inputlabel{
+	text-align:left;
+	font-size:0.6em;
+	width:500px;
+	
+}
+
+.meetname{
+	width:300px;
+}
+
+.meetplace {
+	width:700px;
+}
+
+.meetperson{
+	width:200px;
+}
+
+.useperson{
+	margin-top:3%;
+	width:200px;
+}
+
+.usetime{
+	margin-top:0%;
+	width:150px;
+}
+
+table{
+	border:1px solid;
+	
+}
+table tr {
+	width:500px;
+	height:500px;
+}
+.inputbox1{
+	width:200px;
+	border:1px solid blue;
+}
+.inputbox2{
+	
+	width:200px;
+	border:1px solid blue;
+}
+
+
+
+/* 회의실 이름 폼태그*/
+
+
+
+.meetplace{
+	align:center;
+	margin-left:2.5%;
+	width:95%;
+	height:1000px;
+}
+
+
