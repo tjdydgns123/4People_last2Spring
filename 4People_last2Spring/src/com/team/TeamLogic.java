@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TeamLogic {
-	TeamDao t_dao = new TeamDao();
+	@Autowired
+	TeamDao t_dao = null;
 	Logger logger =Logger.getLogger(TeamLogic.class);
 	//board가져오기
 	public List<Map<String, Object>> getBoards(Map<String, Object> pMap) {

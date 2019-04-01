@@ -1,6 +1,5 @@
 package com.note;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,19 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
-import com.team.TeamController;
-import com.team.TeamLogic;
-import com.util.HashMapBinder;
 
 @Controller
 @RequestMapping("/note/")
@@ -34,7 +27,7 @@ public class NoteController  {
 	String note_code="";
 	String mem_id="";
 	HttpSession session=null;
-	@PostMapping("newNote")
+	@PostMapping(value="newNote")
 	public String newNote(Model model,@RequestParam Map<String,Object> pMap ) {
 		for(String key:pMap.keySet()) {
 			logger.info(key+" pMap:"+pMap.get(key));
@@ -62,7 +55,7 @@ public class NoteController  {
 		
 		return "forward:newNoteResult.jsp";
 	}
-	@PostMapping("myBoard")
+	@RequestMapping(value="myBoard")
 	public String myBoard(HttpServletRequest req,Model model,@RequestParam Map<String,Object> pMap) {
 		session = req.getSession();
 		mem_id = String.valueOf(session.getAttribute("MEM_ID"));

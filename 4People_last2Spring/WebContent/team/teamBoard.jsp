@@ -42,8 +42,8 @@ function boardmove(id){
 	<div style="text-align: center;">
 <ul id="options" class="nav nav-tabs nav-justified" >
 <!-- 	<li> 클릭햇을떄 눌러져잇는것처럼 보이는 속성 class="active" -->
-  <li role="presentation" class="active"><a style=" font-weight:700;" href="./team.for?command=board">보드</a></li>
-  <li role="presentation" ><a  style=" font-weight:700;" href="./team.for?command=member">회원</a></li>
+  <li role="presentation" class="active"><a style=" font-weight:700;" href="./board?team_code=<%=team_code %>">보드</a></li>
+  <li role="presentation" ><a  style=" font-weight:700;" href="./member">회원</a></li>
   <li role="presentation"><a style=" font-weight:700;" href="#">설정</a></li>
   </ul>
   </div>

@@ -42,7 +42,7 @@ $(document).ready(function () {
 			   $.each(data , function( key,  val){
 				  	var teamName = val.TEAM_NAME;
 				  	var code = val.TEAM_CODE;
-				  	var append = "<a href='../team/team.for?command=board&team_code="+code+"'>"
+				  	var append = "<a href='../team/board?team_code="+code+"'>"
 				  				  +teamName+"</a>";
 				  	$('#sideTeamList').append(append);
 			   });
