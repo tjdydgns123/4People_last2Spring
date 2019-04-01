@@ -33,7 +33,7 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 
 
 
-<%if(privateChatlog!=null&&privateChatlog.size()>0){
+<%if(privateChatlog!=null){
 	for(Map<String,Object>rMap:privateChatlog){
 		id=(String)rMap.get("MEM_ID");
 		pvLog_time=(String)rMap.get("PVLOG_TIME");
@@ -64,26 +64,7 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 	<%}
 }
 %>
- <% Cookie[] cooks = request.getCookies();	
-				for(int i=0;i<cooks.length;i++){//쿠키에 담긴 정보의 수만큼
-					if(cooks[i].getName().equals("room_code")){//쿠키 이름에 맞는 것
-						Cookie cook = new Cookie("room_code","");
-						cook.setMaxAge(0);
-						cook.setPath("/");
-						response.addCookie(cook);
-						Cookie c_Room_code = new Cookie("room_code",pvRoom_code);
-						c_Room_code.setMaxAge(3600);
-						c_Room_code.setPath("/");
-						response.addCookie(c_Room_code);
-					}
-					else{
-						Cookie c_Room_code = new Cookie("room_code",pvRoom_code);
-						c_Room_code.setMaxAge(3600);
-						c_Room_code.setPath("/");
-						response.addCookie(c_Room_code);
-					}
-				}
-		 %>
+
      </ul>
         
       </div> <!-- end chat-history -->

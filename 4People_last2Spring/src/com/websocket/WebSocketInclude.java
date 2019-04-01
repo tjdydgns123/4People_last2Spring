@@ -1,6 +1,7 @@
 package com.websocket;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -26,7 +27,7 @@ public class WebSocketInclude {
 //	static List<Session> users = new ArrayList<>();
 	static Map<String,Object> users =new HashMap<String,Object>();
 	Session session;
-	
+	String id;	
 	@OnOpen
 	public void onOpen(Session session) {
 		this.session = session;
@@ -41,7 +42,7 @@ public class WebSocketInclude {
 		JsonElement element = parser.parse(data);
 		String gubun = element.getAsJsonObject().get("gubun").getAsString();
 		if("open".equals(gubun)) {
-			String id = element.getAsJsonObject().get("id").getAsString();
+			 this.id = element.getAsJsonObject().get("id").getAsString();
 			if(users.containsKey(id)) {
 				users.remove(id);
 				users.put(id,session);
@@ -80,23 +81,30 @@ public class WebSocketInclude {
 	
 	@OnClose
 	public void onClose() {
-		for(Object key:users.keySet()) {
-			if(users.get(key)==this.session) {
+		Iterator<String> keys = users.keySet().iterator();
+		while( keys.hasNext() ){
+			String key = keys.next();
+			if(key.equals(this.id)) {
 				System.out.println("after="+users.size());
-				users.remove(key);
+				keys.remove();
 				System.out.println("before"+users.size());
 			}
 		}
 //		users.remove(this.session);
 		System.out.println("closed!");
 	}
+	
 
 	@OnError
 	public void onError(Throwable t) {
 //		users.remove(this.session);
-		for(Object key:users.keySet()) {
-			if(users.get(key)==this.session) {
-				users.remove(key);
+		Iterator<String> keys = users.keySet().iterator();
+		while( keys.hasNext() ){
+			String key = keys.next();
+			if(key.equals(this.id)) {
+				System.out.println("after="+users.size());
+				keys.remove();
+				System.out.println("before"+users.size());
 			}
 		}
 		t.printStackTrace();

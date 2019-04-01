@@ -20,7 +20,7 @@
 //             		$("#f_signUp").submit();
 //             		 $("#f_signUp").attr("method","POST");
 					var mem_id2=$("#dropdownMenu1").text();
-             		$("#f_signUp").attr("action","./login.for?command=signUp&mem_id2="+mem_id2);
+             		$("#f_signUp").attr("action","./signUp?mem_id2="+mem_id2);
              		$("#f_signUp").submit();
         		}
         		else{
@@ -83,8 +83,7 @@
                         <label for="InputEmail">이메일 주소(ID)</label><br>
                         <input type="email" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
                     	<!--  -->
-             <div class='input-group'>      	
-            <button class="btn btn-default dropdown-toggle form-control" style='wdith:250px;'   type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-default dropdown-toggle form-control" style='wdith:50px;'  id="dropdownMenu1" data-toggle="dropdown">
               	이메일주소(필수사항)	
               <span class="caret"></span>
             </button>
@@ -94,7 +93,6 @@
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-            </div> 
     
                     </div>
                     </div><br>
@@ -215,8 +213,6 @@
         	  });
         	});
         </script>
-<!--         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
-<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -23,7 +23,6 @@ public class NoteDao {
 		String mb_code ="";
 		logger.info("NoteDao 호출");
 		sqlSessionTemplate.insert("proc_newNote",pMap);
-		sqlSessionTemplate.commit();
 		return mb_code;
 	}
 
@@ -31,7 +30,6 @@ public class NoteDao {
 		List<Map<String,Object>> noteList=null;
 		logger.info("NoteDao 호출");
 		sqlSessionTemplate.delete("DeleteNote",pMap);
-		sqlSessionTemplate.commit();
 		noteList =sqlSessionTemplate.selectList("getNote",mem_id);
 		return noteList;
 	}
@@ -72,7 +70,6 @@ public class NoteDao {
 		List<Map<String,Object>> noteList=null;
 		int result=0;
 		result =sqlSessionTemplate.insert("proc_newNote",pMap);
-		sqlSessionTemplate.commit();
 		return result;
 	}
 
@@ -89,7 +86,6 @@ public class NoteDao {
 			Map<String,Object> hMap = new HashMap<String, Object>();
 			hMap.put("mb_code",key);
 			sqlSessionTemplate.update("insertMessage",hMap);
-			sqlSessionTemplate.commit();
 		}
 	}
 
@@ -100,7 +96,6 @@ public class NoteDao {
 			Map<String,Object> hMap = new HashMap<String, Object>();
 			hMap.put("mb_code",key);
 			sqlSessionTemplate.delete("deleteMessage",hMap);
-			sqlSessionTemplate.commit();
 		}
 	}
 

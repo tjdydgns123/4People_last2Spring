@@ -34,9 +34,12 @@
 	<context:component-scan base-package="com.models"/>
 	<context:component-scan base-package="com.note"/>
 	<context:component-scan base-package="com.team"/>
+	<context:component-scan base-package="com.chatting"/>
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
 
 	<mybatis:scan base-package="com.mybatis.mapper"/>
+	<mvc:resources location="/csss/" mapping="/csss/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
 	<mvc:resources location="/common/" mapping="/common/**"/>
 	<mvc:resources location="/login/" mapping="/login/**"/>
 <!-- 	<context:component-scan base-package="com.web"/> -->
@@ -48,5 +51,7 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+	
 </beans>
+
 
