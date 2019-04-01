@@ -1,5 +1,6 @@
 package com.login;
 
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,28 @@ public class LoginController  {
 		//이동할 페이지.
 		return "forward:loginAction.jsp";
 	
+	}
+	
+	@PostMapping(value="signUp")
+	public String signUp(Model model, @RequestParam Map<String,Object> pMap) {
+		String mem_addr ="";
+		for(String key:pMap.keySet()) {
+			if(key.equals("mem_addr1")||key.equals("mem_addr2")||key.equals("mem_addr3")) {
+				mem_addr+=pMap.get(key);
+			}
+		}
+		String mem_hp = pMap.get("mem_hp1")+"-"+pMap.get("mem_hp2")+"-"+pMap.get("mem_hp3");
+		pMap.put("mem_hp", mem_hp);
+		
+		String mem_companyphone = pMap.get("mem_companyphone2")+"-"+pMap.get("mem_companyphone3")+"-"+pMap.get("mem_companyphone1");
+		pMap.put("mem_companyphone", mem_companyphone);
+		String mem_id = pMap.get("mem_id1")+"@"+pMap.get("mem_id2");
+		pMap.put("mem_id", mem_id);
+		pMap.put("mem_addr", mem_addr);
+		pMap.put("mem_connect","0");
+		int result =l_logic.signUp(pMap);
+	model.addAttribute("result",result);
+	return "forward:signUpResult.jsp";
 	}
 //		//회원가입 요청이 들어왔을떄
 //		else if("signUp".equals(command)) {

@@ -30,10 +30,15 @@
 	for(int i=0; i<getPrivate.size();i++){
 		 Map<String,Object> rMap = getPrivate.get(i);
 		 pvroom_code=(String)rMap.get("PVROOM_CODE");
+		 if(rMap.containsKey("PVLOG_CONTENT")){
 		 pvlog_content=(String)rMap.get("PVLOG_CONTENT");
+		 }
+		 else{
+			 pvlog_content="채팅을 시작해주세요.";
+		 }
 		 mem_name =(String)rMap.get("MEM_NAME");
+		 if(rMap.containsKey("PVLOG_TIME")){
 		 pvlog_time=(String)rMap.get("PVLOG_TIME");
-		 mem_id = (String)rMap.get("MEM_ID");
 		 //[0]=년도 , [1]=월 , [2]=일, [3]=시 , [4]=분, [5]=초
 		 String[] date = pvlog_time.split("\\.");
 		 String reqDateStr = date[0]+date[1]+date[2]+date[3]+date[4];
@@ -62,6 +67,9 @@
 		 else{
 			 time = date[1]+"."+date[2];
 		 }
+		 }
+		 mem_id = (String)rMap.get("MEM_ID");
+		
 		%>
 
 
@@ -100,9 +108,15 @@
 		 var chat_id = str[3];
 		 var param = "pvroom_code="+pvroom_code+"&chat_name="+chat_name+"&chat_id="+chat_id;
 		 chatClose()
+		  var setCookie = function(name, value, exp) {
+		  var date = new Date();
+		  date.setTime(date.getTime() + exp*24*60*60*1000);
+		  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+		};
+		setCookie('room_code',pvroom_code,1);
 		 $.ajax({
 			 type:'POST'
-			 ,url:'./chatting.for?command=privateChatlog'
+			 ,url:'./privateChatlog'
 			 ,data:param
 			 ,dataType:'html'
 			 ,success:function(data){

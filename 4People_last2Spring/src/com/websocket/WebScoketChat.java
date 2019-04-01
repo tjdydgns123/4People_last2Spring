@@ -1,6 +1,7 @@
 package com.websocket;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -17,7 +18,7 @@ public class WebScoketChat {
 	
 	static Map<String,Object> chatUsers = new HashMap<String,Object>();
 	Session session;
-	
+	String id;
 	
 	@OnOpen
 	public void onOpen(Session session) {
@@ -31,7 +32,7 @@ public class WebScoketChat {
 		JsonElement element = parser.parse(data);
 		String gubun = element.getAsJsonObject().get("gubun").getAsString();
 		if("open".equals(gubun)) {
-			String id = element.getAsJsonObject().get("id").getAsString();
+			this.id = element.getAsJsonObject().get("id").getAsString();
 			if(chatUsers.containsKey(id)) {
 				chatUsers.remove(id);
 				chatUsers.put(id,session);
@@ -55,9 +56,13 @@ public class WebScoketChat {
 	
 	@OnClose
 	public void onClose() {
-		for(Object key:chatUsers.keySet()) {
-			if(chatUsers.get(key)==this.session) {
-				chatUsers.remove(key);
+		Iterator<String> keys = chatUsers.keySet().iterator();
+		while( keys.hasNext() ){
+			String key = keys.next();
+			if(key.equals(this.id)) {
+				System.out.println("after="+chatUsers.size());
+				keys.remove();
+				System.out.println("before"+chatUsers.size());
 			}
 		}
 //		users.remove(this.session);
@@ -67,9 +72,13 @@ public class WebScoketChat {
 	@OnError
 	public void onError(Throwable t) {
 //		users.remove(this.session);
-		for(Object key:chatUsers.keySet()) {
-			if(chatUsers.get(key)==this.session) {
-				chatUsers.remove(key);
+		Iterator<String> keys = chatUsers.keySet().iterator();
+		while( keys.hasNext() ){
+			String key = keys.next();
+			if(key.equals(this.id)) {
+				System.out.println("after="+chatUsers.size());
+				keys.remove();
+				System.out.println("before"+chatUsers.size());
 			}
 		}
 		t.printStackTrace();

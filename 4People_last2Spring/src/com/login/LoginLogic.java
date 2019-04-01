@@ -17,9 +17,9 @@ public class LoginLogic {
 		loginList=l_dao.loginCall(pMap);
 		return loginList;
 	}
-//	public int signUp(Map<String,Object> pMap) {
-//		logger.info("signUp호출");
-//		int result =l_dao.signUp(pMap);
-//		return result;
-//	}
+	public int signUp(Map<String,Object> pMap) {
+		logger.info("signUp호출");
+		int result =l_dao.signUp(pMap);
+		return result;
+	}
 }
