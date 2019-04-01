@@ -92,7 +92,7 @@ while(b_itr.hasNext()){
 		}
 	  function boardupd(id){
 			alert(id);
-		  location.href="./board.for?crud=upd&board_no="+id+"&mem_id=<%=mem_id%>";
+		  location.href="./boardUPD?board_no="+id+"&mem_id=<%=mem_id%>";
 		  
 	  }
 	  function boardmove(id){
