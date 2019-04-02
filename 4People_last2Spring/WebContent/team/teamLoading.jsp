@@ -30,23 +30,11 @@
  left: 50%; 
  z-index: 100; }
 </style>
-<script type="text/javascript">
-$(window).load(function() {    
-     $('#loading').hide();  
-    });
-</script>
-
-
-
-
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 
 <body>
-<table width="200px">
 <%if(teamList!=null&&teamList.size()>0){
 	if("board".equals(gubun)){
 		

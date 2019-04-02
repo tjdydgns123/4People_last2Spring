@@ -50,5 +50,16 @@ public class TeamDao {
 		sqlSessionTemplate.insert("inviteMember",pMap);
 //		sqlSessionTemplate.commit();
 	}
+	public String newTeam(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("newTeam",pMap);
+		String team_code="";
+		for(String key:pMap.keySet()) {
+			if(key.equals("v_teamcode")) {
+				team_code=(String)pMap.get(key);
+			}
+		}
+		return team_code;
+	}
+	
 
 }

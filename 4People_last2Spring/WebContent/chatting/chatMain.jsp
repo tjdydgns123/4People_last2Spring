@@ -193,10 +193,12 @@ function chatClose(){
   </div>
 <!-- 새로운 대화 모달 -->
 <script type="text/javascript">
+
 	var chatSocket = new WebSocket('ws://192.168.0.6:9000/4People_last2Spring/ChatServer')
 	var mem_id = '<%=mem_id%>';
 	var msg;
 	var mem_name;
+	var ok;
 	
 	//소켓 접속시
 	chatSocket.onopen = function() {
@@ -213,6 +215,9 @@ function chatClose(){
 		 msg = info.content;
 		var send_room_code = info.room_code;
 		 mem_name = info.mem_name;
+		if(ok!="denied"){
+			new Notification(mem_name, {body:msg});
+			}
 		 var getCookie = function(name) {
 			  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 			  return value? value[2] : null;
@@ -250,6 +255,21 @@ function chatClose(){
 	//소켓이 닫힐시
 	chatSocket.onclose = function() {
 		
+	}
+	function getNotificationPermission() {
+	    // 브라우저 지원 여부 체크
+	    if (!("Notification" in window)) {
+	        alert("데스크톱 알림을 지원하지 않는 브라우저입니다.");
+	    }
+	    // 데스크탑 알림 권한 요청
+	    Notification.requestPermission(function (result) {
+	        // 권한 거절
+	        ok=result;
+	        if(result == 'denied') {
+	            alert('알림을 차단하셨습니다.\n브라우저의 사이트 설정에서 변경하실 수 있습니다.');
+	            return false;
+	        }
+	    });
 	}
 	
 // 	//엔터키 눌럿을떄 서버로 전송
