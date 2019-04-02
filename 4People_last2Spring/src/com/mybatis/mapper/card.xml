@@ -14,7 +14,7 @@
 	</resultMap>
 	<resultMap id="desMap" type="java.util.Map">
 	<result property="des_no" column="des_no"/>
-	<result property="des_content" column="des_content"/>
+	<result property="des_content" column="des_contentt"/>
 	</resultMap>
 	<select id="commentIns" parameterType="map" statementType="CALLABLE">
 	{call proc_commentIns(#{comment,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -67,4 +67,8 @@
 		INSERT INTO description(des_content,card_code,des_no,team_code,des_maker) 
 		VALUES(#{des_content},#{card_code},seq_des_no.nextval,#{team_code},#{des_maker})
 	</insert>
+	<update id="desUPD">
+		update description set des_content = #{des_content}
+		where des_no = #{des_no}
+	</update>
 </mapper>

@@ -109,7 +109,7 @@
 var color ="btn-default";
 var temp = new Array();
 var label_code='';
-$('#cardmodal').modal({backdrop: 'static'});
+
 function mo_close(){
 	$('#label_modal2').modal('hide');
 }
@@ -124,7 +124,7 @@ function label_codee(id){
 /* 은수 */
   var card_code=''; 
   var team_code = '<%=t_team_code%>';
-  
+  var des_code = '';
   function commentDeletModal(){
 	  $ ( '#commentDeleteModal' ). modal({
 		    target : '#checkList' 
@@ -135,10 +135,10 @@ function label_codee(id){
   }
  
  	function label_del(){
- 		var param = "crud=labelDel&label_code="+label_code;
+ 		var param = "label_code="+label_code;
 		$.ajax({
 			type:"POST"
-		   ,url:"../card/card.for?"
+		   ,url:"../card/labelDEL?"
 		   ,data:param
 		   ,dataType:"html"
 		   ,success:function(data){
@@ -187,7 +187,7 @@ function label_codee(id){
  	function label_Upd(){
  		var text =''; 
  			text = document.getElementById('label_text2').value;
-		 var param = "crud=labelUpd&label_content="+text+"&label_color="+color+"&label_code="+label_code;
+		 var param = "label_content="+text+"&label_color="+color+"&label_code="+label_code;
 		 if(text.length<1){
 		 $('#'+label_code+'').attr('class','btn '+color+'');
 		 } else{
@@ -196,7 +196,7 @@ function label_codee(id){
 		 }
 			$.ajax({
 					type:"POST"
-				,url:"../card/card.for"
+				,url:"../card/labelUPD"
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
@@ -306,11 +306,11 @@ function label_codee(id){
 		var input2 = document.getElementById('ggtextval').value;
 		<%=titlee%> = input2;
 // 		var param = "bd_title="+input2;
-		var param = "crud=ins&team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
+		var param = "?team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
 		alert(param);
 		$('#jae').empty();
 <%-- 		location.href="./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2; --%>
-		location.href="./boardList.for?"+encodeURI(param);
+		location.href="./boardListINS"+encodeURI(param);
 			
 // 			$.ajax({
 // 				type:"POST"
@@ -333,20 +333,20 @@ function label_codee(id){
 		$('#'+id+'bb').empty();
 		document.getElementById(id+"cardAdd").innerHTML+="<input type='button' class='btn btn-default btn-block' value='"+input+"'>";
 		var r_BL_team_code = "<%=t_team_code%>";
-		var param = "crud=ins2&team_code="+r_BL_team_code+"&board_no=<%=board_no%>&mem_id=<%=mem_id%>&card_name="+input+"&BLIST_NO="+id;
-		location.href="./boardList.for?"+encodeURI(param);
+		var param = "team_code="+r_BL_team_code+"&board_no=<%=board_no%>&mem_id=<%=mem_id%>&card_name="+input+"&BLIST_NO="+id;
+		location.href="./boardListINS2?"+encodeURI(param);
 		
 
 	}
 	function cardOpen(id){
-		var param = "crud=sel&card_code="+id;
+		var param = "card_code="+id;
 		//은수
 		card_code =id;  
 		//은수
 			$('#cardmodal').empty();
 			$.ajax({
 					type:"POST"
-				,url:"../card/card.for"
+				,url:"../card/cardSel"
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
@@ -399,7 +399,7 @@ function label_codee(id){
 			}
 			 function addInput() {
 			      temp=document.getElementById("label_text").value;
-				 var param = "crud=labelins&label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
+				 var param = "label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
 // 				document.getElementById("card_label").innerHTML+="<input type='button' class='btn "+color+" ' value='"+temp+"'>";
 // 				$("#card_label").append("<input type='button' class='btn "+color+" ' value='"+temp+"' data-toggle='modal' data-target=''#label_modal2' onClick='label_codee(id)''>");
 <%-- 				  location.href="../card/card.for?crud=labelins&label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code; --%>
@@ -407,7 +407,7 @@ function label_codee(id){
 // 				  $('#card_label').empty();
 					$.ajax({
 							type:"POST"
-						,url:"../card/card.for"
+						,url:"../card/labelINS"
 							,data:param
 								   ,dataType:"html"
 								   ,success:function(result){
@@ -473,10 +473,12 @@ function label_codee(id){
 			function danger(){
 				color ="btn-danger";
 			}
-			function descriptionIns(){
+			function descriptionIns(id){
+				alert(id);
+				des_code = id;
 				var text = '';
 					text = $('#des_text').val();
-					 var param = "crud=desIns&des_content="+text+"&des_maker=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
+					 var param = "des_content="+text+"&des_maker=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
 				alert(text);
 				$('#des_con').empty();
 				$('#des_bt').empty();
@@ -485,13 +487,49 @@ function label_codee(id){
 				
 				$.ajax({
 					type:"POST"
-				,url:"../card/card.for"
+				,url:"../card/desINS"
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
 // 						    $('#card_label').append(result);
 						   }
 							});
+				}
+			function desUPD(id){
+				des_code = id;
+				alert(id);
+				document.getElementById('des_conss').innerHTML+= "<textarea  id='des_text' style='margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; '/>";
+				document.getElementById('des_bt').innerHTML+=  "<input type='button' style='margin-left:50px; margin-top:10px' class='btn btn-success col-sm-2 col-sm-offset-5' value='저장' onClick='descriptionUPD()'>";
+					
+			}
+				function descriptionUPD(){
+					
+				var text = '';
+				text = $('#des_text').val();
+				var param = "des_content="+text+"&des_no="+des_code;
+				alert(text);
+				if(text.length==0){
+					alert('빈'+text.length);
+				$('#des_conss').empty();
+				$('#des_bt').empty();
+					}
+				else{
+					alert('찬'+text.length)
+				$('#des_conss').empty();
+				$('#des_cons').empty();
+				$('#des_cons').append("<span><h5>"+text+"</h5></span>");
+				$('#des_bt').empty();
+			
+				$.ajax({
+					type:"POST"
+				,url:"../card/desUPD"
+					,data:param
+						   ,dataType:"html"
+						   ,success:function(result){
+// 						    $('#card_label').append(result);
+						   }
+							});
+					}
 				}
 	
 </script>

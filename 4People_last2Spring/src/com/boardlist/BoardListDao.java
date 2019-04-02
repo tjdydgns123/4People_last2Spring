@@ -10,22 +10,22 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.board.BoardController;
 
+@Repository
 public class BoardListDao {
 	Logger logger =  Logger.getLogger(BoardListDao.class);
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate = null;
 	SqlSessionFactory  sqlMap = null;
 	SqlSession session = null;
 	public void BdlistIns(Map<String, Object> pMap) {
 		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			session.insert("BoardListIns", pMap);
-			session.commit();
+			sqlSessionTemplate.insert("BoardListIns", pMap);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,12 +34,7 @@ public class BoardListDao {
 	public List<Map<String,Object>> BdlistSel(Map<String, Object> pMap) {
 		List<Map<String,Object>> b_boardList = new ArrayList<Map<String,Object>>();
 		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			session.selectList("BoardListSel", pMap);
+			sqlSessionTemplate.selectList("BoardListSel", pMap);
 			b_boardList.add(pMap);
 			logger.info(b_boardList.size());
 			logger.info(b_boardList.get(0).get("r_team_code"));
@@ -51,13 +46,7 @@ public class BoardListDao {
 	}
 	public void cardIns(Map<String, Object> pMap) {
 		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			session.insert("CardIns", pMap);
-			session.commit();
+			sqlSessionTemplate.insert("CardIns", pMap);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

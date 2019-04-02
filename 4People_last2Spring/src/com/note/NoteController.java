@@ -1,7 +1,9 @@
 package com.note;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,10 +84,13 @@ public class NoteController  {
 		String mb_sender = String.valueOf(session.getAttribute("MEM_ID"));
 		pMap.put("mb_sender",mb_sender);
 		String receive_id ="";
-		for(Object key:pMap.keySet()) {
+		
+		Iterator<String> keys = pMap.keySet().iterator();
+		while( keys.hasNext() ){
+			String key = keys.next();
 			if(key.equals("receive_id")) {
 				receive_id = (String)pMap.get(key);
-				pMap.remove("receive_id");
+				keys.remove();
 			}
 		}
 		String str[] = receive_id.split("\\[");

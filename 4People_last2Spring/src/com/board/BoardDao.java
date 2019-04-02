@@ -18,7 +18,6 @@ public class BoardDao {
 	public void BoardIns(Map<String, Object> pMap) {
 		try {
 			sqlSessionTemplate.insert("BoardIns", pMap);
-			sqlSessionTemplate.commit();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,7 +38,6 @@ public class BoardDao {
 		try {
 			sqlSessionTemplate.update("BoardUpd", pMap);
 			logger.info("성공?");
-			sqlSessionTemplate.commit();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

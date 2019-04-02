@@ -89,7 +89,7 @@ function chatClose(){
 			var param = "searchName="+searchName;
 				$.ajax({
 					type:"POST"
-				   ,url:"./note.for?command=sendSearch"
+				   ,url:"./sendSearch"
 				   ,data:param
 				   ,dataType:"json"
 				   ,success:function(data){
@@ -117,7 +117,7 @@ function chatClose(){
 	 var param ='mem_id='+mem_id;
 	 $.ajax({
 			type:'POST' 
-			,url:'./chatting.for?command=privateChat'
+			,url:'./privateChat'
 			,data: param
 			,dataType:'html'
 			,success:function(data){
@@ -134,7 +134,7 @@ function chatClose(){
 	 var param ='mem_id='+mem_id+"&team_code="+1;
 	 $.ajax({
 		type:'POST' 
-		,url:'./chatting.for?command=teamChat'
+		,url:'./teamChat'
 		,data: param
 		,dataType:'html'
 		,success:function(data){
@@ -213,20 +213,15 @@ function chatClose(){
 		 msg = info.content;
 		var send_room_code = info.room_code;
 		 mem_name = info.mem_name;
-		<%
-		Cookie[] cooks = request.getCookies();
-		if(cooks!=null && cooks.length!=0){
-			for(int i=0;i<cooks.length;i++){//쿠키에 담긴 정보의 수만큼
-				if(cooks[i].getName().equals("room_code")){%>//쿠키 이름에 맞는 것
-				var room_code ='<%=cooks[i].getValue()%>';
-// 				System.out.print("***************"+room_code);
-				<%}
-			}
-		}%>
+		 var getCookie = function(name) {
+			  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+			  return value? value[2] : null;
+			};
+			
+			var room_code = getCookie('room_code');
 		
 		//col-sm-9에 append
 		if(room_code==send_room_code){
-			alert('if'+room_code);
 			var append = "<li class='clearfix'><div class='message-data'>"
 						 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
 						 +"<div class='message you-message'>"+msg+"</div></li>";

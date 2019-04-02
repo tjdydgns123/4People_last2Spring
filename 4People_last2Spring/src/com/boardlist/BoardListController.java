@@ -1,59 +1,51 @@
 package com.boardlist;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.BoardController;
-import com.forpeople.Controller;
-import com.util.HashMapBinder;
 
-public class BoardListController implements Controller {
-	BoardListLogic Bdlist_logic = new BoardListLogic();
-	String crud =null;
+@Controller
+@RequestMapping(value="/boardList/")
+public class BoardListController  {
+	@Autowired
+	BoardListLogic Bdlist_logic = null;
 	Logger logger =  Logger.getLogger(BoardController.class);
 	
-	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String path=null;
-		crud = req.getParameter("crud");
-		String board_no = req.getParameter("board_no");
-		String team_code = req.getParameter("team_code");
-		Map<String,Object> pMap = new HashMap<String,Object>();
-		HashMapBinder binder = new HashMapBinder(req);
-		binder.bind(pMap);
-		List<Map<String,Object>> b_boardList =null;
-		if("ins".equals(crud)) {
-			logger.info("ins호출");
+	@GetMapping("boardListINS")
+	String BoardListINS (HttpServletRequest req,Model model, @RequestParam Map<String,Object> pMap) {
+		logger.info("ins호출");
+		    String board_no = req.getParameter("board_no");
 			Bdlist_logic.BdlistIns(pMap);
-//			path ="redirect:./boardListfor?crud=sel&board_no="+board_no;
-			path ="redirect:./boardList.for?crud=sel2&board_no="+board_no;
-		}
-		else if("ins2".equals(crud)) {
+			return "redirect:./boardListSel?board_no="+board_no;
+	}
+	@GetMapping("boardListINS2")
+	String BoardListINS2 (HttpServletRequest req,Model model, @RequestParam Map<String,Object> pMap) {
+			String board_no = req.getParameter("board_no");
 			logger.info("ins2호출");
 			Bdlist_logic.cardIns(pMap);
-			path ="redirect:./boardList.for?crud=sel2&board_no="+board_no;
-		}
-		else if("sel2".equals(crud)) {
-			logger.info("sel호출");
-			logger.info(board_no);
-			b_boardList =Bdlist_logic.BdlistSel(pMap);
-			req.setAttribute("b_boardList", b_boardList);
-			req.setAttribute("board_no", board_no);
-			path="forward:./boardList.jsp";
-		}
-		else if("sel".equals(crud)) {
-			b_boardList =Bdlist_logic.BdlistSel(pMap);
-			req.setAttribute("b_boardList", b_boardList);
-			req.setAttribute("board_no", board_no);
-			path="forward:./boardListResult.jsp";
-		}
-		return path;
+			return "redirect:./boardListSel?board_no="+board_no;
 	}
+		@GetMapping("boardListSel")
+		String BoardList (HttpServletRequest req,Model model, @RequestParam Map<String,Object> pMap) {
+			logger.info("sel호출");
+			List<Map<String,Object>>b_boardList =Bdlist_logic.BdlistSel(pMap);
+		String board_no = req.getParameter("board_no");
+		model.addAttribute("board_no", board_no);
+		model.addAttribute("b_boardList", b_boardList);
+		return "forward:./boardList.jsp";
+		
+	}
+	
 
 }

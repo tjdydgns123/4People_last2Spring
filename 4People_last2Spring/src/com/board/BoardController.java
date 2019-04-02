@@ -42,7 +42,7 @@ public class BoardController  {
 				session = req.getSession();
 				String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
      			Bo_logic.BoardUpd(pMap);
-			return "redirect:./board.list?mem_id="+mem_id;
+     			return "redirect:./boardlist?mem_id="+mem_id;
 				
 			}
 	}
