@@ -12,12 +12,32 @@
 <head>
 
 <meta charset="UTF-8">
-
+<link href="../csss/es_radio.css" rel="stylesheet">
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
 <script type="text/javascript">
 	var noteCount;
+	function newTeamModal(){
+		$('#newTeamModal').modal('show');
+		}
 $(document).ready(function () {
+	$('#createTeam').click(function(){
+		var check;
+		var teamState;
+		var success;
+		var team_code;
+		var teamName = $('#teamName').val();
+		check= $("input:radio[name='private']").is(":checked");
+		if(check){
+			teamState = 'private';
+			}
+		else{
+			teamState = 'public';
+			}
+		location.href="../team/newTeam?team_name="+teamName+"&team_state="+teamState;
+					
+			
+		});
 	count();
 	function count(){
 		$.ajax({
@@ -296,6 +316,9 @@ height:1000px;
 margin-left:2.5%;
 }
 
+
+
+
 </style>
 </head>
 <body>
@@ -341,17 +364,18 @@ $(function() {
             </li>
             
             <li>
-                <a href="#" id="meeting">회의실</a>
+                <a href="#" id="meeting" style='font-size:20px'>회의실</a>
             </li>
             <li>
-                <a href="../chatting/chatMain.jsp">채팅</a>
-                <a href="../calendar/calendar.for?crud=sel">캘린더</a>
+                <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
+                <a href="../calendar/calendar.for?crud=sel" style='font-size:20px' >캘린더</a>
             </li>
             <li>
-                <a href="#">채팅</a>
+                <a href="#" style='font-size:20px'>내 보드</a>
             </li>
+            <li class="divider"></li>
             <li>
-                <a href="#">내 보드</a>
+                <a href="javascript:newTeamModal()" style='font-size:20px'>팀 만들기</a>
             </li>
         </ul>
     </nav>
@@ -434,6 +458,43 @@ $(function() {
 
 <!-- /상단 -->
 <div class="es_overlay"></div>
+
+<div class="modal fade" id="newTeamModal" role="dialog"  style='position:relative;'>
+  <div class="modal-dialog modal-sm" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <img width="30px" height="30px"src="../images/createTeam.png">
+        <span class="modal-title text-center" style='font-size:20px; font-weight:bold; margin-left:20px;padding:10px;color:#BDBDBD;'>create Team</span>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      
+      <div class="modal-body" style='overflow-x:hidden; height:300px;' id='messageModalBody'>
+      		<input type='text' class='form-control' id='teamName' placeholder='팀명을 적어주세요'>
+            <div class="es_funkyradio">
+             <div class="es_funkyradio-success">
+             <input type="radio" name="public" id="radio3" style='margin-bottom:3px;'/>
+             <label for="radio3" style='margin-bottom:3px;'>공개</label>
+             </div>
+             <div class="es_funkyradio-danger">
+            <input type="radio" name="private" id="radio4" />
+            <label for="radio4">비공개</label>
+        </div>
+            </div>
+      		<div style='padding:10px; color:#BDBDBD; font-szie:15px; margin-top:20px;'>새로운 프로젝트팀을 생성해서 팀원을 꾸려보세요.</div>
+    	</div>
+    	<form id='checkDatas'>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-default" id="createTeam" data-dismiss="modal" style='border:0; color:#47C83E;'><i class="fas fa-check"></i>&nbsp;팀생성</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style='border:0; color:#FF0000;'><i class="fas fa-times"></i>&nbsp;나가기</button>
+      </div>
+      	</form>
+  </div>
+</div>
+</div>
+
+
+
+
 <script type="text/javascript">
 function dismiss(){
    // hide sidebar

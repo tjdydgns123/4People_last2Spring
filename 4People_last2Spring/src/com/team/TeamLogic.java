@@ -36,5 +36,10 @@ public class TeamLogic {
 		logger.info("TeamLogic호출");
 		t_dao.inviteMember(pMap);
 	}
+	public String newTeam(Map<String, Object> pMap) {
+		logger.info("TeamLogic호출");
+		String team_code=t_dao.newTeam(pMap);
+		return team_code;
+	}
 
 }

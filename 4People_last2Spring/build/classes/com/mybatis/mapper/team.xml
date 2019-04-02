@@ -50,7 +50,13 @@
 		 VALUES(#{team_code},#{p_role},#{inviteMember},(select TO_CHAR(sysdate,'YYYY.MM.DD.HH.MM.SS') from dual)) 
 		      
 	</insert>
-
+	
+	<select id="newTeam" parameterType="map" statementType="CALLABLE">
+		{call proc_newTeam(#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+							,#{team_name,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+							,#{team_state,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+							,#{v_teamcode,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
 <!-- 	<select id="pm" parameterType="map" resultType="map"> -->
 <!-- 		select p_m from t_member -->
 <!-- 		<where> -->
