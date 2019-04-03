@@ -2,21 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%
-List<Map<String,Object>> privateChatlog = (List<Map<String,Object>>)request.getAttribute("privateChatlog");
-String id = "";
-String chat_id = (String)request.getAttribute("chat_id");
-String pvLog_time = "";
-String pvLog_content ="";
-String pvRoom_code ="";
-String mem_id = (String)session.getAttribute("MEM_ID");
-String mem_name =(String)session.getAttribute("MEM_NAME");;
-String chat_name = (String)request.getAttribute("chat_name");%>
-
+String chat_id="";
+String tlog_time="";
+String tlog_content="";
+String team_code="";
+String chat_name="";
+String mem_id=(String)session.getAttribute("MEM_ID");
+String mem_name=(String)session.getAttribute("MEM_NAME");
+String team_name = "";
+String team_inwon ="";
+	List<Map<String,Object>> teamChatlog = (List<Map<String,Object>>)request.getAttribute("teamChatlog");
+	List<Map<String,Object>> teamChatMember = (List<Map<String,Object>>)request.getAttribute("teamChatMember");
+	List<Map<String,Object>> team_member = new ArrayList<Map<String,Object>>();
+	team_inwon = String.valueOf(teamChatMember.size()+1);
+	for(Map<String,Object> pMap:teamChatMember){
+		Map<String,Object> rMap = new HashMap<String,Object>();
+		rMap.put("mem_id",pMap.get("MEM_ID"));
+		team_member.add(rMap);
+		team_name = (String)pMap.get("TEAM_NAME");
+	}
+	
+%>
 	<div class='container  es_rightshadow' style='width:100%; height:100%; padding-left:0;'>
 	<!-- chat 헤드 시작 -->
 	<div class="page-header" style="background-color:#64ABFA; margin-top:0;border-bottom: 1px solid #BDBDBD;">
 		<a><img src='../images/priavateChatRoom.png' style='width:50px; height:50px;'></a>	
-		<span style='margin-left:10px; margin-top:10px; font-size:2.2rem; font-weight:bold; color:white;'><%=chat_name+"님 과의 채팅방" %></span>	
+		<span style='margin-left:10px; margin-top:10px; font-size:2.2rem; font-weight:bold; color:white;'><%=team_name+" ("+team_inwon+")" %></span>	
 		<div class="pull-right" style='padding:10px;'>
 			<a href='#' class='header_margin'><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a>
 			<a href='javascript:chatClose()' class='header_margin' ><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
@@ -30,42 +41,40 @@ String chat_name = (String)request.getAttribute("chat_name");%>
     <div class="chat" >   
       <div class="chat-history">
         <ul class="chat-ul" id='chattingText'>
-
-
-
-<%if(privateChatlog!=null){
-	for(Map<String,Object>rMap:privateChatlog){
-		id=(String)rMap.get("MEM_ID");
-		pvLog_time=(String)rMap.get("PVLOG_TIME");
-		pvLog_content=(String)rMap.get("PVLOG_CONTENT");
-		pvRoom_code=(String)rMap.get("PVROOM_CODE");
-			if(mem_id.equals(id)){
-			%>
-<!-- 내가 입력시 -->	
+        
+        <%if(teamChatlog.size()>0&&teamChatlog!=null){
+        	for(Map<String,Object>rMap:teamChatlog){
+        		chat_id=(String)rMap.get("MEM_ID");
+        		tlog_time=(String)rMap.get("TLOG_TIME");
+        		tlog_content=(String)rMap.get("TLOG_CONTENT");
+        		team_code=(String)rMap.get("TEAM_CODE");
+        		chat_name=(String)rMap.get("MEM_NAME");
+        		if(mem_id.equals(chat_id)){
+        		%>
+        <!-- 내가 입력시 -->	
 			<li class="clearfix">
             <div class="message-data align-right">
-              <span class="message-data-name"><%=mem_name %></span> <i class="fa fa-circle me"></i>
+              <span class="message-data-name"><%=chat_name %></span> <i class="fa fa-circle me"></i>
             </div>
-            <div class="message me-message float-right"><%=pvLog_content %>  </div>
-          </li>		
-		<%}else{%>
-		
-<!-- 상대방이 입력시 -->		
-		<li class="clearfix">
+            <div class="message me-message float-right"><%=tlog_content %>  </div>
+          </li>				
+        		<%}else{%>
+        <!-- 상대방이 입력시 -->			
+        	<li class="clearfix">
             <div class="message-data">
               <span class="message-data-name"><i class="fa fa-circle you"></i><%=chat_name %></span>
             </div>
             <div class="message you-message">
-            <%=pvLog_content %>
+            <%=tlog_content %>
             </div>
-          </li>
-		
-		<%}%>
-	<%}
-}
-%>
-
-     </ul>
+          </li>	
+        	<%}
+        } }%>
+        
+        
+        
+        
+         </ul>
         
       </div> <!-- end chat-history -->
       
@@ -84,26 +93,25 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 	</div>
 	<!-- end container -->
 </div>
-
 <script>
-	$(document).ready(function (){
-		moveScroll('chatScroll');
-		});
 	function moveScroll (id) { 
 	    var el = document.getElementById(id); 
 	if (el.scrollHeight > 0) el.scrollTop = el.scrollHeight; 
 	} 
+	$(document).ready(function (){
+		moveScroll('chatScroll');
+		});
 	function btn_chat(){
 		var content = $('#chat_text').val();
-		var chat_id = '<%=chat_id%>';
-		var pvRoom_code = '<%=pvRoom_code%>';
+		var chat_id = '<%=team_member%>';
+		var team_code = '<%=team_code%>';
 		var mem_name = '<%=mem_name%>';
-		chatLogIns(content,pvRoom_code,mem_name);
+		teamLogIns(content,team_code,mem_name);
 			var obj ={
 	  			 id : chat_id,
-	  			 gubun : 'privateMessage',
+	  			 gubun : 'teamMessage',
 	  			 content : content,
-	  			 room_code : pvRoom_code,
+	  			 room_code : team_code,
 	  			 mem_name : mem_name
 	  		}
 			var json = JSON.stringify(obj);
@@ -119,15 +127,16 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 		
 		if (key.keyCode == 13) {
 			var content = $('#chat_text').val();
-			var chat_id = '<%=chat_id%>';
+			var chat_id = '<%=team_member%>';
+			var team_code = '<%=team_code%>';
 			var mem_name = '<%=mem_name%>';
-			var pvRoom_code = '<%=pvRoom_code%>';
-			chatLogIns(content,pvRoom_code,mem_name);
+			alert(team_code);
+			teamLogIns(content,team_code,mem_name);
 			var obj ={
 		  			 id : chat_id,
-		  			 gubun : 'privateMessage',
+		  			 gubun : 'teamMessage',
 		  			 content : content,
-		  			 room_code : pvRoom_code,
+		  			 room_code : team_code,
 		  			 mem_name : mem_name
 		  		}
 				var json = JSON.stringify(obj);
@@ -140,11 +149,11 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 				$('#chat_text').val('');
 		}
 		});
-	function chatLogIns(content,pvRoom_code,mem_name){
-		var param = "pvlog_content="+content+"&pvroom_code="+pvRoom_code;
+	function teamLogIns(content,team_code,mem_name){
+		var param = "tlog_content="+content+"&team_code="+team_code;
 		 $.ajax({
 			 type:'POST'
-			 ,url:'./chatLogIns'
+			 ,url:'./teamLogIns'
 			 ,data:param
 			 ,dataType:'text'
 			 ,success:function(data){
@@ -154,12 +163,12 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 		 		 
 		 	 }
 		 });
-		    $('#'+pvRoom_code+"col3mem_name").text('');
-			$('#'+pvRoom_code+"col3time").text('');
-			$('#'+pvRoom_code+"col3content").text('');
-			$('#'+pvRoom_code+"col3mem_name").text(mem_name);
-			$('#'+pvRoom_code+"col3time").text('방금전');
-			$('#'+pvRoom_code+"col3content").text(content);
+		    $('#'+team_code+"col3mem_name").text('');
+			$('#'+team_code+"col3time").text('');
+			$('#'+team_code+"col3content").text('');
+			$('#'+team_code+"col3mem_name").text(mem_name);
+			$('#'+team_code+"col3time").text('방금전');
+			$('#'+team_code+"col3content").text(content);
 		}
 	
 	

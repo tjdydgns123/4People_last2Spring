@@ -12,7 +12,7 @@
 <jsp:include page="../include/top.jsp" flush="false">
 		<jsp:param value="" name="top" />
 </jsp:include>
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
 
@@ -37,31 +37,7 @@ font-family: 'Noto Sans KR', sans-serif;
 body{
 	background-color:#FFF;
 }
-.ui-autocomplete {
-    position: absolute;
-    z-index: 1040;
-    cursor: default;
-    padding: 0;
-    margin-top: 2px;
-    list-style: none;
-    background-color: #ffffff;
-    border: 1px solid #ccc
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-.ui-autocomplete > li {
-  padding: 3px 20px;
-}
-.ui-autocomplete > li.ui-state-focus {
-  background-color: #DDD;
-}
-.ui-helper-hidden-accessible {
-  display: none;
-}
+
 </style>
 <script type="text/javascript">
 //전역변수
@@ -72,43 +48,71 @@ function chatClose(){
 	var append = "<div class='text-center' style='padding:300px;'><span style='font-size:40px; color:#EAEAEA;'>채팅방을 열어주세요<span></div>"
 	$('#chatting').append(append);
 }
+//newPrivateChat
+function newPrivateChat(){
+	var senderId = $("#newChattingSearch").val();
+	var str = senderId.split('[');
+	var str2 = str[1].split(']');
+	var mem_id = str2[0];
+	location.href="./newPrivateChat?senderId="+mem_id;
+// 	alert(mem_id);
+}
 
-
+//새로운 대화(모달) 검색
+function newChattingSearch (){
+	 var searchName =$("#newChattingSearch").val();
+		if(searchName.length>0){
+		var param = "searchName="+searchName;
+			$.ajax({
+				type:"POST"
+			   ,url:"./privateSearch"
+			   ,data:param
+			   ,dataType:"json"
+			   ,success:function(data){
+				   $(function (){
+					  var value =[];
+						 $.each(data , function( key, val){
+							value.push(val.MEM_NAME+" ["+val.MEM_ID+"]");
+						 });
+				   $(".autocomplete").autocomplete({
+					    source: value
+					  });
+					  });
+			   }
+			  ,error:function(e){
+				 console.log(e.printstack);
+			  }
+			});
+		 }
+	 }
  $(document).ready(function (){
 	 //개인대화방 리스트중 하나 클릭시
 	
 	 //화면이 로드 되면서 실행됨
 	 var tag = "<span><img  src='../images/chat.png' ></span><span style='font-size:30px; color:white; font-weight:bold;'>채팅</span>";
 	 $('#navChat').append(tag);
-	 changePrivate();
 	 
-	 //새로운 대화(모달) 검색
-	 $('#receive_id').keyup(function (){
-			var searchName =$("#newChattingSearch").val();
-			if(searchName.length>2){
-			var param = "searchName="+searchName;
-				$.ajax({
-					type:"POST"
-				   ,url:"./sendSearch"
-				   ,data:param
-				   ,dataType:"json"
-				   ,success:function(data){
-					   $(function (){
-						  var value =[];
-							 $.each(data , function( key, val){
-								value.push(val.MEM_NAME+" ["+val.MEM_ID+"]");
-							 });
-					   $(".autocomplete").autocomplete({
-						    source: value
-						  });
-						  });
-				   }
-				  ,error:function(e){
-					 console.log(e.printstack);
-				  }
-				});
-			 }
-		});
+	 var getCookie = function(name) {
+		  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		  return value? value[2] : null;
+		};
+		
+		var room_code = getCookie('room_code');
+		var watch = getCookie('gubun');
+		if(room_code!=0){
+			if(watch=='privateMessage'){
+				changePrivate();
+				}
+			else if(watch=='teamMessage'){
+				changeTeam();
+				}
+			else{
+				changePrivate();
+				}
+			}
+	
+			
+		
 	 
  });
  
@@ -131,11 +135,8 @@ function chatClose(){
  }
  //팀 대화방 버튼 클릭시
  function changeTeam(){
-	 var param ='mem_id='+mem_id+"&team_code="+1;
 	 $.ajax({
-		type:'POST' 
-		,url:'./teamChat'
-		,data: param
+		url:'./teamChat'
 		,dataType:'html'
 		,success:function(data){
 			$('#rightMenu').empty();
@@ -169,28 +170,10 @@ function chatClose(){
 <!-- <!-- col-sm-3 header end -->
 
 <!-- 새로운 대화 모달 -->
-<div class="modal fade" id="newChatting" role="dialog" >
-    <div class="modal-dialog modal-md">
-      <div class="modal-content" style='background-color:#FFF;'>
-        <div class="modal-header text-center">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">새로운 대화</h4>
-        </div>
-        <div class="modal-body" style='height:350px;'>
-         	<div class="form-group ui-widget">
-			    <label>검색</label>
-			    <input class="form-control autocomplete" placeholder="이름을 입력하세요" id='newChattingSearch' />
-			  </div>
-			  <div>
-			  	<div class='text-center'style='color:#EAEAEA; padding:50px; margin-top:40px;'>
-			  		<h3>검색결과화면</h3>
-			  	</div>
-			  </div>
-         	
-        </div>
-      </div>
-    </div>
-  </div>
+
+  <!--  -->
+  
+  
 <!-- 새로운 대화 모달 -->
 <script type="text/javascript">
 
@@ -214,6 +197,7 @@ function chatClose(){
 		var info = JSON.parse(message.data);
 		 msg = info.content;
 		var send_room_code = info.room_code;
+		var gubun = info.gubun;
 		 mem_name = info.mem_name;
 		if(ok!="denied"){
 			new Notification(mem_name, {body:msg});
@@ -224,25 +208,53 @@ function chatClose(){
 			};
 			
 			var room_code = getCookie('room_code');
+			var watch = getCookie('gubun');
+		if(watch=='privateMessage'){
+				if(gubun=='privateMessage'){
+					
+					//col-sm-9에 append
+					if(room_code==send_room_code){
+						var append = "<li class='clearfix'><div class='message-data'>"
+									 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
+									 +"<div class='message you-message'>"+msg+"</div></li>";
+						$('#chattingText').append(append);
+						moveScroll('chatScroll');
+					}
+					//col-sm-3에 append
+					else if(room_code!=send_room_code){
+						$('#'+send_room_code+"col3mem_name").text('');
+						$('#'+send_room_code+"col3time").text('');
+						$('#'+send_room_code+"col3content").text('');
+						$('#'+send_room_code+"col3mem_name").text(mem_name);
+						$('#'+send_room_code+"col3time").text('방금전');
+						$('#'+send_room_code+"col3content").text(msg);
+					}
+					}
+			}
+		else if(watch=='teamMessage'){
+					if(gubun=='teamMessage'){
+						
+						//col-sm-9에 append
+						if(room_code==send_room_code){
+							var append = "<li class='clearfix'><div class='message-data'>"
+								 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
+								 +"<div class='message you-message'>"+msg+"</div></li>";
+								$('#chattingText').append(append);
+								moveScroll('chatScroll');
+							}
+						//col-sm-3에 append
+						else if(room_code!=send_room_code){
+							$('#'+send_room_code+"col3mem_name").text('');
+							$('#'+send_room_code+"col3time").text('');
+							$('#'+send_room_code+"col3content").text('');
+							$('#'+send_room_code+"col3mem_name").text(mem_name);
+							$('#'+send_room_code+"col3time").text('방금전');
+							$('#'+send_room_code+"col3content").text(msg);
+							}
+								
+						}
+			}
 		
-		//col-sm-9에 append
-		if(room_code==send_room_code){
-			var append = "<li class='clearfix'><div class='message-data'>"
-						 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
-						 +"<div class='message you-message'>"+msg+"</div></li>";
-			$('#chattingText').append(append);
-			moveScroll('chatScroll');
-		}
-		//col-sm-3에 append
-		else if(room_code!=send_room_code){
-			alert('else'+room_code);
-			$('#'+send_room_code+"col3mem_name").text('');
-			$('#'+send_room_code+"col3time").text('');
-			$('#'+send_room_code+"col3content").text('');
-			$('#'+send_room_code+"col3mem_name").text(mem_name);
-			$('#'+send_room_code+"col3time").text('방금전');
-			$('#'+send_room_code+"col3content").text(msg);
-		}
 		
 	
 		

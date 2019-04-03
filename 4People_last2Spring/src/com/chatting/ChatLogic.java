@@ -25,5 +25,40 @@ public class ChatLogic {
 		
 		return privateChatlog;
 	}
+	public void chatLogIns(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		c_Dao.chatLogIns(pMap);
+		
+	}
+	public List<Map<String, Object>> getTeam(String mem_id) {
+		logger.info("ChatLogic호출");
+		List<Map<String, Object>> getTeam = c_Dao.getTeam(mem_id);
+		return getTeam;
+	}
+	public List<Map<String, Object>> teamChatlog(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		List<Map<String, Object>> teamChatlog = c_Dao.teamChatlog(pMap);
+		return teamChatlog;
+	}
+	public List<Map<String, Object>> teamChatMember(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		List<Map<String, Object>> teamChatMember = c_Dao.teamChatMember(pMap);
+		return teamChatMember;
+	}
+	public void teamLogIns(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		c_Dao.teamLogIns(pMap);
+		
+	}
+	public List<Map<String, Object>> privateSearch(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		List<Map<String, Object>> privateSearch = c_Dao.privateSearch(pMap);
+		return privateSearch;
+	}
+	public void newPrivateChat(Map<String, Object> pMap) {
+		logger.info("ChatLogic호출");
+		c_Dao.newPrivateChat(pMap);
+		
+	}
 
 }

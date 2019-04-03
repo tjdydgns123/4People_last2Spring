@@ -28,16 +28,41 @@ String board_title="";
 <title>Insert title here</title>
 
 <script type="text/javascript">
+var color ="btn-default";
 function boardmove(id){
 	var board_id = id.substring(0,3);
-	alert(board_id);
 	if(board_id=='new'){
+		$('#layerpop').modal('show');
 		}
 	else{
-		var team_code = '<%=team_code%>';
+		var team_code ='<%=team_code%>'
 		location.href="../boardList/boardListSel?mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
 		}
 }
+function addInput() {
+      var temp=document.getElementById("op").value;
+      var mem_id = '<%=mem_id%>'
+      var team_code ='<%=team_code%>'
+	  location.href='../board/teamBoardINS?boardtitle='+temp+'&color='+color+'&mem_id='+mem_id+'&team_code='+team_code;
+	}
+function defaultt(){
+	color ="btn-default";
+}	 
+function primary(){
+	color ="btn-primary";
+}	 
+function success(){
+	color ="btn-success";
+}	 
+function info(){
+	color ="btn-info";
+}	 
+function warning(){
+	color ="btn-warning";
+}	 
+function danger(){
+	color ="btn-danger";
+}	 
 </script>
 </head>
 <body>
