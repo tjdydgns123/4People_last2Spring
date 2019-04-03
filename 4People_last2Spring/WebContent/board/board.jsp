@@ -83,20 +83,20 @@ while(b_itr.hasNext()){
 	  }
 	  function addInput() {
 	      temp=document.getElementById("op").value;
-	      alert("title: "+temp);
-	      alert("color: "+color);
-	      alert("<%=mem_id%>");
-	      alert(team_code);
+// 	      alert("title: "+temp);
+// 	      alert("color: "+color);
+<%-- 	      alert("<%=mem_id%>"); --%>
+// 	      alert(team_code);
 // 		  document.getElementById('parah').innerHTML+="<input type='button' class='btn "+color+" btn-lg btn-block' value="+temp+">"
-		  location.href="./board.for?crud=ins&boardtitle="+temp+"&color="+color+"&mem_id=<%=mem_id%>&team_code="+team_code;
+		  location.href="./boardINS?boardtitle="+temp+"&color="+color+"&mem_id=<%=mem_id%>&team_code="+team_code;
 		}
 	  function boardupd(id){
 			alert(id);
-		  location.href="./board.for?crud=upd&board_no="+id+"&mem_id=<%=mem_id%>";
+		  location.href="./boardUPD?board_no="+id+"&mem_id=<%=mem_id%>";
 		  
 	  }
 	  function boardmove(id){
-		  location.href="../boardList/boardList.for?crud=sel2&mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
+		  location.href="../boardList/boardListSel?mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
 // 		  location.href="../boardList/boardList.jsp";
 	  }
 	function defaultt(){

@@ -65,6 +65,7 @@
 					for(int j=0;j<keys.length;j++){
 						if(keys[j].equals("des_no")){
 							des_no=(pMap.get(keys[j]).toString());
+							out.print(pMap.get(keys[j]).toString());
 						}
 						else if(keys[j].equals("des_content")){
 							des_content=(pMap.get(keys[j]).toString());
@@ -110,7 +111,7 @@ font-family: 'Candal', sans-serif;
 
 </style>
  <div class="modal-dialog" style="ovewflow-y:auto">
-    <div class="modal-content" style="width:810px; height:800px;">
+    <div class="modal-content" style="width:810px; height:850px;">
       <div class="modal-header" style="background-color:#D9D9D9">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel" >Modal title</h4>
@@ -124,7 +125,7 @@ font-family: 'Candal', sans-serif;
          for(int i=0;i<labelList.size();i++){ %>
          <input id="<%=label_code.get(i) %>" type='button' class="btn <%=label_color.get(i) %>" value="<%= label_content.get(i)%>" data-toggle="modal" data-target="#label_modal2" onClick="label_codee(id)">
          <%}} %>
-         <div id="label_modal2" class="modal modal-center fade" role="dialog" style="position:relative;width:250px">
+         <div id="label_modal2" class="modal" role="dialog" style="position:relative;width:250px">
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
@@ -156,25 +157,31 @@ font-family: 'Candal', sans-serif;
         <!-- 참여자 div -->
          <div id="card_member" style="margin-left:20px; margin-bottom:50px;">
          <h3>참여자</h3>
+         <button><img src="../images/plus.png"></button>
          </div>
         <!-- 참여자 div -->
     
         <!-- 요약 div -->
          <div id="card_description" style=" margin-bottom:50px;">
          <h3 id="hth"><img src="../images/description2.png">요약    <%if(des_content!=null){ %>
-           <a style="margin-left:20px">edit</a>
+           <a id="<%=des_no%>" href="#" onclick="desUPD(id)" style="margin-left:20px">edit</a>
 		<%}%>     </h3>
        
           <div id="des_con">
+          <div id="des_conss">
           <%if(des_content==null){ %>
          <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " />
-         <%}else{ %>
-         <span><h5 id="<%=des_no%>"><%=des_content %></h5></span>
+         <%}%>
+          </div>
+          <div id="des_cons">
+          <%if(des_content!=null){ %>
+         <span><h5><%=des_content.replace("#","<br>") %></h5></span>
          <%} %>
+         </div>
          </div>
          <div id="des_bt">
          <%if(des_content==null){ %>
-         <input type="button" style="margin-left:50px; margin-top:10px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick="descriptionIns()">
+         <input id="<%=des_no %>" type="button" style="margin-left:50px; margin-top:10px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick="descriptionIns(id)">
          <%} %>
          </div>
          </div>
@@ -218,9 +225,6 @@ font-family: 'Candal', sans-serif;
          <!-- 댓글 -->
          <div id="coment">
          <div class='es_comment' style='background-color: #D9D9D9;'>
-         	<img  width="30px" height="30px"  src="../images/comment.png">
-         		<label><span style='font-size:20px; color:#4374D9; font_weight:bold; margin:5px;'>김은수</span><span style='font-size:8px;'>2019-03-27&nbsp;&nbsp;수요일 &nbsp;&nbsp;18:41</span></label>
-         		<a href="javascript:commentDeletModal()" style='margin-left:300px;'> <img  width="15px" height="15px"  src="../images/commentDelete.png"></a>
          </div>
          </div>
          <!-- 댓글 -->
@@ -228,11 +232,12 @@ font-family: 'Candal', sans-serif;
          
         </div>
         <div class="col-sm-2">
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" ><img src="../images/description.png">요약</butuon>
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" ><img src="../images/description.png">요약</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
+        <!-- 모달  -->
         <div style="position:absolute;">
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-backdrop="static" data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
-        <div id="label_modal" class="modal modal-center fade" role="dialog" style="position:relative; left:-90px">
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
+        <div id="label_modal" class="modal" role="dialog" style="position:relative; left:-90px">
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
@@ -258,14 +263,11 @@ font-family: 'Candal', sans-serif;
   		</div>
 		</div>
         </div>
+        <!-- 모달  -->
         
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/checklist.png">체크리스트</butuon>
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/gihan.png">기한설정</butuon>
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/c_file.png">첨부파일</butuon>
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" ><img src="../images/description.png">요약</butuon>
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()"><img src="../images/label.png">라벨</butuon>
-        <butuon type="button" id='checkList' class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="testModal()"><img src="../images/checklist.png">체크리스트</butuon>
+        
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/checklist.png">체크리스트</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/checklist.png">체크리스트</butuon>
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/gihan.png">기한설정</butuon>
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/c_file.png">첨부파일</butuon>
         </div>

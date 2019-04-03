@@ -29,8 +29,14 @@ String board_title="";
 
 <script type="text/javascript">
 function boardmove(id){
+	var board_id = id.substring(0,3);
+	alert(board_id);
+	if(board_id=='new'){
+		}
+	else{
 		var team_code = '<%=team_code%>';
-		location.href="../boardList/boardList.for?crud=sel2&mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
+		location.href="../boardList/boardListSel?mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
+		}
 }
 </script>
 </head>
@@ -61,5 +67,33 @@ function boardmove(id){
 </div>
 <!-- 위 버튼들 -->
 
+<div class="modal fade" id="layerpop" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <!-- header title -->
+        <h4 class="modal-title">보드명</h4>
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+            <input type=text id="op" name="boardtitle">
+           
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer" id="create">
+		 <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/>
+            <input type="button" style="float:left" class="btn btn-primary" onClick="primary()"/>
+            <input type="button" style="float:left" class="btn btn-success" onClick="success()"/>
+            <input type="button" style="float:left" class="btn btn-info" onClick="info()"/>
+            <input type="button" style="float:left" class="btn btn-warning" onClick="warning()"/>
+            <input type="button" style="float:left" class="btn btn-danger" onClick="danger()"/>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="addInput()">생성</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

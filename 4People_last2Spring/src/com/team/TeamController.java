@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/team/")
@@ -22,6 +23,17 @@ public class TeamController {
 	TeamLogic t_logic = null;
 	Logger logger=  Logger.getLogger(TeamController.class);
 	HttpSession session =null;
+	
+	@GetMapping("newTeam")
+	public String newTeam(HttpServletRequest req,Model model,@RequestParam Map<String,Object> pMap) {
+		session = req.getSession();
+		String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+		pMap.put("mem_id",mem_id);
+		String team_code=t_logic.newTeam(pMap);
+//		model.addAttribute("team_code",team_code);
+		return "redirect:board?team_code="+team_code;
+	}
+	
 	
 	@GetMapping("board")
 	public String board(HttpServletRequest req,Model model,@RequestParam Map<String,Object> pMap) {

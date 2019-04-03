@@ -1,72 +1,77 @@
 package com.card;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.forpeople.Controller;
-import com.util.HashMapBinder;
 
-public class CardController implements Controller {
+@Controller
+@RequestMapping("/card/")
+public class CardController {
 	Logger logger = Logger.getLogger(CardController.class);
-	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String path=null;
-		
-		String crud = req.getParameter("crud");
-		String mem_id = req.getParameter("mem_id");
-		Map<String,Object> pMap = new HashMap<String,Object>();
-		HashMapBinder binder = new HashMapBinder(req);
-		binder.ajaxBind(pMap);
-		logger.info("cardcontroller출");
-		//은수
-		CardLogic c_Logic = new CardLogic();
-		HttpSession session = req.getSession();
-		//은수
-		if("sel".equals(crud)) {
-			logger.info("sel");
+//		String crud = req.getParameter("crud");
+//		String mem_id = req.getParameter("mem_id");
+	@Autowired	
+	CardLogic c_Logic = null;
+//		HttpSession session = req.getSession();
+	@PostMapping("cardSel")
+	public String CareSel(Model model, @RequestParam Map<String,Object>pMap) {
+		logger.info("sel");
 			List<Map<String,Object>> cardList =null;
 			cardList = c_Logic.cardSEL(pMap);
-			req.setAttribute("cardList", cardList);
-			path ="forward:../card/card.jsp";
+			model.addAttribute("cardList", cardList);
+			return"forward:../card/card.jsp";
 		}
 		//은수
-		else if("commentIns".equals(crud)){
-			logger.info("CardController commentIns 호출");
-			String mem_id2 = String.valueOf(session.getAttribute("MEM_ID"));
-			pMap.put("mem_id",mem_id2);
-			for(Object key:pMap.keySet()) {
-				logger.info("key=="+key+" vlaue=="+pMap.get(key));
-			}
-			String comment_code=c_Logic.commentIns(pMap);
-			logger.info("리턴값"+comment_code);
-			req.setAttribute("comment_code",comment_code);
-			path="forward:./commentInsReslt.jsp";
-		}
-		else if("labelins".equals(crud)) {
+//		else if("commentIns".equals(crud)){
+//			logger.info("CardController commentIns 호출");
+//			String mem_id2 = String.valueOf(session.getAttribute("MEM_ID"));
+//			pMap.put("mem_id",mem_id2);
+//			for(Object key:pMap.keySet()) {
+//				logger.info("key=="+key+" vlaue=="+pMap.get(key));
+//			}
+//			String comment_code=c_Logic.commentIns(pMap);
+//			logger.info("리턴값"+comment_code);
+//			req.setAttribute("comment_code",comment_code);
+//			path="forward:./commentInsReslt.jsp";
+//		}
+	@PostMapping("labelINS")
+	 public String labelINS(Model model,@RequestParam Map<String,Object> pMap) {
 			List<Map<String,Object>> labelIns = c_Logic.labelIns(pMap);
-			req.setAttribute("labelIns", labelIns);
-			path ="forward:./labelInsResult.jsp";
-		}
-		else if("labelDel".equals(crud)) {
+			model.addAttribute("labelIns", labelIns);
+			return "forward:./labelInsResult.jsp";
+
+	}
+//		}
+	@PostMapping("labelDEL")
+	public String labelDEL(@RequestParam Map<String,Object> pMap) {
 			c_Logic.labelDel(pMap);
-			path ="hh:../card/card.jsp";
-		}
-		else if("labelUpd".equals(crud)) {
+		return "";
+		
+	}
+	@PostMapping("labelUPD")
+	 public String labelUPD(@RequestParam Map<String,Object> pMap) {
 			c_Logic.labelUpd(pMap);
-			path ="hh:./card/card.jsp";
-		}
-		else if("desIns".equals(crud)) {
+			return "";
+
+	}
+	@PostMapping("desINS")
+	public String desINS(@RequestParam Map<String,Object> pMap) {
 			c_Logic.desIns(pMap);
-			path ="hh:./card/card.jsp";
-		}
-	
-	
-		return path;
+		return "";
+		
+	}
+	@PostMapping("desUPD")
+	public String desUPD(@RequestParam Map<String,Object> pMap) {
+		c_Logic.desUPD(pMap);
+		return "";
+		
 	}
 }
