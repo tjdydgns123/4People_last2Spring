@@ -24,5 +24,73 @@
 	select mem_id,pvlog_time,pvlog_content,pvroom_code
 		from pv_chat_log
 		where pvroom_code =#{pvroom_code}
+		 order by pvlog_time asc
 	</select>
+	
+	<select id="chatLogIns" parameterType="map">
+		insert into pv_chat_log(pvlog_seqno,mem_id,pvroom_code,pvlog_time,pvlog_content,pvlog_confirm)
+		values(seq_pvchat_log.nextval,#{mem_id},#{pvroom_code},(select TO_CHAR(sysdate,'YYYY.MM.DD.HH24.MI.SS') from dual),#{pvlog_content},'0')
+	</select>
+	<select id="teamLogIns" parameterType="map">
+		insert into team_chat_log(tlog_seqno,mem_id,tlog_content,team_code,tlog_confirm,tlog_time)
+        values (SEQ_TLGO_SEQNO.nextval,#{mem_id},#{tlog_content},#{team_code},'0',(select TO_CHAR(sysdate,'YYYY.MM.DD.HH24.MI.SS') from dual))
+	</select>
+	<select id="getTeam" parameterType="map" resultType="map">
+		select log.team_code,log.tlog_time,log.tlog_content,team.team_name
+		from (select tlog_time,tlog_content,team_code
+		from team_chat_log
+		where team_code=#{TEAM_CODE}
+		and tlog_time = (select max(tlog_time) from team_chat_log where team_code=#{TEAM_CODE})) log ,team
+		where team.team_code = log.team_code
+	</select>
+	<select id="getTeamCode2" parameterType="java.lang.String" resultType="map">
+	    select team_code
+		from team_member
+		<where>
+		and mem_id = #{mem_id}
+		</where>
+	</select>
+	<select id="teamChatlog" parameterType="map" resultType="map">
+		select member.mem_name,log.mem_id,log.tlog_time,log.tlog_content,log.team_code
+        from member,( select mem_id,tlog_time,tlog_content,team_code
+        from team_chat_log
+        where team_code =#{team_code}
+        and tlog_time >= (select tm_time from team_member where mem_id=#{mem_id} and team_code=#{team_code})) log
+        where member.mem_id= log.mem_id
+        and log.mem_id = member.mem_id
+        order by tlog_time asc
+        
+	</select>
+	<select id="teamChatMember" parameterType="map" resultType="map">
+		select team_member.mem_id,team.team_name
+        from team_member,team
+        where mem_id!=#{mem_id}
+        and team_member.team_code=#{team_code}
+        and team_member.team_code= team.team_code
+	</select>
+<!-- 	<select id="privateSearch" parameterType="map" resultType="map"> -->
+<!-- 		select member.mem_id,member.mem_name -->
+<!--         from member,(select mem_id -->
+<!--         from team_member -->
+<!--         where mem_id not in( select mem_id -->
+<!--         from private_chatroom chat,(select pvroom_code -->
+<!--         from private_chatroom -->
+<!--         where mem_id=#{mem_id}) myroom -->
+<!--         where chat.mem_id != #{mem_id} -->
+<!--         and chat.pvroom_code=myroom.pvroom_code)) notroom -->
+<!--         where member.mem_id= notroom.mem_id -->
+<!--         and member.mem_id !=#{mem_id} -->
+<!--         and member.mem_name like #{searchName}||'%' -->
+<!-- 	</select> -->
+<select id="privateSearch" parameterType="map" resultType="map">
+ 		select mem_id,mem_name
+        from member
+        where mem_id like #{searchName}||'%'
+        or mem_name like #{searchName}||'%'
+        and mem_id != #{mem_id}
+</select>
+<select id="newPrivateChat" parameterType="map" statementType="CALLABLE">
+	{call proc_newPrivateChat(#{mem_id,mode=IN,jdbcType=VARCHAR,javaType=java.lang.String}
+							  ,#{senderId,mode=IN,jdbcType=VARCHAR,javaType=java.lang.String})}
+</select>
 </mapper>

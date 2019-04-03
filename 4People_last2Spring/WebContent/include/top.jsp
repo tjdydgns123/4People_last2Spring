@@ -18,9 +18,18 @@
 <script type="text/javascript">
 	var noteCount;
 	function newTeamModal(){
+		$('#teamName').val('');
+		$('#radio3').prop('checked',false);
+		$('#radio4').prop('checked',false);
 		$('#newTeamModal').modal('show');
 		}
 $(document).ready(function () {
+	$('#radio3').click(function(){
+		$('#radio4').prop('checked',false);
+		});
+	$('#radio4').click(function(){
+		$('#radio3').prop('checked',false);
+	});
 	$('#createTeam').click(function(){
 		var check;
 		var teamState;
@@ -459,7 +468,7 @@ $(function() {
 <!-- /상단 -->
 <div class="es_overlay"></div>
 
-<div class="modal fade" id="newTeamModal" role="dialog"  style='position:relative;'>
+<div class="modal fade" id="newTeamModal" role="dialog">
   <div class="modal-dialog modal-sm" >
     <div class="modal-content">
       <div class="modal-header">

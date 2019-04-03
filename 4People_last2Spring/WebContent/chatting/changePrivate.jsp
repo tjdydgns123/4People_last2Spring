@@ -14,6 +14,34 @@
 %>
 <style>
 .privateChatList:hover{background:#EAEAEA;} 
+.modal-backdrop{
+	background-color:transparent ; !important;
+}
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1140;
+    cursor: default;
+    padding: 0;
+    margin-top: 2px;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #ccc
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.ui-autocomplete > li {
+  padding: 3px 20px;
+}
+.ui-autocomplete > li.ui-state-focus {
+  background-color: #DDD;
+}
+.ui-helper-hidden-accessible {
+  display: none;
+}
 </style>
 
 <div class="page-header" style="background-color:#FFF; margin-top:20px; height:60px; border-bottom: 1px solid #BDBDBD;'">
@@ -23,8 +51,33 @@
 <a href='javascript:newChatting()'>+새로운 대화</a>
 </div>
 </div>
+<div class="modal fade" id="newChatting" role="dialog" style='position:relative;'>
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style='background-color:#FFF; width:100%; height:150px;'>
+      <div style='padding:10px; padding-bottom:5px;'>
+         <img width="30px" height="30px"src="../images/newPrivateChat.png">
+           <span class="text-center" style='font-size:15px; font-weight:bold;color:#BDBDBD;margin-left:10px;'>새로운 대화</span>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         </div>
+        <div class="modal-body" >
+         	<div class="form-group ui-widget">
+			    <input class="form-control autocomplete" placeholder="이름" id='newChattingSearch' onkeyup='newChattingSearch()'/>
+			  </div>
+			  <div>
+			  </div>
+		<button type="button" class="btn btn-default" onclick="newPrivateChat()" data-dismiss="modal" style='border:0; color:#47C83E;'><i class="fas fa-check"></i>&nbsp;생성</button>
+			  <span style='margin-left:110px;'>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style='border:0; color:#FF0000;'><i class="fas fa-times"></i>&nbsp;나가기</button>	  
+        </span>
+        </div>
+      	
+      </div>
+    </div>
+  </div>
+<!-- /새로운 대화 modal -->
 </div>
 <div  class="container" style='width:100%; height:85%; border-right: 1px solid #BDBDBD; border-left: 1px solid #BDBDBD;  overflow-y: scroll; '>
+<!-- 새로운 대화 modal -->
 	<div style=' margin-bottom:5px;'>
 <%if(getPrivate!=null&&getPrivate.size()>0) {
 	for(int i=0; i<getPrivate.size();i++){
@@ -101,6 +154,39 @@
     	<button class='btn btn-primary' style='width:49.5%;' onclick='changeTeam()'>프로젝트대화</button>
 	</div>
 	<script>
+	$(document).ready(function (){
+		 var getCookie = function(name) {
+			  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+			  return value? value[2] : null;
+			};
+			var room_code = getCookie('room_code');
+			var watch = getCookie('gubun');
+				if(room_code!=null&&watch=='privateMessage'){
+					var setCookie = function(name, value, exp) {
+						  var date = new Date();
+						  date.setTime(date.getTime() + exp*24*60*60*1000);
+						  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+						};
+						setCookie('room_code',room_code,1);
+						setCookie('gubun','privateMessage');
+					var chat_name = getCookie('chat_name');
+					var chat_id = getCookie('chat_id');
+					var param = "pvroom_code="+room_code+"&chat_name="+chat_name+"&chat_id="+chat_id;
+					$.ajax({
+						 type:'POST'
+						 ,url:'./privateChatlog'
+						 ,data:param
+						 ,dataType:'html'
+						 ,success:function(data){
+							 $('#chatting').empty();
+							 $('#chatting').html(data);
+						 }
+					 	 ,error:function(e){
+					 		 
+					 	 }
+					});
+				}
+		});
 	$('.privateChatList')./* dbl */click(function() {
 		 var str = $(this).attr('id').split(':');
 		 var pvroom_code =  str[0];
@@ -114,6 +200,9 @@
 		  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
 		};
 		setCookie('room_code',pvroom_code,1);
+		setCookie('gubun','privateMessage');
+		setCookie('chat_name',chat_name);
+		setCookie('chat_id',chat_id);
 		 $.ajax({
 			 type:'POST'
 			 ,url:'./privateChatlog'

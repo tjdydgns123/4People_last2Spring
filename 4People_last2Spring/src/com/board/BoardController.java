@@ -30,6 +30,19 @@ public class BoardController  {
 			return "redirect:./boardlist?mem_id="+mem_id;
 			
 		}
+		@GetMapping("teamBoardINS")
+		String teamBoardINS (HttpServletRequest req,@RequestParam Map<String,Object> pMap) {
+			session = req.getSession();
+			String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+			String team_code="";
+			for(String key:pMap.keySet()) {
+				if(key.contains("team_code")) {
+					team_code=(String)pMap.get(key);
+				}
+			}
+			Bo_logic.BoardIns(pMap);
+			return "redirect:../team/board?team_code="+team_code;
+		}
 			@GetMapping("boardlist")
 			String BoardList (Model model, @RequestParam Map<String,Object> pMap) {
 			List<Map<String,Object>> BoardList=Bo_logic.BoardSel(pMap);
