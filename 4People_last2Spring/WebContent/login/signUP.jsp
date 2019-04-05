@@ -81,19 +81,19 @@
                     <div class="form-inline">
                     <div class="form-group">
                         <label for="InputEmail">이메일 주소(ID)</label><br>
-                        <input type="email" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
+                        <input type="text" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
                     	<!--  -->
             <button class="btn btn-default dropdown-toggle form-control" style='wdith:50px;'  id="dropdownMenu1" data-toggle="dropdown">
               	이메일주소(필수사항)	
               <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1" id="mydd" >
+            <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1"  id="mydd" >
               <li><a href="#"><span style='font-size:16px;'>naver.com</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>gmail.com</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-    
+    			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button>
                     </div>
                     </div><br>
                     <div class="form-group">
@@ -206,6 +206,32 @@
 		</div>
         </article>
         <script type="text/javascript">
+        function confirm(){
+            var id1 = $('#InputEmail').val();
+            var id2 = $('#dropdownMenu1').text();
+			var id = id1+'@'+id2;
+			var param = "mem_id="+id;
+        	$.ajax({
+    			type : 'POST',
+    			data : param,
+    			dataType : 'json',
+    			url : './confirm',
+    			success : function(data){
+    				if(data == 0){
+    					alert("사용가능한 아이디 입니다.");
+    					$('#check').attr('value','yes');
+    				} else {
+    					alert("중복된 아이디입니다.");
+    					//중복된 아이디면 중복체크가 다시 필요하기 때문에 check의 값을 no로 다시 지정
+    					$('#check').attr('value','no');
+    					return;
+    				}
+    				return false;
+    			}
+    		});
+			
+    	}
+            
         $(function () {
         	  $("#mydd a").click(function () {
         	    $("#dropdownMenu1").html($(this).html() + ' <span class="caret"></span>');
