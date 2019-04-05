@@ -34,6 +34,34 @@
 		</if>
 	</where>
 	</select>
+	<select id="getMember2" parameterType="map" resultType="map">
+          select member.mem_name,team_member.mem_id,team_member.tm_role
+       ,case when (select team_leader from team where team_code=#{team_code})=member.mem_id then 1 else 0 end p_m
+          from member,team_member,team
+	<where>
+			AND  MEMBER.mem_id=team_member.mem_id
+		<if test="team_code!=null and team_code.length()>0">
+		    AND team_member.team_code =#{team_code}
+		</if>
+		     and team_member.team_code = team.team_code 
+		<if test="mem_name!=null and mem_name.length()>0">
+		  AND member.mem_name like #{mem_name}||'%'
+		</if>
+		
+		 and team_member.mem_id not in (   select parti_id 
+                             from card cr, participant pc
+                            where cr.team_code = pc.team_code
+                              and cr.card_code = pc.card_code
+                          <if test="card_code!=null and card_code.length()>0"> 
+                              and cr.card_code = #{card_code}
+                              </if>
+                          <if test="team_code!=null and team_code.length()>0"> 
+                              and cr.team_code = #{team_code}
+                              </if>
+)
+	</where>
+	</select>
+	
 	
 	<!-- 팀원초대를 위해 검색을할때 정보를 뽑아내는 프로시저 -->
 	<select id="getInvite" parameterType="map" statementType="CALLABLE">

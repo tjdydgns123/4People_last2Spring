@@ -1,5 +1,6 @@
 package com.card;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +34,30 @@ public class CardLogic {
 		c_Dao.labelUpd(pMap);
 		
 	}
-	public void desIns(Map<String, Object> pMap) {
+	public List<Map<String, Object>> desIns(Map<String, Object> pMap) {
+		List<Map<String,Object>> cardList = null;
 		c_Dao.desIns(pMap);
+		cardList = c_Dao.cardSEL(pMap);
+		return cardList;
 	}
 	public void desUPD(Map<String, Object> pMap) {
 		c_Dao.desUPD(pMap);
 		
+	}
+	public List<Map<String, Object>> memberINS(Map<String, Object> pMap) {
+		List<Map<String,Object>> cardList = null;
+		c_Dao.memberINS(pMap);
+		cardList = c_Dao.cardSEL(pMap);
+		return cardList;
+		
+	}
+	public void partiDEL(Map<String, Object> pMap) {
+		c_Dao.partiDEL(pMap);
+	}
+	public List<Map<String, Object>> checkINS(Map<String, Object> pMap) {
+		List<Map<String,Object>> cardList = null;
+		c_Dao.checkINS(pMap);
+		cardList = c_Dao.cardSEL(pMap);
+		return cardList;
 	}
 }

@@ -94,6 +94,44 @@ public class TeamController {
 		model.addAttribute("team",memberList);
 		return path;
 	}
+	@RequestMapping("member2")
+	public String member2(HttpServletRequest req,Model model,@RequestParam Map<String,Object> pMap) {
+		String path="";
+		session = req.getSession();
+//		String team_code = String.valueOf(session.getAttribute("team_code"));
+//		pMap.put("team_code",team_code);
+		for(String key:pMap.keySet()) {
+			//회원검색을 햇을때 파라미터값으로 mem_name이 넘어온다 그떄 url주소를  ./teamMemberResult.jsp 로 설정해줌
+			if(pMap.containsKey("mem_name")) {
+				String mem_name = (String)pMap.get("mem_name");
+				path="forward:teamMemberResult2.jsp";
+			}
+			//회원검색을 하지않앗을떄(일반요청)
+			else {
+				path="forward:teamLoading.jsp";
+				//member로 구분
+				model.addAttribute("gubun","member");
+			}
+		}
+		List<Map<String,Object>> memberList=t_logic.getMember2(pMap);
+		logger.info(memberList);
+		for(int i=0; i<memberList.size(); i++) {
+			Map<String,Object> rMap = memberList.get(i);
+			for(String key:rMap.keySet()) {
+				if(key.equals("TEAM_NAME")) {
+					model.addAttribute("TEAM_NAME",rMap.get(key));
+				}
+				else if(key.equals("TEAM_LEADER")) {
+					model.addAttribute("TEAM_LEADER",rMap.get(key));
+				}
+			}
+			if(rMap.containsKey("TEAM_NAME")||rMap.containsKey("TEAM_LEADER")) {
+				memberList.remove(i);
+			}
+		}
+		model.addAttribute("team",memberList);
+		return path;
+	}
 	
 	@PostMapping("invite")
 	public String invite(HttpServletRequest req,Model model,@RequestParam Map<String,Object> pMap) {

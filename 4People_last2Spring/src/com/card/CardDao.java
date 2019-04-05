@@ -76,4 +76,19 @@ public class CardDao {
 		
 	}
 
+	public void memberINS(Map<String, Object> pMap) {
+		logger.info("memberINS호출");
+		sqlSessionTemplate.insert("memberINS",pMap);
+		
+	}
+
+	public void partiDEL(Map<String, Object> pMap) {
+		sqlSessionTemplate.delete("partiDEL",pMap);
+	}
+
+	public void checkINS(Map<String, Object> pMap) {
+		logger.info("checkINS호출");
+		sqlSessionTemplate.insert("checkINS",pMap);
+	}
+
 }
