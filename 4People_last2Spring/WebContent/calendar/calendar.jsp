@@ -6,33 +6,41 @@
 	//out.print(calList.get(0).get("CAL_TITLE"));
 %>
 <!DOCTYPE html> 
- <html> 
-   <meta charset="UTF-8">
-<jsp:include page="../include/top.jsp"  flush="false">
-		<jsp:param value="" name="top" />
-</jsp:include>
+<html> 
+<meta charset="UTF-8">
+	<jsp:include page="../include/top.jsp"  flush="false">
+			<jsp:param value="" name="top" />
+	</jsp:include>
 <head> 
-         <title>Calendar</title> 
-         <!-- Bootstrap --> 
-     	 <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">  -->
-         <link href="vendors/fullcalendar/fullcalendar.css" rel="stylesheet" media="screen"> 
-         <link href="assets/styles.css" rel="stylesheet" media="screen"> 
-         <!-- HTML5 shim, for IE6-8 support of HTML5 elements --> 
-         <!--[if lt IE 9]> 
-             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> 
-         <![endif]--> 
-         <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> 
+    <title>Calendar</title> 
+    <!-- Bootstrap --> 
+	<!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">  -->
+    <link href="vendors/fullcalendar/fullcalendar.css" rel="stylesheet" media="screen"> 
+    <link href="assets/styles.css" rel="stylesheet" media="screen"> 
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements --> 
+    <!--[if lt IE 9]> 
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> 
+    <![endif]--> 
+    <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> 
 <script type="text/javascript">
 	function sendEvent(title, start,end){
 		alert("전송");
 		alert("title :"+title+", startdate :"+start+", enddate :"+end);
-		location.href="./calendar.for?crud=ins&cal_title="
+		location.href="./calINS?cal_title="
 				+title+"&mem_id="+"warm_eng@naver.com"
-				+"&cal_startdate="+start+"&cal_enddate="+end;
+				+"&cal_startdate="+start.getFullYear()+"/"+(start.getMonth()+1)+"/"+start.getDate()
+				+"&cal_enddate="+end.getFullYear()+"/"+(end.getMonth()+1)+"/"+end.getDate();
+	}
+	function deleteEvent(cal_no){
+		alert(cal_no);
+		location.href="./calDEL?cal_no="+cal_no;
+	}
+	function updateEvent(cal_no){
+		alert(cal_no);
+		location.href="./calUPD?cal_no="+cal_no;
 	}
 </script>
 </head> 
-      
 <body> 
 	<div class="container-fluid">
 		<div class="row-fluid">         
@@ -57,9 +65,9 @@
                                      </p> 
                                      </div> -->
                                  </div> 
-								<div class="span10"> 
-									<div id='calendar'></div> 
-								</div> 
+							<div class="span10"> 
+							<div id='calendar'></div> 
+							</div> 
 							</div> 
 						</div> 
                       <!-- /block --> 
@@ -71,7 +79,7 @@
              <p>&copy; Vincent Gabriel 2013</p> 
           </footer> -->
 	</div> 
-    <style> 
+<style> 
     .btn-red {
 	  color: #fff;
 	  background-color: #f15f5f;
@@ -128,15 +136,15 @@
         margin: 0; 
         vertical-align: middle; 
         } 
-    </style> 
-    <!--/.fluid-container--> 
-    <script src="vendors/jquery-1.9.1.min.js"></script> 
-    <script src="vendors/jquery-ui-1.10.3.js"></script> 
-    <script src="bootstrap/js/bootstrap.min.js"></script> 
-    <script src="vendors/fullcalendar/fullcalendar.js"></script> 
-    <script src="vendors/fullcalendar/gcal.js"></script> 
-    <script src="assets/scripts.js"></script> 
-    <script> 
+</style> 
+<!--/.fluid-container--> 
+<script src="vendors/jquery-1.9.1.min.js"></script> 
+<script src="vendors/jquery-ui-1.10.3.js"></script> 
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+<script src="vendors/fullcalendar/fullcalendar.js"></script> 
+<script src="vendors/fullcalendar/gcal.js"></script> 
+<script src="assets/scripts.js"></script> 
+<script> 
      $(function() { 
     	var title;
         var start;
@@ -152,7 +160,8 @@
 			,selectHelper: true 
 			,select: function(start, end, allDay) { 
 				$("#dlg_calIns").modal('show');
-             	 title = prompt('제목:'); 
+             	 //title = prompt('제목:'); 
+             	 title = $("#ins_title").val();
 	             this.title=title;
 	             this.start = start;
 	             this.end = end;
@@ -166,12 +175,14 @@
 	                     }, 
 	                     true // make the event "stick" 
 	                 ); 
-	                 sendEvent(title, start,end);
+	                 sendEvent(title, start,end);//calINS호출
 	             } 
 	             calendar.fullCalendar('unselect'); 
 	         } 
-	         ,droppable: true //드래그해서 삭제할 수 있는지
+	         ,droppable: true//드래그해서 삭제할 수 있는지
 	         ,drop: function(date, allDay) { //삭제가 발생하면 호출되는 함수
+		         alert('drop');
+	        	 //$('#calendar').fullCalendar('removeEvent', date.title); 
 	             // retrieve the dropped element's stored Event Object 
 	             var originalEventObject = $(this).data('eventObject'); 
 	             // we need to copy it, so that multiple events don't have a reference to the same object 
@@ -192,7 +203,8 @@
 			// US Holidays 
 			,events: [
 			 			<% for(int i =0; i<calList.size(); i++){%>
-							{title:'<%=calList.get(i).get("CAL_TITLE")%>'
+							{seq_no : '<%=calList.get(i).get("CAL_NO")%>'
+							,title:'<%=calList.get(i).get("CAL_TITLE")%>'
 				  			,start:'<%=calList.get(i).get("CAL_STARTDATE")%>'
 				  			,end :'<%=calList.get(i).get("CAL_ENDDATE")%>'
 							},
@@ -201,7 +213,14 @@
 		  			 ]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		alert('Event:title'+ info.title+'Event Start date :' +info.start.getDate());
+      	    		alert('Event:title'+ info.title
+      	      	    	 +'Event Start date :' +info.start.getDate()
+      	      	    	 +'cal_no'+info.seq_no);
+      	 	}
+      	 	,eventDragStop: function(event, jsEvent, ui, view) {
+      	 	    calendar.fullCalendar('removeEvents', event.seq_no);
+          	 	alert('삭제'+event.seq_no);
+                deleteEvent(event.seq_no);
       	 	}
 		}); 
 				<%--var event = {
@@ -231,35 +250,106 @@
             revertDuration: 0  //  original position after the drag 
         }); 
     }); 
-    </script>
-    
+</script>
 <div  id="dlg_calIns" class="modal fade">
   <div  class="modal-dialog" >
-    <div class="modal-content" style="width:400px">
+    <div class="modal-content" style="width:500px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">일정만들기</h4>
       </div>
       <div class="modal-body">
 		    <div style="margin-bottom:10px">
-		    	<input type="text" class="form-control" id="exampleInputName2" placeholder="일정을 입력해주세요." style="width:250px;height:30px;">
+		    <p>제목</p>
+		    	<input id="ins_title" type="text" class="form-control" placeholder="일정을 입력해주세요." style="width:250px;height:30px;">
 			</div>
-<!-- timepicker 시작 -->
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
-</div>
-<!-- timepicker 끝 -->
-
-			<div class="btn-group" role="group" aria-label="...">
+			<p>시간</p>
+			<!-- timepicker 시작//cal_starttime xx시 -->
+			<div class="dropdown" style="float:left; margin-right:1px">
+			  	<button id="dropdownMenu1" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+			    HOUR
+			    <span class="caret"></span>
+			 	</button>
+			  	<ul id="dd_starthour" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+ 				<li><a href="#">08</a></li>
+ 				<li><a href="#">09</a></li>
+ 				<li><a href="#">10</a></li>
+ 				<li><a href="#">11</a></li>
+ 				<li><a href="#">12</a></li>
+ 				<li><a href="#">13</a></li>
+ 				<li><a href="#">14</a></li>
+ 				<li><a href="#">15</a></li>
+ 				<li><a href="#">16</a></li>
+ 				<li><a href="#">17</a></li>
+			  	</ul>
+			</div>
+			<p style="float:left; margin-right:1px">
+			시
+			</p>
+			<!-- timepicker 끝//cal_starttime xx시 -->
+			<!-- timepicker 시작//cal_starttime xx분 -->
+			<div class="dropdown" style="float:left; margin-right:1px">
+			  	<button id="dropdownMenu2" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+			    MINUTE
+			    <span class="caret"></span>
+			 	</button>
+			  	<ul id="dd_startmin" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+			    <li><a href="#">00</a></li>
+			    <li><a href="#">10</a></li>
+			    <li><a href="#">20</a></li>
+			    <li><a href="#">30</a></li>
+			    <li><a href="#">40</a></li>
+			    <li><a href="#">50</a></li>
+			  	</ul>
+			</div>
+			<p style="float:left; margin-right:1px">
+			분&nbsp;~&nbsp;
+			</p>
+			<!-- timepicker 끝//cal_starttime xx분 -->
+			<!-- timepicker 시작//cal_endtime xx시 -->
+			<div class="dropdown" style="float:left; margin-right:1px">
+			  	<button id="dropdownMenu3" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+			    HOUR
+			    <span class="caret"></span>
+			 	</button>
+			  	<ul id="dd_endhour" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+ 				<li><a href="#">08</a></li>
+ 				<li><a href="#">09</a></li>
+ 				<li><a href="#">10</a></li>
+ 				<li><a href="#">11</a></li>
+ 				<li><a href="#">12</a></li>
+ 				<li><a href="#">13</a></li>
+ 				<li><a href="#">14</a></li>
+ 				<li><a href="#">15</a></li>
+ 				<li><a href="#">16</a></li>
+ 				<li><a href="#">17</a></li>
+			  	</ul>
+			</div>
+			<p style="float:left; margin-right:1px">
+			시
+			</p>
+			<!-- timepicker 끝//cal_endtime xx시 -->
+			<!-- timepicker 시작//cal_endtime xx분  -->
+			<div class="dropdown" style="float:left; margin-right:1px">
+			  	<button id = dropdownMenu4 class="btn btn-default dropdown-toggle form-control"  type="button" data-toggle="dropdown" aria-expanded="true">
+			    MINUTE
+			    <span class="caret"></span>
+			 	</button>
+			  	<ul id="dd_endmin" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+			    <li><a href="#">00</a></li>
+			    <li><a href="#">10</a></li>
+			    <li><a href="#">20</a></li>
+			    <li><a href="#">30</a></li>
+			    <li><a href="#">40</a></li>
+			    <li><a href="#">50</a></li>
+			  	</ul>
+			</div>
+			<p>
+			분
+			</p>
+			<p>배경설정</p>
+			<!-- timepicker 끝//cal_endtime xx분  -->
+			<div class="btn-group" role="group" aria-label="..." >
 			  <button type="button" class="btn btn-red" id="btn_red" value="#f15f5f" style="width:30px;height:30px;"></button>
 			  <button type="button" class="btn btn-orange" id="btn_orange" value="#F29661" style="width:30px;height:30px;"></button>
 			  <button type="button" class="btn btn-green" id="btn_green" value="#2F9D27" style="width:30px;height:30px;"></button>
@@ -269,8 +359,8 @@
 			</div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onClick=sendEvent()>Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -290,9 +380,23 @@
     	 }] -->
     " 
     style="width:600px;height:450px;padding:10px">
-    
-    
     </div> --%>
-    
+<script type="text/javascript">
+//dropdown 메뉴에서 선택한 값 dropdown box에 찍어주기
+$(function (){
+	$('#dd_starthour a').click(function () {
+   	 		$('#dropdownMenu1').html($(this).html() + ' <span class="caret"></span>');
+	});
+	$('#dd_startmin a').click(function () {
+   	 		$('#dropdownMenu2').html($(this).html() + ' <span class="caret"></span>');
+	});
+	$('#dd_endhour a').click(function () {
+	 		$('#dropdownMenu3').html($(this).html() + ' <span class="caret"></span>');
+	});
+	$('#dd_endmin a').click(function () {
+		 	$('#dropdownMenu4').html($(this).html() + ' <span class="caret"></span>');
+	});
+});
+</script>
   </body> 
  </html> 

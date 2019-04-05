@@ -32,7 +32,6 @@
         	function check(){
         		var pass = $("#inputPassword").val();
         		var pass_check= $("#inputPasswordCheck").val();
-        		
         		if(pass.length<8||pass.length>16){
         			document.getElementById('check').innerHTML = '암호를 8자이상 16자 이하로 설정해주세요';
         			document.getElementById('check').style.color='red';
@@ -43,7 +42,6 @@
         			document.getElementById('check').style.color='red';
         			result=1;
         		}
-      	
         		if(pass!=pass_check){
         			document.getElementById('same').innerHTML = '비밀번호가 일치하지 않습니다.';
         			document.getElementById('same').style.color='red';
@@ -53,7 +51,6 @@
         			document.getElementById('same').innerHTML = '비밀번호가 일치 합니다';
         			document.getElementById('same').style.color='blue';
         			result=1;
-        			
         		}
         	}
         	
@@ -81,19 +78,19 @@
                     <div class="form-inline">
                     <div class="form-group">
                         <label for="InputEmail">이메일 주소(ID)</label><br>
-                        <input type="email" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
+                        <input type="text" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
                     	<!--  -->
             <button class="btn btn-default dropdown-toggle form-control" style='wdith:50px;'  id="dropdownMenu1" data-toggle="dropdown">
               	이메일주소(필수사항)	
               <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1" id="mydd" >
+            <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1"  id="mydd" >
               <li><a href="#"><span style='font-size:16px;'>naver.com</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>gmail.com</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-    
+    			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button>
                     </div>
                     </div><br>
                     <div class="form-group">
@@ -206,6 +203,32 @@
 		</div>
         </article>
         <script type="text/javascript">
+        function confirm(){
+            var id1 = $('#InputEmail').val();
+            var id2 = $('#dropdownMenu1').text();
+			var id = id1+'@'+id2;
+			var param = "mem_id="+id;
+        	$.ajax({
+    			type : 'POST',
+    			data : param,
+    			dataType : 'json',
+    			url : './confirm',
+    			success : function(data){
+    				if(data == 0){
+    					alert("사용가능한 아이디 입니다.");
+    					$('#check').attr('value','yes');
+    				} else {
+    					alert("중복된 아이디입니다.");
+    					//중복된 아이디면 중복체크가 다시 필요하기 때문에 check의 값을 no로 다시 지정
+    					$('#check').attr('value','no');
+    					return;
+    				}
+    				return false;
+    			}
+    		});
+			
+    	}
+            
         $(function () {
         	  $("#mydd a").click(function () {
         	    $("#dropdownMenu1").html($(this).html() + ' <span class="caret"></span>');
@@ -213,6 +236,8 @@
         	  });
         	});
         </script>
+<!--         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     </body>
 </html>

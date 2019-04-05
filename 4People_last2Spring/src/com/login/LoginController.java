@@ -4,6 +4,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,24 @@ public class LoginController  {
 		//이동할 페이지.
 		return "forward:loginAction.jsp";
 	
+	}
+	@PostMapping("confirm")
+	public String confirm(@RequestParam Map<String,Object> pMap) {
+//		l_logic.confirm(pMap);
+		return "confirmResult.jsp";
+	}
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("MEM_ID");
+		session.removeAttribute("MEM_COMPANYNAME");
+		session.removeAttribute("MEM_POSITION");
+		session.removeAttribute("MEM_NAME");
+		String team_code = (String)session.getAttribute("team_code");
+		if(team_code!=null) {
+			session.removeAttribute("team_code");
+		}
+		return "redirect:login.jsp";
 	}
 	
 	@PostMapping(value="signUp")

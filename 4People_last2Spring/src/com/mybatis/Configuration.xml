@@ -14,7 +14,7 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="com/mybatis/mapper/calendar.xml" />
+		<mapper resource="com/mybatis/mapper/calendar.xml"/>
 		<mapper resource="com/mybatis/mapper/login.xml" />
 		<mapper resource="com/mybatis/mapper/team.xml" />
 		<mapper resource="com/mybatis/mapper/board.xml" />

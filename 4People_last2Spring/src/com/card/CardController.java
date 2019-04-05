@@ -63,15 +63,39 @@ public class CardController {
 
 	}
 	@PostMapping("desINS")
-	public String desINS(@RequestParam Map<String,Object> pMap) {
-			c_Logic.desIns(pMap);
-		return "";
+	public String desINS(Model model,@RequestParam Map<String,Object> pMap) {
+		List<Map<String,Object>> cardList = null;
+		cardList =c_Logic.desIns(pMap);
+		model.addAttribute("cardList", cardList);
+		return "forward:../card/desInsResult.jsp";
 		
 	}
 	@PostMapping("desUPD")
 	public String desUPD(@RequestParam Map<String,Object> pMap) {
 		c_Logic.desUPD(pMap);
 		return "";
+		
+	}
+	@PostMapping("memberINS")
+	public String memberINS(Model model,@RequestParam Map<String,Object> pMap) {
+		List<Map<String,Object>> cardList = null;
+		cardList = c_Logic.memberINS(pMap);
+		model.addAttribute("cardList", cardList);
+		return "forward:../card/partiInsResult.jsp";
+		
+	}
+	@PostMapping("partiDEL")
+	public String partiDEL(@RequestParam Map<String,Object> pMap) {
+		 c_Logic.partiDEL(pMap);
+		return "";
+		
+	}
+	@PostMapping("checkINS")
+	public String checkINS(Model model,@RequestParam Map<String,Object> pMap) {
+		List<Map<String,Object>> cardList = null;
+		cardList = c_Logic.checkINS(pMap);
+		model.addAttribute("cardList", cardList);
+		return "forward:../card/checkiInsResult.jsp";
 		
 	}
 }

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <jsp:include page="../include/top.jsp"  flush="false">
+
 		<jsp:param value="" name="top" />
 	</jsp:include> 
 <title>Insert title here</title>
@@ -109,6 +110,10 @@
 var color ="btn-default";
 var temp = new Array();
 var label_code='';
+var card_code=''; 
+var team_code = '<%=t_team_code%>';
+var des_code = '';
+var parti_code='';
 
 function mo_close(){
 	$('#label_modal2').modal('hide');
@@ -116,15 +121,187 @@ function mo_close(){
 function mo_close2(){
 	$('#label_modal').modal('hide');
 }
+function mo_close3(){
+	$('#label_modal3').modal('hide');
+}
+function mo_close4(){
+	$('#checkModal').modal('hide');
+}
 function label_codee(id){
 	label_code= id;
 	
 }
+/* 체크리스트 */
+var length ='';
+var llength ='';
+var lllength ='';
+var Mllength ='';
+var count = 0;
+function checkAdd(){
+	var check_text = $('#check_text').val();
+	alert(check_text);
+	var param = "check_title="+check_text+"&team_code="+team_code+"&card_code="+card_code+"&check_maker=<%=mem_id%>";
+	$.ajax({
+		type:"POST"
+	   ,url:"../card/checkINS"
+	   ,data:param
+	   ,dataType:"html"
+	   ,success:function(result){
+//			   $("#membergood").html(result);
+		   $("#check_list").append(result);
+		   
+	   }
+	  ,error:function(request,status,error){
+//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+	  }
+	});
+	
+}
+function hihi(check,id){
+// 	 if($('#'+id+'').is(".checked")==true){
+// 		count +=1;
+// 		 }
+	 alert("tt: "+$('#check_list').children(check.checked).length);
+	 length = $('#check_list').children('.checkbox').length;
+	
+	 llength = 100/length;
+	 lllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))+llength);
+	 Mllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))-llength);
+	alert(	parseFloat($("#barbar").attr("aria-valuenow"))+50);
+	if ( check.checked == true )
+	{
+	alert("선택");
+	count += 1;
+	 alert(count);
+	 if(count!=length){
+	$('#barbar').attr({
+		"aria-valuenow" : lllength ,
+		"style" : "width:"+lllength+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(lllength+"%");
+	}
+	 else{
+		 var lilength = Math.round(parseFloat($("#barbar").attr("aria-valuenow")));
+		 var halength = 100-lilength;
+	$('#barbar').attr({
+		"aria-valuenow" : 100 ,
+		"style" : "width:"+100+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(100+"%");
+		 }
+	 }
+	else{
+	alert("해제");
+	count -=1;
+	 alert(count);
+	 if(count!=0){
+	$('#barbar').attr({
+		"aria-valuenow" : Mllength,
+		"style" : "width:"+Mllength+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(Mllength+"%");
+		 }
+	 else{
+	$('#barbar').attr({
+		"aria-valuenow" : 0,
+		"style" : "width:"+0+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(0+"%");
 
-/* 은수 */
-  var card_code=''; 
-  var team_code = '<%=t_team_code%>';
-  var des_code = '';
+		 }
+		}
+}
+/* 체크리스트 */
+ function mouse(id){
+
+$('#'+id+'').on('mousedown', function() {
+	if (event.button == 2) {
+		alert(parti_code);
+	}	  
+	});
+ 
+	 }
+ function drag(event) {
+	   event.dataTransfer.setData("Text", event.target.id);
+	   event.target.style.color = 'green';
+	}
+function allowDrop(event) {  
+	    event.preventDefault();
+	}
+function drop(event) {
+	    event.preventDefault();
+	    parti_code = event.dataTransfer.getData("text");
+// 		alert("event: "+event.dataTransfer.getData("text"));
+// 		alert("parit_code: "+parti_code);
+		$('#'+parti_code+'').remove();
+		var param ="parti_code="+parti_code;
+
+		$.ajax({
+			type:"POST"
+		   ,url:"../card/partiDEL"
+		   ,data:param
+		   ,dataType:"html"
+		   ,success:function(result){
+			   
+			   
+		   }
+		});
+	}
+// 		$(document).ready( function (){
+// 	function mem_name_ajax(){
+	
+	function mem_name_ajax(){
+// 		alert($("#label_text5").val());
+	$('#label_text5').keyup(function (){
+		$("#membergood").empty();
+
+		var mem_name =$("#label_text5").val();
+		var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+			$.ajax({
+				type:"POST"
+			   ,url:"../team/member2"
+			   ,data:param
+			   ,dataType:"html"
+			   ,success:function(result){
+				   $("#membergood").html(result);
+				   
+			   }
+			  ,error:function(request,status,error){
+// 				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  }
+			});
+			});
+		
+		}
+		
+// 		}
+	
+	
+	function memberinvate(id){
+		var param = "mem_id=<%=mem_id%>&team_code="+team_code+"&card_code="+card_code+"&parti_id="+id;
+		alert(id);
+// 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
+		$.ajax({
+			type:"POST"
+		   ,url:"../card/memberINS"
+		   ,data:param
+		   ,dataType:"html"
+		   ,success:function(result){
+			   $('#membersja').append(result);
+		   } ,error:function(){
+			   alert("실패에염")
+				  $("#membersja").text(e.responseText);
+			  }
+		   
+		});
+	}
+
+
   function commentDeletModal(){
 	  $ ( '#commentDeleteModal' ). modal({
 		    target : '#checkList' 
@@ -284,7 +461,6 @@ function label_codee(id){
 			  }
 	});
 		}
-/* 은수 */
  
 	function cardAdd(id){
 // 		alert(id);
@@ -482,7 +658,7 @@ function label_codee(id){
 				alert(text);
 				$('#des_con').empty();
 				$('#des_bt').empty();
-				document.getElementById('des_con').innerHTML+="<span><h5>"+text+"</h5></span>";
+// 				document.getElementById('des_con').innerHTML+="<span><h5>"+text+"</h5></span>";
 				document.getElementById('hth').innerHTML+="<a style='margin-left:20px'>edit</a>";
 				
 				$.ajax({
@@ -491,7 +667,8 @@ function label_codee(id){
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
-// 						    $('#card_label').append(result);
+// 							   alert(result);
+						    $('#des_con').append(result);
 						   }
 							});
 				}
