@@ -32,7 +32,6 @@
         	function check(){
         		var pass = $("#inputPassword").val();
         		var pass_check= $("#inputPasswordCheck").val();
-        		
         		if(pass.length<8||pass.length>16){
         			document.getElementById('check').innerHTML = '암호를 8자이상 16자 이하로 설정해주세요';
         			document.getElementById('check').style.color='red';
@@ -43,7 +42,6 @@
         			document.getElementById('check').style.color='red';
         			result=1;
         		}
-      	
         		if(pass!=pass_check){
         			document.getElementById('same').innerHTML = '비밀번호가 일치하지 않습니다.';
         			document.getElementById('same').style.color='red';
@@ -53,7 +51,6 @@
         			document.getElementById('same').innerHTML = '비밀번호가 일치 합니다';
         			document.getElementById('same').style.color='blue';
         			result=1;
-        			
         		}
         	}
         	
@@ -239,6 +236,8 @@
         	  });
         	});
         </script>
+<!--         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     </body>
 </html>
