@@ -8,23 +8,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.forpeople.Controller;
 import com.util.DateFormatter;
 import com.util.HashMapBinder;
 import com.vo.CalendarVO;
 
-public class CalendarController implements Controller {
-	CalendarLogic cal_logic = new CalendarLogic();
-	String crud = null;
-	String category = null;
+@Controller
+@RequestMapping(value="/calendar/")
+public class CalendarController{
 	Logger logger = Logger.getLogger(CalendarController.class);
-	
-	public CalendarController(String category, String crud) {
-		this.category = category;
-		this.crud = crud;
-	}
+	@Autowired
+	CalendarLogic calLogic = null;
 
+	//캘린더 조회
+	@GetMapping("calList")
+	public String calList(@ModelAttribute CalendarVO calVO
+						 , Model model) {
+		logger.info("캘린더 조회 호출 성공");
+		List<Map<String, Object>> calList = null;
+		String path = "";
+		calList = calLogic.calList(calVO);
+		model.addAttribute("calList", calList);
+		logger.info("calList :"+calList);
+		return "forward:calendar.jsp";
+	}
+	//캘린더 입력
+	@GetMapping("calINS")
+	public String calINS(@ModelAttribute CalendarVO calVO) {
+		logger.info("캘린더 입력 호출 성공");
+		int result = 0;
+		result = calLogic.calINS(calVO);
+		logger.info("result :"+result);
+		return "redirect:calList?gubun=INS";
+	}
+	//캘린더 수정
+	@GetMapping("calUPD")
+	public String calUPD(@ModelAttribute CalendarVO calVO) {
+		logger.info("캘린더 수정 호출 성공");
+		int result = 0;
+		result = calLogic.calUPD(calVO);
+		logger.info("result :"+result);
+		return "redirect:calList?gubun=UPD";
+	}
+	//캘린더 삭제
+	@GetMapping("calDEL")
+	public String calDEL(@ModelAttribute CalendarVO calVO) {
+		logger.info("캘린더 삭제 호출 성공");
+		int result = 0;
+		result = calLogic.calDEL(calVO);
+		logger.info("result :"+result);
+		return "redirect:calList?gubun=DEL";
+	}
+/*
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String path = null;
@@ -92,6 +133,6 @@ public class CalendarController implements Controller {
 		}
 		
 		return path;
-	}
+	}*/
 
 }

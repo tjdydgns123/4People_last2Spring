@@ -15,4 +15,12 @@
 		INSERT INTO CALENDAR (CAL_NO, mem_id, CAL_TITLE, CAL_STARTDATE, CAL_ENDDATE)
                VALUES(SEQ_CALENDAR_NO.NEXTVAL, #{mem_id}, #{cal_title}, #{cal_startdate}, #{cal_enddate})	
 	</insert>
+	<update id="calUpd" parameterType="java.util.Map">
+		UPDATE calendar SET  cal_title = #{cal_title}
+							,cal_startdate = #{cal_startdate}
+							,cal_enddate = #{cal_enddate}	
+	</update>
+	<delete id="calDel" parameterType="java.util.Map">
+		DELETE FROM CALENDAR WHERE CAL_NO = #{cal_no}	
+	</delete>
 </mapper>

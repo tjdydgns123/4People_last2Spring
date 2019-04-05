@@ -345,7 +345,7 @@ $(function() {
             </li>
             <li>
                 <a href="../chatting/chatMain.jsp">채팅</a>
-                <a href="../calendar/calendar.for?crud=sel">캘린더</a>
+                <a href="../calendar/calList">캘린더</a>
             </li>
             <li>
                 <a href="#">채팅</a>

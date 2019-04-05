@@ -8,43 +8,54 @@ import java.sql.SQLException;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import com.util.MyBatisCommonFactory;
 import com.vo.CalendarVO;
 
-
+//@Repository
+@Service
 public class CalendarDao {
 	Logger logger = Logger.getLogger(CalendarDao.class);
-	private SqlSessionFactory sqlSessionFactory = null;
-	private SqlSession sqlSession = null;
-	public CalendarDao() {
-		sqlSessionFactory = MyBatisCommonFactory.getSqlSessionFactory();
-	}
-	public List<Map<String, Object>> calList(CalendarVO calVO) throws SQLException{
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate = null;
+	//캘린더 조회
+	public List<Map<String, Object>> calList(CalendarVO calVO){
 		logger.info("캘린더 조회 호출 성공");
 		List<Map<String, Object>> calList = new ArrayList<Map<String, Object>>();
-		sqlSession = sqlSessionFactory.openSession();
-		calList = sqlSession.selectList("calList", calVO);
-		logger.info("calList :"+calList);
-		//logger.info(calList.get(5).get("CAL_TITLE"));
+		try {
+			calList = sqlSessionTemplate.selectList("calList", calVO);
+			logger.info("calList :"+calList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return calList;
 	}
-	public int calIns(Map<String, Object> pMap) {
-		int result = 0;
+	//캘린더 입력
+	public int calINS(CalendarVO calVO) throws DataAccessException {
 		logger.info("캘린더 입력 호출 성공");
-		sqlSession = sqlSessionFactory.openSession();
-		result = sqlSession.insert("calIns", pMap);
-		sqlSession.commit();
+		int result = 0;
+		result = sqlSessionTemplate.insert("calIns", calVO);
 		logger.info("result :"+result);
-		//logger.info(pMap.size());
 		return result;
 	}
-	public int calUpd(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		return 0;
+	//캘린더 수정
+	public int calUPD(CalendarVO calVO) {
+		logger.info("캘린더 수정 호출 성공");
+		int result = 0;
+		result = sqlSessionTemplate.insert("calUpd",calVO);
+		return result;
 	}
-	public int calDel(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		return 0;
+	//캘린더 삭제
+	public int calDEL(CalendarVO calVO) {
+		logger.info("캘린더 삭제 호출 성공");
+		int result = 0;
+		result = sqlSessionTemplate.insert("calDel", calVO);
+		logger.info("result :"+result);
+		return result;
 	}
-
 }
