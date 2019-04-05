@@ -379,7 +379,7 @@ $(function() {
             </li>
             
             <li>
-                <a href="#" id="meeting" style='font-size:20px'>회의실</a>
+                <a href="../meetRoom/meetMain.jsp" id="meeting" style='font-size:20px'>회의실</a>
             </li>
             <li>
                 <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
