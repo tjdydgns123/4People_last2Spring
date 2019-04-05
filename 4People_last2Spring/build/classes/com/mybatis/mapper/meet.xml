@@ -19,13 +19,13 @@
 		 FROM meeting_room
 	</select>
 	
-	<insert id="meetRoomIns" parameterType="map"  >
+	<insert id="meetRoomIns" parameterType="map">
 	INSERT INTO MEETING_ROOM(mr_no,mr_image,mr_name,mr_loc
 							,mr_master,mr_capacity,mr_starttime,mr_endtime
-							,mr_facility,mr_memo) 
-        		VALUES(seq_mr_no.nextval,#{mr_image},#{mr_name},#{mr_loc}
+							,mr_facility,mr_memo,mr_deaileloc) 
+        		VALUES(seq_mr_no.nextval,'이미지',#{mr_name},#{mr_loc}
        				 ,#{mr_master},#{mr_capacity},#{mr_starttime},#{mr_endtime}
-       				 ,#{mr_facility},#{mr_memo})
+       				 ,#{mr_facility},#{mr_memo},#{mr_deaileloc})
 	</insert>
 
 

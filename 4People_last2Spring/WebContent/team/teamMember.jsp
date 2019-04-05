@@ -126,10 +126,10 @@ String pm = null;
 		
 		$("#mem_name").keyup(function (){
 			$("#tb_member").empty();
-
+			
 			var mem_name =$("#mem_name").val();
 			var param ="mem_name="+mem_name;
-
+			
 				$.ajax({
 					type:"POST"
 				   ,url:"./member"

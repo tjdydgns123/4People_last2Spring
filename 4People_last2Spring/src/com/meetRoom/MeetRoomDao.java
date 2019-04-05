@@ -11,57 +11,33 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.board.BoardDao;
 
 import com.vo.MeetRoomVO;
 
+@Repository
 public class MeetRoomDao {
-	SqlSessionFactory  sqlSessionFactory ;
-	//
-	SqlSession session;
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate=null;
 	Logger logger = Logger.getLogger(MeetRoomDao.class);
 	
-	public int meetRoomIns(Map<String,Object>pMap) throws SQLException {
-		int result=0;
+	public void meetRoomIns(Map<String,Object>pMap) throws SQLException {
 		logger.info("Dao호출");
-		try {
-			String resource ="com/mybatis/Configuration.xml";
-			Reader reader = null;
-			reader =Resources.getResourceAsReader(resource);
-			sqlSessionFactory  = new SqlSessionFactoryBuilder().build(reader);
-			 session = sqlSessionFactory.openSession();
-			 result = session.insert("meetRoomIns",pMap);
-			 session.commit();
+			 sqlSessionTemplate.insert("meetRoomIns",pMap);
 			 logger.info(pMap.size());
-			 logger.info("result:"+result);
-			
-				 
-				 
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
-		}
-		
-		return result;
 	}
 	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) throws SQLException {
 		logger.info("roomList 호출 성공");
 		List<Map<String, Object>> roomList = 
 				new ArrayList<Map<String,Object>>();
-		try {
-			String resource ="com/mybatis/Configuration.xml";
-			Reader reader = null;
-			reader =Resources.getResourceAsReader(resource);
-			sqlSessionFactory  = new SqlSessionFactoryBuilder().build(reader);
-			 session = sqlSessionFactory.openSession();
-			 session.selectList("meetRoomList",mrVO); //boardList 
+			sqlSessionTemplate.selectList("meetRoomList",mrVO); //boardList 
 			 logger.info(mrVO.getMr_no());
 			 logger.info(roomList.size());
 			
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
 		return roomList;
 	}
 }

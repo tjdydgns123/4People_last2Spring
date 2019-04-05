@@ -18,9 +18,24 @@
 <script type="text/javascript">
 	var noteCount;
 	function newTeamModal(){
+		$('#teamName').val('');
+		$('#radio3').prop('checked',false);
+		$('#radio4').prop('checked',false);
 		$('#newTeamModal').modal('show');
 		}
 $(document).ready(function () {
+	$('#memberInfo').on('click',function(e){
+			e.preventDefault();
+		});
+
+		
+	
+	$('#radio3').click(function(){
+		$('#radio4').prop('checked',false);
+		});
+	$('#radio4').click(function(){
+		$('#radio3').prop('checked',false);
+	});
 	$('#createTeam').click(function(){
 		var check;
 		var teamState;
@@ -268,11 +283,11 @@ a.article, a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
-/* .navbar-nav.navbar-center { */
-/*     position: absolute; */
-/*     left: 50%; */
-/*     transform: translatex(-50%); */
-/* } */
+ .navbar-nav.navbar-center { 
+     position: absolute; 
+     left: 50%; 
+     transform: translatex(-50%); 
+ } 
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -382,8 +397,10 @@ $(function() {
     <!-- /Sidebar -->
     
     <!-- 상단 -->
+  <div class='col-sm-12'>
 <nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" id='nav_top'>
   <div class="container-fluid">
+  
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
         <span class="sr-only">Toggle navigation</span>
@@ -392,31 +409,38 @@ $(function() {
         <span class="icon-bar"></span>
       </button>
     </div>
-    
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse" id='topNav'>
       <!-- 왼쪽 -->
+      <div class='col-sm-2'>
       <ul class="nav navbar-nav navbar-left">
         <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
         	<i class="fas fa-bars"></i>
         </button>
-        <span style='margin-left:20px;' id='navChat'>
+      </ul>
+      <span  id='navChat'>
         
 		</span>
-      </ul>
+      </div>
+      
       
       <!-- 가운데 -->
-<!--       <ul class="nav navbar-nav navbar-center"> -->
-   
-<!--       </ul> -->
+      <div class='col-sm-2 col-sm-offset-3'>
+      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
+      </div>
+      <!-- 가운데 -->
+   		<!-- 검색 -->
+   		<div class='col-sm-2' style='margin-top:9px;'>
+   		 <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
+         </div>
+   		<!-- 검색 -->
       <!-- 오른쪽 -->
+      <div class='col-sm-3'>
       <ul class="nav navbar-nav navbar-right">
       <li style="font-size:1.5em;  color: white; margin-top:15px"><%=name %></li>
-      
       <!--  -->
-      
       <li class="dropdown" style='height:55px;margin-bottom:5px;'>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id='memberInfo'>
               <img src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png"  alt="Cinque Terre" width="35" height="35" >
               <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -425,41 +449,26 @@ $(function() {
                 <li><a href="../note/myBoard" style='background-color:white;'>쪽지함</a></li>
                 <li><a href="#" style='background-color:white;'>설정</a></li>
                 <li class="divider"></li>
-                <li><a href="#" style='background-color:white;'>로그아웃</a></li>
+                <li><a href="../login/logout" style='background-color:white;'>로그아웃</a></li>
               </ul>
        </li>       
       <!--  -->
-     
-      
         </ul>
-      <form class="navbar-form navbar-right" role="search">
-      
-         <a href="#" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
-        </div>
-        <button type="submit" class="btn btn-default" style="margin-top:5px; margin-right:60px;">검색</button>
-         
-         <a class="btn btn-default" href="#" id="alertsDropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="margin-right:10px;">
-          <i class="fas fa-bell fa-fw"></i>
-          <span class="badge badge-danger">9+</span>
-        </a>
-        <a class="btn btn-default" href="../note/myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-default " href="../note/myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false" style='margin-top:15px'>
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger" id='messageCount'></span>
         </a>
-      </form>
-      
+      </div>
       
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   
 </nav>
-
+</div>
 <!-- /상단 -->
 <div class="es_overlay"></div>
 
-<div class="modal fade" id="newTeamModal" role="dialog"  style='position:relative;'>
+<div class="modal fade" id="newTeamModal" role="dialog">
   <div class="modal-dialog modal-sm" >
     <div class="modal-content">
       <div class="modal-header">
@@ -491,7 +500,6 @@ $(function() {
   </div>
 </div>
 </div>
-
 
 
 

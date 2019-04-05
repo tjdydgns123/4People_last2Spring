@@ -32,7 +32,6 @@ public class ChatDao {
 		
 		for(int i=0; i<getCode.size();i++) {
 			Map<String,Object> pMap = getCode.get(i);
-				Map<String,Object> rMap = new HashMap<String, Object>();
 				getPrivateResult=sqlSessionTemplate.selectList("getPrivate",pMap);
 				Map<String,Object> gMap =getPrivateResult.get(0);
 				getPrivate.add(gMap);
@@ -45,6 +44,40 @@ public class ChatDao {
 		List<Map<String, Object>> privateChatlog = new ArrayList<Map<String,Object>>();
 		privateChatlog = sqlSessionTemplate.selectList("privateChatlog",pMap);
 		return privateChatlog;
+	}
+	public void chatLogIns(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("chatLogIns",pMap);
+	}
+	public List<Map<String, Object>> getTeam(String mem_id) {
+		List<Map<String, Object>> getTeam=new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> getCode=sqlSessionTemplate.selectList("getTeamCode2",mem_id);
+		logger.info(getCode.toString());
+		for(int i=0; i<getCode.size();i++) {
+			Map<String,Object> tMap = getCode.get(i);
+				List<Map<String, Object>> getTeamResult =sqlSessionTemplate.selectList("getTeam",tMap);
+				Map<String,Object> gMap =getTeamResult.get(0);
+				getTeam.add(gMap);
+		}
+		logger.info(getTeam.toString());
+		return getTeam;
+	}
+	public List<Map<String, Object>> teamChatlog(Map<String, Object> pMap) {
+		List<Map<String, Object>> teamChatlog = sqlSessionTemplate.selectList("teamChatlog",pMap);
+		return teamChatlog;
+	}
+	public List<Map<String, Object>> teamChatMember(Map<String, Object> pMap) {
+		List<Map<String, Object>> teamChatMember=sqlSessionTemplate.selectList("teamChatMember",pMap);
+		return teamChatMember;
+	}
+	public void teamLogIns(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("teamLogIns",pMap);
+	}
+	public List<Map<String, Object>> privateSearch(Map<String, Object> pMap) {
+		List<Map<String, Object>> privateSearch=sqlSessionTemplate.selectList("privateSearch",pMap);
+		return privateSearch;
+	}
+	public void newPrivateChat(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("newPrivateChat",pMap);
 	}
 
 }

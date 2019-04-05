@@ -5,24 +5,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
-
+import org.springframework.stereotype.Service;
 
 import com.vo.MeetRoomVO;
 
+@Service
 public class MeetRoomLogic {
 	MeetRoomDao mtRoom_dao = new MeetRoomDao();
 	Logger logger =Logger.getLogger(MeetRoomLogic.class);
-	public int meetRoomIns(Map<String,Object> pMap){
-		int result = 0;
+	public void meetRoomIns(Map<String,Object> pMap){
 		logger.info("logic호출");
 		try {
 			
-			result=mtRoom_dao.meetRoomIns(pMap);
+			mtRoom_dao.meetRoomIns(pMap);
 		} catch (SQLException se) {
 			se.getMessage();
 		}
-		return result;
 	}
 	
 	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) {
