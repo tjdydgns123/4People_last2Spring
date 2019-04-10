@@ -9,26 +9,7 @@
 	String team_code = "";
 	String mr_no="";
 	String mem_id = (String)session.getAttribute("MEM_ID");
-	
-	if(teamAuthority!=null){
-		for(Map<String,Object> tMap:teamAuthority){
-			team_code = (String)tMap.get("TEAM_CODE");
-			team_name = (String)tMap.get("TEAM_NAME");
-		%>
-	<button id=<%="team_code"+team_code %> class='btn btn-default btn-lg'><%=team_name %>&nbsp;&nbsp;<a id=<%=team_code %> class='teamDelete' href='javascript:void(0)'><img src='../images/buttonClose.png' width='15%' height='10px'></a></button>
-	<script type="text/javascript">
-				$(function(){
-				$('.teamDelete').click(function(){
-					var team_code = $(this).attr('id');
-					var mr_no2 = '<%=mr_no%>';
-					$(this).parent().remove();
-					var param = "team_code="+team_code+"&mr_no="+mr_no2;
-				
-					});
-				});
-	</script>
-	<%} }%>
-	
+	%>
 	<%if(meetingRoomInfo!=null){
 	Map<String,Object> rMap = meetingRoomInfo.get(0);
 	mr_no         = (String)rMap.get("MR_NO");       
@@ -58,4 +39,14 @@
 		});
 		</script>	
 <%}
+	
 %>
+	<%if(teamAuthority!=null){
+		for(Map<String,Object> tMap:teamAuthority){
+			team_code = (String)tMap.get("TEAM_CODE");
+			team_name = (String)tMap.get("TEAM_NAME");
+		%>
+	<button id=<%="team_code"+team_code %> class='btn btn-default btn-lg'><%=team_name %>&nbsp;&nbsp;<a id=<%=team_code %> class='teamDelete' href='javascript:void(0)' onclick='teamDelete(id)'><img src='../images/buttonClose.png' width='15%' height='10px'></a></button>
+	<%} }%>
+	
+	

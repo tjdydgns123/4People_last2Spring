@@ -71,7 +71,18 @@
 	</select>
 	
 	<insert id="teamAuthorityIns" parameterType="map">
-		insert into MR_AUTHORITY (mem_id,team_code)
-		VALUES (#{mem_id},#{team_code})
+		insert into MR_AUTHORITY (mr_no,team_code)
+		VALUES (#{mr_no},#{team_code})
 	</insert>
+	
+	<select id="getTeamInfo" parameterType="map" resultType="map">
+		select team_code,team_name
+		from team
+		where team_code = #{team_code}
+	</select>
+	<delete id="roomTeamDelete" parameterType="map">
+		delete from MR_AUTHORITY
+		where mr_no =#{mr_no}
+		and team_code =#{team_code}
+	</delete>
 </mapper>

@@ -4,12 +4,12 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page import="com.google.gson.Gson" %>
 <%
-	List<Map<String,Object>> teamAuthority =(List<Map<String,Object>>)request.getAttribute("teamAuthority");
-	if(teamAuthority!=null){
+	List<Map<String,Object>> getTemaInfo =(List<Map<String,Object>>)request.getAttribute("getTemaInfo");
+	if(getTemaInfo!=null){
 	Gson gson = new Gson();
 	String json ="";
-	for(int i =0; i<teamAuthority.size();i++){
-		json = gson.toJson(teamAuthority);
+	for(int i =0; i<getTemaInfo.size();i++){
+		json = gson.toJson(getTemaInfo);
 	}
 		out.print(json);
 	
