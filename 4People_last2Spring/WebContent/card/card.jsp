@@ -342,7 +342,7 @@ font-family: 'Candal', sans-serif;
          <%if(partiList!=null){
         	 for(int i=0;i<partiList.size();i++){
         	 %>
-        	 <button id="<%=parti_code.get(i) %>" name="gkgk" draggable="true" ondragstart="drag(event)" style='background-color:#D9D9D9;height:37px;margin-right:3px' onClick="mouse(id)"> <img id="<%=parti_code.get(i) %>" src="../images/<%=p_mem_image.get(i) %>"  alt="Cinque Terre" width="30" height="30" ><%=mem_name.get(i) %></button>
+        	 <button id="<%=parti_code.get(i) %>" name="gkgk" draggable="true" ondragstart="drag(event)" style='background-color:#D9D9D9;height:37px;margin-right:3px' onClick="mouse(id)"> <img id="<%=parti_code.get(i) %>" src="http://localhost:9000/4People_last2Spring/pds/<%=p_mem_image.get(i) %>"  alt="Cinque Terre" width="30" height="30" ><%=mem_name.get(i) %></button>
         	 <%}} %>
            <div id="label_modal3" class="modal" role="dialog" style="position:relative;">
   		<div class="modal-dialogg">
@@ -479,7 +479,7 @@ font-family: 'Candal', sans-serif;
         	 for(int i=0;i<commentsList.size();i++){
            
          %>
-         	<img  width="30px" height="30px"  src="../images/<%=c_mem_image.get(i)%>">
+         	<img  width="30px" height="30px"  src="http://localhost:9000/4People_last2Spring/pds/<%=c_mem_image.get(i)%>">
          		<label><span style='font-size:20px; font_weight:bold; margin:5px;'><%=c_mem_name.get(i) %></span><span style='font-size:8px;'><%=comm_time.get(i) %></span>
          		<%if(mem_id.equals(comm_maker.get(i))){ %>
          		<a id="<%=comm_no.get(i) %>" style="margin-left:130px;" href="#" onClick="commDEL(id)"><img src="../images/close-cross.png" style="width:8px;hieght:8px"></a>

@@ -71,7 +71,7 @@ public class IncludeController{
 		HttpSession session = req.getSession();
 		String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
 		pMap.put("mem_id",mem_id);
-		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "C:\\Users\\ksm05-07\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
 		
 		//첨부파일이 있니?
 		if(mem_img !=null) {
@@ -125,7 +125,7 @@ public class IncludeController{
 			//File이름만 객체로 생성해 줄 뿐 실제 파일안에 들어있는 내용까지 포함하지는 않음.
 			//파일 내용을 처리하는 코드는 따로 처리해야 함.(OutputStream사용)
 			if(!mem_img.isEmpty()) {
-				String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+				String savePath = "C:\\Users\\ksm05-07\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
 				String filename = mem_id+mem_img.getOriginalFilename();
 				session.setAttribute("MEM_IMAGE",filename);
 				pMap.put("mem_image", filename);

@@ -30,7 +30,7 @@ List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttrib
 
 <%if(partiList!=null){
      	 %> 
-     	 <button id="<%=parti_code.get(0) %>" name="gkgk" draggable="true" ondragstart="drag(event)" style='background-color:#D9D9D9;height:37px;margin-right:3px' onClick="mouse(id)"> <img id="<%=parti_code.get(0) %>" src="../images/<%=p_mem_image.get(0) %>"  alt="Cinque Terre" width="30" height="30" ><%=mem_name.get(0) %></button>
+     	 <button id="<%=parti_code.get(0) %>" name="gkgk" draggable="true" ondragstart="drag(event)" style='background-color:#D9D9D9;height:37px;margin-right:3px' onClick="mouse(id)"> <img id="<%=parti_code.get(0) %>" src="http://localhost:9000/4People_last2Spring/pds/<%=p_mem_image.get(0) %>"  alt="Cinque Terre" width="30" height="30" ><%=mem_name.get(0) %></button>
 <%--       	 <button id="<%=parti_code.get(0) %>" draggable="true" ondragstart="drag(event)" style='background-color:#FFFFFF;height:33px;margin-right:3px'><img id="<%=parti_code.get(0) %>" src="../images/<%=p_mem_image.get(0) %>"  width="30" height="30" ><%=mem_name.get(0) %></button> --%>
         	 <%} %>
 
