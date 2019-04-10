@@ -24,5 +24,5 @@
 	}
      %>
       <%if(des_content!=null){ %>
-         <span><h5><%=des_content.replace("#","<br>") %></h5></span>
+         <span><h5 style="margin-left:45px;"><%=des_content.replace("#","<br>") %></h5></span>
          <%} %>

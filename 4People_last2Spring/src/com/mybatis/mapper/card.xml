@@ -10,7 +10,9 @@
 	<result property="comm_no" column="comm_no"/>
 	<result property="comm_time" column="comm_time"/>
 	<result property="comm_content" column="comm_content"/>
+	<result property="mem_name" column="mem_name"/>
 	<result property="comm_maker" column="comm_maker"/>
+	<result property="mem_image" column="mem_image"/>
 	</resultMap>
 	<resultMap id="desMap" type="java.util.Map">
 	<result property="des_no" column="des_no"/>
@@ -19,18 +21,23 @@
 	<resultMap id="partiMap" type="java.util.Map">
 	<result property="mem_name" column="mem_name"/>
 	<result property="parti_code" column="parti_code"/>
+	<result property="mem_image" column="mem_image"/>
 	</resultMap>
 	<resultMap id="checkMap" type="java.util.Map">
 	<result property="check_code" column="check_code"/>
 	<result property="check_title" column="check_title"/>
 	</resultMap>
-	<select id="commentIns" parameterType="map" statementType="CALLABLE">
-	{call proc_commentIns(#{comment,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						  ,#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						  ,#{team_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						  ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						  ,#{r_card_code,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
-	</select>
+	<resultMap id="fileMap" type="java.util.Map">
+	<result property="att_no" column="att_no"/>
+	<result property="att_name" column="att_name"/>
+	<result property="att_date" column="att_date"/>
+	</resultMap>
+	<resultMap id="checklistMap" type="java.util.Map">
+	<result property="check_con_code" column="check_con_code"/>
+	<result property="check_con_name" column="check_con_name"/>
+	<result property="check_con_confirm" column="check_con_confirm"/>
+	</resultMap>
+	
 	<select id="labelIns" parameterType="map" statementType="CALLABLE">
 	{call proc_label_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 						  ,#{label_color,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -66,11 +73,15 @@
 	
 	<select id="cardSEL" parameterType="map" statementType="CALLABLE">
 	{call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
 						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
 						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
 						 ,#{partiMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=partiMap}
 						 ,#{checkMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checkMap}
+						 ,#{checklistMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checklistMap}
+						 ,#{fileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=fileMap}
 						  )}
 	</select>
 	<insert id="desIns" parameterType="map">
@@ -85,11 +96,51 @@
 		INSERT INTO checklist(card_code,team_code,check_title,check_maker,check_code) 
 		VALUES(#{card_code},#{team_code},#{check_title},#{check_maker},seq_check_no.nextval)
 	</insert>
+	<insert id="checkListINS" parameterType="map">
+		INSERT INTO check_con_list(check_con_name,check_con_maker,check_code,check_con_no,check_con_code,check_con_confirm) 
+		VALUES(#{check_con_name},#{check_con_maker},#{check_code},0,seq_check_con_code.nextval,0)
+	</insert>
+	<insert id="fileINS" parameterType="map">
+		INSERT INTO attachment(att_no,team_code,card_code,att_name,att_size,att_date,att_maker) 
+		VALUES(seq_att_no.nextval,#{f_team_code},#{card_code},#{ATT_NAME},#{ATT_SIZE},to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{f_maker})
+		
+	</insert>
+	<insert id="commentIns" parameterType="map" statementType="CALLABLE">
+	 INSERT INTO comments(comm_no,comm_time,comm_content,card_code,team_code,comm_maker)
+	        values(seq_comments_no.nextval,to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{comment},#{card_code},#{team_code},#{comm_maker})
+	</insert>
 	<update id="desUPD">
 		update description set des_content = #{des_content}
 		where des_no = #{des_no}
 	</update>
+	<update id="checkListUPD">
+		update check_con_list set check_con_confirm = 1
+		where check_con_code = #{check_con_code}
+	</update>
+	<update id="checkListUPD2">
+		update check_con_list set check_con_confirm = 0
+		where check_con_code = #{check_con_code}
+	</update>
+	<update id="cardDueDateUPD">
+		update card set card_duedate = #{card_duedate}
+		where card_code = #{card_code}
+	</update>
 	<delete id="partiDEL">
 		delete from PARTICIPANT where PARTI_CODE = #{parti_code}
+	</delete>
+	<delete id="checklistDEL">
+		delete from check_con_list where check_con_code = #{check_con_code}
+	</delete>
+	<delete id="checkDEL2">
+		delete from check_con_list where check_code = #{check_code}
+	</delete>
+	<delete id="checkDEL">
+		delete from checklist where check_code = #{check_code}
+	</delete>
+	<delete id="fileDEL">
+		delete from attachment where att_no = #{att_no}
+	</delete>
+	<delete id="commentDEL">
+		delete from comments where comm_no = #{comm_no}
 	</delete>
 </mapper>
