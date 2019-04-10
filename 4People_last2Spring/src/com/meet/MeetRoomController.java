@@ -165,20 +165,30 @@ public class MeetRoomController {
 	public String roomTeamInsert (Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
 		pMap.put("mem_id",mem_id);
+		for(String key:pMap.keySet()) {
+			logger.info("------------------"+pMap.get(key)+"value="+pMap.get(key));
+		}
 		List<Map<String,Object>> roomTeamInsert = mtRoom_logic.roomTeamInsert(pMap);
 		model.addAttribute("roomTeamInsert",roomTeamInsert);
 		return"forward:roomTeamInsertResult.jsp";
 	}
-	@PostMapping("teamAuthority")
+	@PostMapping("teamAuthorityIns")
 	public String teamAuthority(Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
-		pMap.put("mem_id",mem_id);
 		for(String key:pMap.keySet()) {
-			logger.info("------------------"+pMap.get(key));
+			logger.info("key?="+key+"value?="+pMap.get(key));
 		}
-		List<Map<String, Object>> teamAuthority=mtRoom_logic.teamAuthorityIns(pMap,mem_id);
-		model.addAttribute("teamAuthority",teamAuthority);
+		List<Map<String, Object>> getTemaInfo=mtRoom_logic.teamAuthorityIns(pMap);
+		model.addAttribute("getTemaInfo",getTemaInfo);
 		return "forward:teamAuthorityInsResult.jsp";
+	}
+	@PostMapping("teamDelete")
+	public String teamDelete(@RequestParam Map<String,Object> pMap) {
+		mtRoom_logic.teamDelete(pMap);
+		for(String key:pMap.keySet()) {
+			logger.info("key?="+key+"value?="+pMap.get(key));
+		}
+		return "redirect:teamRoomDeleteResult.jsp";
 	}
 
 	

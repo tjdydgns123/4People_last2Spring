@@ -1,5 +1,6 @@
 package com.meet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,6 @@ public class MeetRoomDao {
 
 	public List<Map<String, Object>> teamAuthority(Map<String, Object> pMap) {
 		logger.info("teamAuthority Dao호출");
-		String resource = "com/mybatis/Configuration.xml";
 		List<Map<String, Object>> teamAuthorityList = sqlSessionTemplate.selectList("teamAuthorityList",pMap);
 		return teamAuthorityList;
 	}
@@ -63,13 +63,27 @@ public class MeetRoomDao {
 		return roomTeamInsert;
 	}
 
-	public void teamAuthorityIns(Map<String, Object> pMap, String mem_id) {
+	public List<Map<String,Object>> teamAuthorityIns(Map<String, Object> pMap) {
+		String mr_no = (String)pMap.get("mr_no");
+		pMap.remove("mr_no");
+		List<Map<String,Object>> getTeamInfo = new ArrayList<Map<String,Object>>();
+		List<Map<String,Object>> resultList = null;
 		for(String key:pMap.keySet()) {
 			Map<String,Object> tMap = new HashMap<String, Object>();
-			tMap.put("mem_id",mem_id);
+			tMap.put("mr_no",mr_no);
 			tMap.put("team_code",key);
+			Map<String,Object> rMap = null;
+			resultList=sqlSessionTemplate.selectList("getTeamInfo",tMap);
+			rMap = resultList.get(0);
+			getTeamInfo.add(rMap);
 			sqlSessionTemplate.insert("teamAuthorityIns",tMap);
 		}
+		return getTeamInfo;
+		
+	}
+
+	public void teamDelete(Map<String, Object> pMap) {
+		sqlSessionTemplate.delete("roomTeamDelete",pMap);
 		
 	}
 

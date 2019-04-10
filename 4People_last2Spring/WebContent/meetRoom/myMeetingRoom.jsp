@@ -99,20 +99,20 @@
 
 			//x버튼 눌럿을떄
 				
-	$('.teamDelete').click(function(){
-				$(this).parent().remove();
-		});
+// 	$('.teamDelete').click(function(){
+// 				$(this).parent().remove();
+// 		});
 
 	//로드시 화면호출
-	set_mr_no()
+	set_mr_no();
 	
-	$(function(){
-		 $("#btn_submit").click(function(){
-		    $.post("경로", $(".sform").serialzie(), function(data){
+// 	$(function(){
+// 		 $("#btn_submit").click(function(){
+// 		    $.post("경로", $(".sform").serialzie(), function(data){
 
-		   });
-		 });
-		});
+// 		   });
+// 		 });
+// 		});
 			});
 		function handleImgFileSelect(e){
 			var files = e.target.files;
@@ -132,7 +132,6 @@
 					});
 			}
 		function teamInsert(){
-			alert (mr_no);
 			var param = 'mr_no='+mr_no
 					
 			$.ajax({
@@ -171,11 +170,31 @@
 		$('#f_roomUpd').attr('onsubmit','return true');
 		$('#f_roomUpd').submit();
 		}	
+
+	function teamDelete(id){
+		var team_code = id;
+		$('#team_code'+id).remove();
+		var param = "team_code="+team_code+"&mr_no="+mr_no;
+		
+		$.ajax({
+					type:"POST"
+				   ,url:"./teamDelete"
+				   ,data:param
+				   ,dataType:"html"
+				   ,success:function(data){
+					   
+					    alert('삭제되었습니다');
+					   }
+		   			,error:function(){
+							alert('실패');
+			   			}
+			});
+		}
 	function insertTeamRoom(){
 		
 		$.ajax({
 		    type:"POST"
-	               ,url:"./teamAuthority"
+	               ,url:"./teamAuthorityIns"
 	               ,processData: false
 	                ,data: formData
 	               , contentType: false
@@ -184,10 +203,12 @@
 	            	   $.each(data , function( key, val){
 		            	   var team_code = val.TEAM_CODE;
 		            	   var team_name = val.TEAM_NAME;
-		            	   var append ="<button id='team_code'"+team_code+"class='btn btn-default btn-lg'>"+team_name+"&nbsp;&nbsp;<a id="+team_code"+ class='teamDelete' href='javascript:void(0)'><img src='../images/buttonClose.png' width='15%' height='10px'></a></button>";
-							$('#teamButton').append(append);
+		            	   var append ="<button id='team_code"+team_code+"' class='btn btn-default btn-lg'>"
+		            	   				+team_name+"&nbsp;&nbsp;"
+		            	   				+"<a id='"+team_code+"'onclick='teamDelete(id)' href='javascript:void(0)'>"
+		            	   				+"<img src='../images/buttonClose.png' width='15%' height='10px'></a></button>";
+       	   					$('#teamButton').append(append);
 						 });
-	            	   
 	               }
 			});
 			$('#checkData').attr('method','POST');

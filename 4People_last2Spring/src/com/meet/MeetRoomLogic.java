@@ -37,14 +37,14 @@ public class MeetRoomLogic {
 		List<Map<String, Object>> roomTeamInsert = mtRoom_dao.roomTeamInsert(pMap);
 		return roomTeamInsert;
 	}
-	public List<Map<String, Object>> teamAuthorityIns(Map<String, Object> pMap, String mem_id) {
-		 mtRoom_dao.teamAuthorityIns(pMap,mem_id);
-		 Map<String,Object> tMap = new HashMap<String, Object>();
-		 tMap.put("mem_id",mem_id);
-		 tMap.put("mr_no",pMap.get("mr_no"));
-		 List<Map<String, Object>> teamAuthority =mtRoom_dao.teamAuthority(tMap);
+	public List<Map<String, Object>> teamAuthorityIns(Map<String, Object> pMap) {
+		List<Map<String, Object>> getTeamInfo= mtRoom_dao.teamAuthorityIns(pMap);
 		
-		 return teamAuthority;
+		 return getTeamInfo;
+	}
+	public void teamDelete(Map<String, Object> pMap) {
+		mtRoom_dao.teamDelete(pMap);
+		
 	}
 	
 	
