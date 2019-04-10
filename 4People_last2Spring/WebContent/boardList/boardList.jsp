@@ -113,7 +113,8 @@ var label_code='';
 var card_code=''; 
 var team_code = '<%=t_team_code%>';
 var des_code = '';
-var parti_code='';
+var parti_code ='';
+var check_code = '';
 
 function mo_close(){
 	$('#label_modal2').modal('hide');
@@ -131,12 +132,124 @@ function label_codee(id){
 	label_code= id;
 	
 }
+
+
+/* 첨부파일 */
+	function akakl(e){
+		e.preventDefault();
+		
+		$('#fname').click();
+
+
+
+		}
+
+	function fileINS(){
+// 		  var form = $('#fileBoxform')[0];
+// 		  var formData = new FormData(form);
+		var uploadFile = $('.fileBox .uploadBtn');
+		uploadFile.on('change', function(){
+			if(window.FileReader){
+				var filename = $(this)[0].files[0].name;
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
+			}
+			$(this).siblings('.fileName').val(filename);
+			 $(this).siblings('.upload-name').val(filename);
+			 var formData = new FormData();
+ 		formData.append("fname", $("input[name=fname]")[0].files[0]);
+ 		formData.append("card_code", card_code);
+ 		formData.append("f_team_code", team_code);
+ 		formData.append("f_maker", "<%=mem_id%>");
+ 		
+//  		$('#f_card_code').attr('value',card_code);
+// 		$('#f_team_code').attr('value',team_code);
+<%-- 		$('#f_maker').attr('value',"<%=mem_id%>"); --%>
+			 $.ajax({
+					type:"POST"
+				   ,url:"../card/fileINS"
+				   ,data:formData
+					,processData: false
+					, contentType: false
+				   ,success:function(result){
+//						   $("#membergood").html(result);
+					   $("#card_c_file").append(result);
+// 					   parent.opener.location.reload();
+// 					   window.open('', '_self', '').close();
+					   
+				   }
+				  ,error:function(request,status,error){
+					  
+						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				  }
+				});
+
+			   $("#fname").val("");
+
+// 			   $("#fileBoxform").attr("method","post");
+// 	           $("#fileBoxform").attr("action","../card/fileINS");
+// 	           window.open('about:blank','hoho','width=400,height=300');
+// 	           $("#fileBoxform").submit();
+// 	           $('#cardmodal').modal('show');
+			
+	       	           
+		});
+
+		
+		}
+	function filedown(p_fname){
+		location.href="../card/downLoad.jsp?fname="+p_fname;
+		}
+	 function file_del(id){
+		$('#'+id+'').remove();
+		var param = "att_no="+id;
+		$.ajax({
+			type:"POST"
+		   ,url:"../card/fileDEL"
+		   ,data:param
+		   ,dataType:"html"
+		   ,success:function(result){
+			   
+		   }
+		  ,error:function(request,status,error){
+//				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		  }
+		});
+		 }
+/* 첨부파일 */
+
+/* 기한설정 */
+	function gihan(e){ 
+  $("#datepicker").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true
+  });
+//   .datepicker('update', new Date());
+$('#gihanz').on('change',function () {
+ alert($('#gihanz').val());
+ var card_duedate = $('#gihanz').val();
+ var param = "card_duedate="+card_duedate+"&card_code="+card_code; 
+	$.ajax({
+		type:"POST"
+	   ,url:"../card/cardDueDateUPD"
+	   ,data:param
+	   ,dataType:"html"
+	   ,success:function(result){
+		   $('#myModalLabel').empty();
+		   $('#myModalLabel').append(result);
+	   }
+	});
+
+//  $('#gihanz').val("");
+e.preventDefault();
+
+});
+}
+/* 기한설정 */
+
 /* 체크리스트 */
-var length ='';
-var llength ='';
-var lllength ='';
-var Mllength ='';
-var count = 0;
+
+// var count = 0;
 function checkAdd(){
 	var check_text = $('#check_text').val();
 	alert(check_text);
@@ -157,64 +270,74 @@ function checkAdd(){
 	});
 	
 }
-function hihi(check,id){
-// 	 if($('#'+id+'').is(".checked")==true){
-// 		count +=1;
-// 		 }
-	 alert("tt: "+$('#check_list').children(check.checked).length);
-	 length = $('#check_list').children('.checkbox').length;
-	
-	 llength = 100/length;
-	 lllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))+llength);
-	 Mllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))-llength);
-	alert(	parseFloat($("#barbar").attr("aria-valuenow"))+50);
-	if ( check.checked == true )
-	{
-	alert("선택");
-	count += 1;
-	 alert(count);
-	 if(count!=length){
-	$('#barbar').attr({
-		"aria-valuenow" : lllength ,
-		"style" : "width:"+lllength+"%"
-		});
-	$('#barbar').empty();
-	$('#barbar').append(lllength+"%");
-	}
-	 else{
-		 var lilength = Math.round(parseFloat($("#barbar").attr("aria-valuenow")));
-		 var halength = 100-lilength;
-	$('#barbar').attr({
-		"aria-valuenow" : 100 ,
-		"style" : "width:"+100+"%"
-		});
-	$('#barbar').empty();
-	$('#barbar').append(100+"%");
-		 }
-	 }
-	else{
-	alert("해제");
-	count -=1;
-	 alert(count);
-	 if(count!=0){
-	$('#barbar').attr({
-		"aria-valuenow" : Mllength,
-		"style" : "width:"+Mllength+"%"
-		});
-	$('#barbar').empty();
-	$('#barbar').append(Mllength+"%");
-		 }
-	 else{
-	$('#barbar').attr({
-		"aria-valuenow" : 0,
-		"style" : "width:"+0+"%"
-		});
-	$('#barbar').empty();
-	$('#barbar').append(0+"%");
-
-		 }
-		}
+function checklistadd(id){
+	check_code = id;
+	var $div = "<div id='cklist_title'><input type='text' id='ckli_text'><button onClick='cklistINS()'>생성</button></div>"
+	$("#check_list").after($div);
 }
+function cklistINS(){
+	var text = $('#ckli_text').val();
+	alert(text);
+	$('#cklist_title').empty();
+	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code;
+	$.ajax({
+		type:"POST"
+	   ,url:"../card/checklistINS"
+	   ,data:param
+	   ,dataType:"html"
+	   ,success:function(result){
+//			   $("#membergood").html(result);
+		$("#check_list").empty();
+// 		 alert(result);
+		   $("#check_list").append(result);
+		   
+	   }
+	  ,error:function(request,status,error){
+		  alert("에러");
+//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+	  }
+	});
+	
+}
+
+ function checkDEL(id){
+	$("#check_list").remove();
+
+	var param = "check_code="+id;
+	$.ajax({
+		type:"POST"
+	   ,url:"../card/checkDEL"
+	   ,data:param
+	   ,dataType:"html"
+	   ,success:function(result){
+		   
+	   }
+	  ,error:function(request,status,error){
+//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+	  }
+	});
+	 }
+ function ck_con_del(id){
+// 	 $('#'+id+'').remove();
+	 var param = "card_code="+card_code+"&check_con_code="+id;
+		$.ajax({
+			type:"POST"
+		   ,url:"../card/checklistDEL"
+		   ,data:param
+		   ,dataType:"html"
+		   ,success:function(result){
+//				   $("#membergood").html(result);
+			$("#check_list").empty();
+			   $("#check_list").append(result);
+			   
+		   }
+		  ,error:function(request,status,error){
+			  alert("에러");
+//				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		  }
+		});
+	 }
+
 /* 체크리스트 */
  function mouse(id){
 
@@ -227,7 +350,7 @@ $('#'+id+'').on('mousedown', function() {
 	 }
  function drag(event) {
 	   event.dataTransfer.setData("Text", event.target.id);
-	   event.target.style.color = 'green';
+// 	   event.target.style.color = 'green';
 	}
 function allowDrop(event) {  
 	    event.preventDefault();
@@ -235,8 +358,12 @@ function allowDrop(event) {
 function drop(event) {
 	    event.preventDefault();
 	    parti_code = event.dataTransfer.getData("text");
-// 		alert("event: "+event.dataTransfer.getData("text"));
+	    alert(parti_code);
+// 	    alert($('parti_code').attr('name'));
 // 		alert("parit_code: "+parti_code);
+// 		alert("event: "+event.dataTransfer.getData("text"));
+
+
 		$('#'+parti_code+'').remove();
 		var param ="parti_code="+parti_code;
 
@@ -245,10 +372,6 @@ function drop(event) {
 		   ,url:"../card/partiDEL"
 		   ,data:param
 		   ,dataType:"html"
-		   ,success:function(result){
-			   
-			   
-		   }
 		});
 	}
 // 		$(document).ready( function (){
@@ -313,49 +436,17 @@ function drop(event) {
  
  	function label_del(){
  		var param = "label_code="+label_code;
+			   $('#'+label_code+'').remove();
 		$.ajax({
 			type:"POST"
-		   ,url:"../card/labelDEL?"
+		   ,url:"../card/labelDEL"
 		   ,data:param
 		   ,dataType:"html"
 		   ,success:function(data){
-			   $('#'+label_code+'').remove();
-			   $('#cardmodal').modal('show');
+// 			   $('#cardmodal').modal('show');
 		   }
 		  ,error:function(jqXHR, exception){
-			  if (jqXHR.status === 0) {
-		            alert('Not connect.\n Verify Network.');
-		        }
-		        else if (jqXHR.status == 400) {
-		            alert('Server understood the request, but request content was invalid. [400]');
-		        }
-		        else if (jqXHR.status == 401) {
-		            alert('Unauthorized access. [401]');
-		        }
-		        else if (jqXHR.status == 403) {
-		            alert('Forbidden resource can not be accessed. [403]');
-		        }
-		        else if (jqXHR.status == 404) {
-		            alert('Requested page not found. [404]');
-		        }
-		        else if (jqXHR.status == 500) {
-		            alert('Internal server error. [500]');
-		        }
-		        else if (jqXHR.status == 503) {
-		            alert('Service unavailable. [503]');
-		        }
-		        else if (exception === 'parsererror') {
-		            alert('Requested JSON parse failed. [Failed]');
-		        }
-		        else if (exception === 'timeout') {
-		            alert('Time out error. [Timeout]');
-		        }
-		        else if (exception === 'abort') {
-		            alert('Ajax request aborted. [Aborted]');
-		        }
-		        else {
-		            alert('Uncaught Error.n' + jqXHR.responseText);
-		        }
+			
 
 
 		  }
@@ -382,44 +473,21 @@ function drop(event) {
 						   }
 						   });
  	}
+ 	/*   코멘트   */
 		function comment(){
 			var comment = $('#input_comment').val();
-			alert(comment);
-			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code;
+// 			alert(comment);
+			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code+"&comm_maker=<%=mem_id%>";
 			$.ajax({
 				type:"POST"
-			   ,url:"../card/card.for?crud=commentIns"
+			   ,url:"../card/commentIns"
 			   ,data:param
-			   ,dataType:"json"
-			   ,success:function(data){
-				   var comment_code =data;
-				   
-				   var today = new Date();
-				   var dd = today.getDate();
-				   var mm = today.getMonth()+1; //January is 0!
-				   var yyyy = today.getFullYear();
-				   var sigan = today.getHours()+":"+today.getMinutes();
-				   var week = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일','일요일');
-				   var day = week[today.getDay()];
-				   if(dd<10) {
-				       dd='0'+dd
-				   } 
-
-				   if(mm<10) {
-				       mm='0'+mm
-				   } 
-				   today = yyyy+'-'+mm+'-'+dd;
-				   
-				   var mem_name ='<%=session.getAttribute("MEM_NAME")%>'
-				   alert(mem_name);
-				   var append = "<div class='es_comment' style='background-color: #D9D9D9;'>"
-				   				+"<img  width='30px' height='30px'  src='../images/comment.png'>"
-				   				+"<label><span style='font-size:20px; color:#4374D9; font_weight:bold; margin:5px;'>"+mem_name+"</span><span style='font-size:8px;'>"+today+"&nbsp;&nbsp;"+day+" &nbsp;&nbsp;"+sigan+"</span></label>"
-				   				+"<a href='javascript:commentDeletModal()' style='margin-left:300px;'> <img  width='15px' height='15px'  src='../images/commentDelete.png'></a>"
-				   				+"<div class='es_contant' style='padding-left:40px;'><span>"+comment+"</span></div></div></div>"
-					
-				   	$('#coment').append(append);			
-				   	$('#input_comment').val("");
+			   ,dataType:"text"
+			   ,success:function(result){
+				   alert(result);
+				  	$('#comments').empty();
+				  	$('#input_comment').val("");
+				   	$('#comments').append(result);			
 				   
 			   }
 			  ,error:function(jqXHR, exception){
@@ -461,7 +529,24 @@ function drop(event) {
 			  }
 	});
 		}
- 
+
+	function commDEL(id){
+		var param = "comm_no="+id+"&card_code="+card_code;
+		$.ajax({
+			type:"POST"
+		   ,url:"../card/commentDEL"
+		   ,data:param
+		   ,dataType:"text"
+		   ,success:function(result){
+// 			   alert(result);
+			  	$('#comments').empty();
+			  	$('#input_comment').val("");
+			   	$('#comments').append(result);			
+			   
+		   }
+		});
+	}
+ 	/*   코멘트   */
 	function cardAdd(id){
 // 		alert(id);
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
@@ -518,6 +603,7 @@ function drop(event) {
 		var param = "card_code="+id;
 		//은수
 		card_code =id;  
+		alert(card_code);
 		//은수
 			$('#cardmodal').empty();
 			$.ajax({
