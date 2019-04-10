@@ -32,5 +32,38 @@ public class IncludeDao {
 		logger.info("result=="+result);
 		return result;
 	}
+	public List<Map<String, Object>> profile(String mem_id) {
+		logger.info("IncludeDao호출");
+		List<Map<String,Object>> profileList = new ArrayList<Map<String,Object>>();
+		profileList=sqlSessionTemplate.selectList("profile",mem_id);
+		
+		return profileList;
+	}
+	public int passwordOk(Map<String, Object> pMap) {
+		int result = 0;
+		String mem_id=sqlSessionTemplate.selectOne("passwordOk",pMap);
+		if(mem_id!=null&&mem_id.length()>0) {
+			result = 1;
+		}
+		else {
+			result = 0;
+		}
+		return result;
+	}
+	public void newPasswordUpd(Map<String, Object> pMap) {
+		logger.info("IncludeDao호출");
+			sqlSessionTemplate.update("newPasswordUpd",pMap);
+
+	}
+	public void profileUpd(Map<String, Object> pMap) {
+		logger.info("IncludeDao호출");
+		sqlSessionTemplate.update("profileUpd",pMap);
+		
+	}
+	public void memberDelete(String mem_id) {
+		logger.info("IncludeDao호출");
+		sqlSessionTemplate.delete("memberDelete",mem_id);
+		
+	}
 
 }

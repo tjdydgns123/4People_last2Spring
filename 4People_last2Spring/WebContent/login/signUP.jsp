@@ -39,7 +39,7 @@
         		}
         		else{
         			document.getElementById('check').innerHTML = '';
-        			document.getElementById('check').style.color='red';
+        			document.getElementById('check').style.color='blue';
         			result=1;
         		}
         		if(pass!=pass_check){

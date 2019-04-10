@@ -14,19 +14,64 @@
 		)}
 	
 	</select> -->
-	<select id="meetRoomList" parameterType="com.vo.MeetRoomVO" resultType="map" >
-		SELECT mr_no,mr_image,mr_name,mr_loc,mr_master,mr_capacity, mr_starttime,mr_endtime,mr_facility,mr_memo
-		 FROM meeting_room
-	</select>
+<!-- 	<select id="meetRoomList" parameterType="com.vo.MeetRoomVO" resultType="map" > -->
+<!-- 		SELECT mr_no,mr_image,mr_name,mr_loc,mr_master,mr_capacity, mr_starttime,mr_endtime,mr_facility,mr_memo -->
+<!-- 		 FROM meeting_room -->
+<!-- 	</select> -->
 	
 	<insert id="meetRoomIns" parameterType="map">
 	INSERT INTO MEETING_ROOM(mr_no,mr_image,mr_name,mr_loc
 							,mr_master,mr_capacity,mr_starttime,mr_endtime
-							,mr_facility,mr_memo,mr_deaileloc) 
-        		VALUES(seq_mr_no.nextval,'이미지',#{mr_name},#{mr_loc}
+							,mr_facility,mr_memo,mr_detaileloc) 
+        		VALUES(seq_mr_no.nextval,#{mr_image},#{mr_name},#{mr_loc}
        				 ,#{mr_master},#{mr_capacity},#{mr_starttime},#{mr_endtime}
-       				 ,#{mr_facility},#{mr_memo},#{mr_deaileloc})
+       				 ,#{mr_facility},#{mr_memo},#{mr_detaileloc})
 	</insert>
 
-
+	<select id="myMeetingRoomNames" parameterType="java.lang.String" resultType="map">
+		select mr_no,mr_name
+		from meeting_room
+		where mr_master = #{mem_id}
+		order by mr_no asc
+	</select>
+	<select id="teamAuthorityList" parameterType="map" resultType="map">
+		select team_name,team_code
+        from team
+        where team_code in(select team_code
+        from team_member
+        where team_code in(select team_code from mr_authority where mr_no =#{mr_no})
+        and mem_id =#{mem_id})
+	</select>
+	
+	<select id="meetingRoomInfo" parameterType="map" resultType="map">
+	select mr_no,mr_loc,mr_capacity,mr_name,mr_startTime,mr_endTime,mr_facility,mr_image,mr_detaileloc
+		from meeting_room
+		where mr_no  = #{mr_no}
+	</select>
+	<update id="roomUpd" parameterType="map">
+	<if test="mr_image!=null">
+		update meeting_room set mr_detaileloc=#{mr_detaileloc},mr_loc=#{mr_loc},mr_starttime=#{mr_starttime},mr_facility=#{mr_facility},mr_name=#{mr_name},mr_memo=#{mr_memo}
+		,mr_master=#{mr_master},mr_capacity=#{mr_capacity},mr_endtime=#{mr_endtime},mr_image=#{mr_image}
+		where mr_no = #{mr_no}
+	</if>
+	<if test="mr_image==null">
+	update meeting_room set mr_detaileloc=#{mr_detaileloc},mr_loc=#{mr_loc},mr_starttime=#{mr_starttime},mr_facility=#{mr_facility},mr_name=#{mr_name},mr_memo=#{mr_memo}
+		,mr_master=#{mr_master},mr_capacity=#{mr_capacity},mr_endtime=#{mr_endtime}
+		where mr_no = #{mr_no}
+	</if>
+	</update>
+	
+	<select id="roomTeamInsert" parameterType="map" resultType="map">
+		select team_code,team_name
+        from team
+        where team_code in ( select team_code
+        from team_member
+        where team_code not in(select team_code from mr_authority where mr_no = #{mr_no})
+        and mem_id = #{mem_id})
+	</select>
+	
+	<insert id="teamAuthorityIns" parameterType="map">
+		insert into MR_AUTHORITY (mem_id,team_code)
+		VALUES (#{mem_id},#{team_code})
+	</insert>
 </mapper>

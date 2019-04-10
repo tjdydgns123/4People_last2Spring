@@ -109,7 +109,7 @@ function danger(){
       </div>
       <!-- Footer -->
       <div class="modal-footer" id="create">
-		 <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/>
+		    <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/>
             <input type="button" style="float:left" class="btn btn-primary" onClick="primary()"/>
             <input type="button" style="float:left" class="btn btn-success" onClick="success()"/>
             <input type="button" style="float:left" class="btn btn-info" onClick="info()"/>

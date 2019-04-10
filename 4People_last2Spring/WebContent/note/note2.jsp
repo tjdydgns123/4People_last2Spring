@@ -188,7 +188,6 @@ var color ="#FAED7D";
 var mem_id = "<%=mem_id%>";
 var note_id  = "";
 
-
 $(document).ready(function () {
 	var send_contents ="";
 	var receive_id ="";
@@ -389,12 +388,11 @@ $(document).ready(function () {
 	    var node =$(this).children('.check');
 	    var check= "<span class='glyphicon glyphicon-ok'></span>";
 	    $('#'+note_id).append(check);
-	    
 	});
 	//우편함 등록버튼눌럿을시
 	$('#insertMessage').click(function() {
 		$('#checkDatas').attr("method","POST");
-		$('#checkDatas').attr("action","./note.for?command=insertMessage");
+		$('#checkDatas').attr("action","./insertMessage");
 		$('#checkDatas').submit();
 		
 		
@@ -454,7 +452,6 @@ $(document).ready(function () {
 										+"<path d='M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z' style='stroke: white;fill:white;'></path>"
 						    			+"</svg><label></label></div></div> </div> </div></div>";
 						    $('#messageModalBody2').append(tag);	
-						    alert(name+content+mb_code);
 						 });
 					 //우편함 메모를 클릭햇을때
 						$('.min').click(function() {
