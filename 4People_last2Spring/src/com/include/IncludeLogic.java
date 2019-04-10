@@ -23,6 +23,31 @@ public class IncludeLogic {
 		int result = i_Dao.messageCount(mem_id);
 		return result;
 	}
+	public List<Map<String, Object>> profile(String mem_id) {
+		logger.info("IncludeLogic호출");
+		List<Map<String, Object>> profileList = i_Dao.profile(mem_id);
+		return profileList;
+	}
+	public int passwordOk(Map<String, Object> pMap) {
+		logger.info("IncludeLogic호출");
+		int result = i_Dao.passwordOk(pMap);
+		return result;
+	}
+	public void newPasswordUpd(Map<String, Object> pMap) {
+		logger.info("IncludeLogic호출");
+		i_Dao.newPasswordUpd(pMap);
+		
+	}
+	public void profileUpd(Map<String, Object> pMap) {
+		logger.info("IncludeLogic호출");
+		i_Dao.profileUpd(pMap);
+		
+	}
+	public void memberDelete(String mem_id) {
+		logger.info("IncludeLogic호출");
+		i_Dao.memberDelete(mem_id);
+		
+	}
 
 }
 

@@ -51,6 +51,6 @@
 <jsp:include page="../team/teamBoard.jsp" flush="false">
 		<jsp:param value="" name="top" />
 	</jsp:include>
-<div id="loading"><img id="loading-image" src="../images/loading.gif" alt="Loading..." /></div>
+<div id="loading"><img id="loading-image" src="../images/loading2.gif" alt="Loading..." /></div>
 </body>
 </html>

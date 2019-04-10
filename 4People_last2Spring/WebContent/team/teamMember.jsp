@@ -64,7 +64,6 @@ String pm = null;
 				   ,dataType:"html"
 				   ,success:function(result){
 					   $("#d_table").html(result);
-					   
 				   }
 				  ,error:function(){
 					  $("#d_table").text(e.responseText);

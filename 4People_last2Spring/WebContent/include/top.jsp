@@ -5,12 +5,16 @@
  String dept = (String)session.getAttribute("MEM_COMPANYNAME");
  String position = (String)session.getAttribute("MEM_POSITION");
  String id = (String)session.getAttribute("MEM_ID");
+ String image = (String)session.getAttribute("MEM_IMAGE");
+ String imagePath ="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png";
+ if(image!=null){
+	 imagePath="http://localhost:9000/4People_last2Spring/pds/"+image;
+ }
  
 %>   
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <link href="../csss/es_radio.css" rel="stylesheet">
  <%@ include file="../common/common.jsp" %>
@@ -400,7 +404,6 @@ $(function() {
   <div class='col-sm-12'>
 <nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" id='nav_top'>
   <div class="container-fluid">
-  
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
         <span class="sr-only">Toggle navigation</span>
@@ -441,13 +444,12 @@ $(function() {
       <!--  -->
       <li class="dropdown" style='height:55px;margin-bottom:5px;'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id='memberInfo'>
-              <img src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png"  alt="Cinque Terre" width="35" height="35" >
+              <img src=<%=imagePath %>  alt="Cinque Terre" width="35" height="35" >
               <b class="caret"></b></a>
               <ul class="dropdown-menu">
               
-                <li ><a href="#" style='background-color:white;'>프로필</a></li>
+                <li ><a href="../include/profile.jsp" style='background-color:white;'>프로필</a></li>
                 <li><a href="../note/myBoard" style='background-color:white;'>쪽지함</a></li>
-                <li><a href="#" style='background-color:white;'>설정</a></li>
                 <li class="divider"></li>
                 <li><a href="../login/logout" style='background-color:white;'>로그아웃</a></li>
               </ul>
