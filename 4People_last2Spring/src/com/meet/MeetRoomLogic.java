@@ -46,6 +46,23 @@ public class MeetRoomLogic {
 		mtRoom_dao.teamDelete(pMap);
 		
 	}
+	public List<Map<String, Object>> roomSearch(Map<String, Object> pMap, String searchDate) {
+		List<Map<String, Object>> roomSearch = mtRoom_dao.roomSearch(pMap,searchDate);
+		return roomSearch;
+	}
+	public List<Map<String, Object>> availableTeams(Map<String, Object> pMap) {
+		List<Map<String, Object>> availableTeams = mtRoom_dao.availableTeams(pMap);
+		return availableTeams;
+	}
+	public void reservationOk(Map<String, Object> pMap) {
+		mtRoom_dao.reservationOk(pMap);
+		
+	}
+	public List<Map<String, Object>> myReserVation(String mem_id) {
+		List<Map<String, Object>> myReserVationList = mtRoom_dao.myReserVation(mem_id);
+		
+		return myReserVationList;
+	}
 	
 	
 //	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) {

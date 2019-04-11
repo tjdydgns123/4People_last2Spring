@@ -90,6 +90,11 @@ public class WebSocketInclude {
 				System.out.println("before"+users.size());
 			}
 		}
+//		for(String key:users.keySet()) {
+//			if(key.equals(this.id)) {
+//				users.remove(key);
+//			}
+//		}
 //		users.remove(this.session);
 		System.out.println("closed!");
 	}

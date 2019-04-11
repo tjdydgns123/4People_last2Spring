@@ -86,6 +86,37 @@ public class MeetRoomDao {
 		sqlSessionTemplate.delete("roomTeamDelete",pMap);
 		
 	}
+	
+	public List<Map<String, Object>> roomSearch(Map<String, Object> pMap, String searchDate) {
+		List<Map<String, Object>> roomSearch = sqlSessionTemplate.selectList("roomSearch",pMap);
+		for(int i=0;i<roomSearch.size();i++) {
+			String mr_no = (String)roomSearch.get(i).get("MR_NO");
+			Map<String,Object> tMap = new HashMap<String, Object>();
+			tMap.put("mr_no",mr_no);
+			tMap.put("re_hopedate",searchDate);
+			List<Map<String, Object>> timeResult = sqlSessionTemplate.selectList("timeResult",tMap);
+			roomSearch.get(i).put("timeResult",timeResult);
+		}
+		logger.info("+++++++++++++"+roomSearch.toString());
+		
+		return roomSearch;
+	}
+
+	public List<Map<String, Object>> availableTeams(Map<String, Object> pMap) {
+		List<Map<String, Object>> availableTeams = sqlSessionTemplate.selectList("availableTeams",pMap);
+		return availableTeams;
+	}
+
+	public void reservationOk(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("reservationOk",pMap);
+		
+	}
+
+	public List<Map<String, Object>> myReserVation(String mem_id) {
+		List<Map<String, Object>> myReserVationList = sqlSessionTemplate.selectList("myReserVation",mem_id);
+		
+		return myReserVationList;
+	}
 
 
 
