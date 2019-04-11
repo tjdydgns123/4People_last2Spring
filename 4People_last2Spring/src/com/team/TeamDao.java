@@ -49,6 +49,18 @@ public class TeamDao {
 		
 		return memberList;
 	}
+	public List<Map<String, Object>> getMember3(Map<String, Object> pMap) {
+		List<Map<String,Object>> memberList = null;
+		try {
+			memberList = sqlSessionTemplate.selectList("getMember3",pMap);
+			Map<String,Object> rMap = sqlSessionTemplate.selectOne("teamInfo",pMap);
+			memberList.add(rMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return memberList;
+	}
 	//초대를 위해 검색햇을떄.
 	public Map<String,Object> getInvite(Map<String, Object> pMap) {
 		logger.info("TeamDao호출");

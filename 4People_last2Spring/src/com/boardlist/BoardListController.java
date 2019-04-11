@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,6 +47,12 @@ public class BoardListController  {
 		return "forward:./boardList.jsp";
 		
 	}
+		@PostMapping("team_memberINS")
+		String BoadrListteam_memberINS(Model model, @RequestParam Map<String,Object> pMap) {
+			List<Map<String,Object>>b_boardList =Bdlist_logic.team_memberINS(pMap);
+			model.addAttribute("b_boardList", b_boardList);
+			return "forward:./team_memberINSResult.jsp";
+		}
 	
 
 }

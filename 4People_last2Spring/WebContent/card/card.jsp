@@ -296,7 +296,7 @@ font-family: 'Candal', sans-serif;
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title-jm" id="myModalLabel" style="text-aling:center"><%if(card_duedate!=null){out.print(card_duedate+"  -  ");}  %>  <%=card_name %></h4>
       </div>
-      <div class="modal-body" style="width:100%; height:100%; background-color:#D9D9D9;">
+      <div class="modal-body" id="ccmmdy" style="width:100%; height:100%; background-color:#D9D9D9;">
         <div  class="col-sm-10">
         <!-- 라벨 div -->
          <div id="card_label" style="margin-left:20px; margin-bottom:30px;">
@@ -309,14 +309,16 @@ font-family: 'Candal', sans-serif;
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color:#FAE0D4">
         <button type="button" class="close" onClick="mo_close()">&times;</button>
-        <h4 class="modal-title">수정 or 삭제</h4>
+        <h4 class="modal-title"><img src="../images/price-tagg.png"></h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="background-color:#FAE0D4">
+      	<label>Title</label><br>
         <input type="text" id="label_text2">
         <Br>
         <br>
+        <label>Select Color</label>
       <input type="button" class="btn btn-default btn-block" onClick="defaultt()">
       <input type="button" class="btn btn-success btn-block" onClick="success()">
       <input type="button" class="btn btn-info btn-block" onClick="info()">
@@ -324,7 +326,7 @@ font-family: 'Candal', sans-serif;
       <input type="button" class="btn btn-warning btn-block" onClick="warning()">
       <input type="button" class="btn btn-danger btn-block" onClick="danger()">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="background-color:#FAE0D4">
         <button type="button" class="btn btn-info"  onClick="label_Upd()">수정</button>
         <button type="button" class="btn btn-danger" onClick="label_del()">삭제</button>
       	</div>
@@ -356,7 +358,7 @@ font-family: 'Candal', sans-serif;
         <input type="text" id="label_text5">
       </div>
       <div class="modal-footer">
-      <div id="membergood">
+      <div id="membergood34">
       </div>
       	</div>
     	</div>
@@ -427,9 +429,9 @@ font-family: 'Candal', sans-serif;
 		</div>
         <!-- 첨부파일 div -->
         <!-- 체크리스트 -->
-         <div id="check_list" style=" margin-bottom:50px;" >
+         <div id="check_list"  style=" margin-bottom:50px;">
          <% if(check_title.size()!=0) {%>
-         <h3><img src="../images/plan.png">&nbsp;<%=check_title.get(0) %> &nbsp;&nbsp;
+         <h3 id="check_addhaja"><img src="../images/plan.png">&nbsp;<%=check_title.get(0) %> &nbsp;&nbsp;
          <a href="#" id="<%=check_code.get(0) %>" onClick="checklistadd(id)"><img src="../images/add-file.png"></a>&nbsp;&nbsp;<a  href="#" id="<%=check_code.get(0) %>" onClick="checkDEL(id)" style="background-color:#D9D9D9">
          <img src="../images/removebtn.png"></a></h3>
          <div class="progress">
@@ -448,6 +450,7 @@ font-family: 'Candal', sans-serif;
   <%} %>
 	<% if(check_con_List!=null){ 
 		for(int i=0;i<check_con_code.size();i++){%>
+<%--       <div id="<%=check_con_code.get(i) %>" class="checkbox" class='min'> --%>
       <div id="<%=check_con_code.get(i) %>" class="checkbox">
 	  <label >
 	  	<% if(check_con_confirm.get(i).equals("0")){ %>
@@ -499,33 +502,34 @@ font-family: 'Candal', sans-serif;
            </div>
          <!-- col- sm -10 끝  -->
         <div class="col-sm-2">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" ><img src="../images/description.png">요약</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" onClick="vison()" ><img src="../images/description.png">요약</butuon>
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
         <!-- 모달  -->
         <div style="position:absolute;">
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
-        <div id="label_modal" class="modal" role="dialog" style="position:relative; left:-90px">
+        <div id="label_modal" class="modal" role="dialog" style="position:relative; left:-90px;">
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color:#FAE0D4">
         <button type="button" class="close" onClick="mo_close2()">&times;</button>
-        <h4 class="modal-title">라벨 내용</h4>
+        <h4 class="modal-title"><img src="../images/price-tag.png"></h4>
       </div>
-      <div class="modal-body">
-        <input type="text" id="label_text">
-      </div>
-      <div class="modal-footer">
+      <div class="modal-body" style="background-color:#FAE0D4">
+      	<label>Title</label>
+        <input type="text" id="label_text" placeholder="내용을 입력하세요."><br><br>
+      	<label>Select Color</label><br>
       <input type="button" class="btn btn-default" onClick="defaultt()">
       <input type="button" class="btn btn-success" onClick="success()">
       <input type="button" class="btn btn-info" onClick="info()">
-      <br>
+<!--       <br> -->
       <input type="button" class="btn btn-primary" onClick="primary()">
       <input type="button" class="btn btn-warning" onClick="warning()">
       <input type="button" class="btn btn-danger" onClick="danger()">
-      <br>
-        <button type="button" class="btn btn-default"  onClick="addInput()">생성</button>
-    	</div>
+      <br><br>
+        <button type="button" class="btn btn-success"  onClick="addInput()">생성</button>
+      </div>
+      
   		</div>
 		</div>
 		</div>
@@ -541,16 +545,16 @@ font-family: 'Candal', sans-serif;
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-image:url('../images/snow.gif')">
         <button type="button" class="close" onClick="mo_close4()">&times;</button>
-        <h4 class="modal-title"><img src="../images/notepad.png">타이틀</h4>
+        <h4 class="modal-title"><img src="../images/notepad.png"></h4>
       </div>
-      <div class="modal-body">
-        <input type="text" id="check_text">
-      </div>
-      <div class="modal-footer">
+      <div class="modal-body" style="background-image:url('../images/snow.gif')">
+      	<label style="color:#FFFFFF">Title</label>
+        <input type="text" id="check_text" placeholder="내용을 입력하세요.">
+        <br><br>
         <button type="button" class="btn btn-default"  onClick="checkAdd()">생성</button>
-      	</div>
+      </div>
     	</div>
   		</div>
 		</div>

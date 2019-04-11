@@ -30,6 +30,11 @@ public class TeamLogic {
 		List<Map<String, Object>> memberList = t_dao.getMember2(pMap);
 		return memberList;
 	}
+	public List<Map<String, Object>> getMember3(Map<String, Object> pMap) {
+		logger.info("TeamLogic호출");
+		List<Map<String, Object>> memberList = t_dao.getMember3(pMap);
+		return memberList;
+	}
 	//초대를 위해 검색햇을떄.
 	public Map<String, Object> getInvite(Map<String, Object> pMap) {
 		logger.info("TeamLogic호출");

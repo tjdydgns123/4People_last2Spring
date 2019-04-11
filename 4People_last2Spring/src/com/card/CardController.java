@@ -117,7 +117,7 @@ public class CardController {
 	@PostMapping("checklistUPD")
 	public String checklistUPD(@RequestParam Map<String,Object> pMap) {
 		c_Logic.checkListUPD(pMap);
-		return "redirect:../card/del.jsp";
+		return "";
 		
 	}
 	@PostMapping("checklistUPD2")

@@ -14,7 +14,6 @@
 <%
    String mem_id = (String)session.getAttribute("MEM_ID");
 	String board_no = (String)request.getAttribute("board_no");
-	String titlee ="자바팀";
 	
  List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("b_boardList");
 		List<String> BLIST_NO =new ArrayList<String>();
@@ -23,11 +22,18 @@
 		List<String> C_BLIST_NO =new ArrayList<String>();
 		List<String> CARD_CODE =new ArrayList<String>();
 		List<String> CARD_NAME =new ArrayList<String>();
+		List<String> profile_image =new ArrayList<String>();
 	    String t_team_code= null;  
+	    String t_team_name = null;
+	    String top_board_name = null;
 		List<String> BLISTMap = null;
 		List<String> CARDLISTMAP = null;
+		List<String> profileMap = null;
 		if(board_List!=null){
 	    		t_team_code=board_List.get(0).get("r_team_code").toString();
+	    		t_team_name=board_List.get(0).get("team_name").toString();
+	    		top_board_name=board_List.get(0).get("board_name").toString();
+	    		profileMap =(List<String>) board_List.get(0).get("porfileMap");
 				BLISTMap =(List<String>) board_List.get(0).get("BLISTMAP");
 				CARDLISTMAP =(List<String>) board_List.get(0).get("CARDLISTMAP");
 		}
@@ -67,6 +73,17 @@
 				
 			}
 		}}
+		if(profileMap!=null){
+		Iterator porfiletr = profileMap.iterator();
+		while(porfiletr.hasNext()){
+			Map<String,Object> pMap = (Map<String,Object>)porfiletr.next();
+			Object keys[] = pMap.keySet().toArray();
+			for(int j=0;j<keys.length;j++){
+				if(keys[j].equals("mem_image")){
+					profile_image.add(pMap.get(keys[j]).toString());
+				}
+			}
+		}}
 		
 		
 %>
@@ -95,6 +112,13 @@
 	left: 0;
 	background-color:transparent ; !important;
 }
+
+ body{
+ background-color:rgb(51, 181, 229);
+}
+
+
+
 
 
 /* Decorations */
@@ -127,6 +151,9 @@ function mo_close3(){
 }
 function mo_close4(){
 	$('#checkModal').modal('hide');
+}
+function mo_close5(){
+	$('#label_modal4').modal('hide');
 }
 function label_codee(id){
 	label_code= id;
@@ -261,20 +288,30 @@ function checkAdd(){
 	   ,dataType:"html"
 	   ,success:function(result){
 //			   $("#membergood").html(result);
+		   $("#check_list").empty();
 		   $("#check_list").append(result);
 		   
 	   }
 	  ,error:function(request,status,error){
-//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	
 }
 function checklistadd(id){
 	check_code = id;
-	var $div = "<div id='cklist_title'><input type='text' id='ckli_text'><button onClick='cklistINS()'>생성</button></div>"
-	$("#check_list").after($div);
+	alert("checklistadd");
+	alert($('#check_list').children("#cklist_title").length);
+// 	alert($('#check_list').children("input[name=text]").length);
+	if($('#check_list').children("#cklist_title").length==0){
+	var $div = "<div id='cklist_title'><input type='text' name='text' id='ckli_text'><button onClick='cklistINS()'>생성</button><button onClick='ck_cancle()'>취소</button></div>"
+	$("#check_addhaja").after($div);
+		}
 }
+ function ck_cancle(){
+// 	 alert("취소");
+		$('#cklist_title').remove();
+	 }
 function cklistINS(){
 	var text = $('#ckli_text').val();
 	alert(text);
@@ -374,12 +411,13 @@ function drop(event) {
 		   ,dataType:"html"
 		});
 	}
-// 		$(document).ready( function (){
-// 	function mem_name_ajax(){
 	
+	/* 카드 참여자 초대  */
 	function mem_name_ajax(){
 // 		alert($("#label_text5").val());
+// 	alert("dd");
 	$('#label_text5').keyup(function (){
+// 	alert("df");
 		$("#membergood").empty();
 
 		var mem_name =$("#label_text5").val();
@@ -391,23 +429,22 @@ function drop(event) {
 			   ,data:param
 			   ,dataType:"html"
 			   ,success:function(result){
-				   $("#membergood").html(result);
+				   $("#membergood34").html(result);
 				   
 			   }
 			  ,error:function(request,status,error){
-// 				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			  }
 			});
 			});
 		
 		}
 		
-// 		}
 	
 	
 	function memberinvate(id){
 		var param = "mem_id=<%=mem_id%>&team_code="+team_code+"&card_code="+card_code+"&parti_id="+id;
-		alert(id);
+// 		alert(id);
 // 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
 		$.ajax({
 			type:"POST"
@@ -420,8 +457,42 @@ function drop(event) {
 			   alert("실패에염")
 				  $("#membersja").text(e.responseText);
 			  }
-		   
 		});
+			   $('#label_text5').val("-");
+		var mem_name =$("#label_text5").val();
+		var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+			$.ajax({
+				type:"POST"
+			   ,url:"../team/member2"
+			   ,data:param
+			   ,dataType:"html"
+			   ,success:function(result){
+				   $("#membergood34").html(result);
+				   
+			   }
+			  ,error:function(request,status,error){
+				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  }
+			});
+			   $('#label_text5').val("");
+		var mem_name =$("#label_text5").val();
+		var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+			$.ajax({
+				type:"POST"
+			   ,url:"../team/member2"
+			   ,data:param
+			   ,dataType:"html"
+			   ,success:function(result){
+				   $("#membergood34").html(result);
+				   
+			   }
+			  ,error:function(request,status,error){
+				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  }
+			});
+		
 	}
 
 
@@ -549,14 +620,25 @@ function drop(event) {
  	/*   코멘트   */
 	function cardAdd(id){
 // 		alert(id);
+// 		alert($('#'+id+'tt').children('input[type=text]').length);
+		if($('#'+id+'tt').children('input[type=text]').length==0){
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
 		if(id=="gg"){
-		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='boardlistAdd("+id+")'>";
+		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='boardlistAdd("+id+")'><input type='button' class='btn btn-danger' value='취소' onClick='boardlist_cancle("+id+")'>";
 		}
 		else{
-		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='cardlist("+id+")'>";
+		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='cardlist("+id+")'><input type='button' class='btn btn-danger' value='취소' onClick='cardlist_cancle("+id+")'>   ";
 		}
+			}
 	}
+	function boardlist_cancle(id){
+	 $('#ggtt').empty();
+	 $('#ggbb').empty();
+		}
+	function cardlist_cancle(id){
+	 $('#'+id+'tt').empty();
+	 $('#'+id+'bb').empty();
+		}
 	function boardlistAdd(id){
 // 		alert(id);
 		alert("<%=board_no%>");
@@ -565,7 +647,6 @@ function drop(event) {
 		alert(r_BL_team_code.substring(1,2));
 		var str_team_code = r_BL_team_code.substring(1,2);
 		var input2 = document.getElementById('ggtextval').value;
-		<%=titlee%> = input2;
 // 		var param = "bd_title="+input2;
 		var param = "?team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
 		alert(param);
@@ -665,7 +746,7 @@ function drop(event) {
 // 				document.getElementById("card_label").innerHTML+="<input type='button' class='btn "+color+" ' value='"+temp+"'>";
 // 				$("#card_label").append("<input type='button' class='btn "+color+" ' value='"+temp+"' data-toggle='modal' data-target=''#label_modal2' onClick='label_codee(id)''>");
 <%-- 				  location.href="../card/card.for?crud=labelins&label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code; --%>
-				  
+					$('#label_text').val("");
 // 				  $('#card_label').empty();
 					$.ajax({
 							type:"POST"
@@ -677,6 +758,7 @@ function drop(event) {
 		// // 							   $('#myModal').modal()  
 // 		 							   $('#cardmodal').modal('show');
 								   }
+					  
 					,error:function(jqXHR, exception){
 // 		 							   $('#cardmodal').modal('show');
 						  if (jqXHR.status === 0) {
@@ -794,17 +876,160 @@ function drop(event) {
 							});
 					}
 				}
+
+				function vison(){
+// 					alert("vison");
+					$('#ccmmdy').attr('style','background-image:url("../images/vison.gif")');
+					}
+				function topMemberAdd(){
+				location.href="../team/member3?team_code=<%=t_team_code%>";
+					}
+
+				function mem_name_ajax2(){
+					$('#label_text6').keyup(function (){
+						$("#membergood").empty();
+
+						var mem_name =$("#label_text6").val();
+						var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+							$.ajax({
+								type:"POST"
+							   ,url:"../team/member3"
+							   ,data:param
+							   ,dataType:"html"
+							   ,success:function(result){
+								   $("#membergood").html(result);
+								   
+							   }
+							  ,error:function(request,status,error){
+//				 				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+							  }
+							});
+							});
+
+					}
+				function memberinvate2(id){
+// 				alert(id);
+
+				var param = "mem_id="+id+"&team_code="+team_code+"&board_no=<%=board_no%>";
+//		 		alert(id);
+//		 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
+				$.ajax({
+					type:"POST"
+				   ,url:"./team_memberINS"
+				   ,data:param
+				   ,dataType:"html"
+				   ,success:function(result){
+					   $('#top_panel').empty();
+					   $('#top_panel').append(result);
+				   } ,error:function(jqXHR, exception){
+					   if (jqXHR.status === 0) {
+				            alert('Not connect.\n Verify Network.');
+				        }
+				        else if (jqXHR.status == 400) {
+				            alert('Server understood the request, but request content was invalid. [400]');
+				        }
+				        else if (jqXHR.status == 401) {
+				            alert('Unauthorized access. [401]');
+				        }
+				        else if (jqXHR.status == 403) {
+				            alert('Forbidden resource can not be accessed. [403]');
+				        }
+				        else if (jqXHR.status == 404) {
+				            alert('Requested page not found. [404]');
+				        }
+				        else if (jqXHR.status == 500) {
+				            alert('Internal server error. [500]');
+				        }
+				        else if (jqXHR.status == 503) {
+				            alert('Service unavailable. [503]');
+				        }
+				        else if (exception === 'parsererror') {
+				            alert('Requested JSON parse failed. [Failed]');
+				        }
+				        else if (exception === 'timeout') {
+				            alert('Time out error. [Timeout]');
+				        }
+				        else if (exception === 'abort') {
+				            alert('Ajax request aborted. [Aborted]');
+				        }
+				        else {
+				            alert('Uncaught Error.n' + jqXHR.responseText);
+				        }
+// 					   alert("실패에염")
+					  }
+				});
+					   $('#label_text6').val("-");
+				var mem_name =$("#label_text6").val();
+				var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+					$.ajax({
+						type:"POST"
+					   ,url:"../team/member3"
+					   ,data:param
+					   ,dataType:"html"
+					   ,success:function(result){
+						   $("#membergood").html(result);
+						   
+					   }
+					  ,error:function(request,status,error){
+						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+					  }
+					});
+					   $('#label_text6').val("");
+				var mem_name =$("#label_text6").val();
+				var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
+
+					$.ajax({
+						type:"POST"
+					   ,url:"../team/member3"
+					   ,data:param
+					   ,dataType:"html"
+					   ,success:function(result){
+						   $("#membergood").html(result);
+						   
+					   }
+					  ,error:function(request,status,error){
+						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+					  }
+					});
+					}
 	
 </script>
 </head>
-<body style="background-color:2489F8;">
+<body >
 
 
 	<div id="haha" class="panel panel-primary"  >
-    <div class="panel-heading">
-        <h3 class="panel-title"><img src="../images/team.png"> <%=titlee%></h3>
+    <div class="panel-heading" id="top_panel">
+        <h3 class="panel-title"><img src="../images/meeting.png">&nbsp;&nbsp;<%=t_team_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=top_board_name %>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <%if(profileMap!=null){
+        	for(int i=0;i<profile_image.size();i++){%>
+        <img src="http://localhost:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
+        <%}} %>
+        <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
+        </h3>
+		</div>
+        </div>
+ 
+    <div id="label_modal4" class="modal" role="dialog" style="width:400px;margin-left:350px;margin-top:130px">
+  		<div class="modal-dialogg" id="label_dialogg4">
+    <div class="modal-content" style="position:relative;">
+      <div class="modal-header">
+        <button type="button" class="close" onClick="mo_close5()">&times;</button>
+        <h4 class="modal-title">초대하기</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="label_text6">
+      </div>
+      <div class="modal-footer">
+      <div id="membergood">
+      </div>
+      	</div>
+    	</div>
+    	   </div>
     </div>
-    </div>
+    <!-- Modal content-->
     
     <!--===================== 리스트들============================= -->
      <div  id="jae" class="testimonial-group">

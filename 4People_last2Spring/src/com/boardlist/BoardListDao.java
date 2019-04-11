@@ -52,5 +52,13 @@ public class BoardListDao {
 			e.printStackTrace();
 		}
 	}
+	public void team_memberINS(Map<String, Object> pMap) {
+		try {
+			sqlSessionTemplate.insert("team_memberINS", pMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
