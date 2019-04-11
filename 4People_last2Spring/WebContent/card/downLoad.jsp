@@ -3,7 +3,7 @@
        <%@ page import="java.io.*" %>
 <%
 	String bs_fname = request.getParameter("fname");
-	String filePath = "C:\\Users\\ksm05-07\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";
+	String filePath = "\\\\192.168.0.6\\pds\\";
 // 	out.print("파일명:"+bs_fname);
 	File file = new File(filePath,bs_fname);
 	String mimeType = null;

@@ -1005,7 +1005,7 @@ function drop(event) {
         <h3 class="panel-title"><img src="../images/meeting.png">&nbsp;&nbsp;<%=t_team_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=top_board_name %>&nbsp;&nbsp;|&nbsp;&nbsp;
         <%if(profileMap!=null){
         	for(int i=0;i<profile_image.size();i++){%>
-        <img src="http://localhost:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
+        <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
         <%}} %>
         <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
         </h3>

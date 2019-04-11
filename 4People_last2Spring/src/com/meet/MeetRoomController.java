@@ -30,7 +30,7 @@ public class MeetRoomController {
 	
 	@PostMapping("meetRoomIns")
 	public String meetRoomIns(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
-		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "\\\\192.168.0.6\\\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
 		
 		
@@ -124,7 +124,7 @@ public class MeetRoomController {
 	@PostMapping("roomUpd")
 	public String roomUpd(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
 		
-		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "\\\\192.168.0.6\\\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
 		
 		//첨부파일이 있니?

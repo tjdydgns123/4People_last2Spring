@@ -147,7 +147,7 @@ public class CardController {
 		logger.info(pMap);
 		logger.info(fname.getOriginalFilename());
 		String filename = fname.getOriginalFilename();
-		String savePath = "C:\\Users\\ksm05-07\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds";
+		String savePath = "\\\\192.168.0.6\\pds";
 		if(fname !=null) {
 			pMap.put("ATT_NAME", filename);
 			String fullPath = savePath+"\\"+filename;
