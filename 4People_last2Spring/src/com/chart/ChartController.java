@@ -22,13 +22,13 @@ public class ChartController {
 		logger.info("ChartSel 호출");
 		List<Map<String,Object>> chartList = chartLogic.ChartSel(board_no);
 		model.addAttribute("chartList", chartList);
-		return "forward:./ganttChart.jsp";
+		return "forward:./chart.jsp";
 	}
 	@GetMapping("test")
-	public String test (@RequestParam("board_no") String board_no, Model model) {
+	public String test (Model model) {
 		logger.info("ChartSel 호출");
-		List<Map<String,Object>> chartList = chartLogic.ChartSel(board_no);
-		model.addAttribute("chartList", chartList);
-		return "forward:./chartTest.jsp";
+		//List<Map<String,Object>> chartList = chartLogic.ChartSel(board_no);
+		//model.addAttribute("chartList", chartList);
+		return "forward:./chart.jsp";
 	}
 }
