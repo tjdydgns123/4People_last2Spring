@@ -54,8 +54,10 @@ public class BoardController  {
 			String BoardUPD (HttpServletRequest req, @RequestParam Map<String,Object> pMap) {
 				session = req.getSession();
 				String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+				String team_code=req.getParameter("team_code");
+				String board_no = req.getParameter("board_no");
      			Bo_logic.BoardUpd(pMap);
-     			return "redirect:./boardlist?mem_id="+mem_id;
+     			return "redirect:../boardList/boardListSel?mem_id="+mem_id+"&team_code="+team_code+"&board_no="+board_no;
 				
 			}
 	}

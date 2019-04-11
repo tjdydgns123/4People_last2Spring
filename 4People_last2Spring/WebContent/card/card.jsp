@@ -37,6 +37,7 @@
      List<String> att_date = new ArrayList<String>(); 
      String des_content = null; 
      String des_no = null; 
+     
      if(labelList!=null){
      Iterator ltr = labelList.iterator();
 		while(ltr.hasNext()){
@@ -56,6 +57,7 @@
 			}
 		}
      }
+     
 		if(commentsList!=null){
      Iterator ctr = commentsList.iterator();
 		while(ctr.hasNext()){
@@ -591,29 +593,31 @@ font-family: 'Candal', sans-serif;
   </div>
   
 <script>
-	var count=parseFloat("<%=check_length%>");
+/* 체크가 되어있는 개수 */
+var count=parseFloat("<%=check_length%>"); 
+	
 function hihi(check,id){
+
 	alert("count:"+count); 
 	var length ='';
 	var llength ='';
 	var lllength ='';
 	var Mllength ='';
-//	 if($('#'+id+'').is(".checked")==true){
-//		count +=1;
-//		 }
-// 	 alert("tt: "+$('#check_list').children(check.checked).length);
-	 length = $('#check_list').children('.checkbox').length;
 	
+	/* 현재 존재하는 체크박스의 개수  */
+	 length = $('#check_list').children('.checkbox').length;
+	 
+	/* 체크박스 클릭시 올라가는 % */
 	 llength = 100/length;
+	 /* 체크박스 클릭할 때마다 벨류를 더해줌 */
 	 lllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))+llength);
+	 /* 체크박스 클릭할 때마다 벨류를 빼줌 */
 	 Mllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))-llength);
-// 	alert(	parseFloat($("#barbar").attr("aria-valuenow"))+50);
-	if ( check.checked == true )
-	{
+    
+	if ( check.checked == true ){
 	alert("선택");
 	count += 1;
 	 alert("선택후 count: "+count);
-// 	 alert("id"+id);
 	 if(count!=length){
 	$('#barbar').attr({
 		"aria-valuenow" : lllength ,

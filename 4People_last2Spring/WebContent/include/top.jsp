@@ -364,16 +364,7 @@ $(function() {
             <h4><%=dept %>/<%=position %></h4>
         </div>
         <ul class="list-unstyled components">
-            <li>
-            <button class="es_dropdown-btn">개인프로젝트 
-   			 <i class="fa fa-caret-down"></i>
-  			</button>
-  			<div class="es_dropdown-container">
-    			<a href="#">Link 1</a>
-    			<a href="#">Link 2</a>
-    			<a href="#">Link 3</a>
-  			</div>
-            </li>
+          
             <li>
             <button class="es_dropdown-btn">참여중인팀 
    			 <i class="fa fa-caret-down"></i>

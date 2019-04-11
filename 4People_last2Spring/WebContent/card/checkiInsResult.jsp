@@ -60,8 +60,8 @@
 	}
      %>  
       <% if(check_title.size()!=0) {%>
-         <h3><img src="../images/plan.png">&nbsp;<%=check_title.get(0) %> &nbsp;&nbsp;
-         <a href="#" id="<%=check_code.get(0) %>" onClick="checklistadd(id)"><img src="../images/add-file.png"></a>&nbsp;&nbsp;<a  href="#" id="<%=check_code.get(0) %>" oncClick="checkDEL(id)" style="background-color:#D9D9D9">
+         <h3 id="check_addhaja"><img src="../images/plan.png">&nbsp;<%=check_title.get(0) %> &nbsp;&nbsp;
+         <a href="#" id="<%=check_code.get(0) %>" onClick="checklistadd(id)"><img src="../images/add-file.png"></a>&nbsp;&nbsp;<a  href="#" id="<%=check_code.get(0) %>" onClick="checkDEL(id)" style="background-color:#D9D9D9">
          <img src="../images/removebtn.png"></a></h3>
          <div class="progress">
      <%if(check_length==check_con_code.size()){ %>

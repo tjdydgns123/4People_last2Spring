@@ -69,7 +69,10 @@
 		)}
 	</select>
 	<insert id="team_memberINS" parameterType="map">
-		INSERT INTO team_member (team_code,tm_role,tm_favorite,tm_authority,tm_time,mem_id)
-						values(#{team_code},'노예','0','0',to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{mem_id})
+<!-- 		INSERT INTO team_member (team_code,tm_role,tm_favorite,tm_authority,tm_time,mem_id) -->
+<!-- 						values(#{team_code},'노예','0','0',to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{mem_id}) -->
+						
+		{call proc_teaminvite(#{team_code,mode=IN, jdbcType=VARCHAR,javaType=java.lang.String}
+                 ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String})}
 	</insert>
 </mapper>
