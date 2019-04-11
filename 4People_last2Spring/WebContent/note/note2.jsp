@@ -386,7 +386,6 @@ $(document).ready(function () {
 	$('.mymemo').click(function(){
 	    note_id = $(this).attr("id");
 	    var node =$(this).children('.check');
-	    var check= "<span class='glyphicon glyphicon-ok'></span>";
 	    $('#'+note_id).append(check);
 	});
 	//우편함 등록버튼눌럿을시
@@ -400,7 +399,7 @@ $(document).ready(function () {
 	//우편함 삭제버튼 클릭시
 	$('#deleteMessage').click(function() {
 		$('#checkDatas').attr("method","POST");
-		$('#checkDatas').attr("action","./note.for?command=deleteMessage");
+		$('#checkDatas').attr("action","./deleteMessage");
 		$('#checkDatas').submit();
 	});
 	

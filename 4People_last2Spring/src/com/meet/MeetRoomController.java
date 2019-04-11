@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
-@SessionAttributes(value= {"MEM_ID"})
+@SessionAttributes(value= {"MEM_ID","MEM_NAME"})
 @RequestMapping(value="/meetRoom/")
 public class MeetRoomController {
 	Logger logger = Logger.getLogger(MeetRoomController.class);
@@ -78,19 +79,29 @@ public class MeetRoomController {
 		return "redirect:meetMain.jsp";
 	}
 	@PostMapping("roomSearch")
-	public String roomSearch(Model model,@RequestParam Map<String,Object> pMap) {
+	public String roomSearch(Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String searchDate = (String)pMap.get("searchDate");
-		String searchInwon = (String)pMap.get("searchInwon");
+		int searchInwon = Integer.parseInt((String) pMap.get("searchInwon"));
+		pMap.remove("searchInwon");
+		pMap.put("searchInwon",searchInwon);
+		logger.info(searchDate);
+		String mem_id =(String)mMap.get("MEM_ID");
+		pMap.put("mem_id",mem_id);
+		for(String key:pMap.keySet()) {
+			logger.info("------------------"+pMap.get(key)+"value="+pMap.get(key));
+		}
+		List<Map<String,Object>> roomSearch = mtRoom_logic.roomSearch(pMap,searchDate);
 		model.addAttribute("searchDate",searchDate);
-		model.addAttribute("searchInwon",searchInwon);
+		model.addAttribute("searchInwon",String.valueOf(searchInwon));
+		model.addAttribute("roomSearch",roomSearch);
 		
 		return "forward:meetReserVation.jsp";
 	}
-	@PostMapping("nextDateRoom")
-	public String nextDateRoom(Model model,@RequestParam Map<String,Object> pMap) {
-//		List<Map<String,Object>> nextDateRoomList =mtRoom_logic.nextDateRoom(pMap);
-		return "nextDateRoomResult.jsp";
-	}
+//	@PostMapping("nextDateRoom")
+//	public String nextDateRoom(Model model,@RequestParam Map<String,Object> pMap) {
+////		List<Map<String,Object>> nextDateRoomList =mtRoom_logic.nextDateRoom(pMap);
+//		return "nextDateRoomResult.jsp";
+//	}
 	@RequestMapping("myMeetingRoom")
 	public String myMeetingRoom(Model model,ModelMap mMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
@@ -165,21 +176,59 @@ public class MeetRoomController {
 	public String roomTeamInsert (Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
 		pMap.put("mem_id",mem_id);
+		for(String key:pMap.keySet()) {
+			logger.info("------------------"+pMap.get(key)+"value="+pMap.get(key));
+		}
 		List<Map<String,Object>> roomTeamInsert = mtRoom_logic.roomTeamInsert(pMap);
 		model.addAttribute("roomTeamInsert",roomTeamInsert);
 		return"forward:roomTeamInsertResult.jsp";
 	}
-	@PostMapping("teamAuthority")
+	@PostMapping("teamAuthorityIns")
 	public String teamAuthority(Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
-		pMap.put("mem_id",mem_id);
 		for(String key:pMap.keySet()) {
-			logger.info("------------------"+pMap.get(key));
+			logger.info("key?="+key+"value?="+pMap.get(key));
 		}
-		List<Map<String, Object>> teamAuthority=mtRoom_logic.teamAuthorityIns(pMap,mem_id);
-		model.addAttribute("teamAuthority",teamAuthority);
+		List<Map<String, Object>> getTemaInfo=mtRoom_logic.teamAuthorityIns(pMap);
+		model.addAttribute("getTemaInfo",getTemaInfo);
 		return "forward:teamAuthorityInsResult.jsp";
 	}
+	@PostMapping("teamDelete")
+	public String teamDelete(@RequestParam Map<String,Object> pMap) {
+		mtRoom_logic.teamDelete(pMap);
+		for(String key:pMap.keySet()) {
+			logger.info("key?="+key+"value?="+pMap.get(key));
+		}
+		return "redirect:teamRoomDeleteResult.jsp";
+	}
+	@PostMapping("availableTeams")
+	@ResponseBody
+	public List<Map<String,Object>> availableTeams(@RequestParam Map<String,Object> pMap) {
+		List<Map<String,Object>> availableTeams = mtRoom_logic.availableTeams(pMap);
+		return availableTeams;
+	}
+	@PostMapping("reservationOk")
+	public String reservationOk(@RequestParam Map<String,Object> pMap,ModelMap mMap) {
+		String mem_id =(String)mMap.get("MEM_ID");
+		String mem_name =(String)mMap.get("MEM_NAME");
+		pMap.put("mem_id",mem_id);
+		pMap.put("mem_name",mem_name);
+		
+		for(String key:pMap.keySet()) {
+			logger.info("key?="+key+"value?="+pMap.get(key));
+		}
+		mtRoom_logic.reservationOk(pMap);
+		
+		return "redirect:myReserVation";
+	}
+	@RequestMapping("myReserVation")
+	public String myReserVation(ModelMap mMap,Model model) {
+		String mem_id =(String)mMap.get("MEM_ID");
+		
+		List<Map<String,Object>> myReserVationList = mtRoom_logic.myReserVation(mem_id);
+		model.addAttribute("myReserVationList", myReserVationList);
+		
+		return "forward:myReserVation.jsp";
+	}
 
-	
 }

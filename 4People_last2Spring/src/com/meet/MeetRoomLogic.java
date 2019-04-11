@@ -37,14 +37,31 @@ public class MeetRoomLogic {
 		List<Map<String, Object>> roomTeamInsert = mtRoom_dao.roomTeamInsert(pMap);
 		return roomTeamInsert;
 	}
-	public List<Map<String, Object>> teamAuthorityIns(Map<String, Object> pMap, String mem_id) {
-		 mtRoom_dao.teamAuthorityIns(pMap,mem_id);
-		 Map<String,Object> tMap = new HashMap<String, Object>();
-		 tMap.put("mem_id",mem_id);
-		 tMap.put("mr_no",pMap.get("mr_no"));
-		 List<Map<String, Object>> teamAuthority =mtRoom_dao.teamAuthority(tMap);
+	public List<Map<String, Object>> teamAuthorityIns(Map<String, Object> pMap) {
+		List<Map<String, Object>> getTeamInfo= mtRoom_dao.teamAuthorityIns(pMap);
 		
-		 return teamAuthority;
+		 return getTeamInfo;
+	}
+	public void teamDelete(Map<String, Object> pMap) {
+		mtRoom_dao.teamDelete(pMap);
+		
+	}
+	public List<Map<String, Object>> roomSearch(Map<String, Object> pMap, String searchDate) {
+		List<Map<String, Object>> roomSearch = mtRoom_dao.roomSearch(pMap,searchDate);
+		return roomSearch;
+	}
+	public List<Map<String, Object>> availableTeams(Map<String, Object> pMap) {
+		List<Map<String, Object>> availableTeams = mtRoom_dao.availableTeams(pMap);
+		return availableTeams;
+	}
+	public void reservationOk(Map<String, Object> pMap) {
+		mtRoom_dao.reservationOk(pMap);
+		
+	}
+	public List<Map<String, Object>> myReserVation(String mem_id) {
+		List<Map<String, Object>> myReserVationList = mtRoom_dao.myReserVation(mem_id);
+		
+		return myReserVationList;
 	}
 	
 	

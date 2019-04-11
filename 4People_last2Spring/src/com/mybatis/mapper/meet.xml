@@ -71,7 +71,60 @@
 	</select>
 	
 	<insert id="teamAuthorityIns" parameterType="map">
-		insert into MR_AUTHORITY (mem_id,team_code)
-		VALUES (#{mem_id},#{team_code})
+		insert into MR_AUTHORITY (mr_no,team_code)
+		VALUES (#{mr_no},#{team_code})
 	</insert>
+	
+	<select id="getTeamInfo" parameterType="map" resultType="map">
+		select team_code,team_name
+		from team
+		where team_code = #{team_code}
+	</select>
+	<delete id="roomTeamDelete" parameterType="map">
+		delete from MR_AUTHORITY
+		where mr_no =#{mr_no}
+		and team_code =#{team_code}
+	</delete>
+	<select id="roomSearch" parameterType="map" resultType="map">
+	select mr_no,mr_loc,mr_capacity,mr_name,mr_starttime,mr_endtime,mr_memo,mr_facility,mr_image,mr_detaileloc
+	from meeting_room
+	where mr_no in(select mr_no
+	from MR_AUTHORITY
+	where team_code in (select team_code
+	from team_member
+	where mem_id = #{mem_id}
+	)group by mr_no)
+	<if test="searchInwon!=null">
+	and mr_capacity >= #{searchInwon}
+	</if>
+	
+	</select>
+	<select id="timeResult" parameterType="map" resultType="map">
+		select RE_STARTTIME,re_endtime,mr_no
+		from mr_reservation
+		where mr_no = #{mr_no}
+		and re_hopedate = #{re_hopedate}
+		order by re_starttime asc
+	</select>
+	
+	<select id="availableTeams" parameterType="map" resultType="map">
+		select team_name
+		from team
+		where team_code in (select team_code
+		from mr_authority
+		where mr_no = #{mr_no})
+	</select>
+	
+	<insert id="reservationOk" parameterType="map">
+			insert into mr_reservation (MR_NO,RE_STARTTIME,RE_CODE,RE_HOWMANY,RE_MASTERNAME,RE_ENDTIME,RE_HOPEDATE,RE_PURPOSE,RE_PARTICIPANT,RE_DATE,MEM_ID,MR_TEAMNAME)
+			values (#{mr_no},#{re_starttime},seq_mr_reservation.nextval,#{re_howmany},#{mem_name},#{re_endtime},#{re_hopedate},#{re_purpose},#{re_participant},(select TO_CHAR(sysdate,'YYYY-MM-DD') from dual),#{mem_id},#{mr_teamname})
+	</insert>
+	
+	<select id="myReserVation" parameterType="map" resultType="map">
+		select re.re_code,re.re_date,re.re_starttime,re.re_endtime,re.mr_teamname,re.re_howmany,re.re_hopedate,mr.mr_name,mr.mr_detaileloc
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and mem_id =#{mem_id}
+	</select>
+	
 </mapper>
