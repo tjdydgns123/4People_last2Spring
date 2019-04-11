@@ -1,12 +1,7 @@
 package com.calendar;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.util.DateFormatter;
-import com.util.HashMapBinder;
 import com.vo.CalendarVO;
 
 @Controller
@@ -25,20 +17,23 @@ public class CalendarController{
 	Logger logger = Logger.getLogger(CalendarController.class);
 	@Autowired
 	CalendarLogic calLogic = null;
-
-	//캘린더 조회
+	
+	//캘린더 개인 일정 조회
 	@GetMapping("calList")
 	public String calList(@ModelAttribute CalendarVO calVO
 						 , Model model) {
 		logger.info("캘린더 조회 호출 성공");
 		List<Map<String, Object>> calList = null;
+		List<Map<String, Object>> calTeamList = null;
 		String path = "";
 		calList = calLogic.calList(calVO);
+		calTeamList = calLogic.calTeamList(calVO);
 		model.addAttribute("calList", calList);
+		model.addAttribute("calTeamList", calTeamList);
 		logger.info("calList :"+calList);
 		return "forward:calendar.jsp";
 	}
-	//캘린더 입력
+	//캘린더 개인 일정 입력
 	@GetMapping("calINS")
 	public String calINS(@ModelAttribute CalendarVO calVO) {
 		logger.info("캘린더 입력 호출 성공");
@@ -47,7 +42,7 @@ public class CalendarController{
 		logger.info("result :"+result);
 		return "redirect:calList?gubun=INS";
 	}
-	//캘린더 수정
+	//캘린더 개인 일정 수정
 	@GetMapping("calUPD")
 	public String calUPD(@ModelAttribute CalendarVO calVO) {
 		logger.info("캘린더 수정 호출 성공");
@@ -56,7 +51,7 @@ public class CalendarController{
 		logger.info("result :"+result);
 		return "redirect:calList?gubun=UPD";
 	}
-	//캘린더 삭제
+	//캘린더 개인 일정 삭제
 	@GetMapping("calDEL")
 	public String calDEL(@ModelAttribute CalendarVO calVO) {
 		logger.info("캘린더 삭제 호출 성공");
@@ -65,6 +60,17 @@ public class CalendarController{
 		logger.info("result :"+result);
 		return "redirect:calList?gubun=DEL";
 	}
+	/*
+	 * //캘린더 팀 일정 조회
+	 * 
+	 * @GetMapping("calTeamList") public String calTeamList(@ModelAttribute
+	 * CalendarVO calVO , Model model) { logger.info("캘린더 팀 일정 조회 호출 성공");
+	 * List<Map<String, Object>> calList = null; String path = ""; calList =
+	 * calLogic.calList(calVO);
+	 * 
+	 * model.addAttribute("calList", calList); logger.info("calList :"+calList);
+	 * return "forward:calendar.jsp"; }
+	 */
 /*
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

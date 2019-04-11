@@ -23,7 +23,17 @@
     <![endif]--> 
     <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> 
 <script type="text/javascript">
-	function sendEvent(title, start,end){
+var g_start;
+var g_end;
+	function clickEvent(start, end){
+		alert("clickEvent호출");
+		 this.g_start = start;
+		 this.g_end = end;
+		}
+	function sendEvent(){
+		var title = $('#ins_title').val();
+		var start = this.g_start;
+		var end = this.g_end;
 		alert("전송");
 		alert("title :"+title+", startdate :"+start+", enddate :"+end);
 		location.href="./calINS?cal_title="
@@ -159,12 +169,13 @@
 			,selectable: true 
 			,selectHelper: true 
 			,select: function(start, end, allDay) { 
+				clickEvent(start, end);
 				$("#dlg_calIns").modal('show');
              	 //title = prompt('제목:'); 
-             	 title = $("#ins_title").val();
-	             this.title=title;
-	             this.start = start;
-	             this.end = end;
+             	 //title = $("#dlg_calIns.ins_title").val();
+	            // this.title = title;
+	             //this.start = start;
+	             //this.end = end;
 	             if (title) { 
 	                 calendar.fullCalendar('renderEvent', 
 	                     { 
@@ -175,7 +186,7 @@
 	                     }, 
 	                     true // make the event "stick" 
 	                 ); 
-	                 sendEvent(title, start,end);//calINS호출
+	                 //sendEvent(title, start,end);//calINS호출
 	             } 
 	             calendar.fullCalendar('unselect'); 
 	         } 
@@ -359,7 +370,7 @@
 			</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onClick=sendEvent()>Save</button>
+        <input type="button" class="btn btn-primary" onClick="sendEvent()" >Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->

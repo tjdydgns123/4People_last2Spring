@@ -11,6 +11,12 @@ public class CalendarVO {
 	  private String cal_category  = null;
 	  private String mem_id        = null;
 	  private String cal_color     = null;
+	  //CARD TABLE VARIABLE
+	  private String card_date = null;
+	  private String card_duedate = null;
+	  private String card_name = null;
+	  private String card_code = null;
+	  private String team_code = null;
 	  
 	public String getCal_contents() {
 		return cal_contents;
@@ -71,6 +77,36 @@ public class CalendarVO {
 	}
 	public void setCal_color(String cal_color) {
 		this.cal_color = cal_color;
+	}
+	public String getCard_date() {
+		return card_date;
+	}
+	public void setCard_date(String card_date) {
+		this.card_date = card_date;
+	}
+	public String getCard_duedate() {
+		return card_duedate;
+	}
+	public void setCard_duedate(String card_duedate) {
+		this.card_duedate = card_duedate;
+	}
+	public String getCard_name() {
+		return card_name;
+	}
+	public void setCard_name(String card_name) {
+		this.card_name = card_name;
+	}
+	public String getCard_code() {
+		return card_code;
+	}
+	public void setCard_code(String card_code) {
+		this.card_code = card_code;
+	}
+	public String getTeam_code() {
+		return team_code;
+	}
+	public void setTeam_code(String team_code) {
+		this.team_code = team_code;
 	}
 	
 	

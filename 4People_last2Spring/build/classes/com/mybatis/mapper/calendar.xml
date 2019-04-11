@@ -23,4 +23,22 @@
 	<delete id="calDel" parameterType="java.util.Map">
 		DELETE FROM CALENDAR WHERE CAL_NO = #{cal_no}	
 	</delete>
+	<select id="calTeam" parameterType="com.vo.CalendarVO" resultType="java.util.Map">
+   		SELECT card_date, CARD_DUEDATE, CARD_NAME, tc.TEAM_CODE , CARD_CODE
+      	  FROM CARD c, (SELECT TEAM_CODE,MEM_ID FROM TEAM_MEMBER) tc
+      	<where>
+     	   AND c.TEAM_CODE = tc.TEAM_CODE
+     	   <if test="mem_id!=null">
+       	   AND tc.mem_id = #{mem_id}
+       	   </if>
+      	</where>
+  	  ORDER BY TEAM_CODE 
+	</select>
+<!-- 	<select id="calTeam2" parameterType="CALLABLE" resultType="map">
+		{call proc_calendarMyTeam(
+			#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		   ,#{myCalendar, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=myCalendar}
+		   ,#{myTeamCalendar, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=myTeamCalendar}
+		)}		
+	</select> -->
 </mapper>
