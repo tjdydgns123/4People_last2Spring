@@ -31,7 +31,7 @@ public class BoardController  {
 			
 		}
 		@GetMapping("teamBoardINS")
-		String teamBoardINS (HttpServletRequest req,@RequestParam Map<String,Object> pMap) {
+		String teamBoardINS (HttpServletRequest req, @RequestParam Map<String,Object> pMap) {
 			session = req.getSession();
 			String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
 			String team_code="";

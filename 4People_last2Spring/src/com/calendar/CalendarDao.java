@@ -27,6 +27,7 @@ public class CalendarDao {
 	public List<Map<String, Object>> calList(CalendarVO calVO){
 		logger.info("캘린더 조회 호출 성공");
 		List<Map<String, Object>> calList = new ArrayList<Map<String, Object>>();
+		
 		try {
 			calList = sqlSessionTemplate.selectList("calList", calVO);
 			logger.info("calList :"+calList);
@@ -57,5 +58,22 @@ public class CalendarDao {
 		result = sqlSessionTemplate.insert("calDel", calVO);
 		logger.info("result :"+result);
 		return result;
+	}
+	//캘린더 팀 일정 조회
+	public List<Map<String, Object>> calTeamList(CalendarVO calVO){
+		logger.info("캘린더 팀 일정 조회 호출 성공");
+		List<Map<String, Object>> calTeamList = new ArrayList<Map<String, Object>>();
+		try {
+			calTeamList = sqlSessionTemplate.selectList("calTeam", calVO);
+
+			logger.info("calTeamList :"+calTeamList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info(calVO.getCard_code()); 
+		logger.info(calVO.getCard_date());
+		logger.info(calVO.getCard_duedate()); 
+		logger.info(calVO.getCard_name()); 
+		return calTeamList;
 	}
 }

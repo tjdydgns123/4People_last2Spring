@@ -28,5 +28,11 @@ public class BoardListLogic {
 	public void cardIns(Map<String, Object> pMap) {
 		Bdlist_dao.cardIns(pMap);
 	}
+	public List<Map<String, Object>> team_memberINS(Map<String, Object> pMap) {
+		List<Map<String,Object>> b_boardList = null;
+		Bdlist_dao.team_memberINS(pMap);
+		b_boardList = Bdlist_dao.BdlistSel(pMap);
+		return b_boardList;
+	}
 
 }

@@ -35,7 +35,7 @@
 			$('#mr_endtime').val('<%=mr_endtime%>');
 			$('#mr_facility').val('<%=mr_facility%>');
 			$('#mr_memo').val('<%=mr_memo%>');
-			$('#roomImage').attr('src','<%="../pds/"+mr_image%>');
+			$('#roomImage').attr('src','<%="http://192.168.0.6:9000/4People_last2Spring/pds/"+mr_image%>');
 		});
 		</script>	
 <%}

@@ -8,7 +8,8 @@
  String image = (String)session.getAttribute("MEM_IMAGE");
  String imagePath ="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png";
  if(image!=null){
-	 imagePath="http://localhost:9000/4People_last2Spring/pds/"+image;
+	 imagePath="http://192.168.0.6:9000/4People_last2Spring/pds/"+image;
+// 	 imagePath="http://localhost:9000/4People_last2Spring/pds/"+image;
  }
  
 %>   
@@ -571,7 +572,7 @@ function dismiss(){
 			
 		}
 		socket.onerror = function() {
-			alert('에러가 발생 했습니다.')
+			//alert('에러가 발생 했습니다.')
 		}
 		socket.onclose = function() {
 			

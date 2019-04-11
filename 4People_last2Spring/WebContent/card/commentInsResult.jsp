@@ -45,7 +45,7 @@
         	 for(int i=0;i<commentsList.size();i++){
            
          %>
-         	<img  width="30px" height="30px"  src="http://localhost:9000/4People_last2Spring/pds/<%=c_mem_image.get(i)%>">
+         	<img  width="30px" height="30px"  src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=c_mem_image.get(i)%>">
          		<label><span style='font-size:20px; font_weight:bold; margin:5px;'><%=c_mem_name.get(i) %></span><span style='font-size:8px;'><%=comm_time.get(i) %></span>
          		<%if(mem_id.equals(comm_maker.get(i))){ %>
          		<a id="<%=comm_no.get(i) %>" style="margin-left:130px;" href="#" onClick="commDEL(id)"><img src="../images/close-cross.png" style="width:8px;hieght:8px"></a>

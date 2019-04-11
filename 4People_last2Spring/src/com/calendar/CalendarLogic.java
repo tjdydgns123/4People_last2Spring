@@ -44,7 +44,13 @@ public class CalendarLogic {
 		logger.info("result :"+result);
 		return result;
 	}
-
+	public List<Map<String, Object>> calTeamList(CalendarVO calVO) {
+		logger.info("캘린더 팀 일정 조회 호출 성공");
+		List<Map<String, Object>> calTeamList = null;
+		calTeamList = calDao.calTeamList(calVO);
+		logger.info("calTeamList :"+calTeamList);
+		return calTeamList;
+	}
 
 
 }

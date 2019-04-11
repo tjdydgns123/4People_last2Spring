@@ -114,6 +114,7 @@ var sel_file;
 			  day = "0" + day; 
 			} 
 			$("#input_date").val(year + "-" + month + "-" + day);
+			$('#search_inwon').val('1');
 		});
 	function handleImgFileSelect(e){
 		var files = e.target.files;
@@ -166,9 +167,9 @@ var sel_file;
 		</div>
 			
 		<div class='col-sm-2 col-sm-offset-6' style='padding: 30px;'>
-			<button class='btn btn-danger'>
-				<span style='font-size: 25px; font-weight: bold;'>참여팀 예약목록</span>
-			</button>
+			<a href='./myReserVation' class='btn btn-danger'>
+				<span style='font-size: 25px; font-weight: bold;'>내 예약 목록</span>
+			</a>
 		</div>
 	</div>
 
