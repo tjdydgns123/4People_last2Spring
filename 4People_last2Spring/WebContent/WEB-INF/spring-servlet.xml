@@ -34,6 +34,7 @@
 	<context:component-scan base-package="com.note"/>
 	<context:component-scan base-package="com.team"/>
 	<context:component-scan base-package="com.chatting"/>
+	<context:component-scan base-package="com.chart"/>
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
 
 	<mybatis:scan base-package="com.mybatis.mapper"/>
@@ -47,6 +48,7 @@
 	<mvc:resources location="/pds/" mapping="/pds/**"/>
 	<mvc:resources location="/card/" mapping="/card/**"/>
 	<mvc:resources location="/meetRoom/" mapping="/meetRoom/**"/>
+	<mvc:resources location="/chart/" mapping="/chart/**"/>
 <!-- 	<context:component-scan base-package="com.web"/> -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
