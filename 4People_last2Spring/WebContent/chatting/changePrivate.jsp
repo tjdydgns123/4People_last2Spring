@@ -10,6 +10,7 @@
 	String pvlog_time="";
 	String time = "";
 	String mem_id="";
+	String mem_image="";
 
 %>
 <style>
@@ -122,6 +123,7 @@
 		 }
 		 }
 		 mem_id = (String)rMap.get("MEM_ID");
+		 mem_image = (String)rMap.get("MEM_IMAGE");
 		
 		%>
 
@@ -129,7 +131,7 @@
 
 	<div class='row privateChatList'  id=<%=pvroom_code+":privateChat:"+mem_name+":"+mem_id%> style='margin-bottom:8px; border-bottom: 1px solid #BDBDBD;'>
 		<div class='col-sm-3'>
-		<img src="../images/chatBoy.png" class="rounded" alt="Cinque Terre">
+		<img src=<%="http://192.168.0.6:9000/4People_last2Spring/pds/"+mem_image%> width='40px' height='40px' class="rounded" alt="Cinque Terre">
 		</div>
 		<div class='col-sm-9'>
 		<div class='col-sm-8'>

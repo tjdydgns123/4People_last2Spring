@@ -298,7 +298,7 @@ var mr_no;
 <h2>회의실 예약하기</h2>
 </div>
 <div class="container" style='width:100%; height:100%;  overflow-y: auto; '>
-<form id='f_reservation' method="POST" action='./reservationOk'>
+<form id='f_reservation' method="GET" action='./reservationOk' >
 <div class='form-group'>
 <label for='roomAddress'>회의장소</label>
 <input id='roomAddress' type="text"   class='form-control'>
@@ -349,7 +349,7 @@ var mr_no;
 </div>
 </div>
 
-<form id='f_nextDate' method='POST' action='./roomSearch'>
+<form id='f_nextDate' method='GET' action='./roomSearch'>
 	<input type="hidden" id='nextDate_searchDate' name='searchDate'>
 	<input type="hidden" id='nextDate_searchInwon' name='searchInwon'>
 </form>
@@ -361,7 +361,7 @@ $('.es_td').click(function() {
     var clickName = $(this).parent().children().eq(1).text();
     var clickInwon = $(this).children().eq(3).text();
     var clickEndtime = $(this).children().eq(4).val();
-    var clickAddress = $(this).parent().children().eq(2).val();
+     clickAddress = $(this).parent().children().eq(2).val();
     var clickFacility = $(this).parent().children().eq(4).val();
     var clickMemo = $(this).parent().children().eq(5).val();
     if(clickMemo=='null'){
@@ -411,7 +411,7 @@ else{
 });
 </script>
 
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0a85ec870a80d618bb1ff2bf13843f75&libraries=services"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51c68eeb3c6b373573decd80bf6d6980&libraries=services"></script>
 	<script>
 	var mapContainer = document.getElementById('r_address'), // 지도를 표시할 div 
     mapOption = {
@@ -426,6 +426,8 @@ var geocoder = new daum.maps.services.Geocoder();
 // 주소로 좌표를 검색합니다
 function viewMap(){
 	geocoder.addressSearch(clickAddress, function(result, status) {
+		var y = result[0].y;
+		var x = result[0].x;
 	    // 정상적으로 검색이 완료됐으면 
 	     if (status === daum.maps.services.Status.OK) {
 	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
@@ -436,7 +438,7 @@ function viewMap(){
 	        });
 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
 	        var infowindow = new daum.maps.InfoWindow({
-	            content: '<div style="width:200px;text-align:center;padding:6px 0;">'+clickAddress+'</div>'
+	            content: '<div style="width:200px;text-align:center;padding:6px 0;"><a href="http://map.daum.net/link/search/'+clickAddress+'">'+clickAddress+'</div>'
 	        });
 	     // 지도를 보여준다.
 	        r_address.style.display = "block";

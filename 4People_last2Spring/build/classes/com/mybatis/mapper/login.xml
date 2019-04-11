@@ -15,8 +15,8 @@
 	</select>
 	
 	<insert id="signUp" parameterType="java.util.Map">
-		INSERT INTO member (mem_id,mem_name,mem_pw,mem_phone,mem_position,mem_companyaddr,mem_companyname,mem_companyphone,mem_connect)
-		      VALUES(#{mem_id}, #{mem_name}, #{mem_pw}, #{mem_hp},#{mem_position}, #{mem_addr}, #{mem_companyname},#{mem_companyphone},#{mem_connect})
+		INSERT INTO member (mem_id,mem_name,mem_pw,mem_phone,mem_position,mem_companyaddr,mem_companyname,mem_companyphone,mem_connect,mem_image)
+		      VALUES(#{mem_id}, #{mem_name}, #{mem_pw}, #{mem_hp},#{mem_position}, #{mem_addr}, #{mem_companyname},#{mem_companyphone},#{mem_connect},'profile-default.png')
 	
 	</insert>
 </mapper>

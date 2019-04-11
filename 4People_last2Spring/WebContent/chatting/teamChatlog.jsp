@@ -130,7 +130,6 @@ String team_inwon ="";
 			var chat_id = '<%=team_member%>';
 			var team_code = '<%=team_code%>';
 			var mem_name = '<%=mem_name%>';
-			alert(team_code);
 			teamLogIns(content,team_code,mem_name);
 			var obj ={
 		  			 id : chat_id,

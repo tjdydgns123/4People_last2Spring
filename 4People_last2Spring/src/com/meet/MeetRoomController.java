@@ -30,7 +30,7 @@ public class MeetRoomController {
 	
 	@PostMapping("meetRoomIns")
 	public String meetRoomIns(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
-		String savePath = "\\\\192.168.0.6\\\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
 		
 		
@@ -76,9 +76,9 @@ public class MeetRoomController {
 			System.out.println("key=="+key+" value=="+pMap.get(key));
 		}
 		mtRoom_logic.meetRoomIns(pMap);
-		return "redirect:meetMain.jsp";
+		return "redirect:myMeetingRoom";
 	}
-	@PostMapping("roomSearch")
+	@RequestMapping("roomSearch")
 	public String roomSearch(Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String searchDate = (String)pMap.get("searchDate");
 		int searchInwon = Integer.parseInt((String) pMap.get("searchInwon"));
@@ -124,7 +124,7 @@ public class MeetRoomController {
 	@PostMapping("roomUpd")
 	public String roomUpd(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
 		
-		String savePath = "\\\\192.168.0.6\\\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
 		
 		//첨부파일이 있니?
@@ -207,7 +207,7 @@ public class MeetRoomController {
 		List<Map<String,Object>> availableTeams = mtRoom_logic.availableTeams(pMap);
 		return availableTeams;
 	}
-	@PostMapping("reservationOk")
+	@RequestMapping("reservationOk")
 	public String reservationOk(@RequestParam Map<String,Object> pMap,ModelMap mMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
 		String mem_name =(String)mMap.get("MEM_NAME");
