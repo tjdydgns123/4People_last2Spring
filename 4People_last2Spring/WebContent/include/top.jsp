@@ -382,7 +382,7 @@ $(function() {
                 <a href="../calendar/calList" style='font-size:20px' >캘린더</a>
             </li>
             <li>
-                <a href="#" style='font-size:20px'>내 보드</a>
+                <a href="../note/myBoard" style='font-size:20px'>내 보드</a>
             </li>
             <li class="divider"></li>
             <li>

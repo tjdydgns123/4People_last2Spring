@@ -231,7 +231,7 @@ function newChattingSearch (){
 					}
 					}
 			}
-		else if(watch=='teamMessage'){
+		else {
 					if(gubun=='teamMessage'){
 						
 						//col-sm-9에 append

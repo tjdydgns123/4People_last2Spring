@@ -87,10 +87,9 @@
 		                ,#{r_mem_lank,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
 	</select>
 	<!-- 검색한 회원을 insert하는 구문 -->
-	<insert id="inviteMember" parameterType="map">
-		INSERT INTO team_member(team_code,tm_role,mem_id,tm_time)
-		 VALUES(#{team_code},#{p_role},#{inviteMember},(select TO_CHAR(sysdate,'YYYY.MM.DD.HH.MI.SS') from dual)) 
-		      
+	<insert id="inviteMember" parameterType="map" statementType="CALLABLE">
+	{call proc_teaminvite(#{team_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+					  ,#{inviteMember,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String})}
 	</insert>
 	
 	<select id="newTeam" parameterType="map" statementType="CALLABLE">

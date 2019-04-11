@@ -184,7 +184,7 @@ var sel_file;
 			<div class="panel panel-info">
 				<div class="panel-heading">회의실 검색하기</div>
 				<div class="panel-body">
-				<form id='f_roomSearch' method="POST">
+				<form id='f_roomSearch' method="GET">
 					<div class='col-sm-4'>
 						<div>
 							<label>사용일자</label>
@@ -329,7 +329,7 @@ var sel_file;
 									<label for="mr_master">담당자</label> <label for="mr_capacity"
 										style='margin-left: 180px;'>수용인원</label><br>
 										 <input type="text" class="form-control" id='mr_master' name='mr_master' readonly value=<%=mem_id %> placeholder='insert'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="text" class="form-control" id='mr_capacity'
+									<input type="text" class="form-control" id='mr_capacity' onKeypress="if(event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
 										name='mr_capacity' placeholder='insert'>
 								</div>
 							</div>
@@ -340,10 +340,9 @@ var sel_file;
 								<div class='form-group' style='padding: 20px; padding-top: 0;'>
 									<label for="mr_starttime">이용가능 시간</label><br>
 									<!--                     <input type="text" class="form-control" id='mr_starttime' name='mr_starttime'> -->
-									<input id="mr_starttime" width="220" placeholder='클릭--->'
-										name='mr_starttime' />&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp; <input
-										class="form-control" width="220" id='mr_endtime'
-										name='mr_endtime' placeholder='클릭--->'>
+									<input id="mr_starttime" readonly width="220" placeholder='클릭--->'
+										name='mr_starttime' />&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp; 
+										<input class="form-control" width="220" id='mr_endtime'readonly name='mr_endtime' placeholder='클릭--->'>
 								</div>
 							</div>
 						</div>

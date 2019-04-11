@@ -30,7 +30,8 @@ String board_title="";
 <script type="text/javascript">
 var color ="btn-default";
 function boardmove(id){
-	var board_id = id.substring(0,3);
+	var str = id.split('w');
+	var board_id = str[1];
 	if(board_id=='new'){
 		$('#layerpop').modal('show');
 		}
