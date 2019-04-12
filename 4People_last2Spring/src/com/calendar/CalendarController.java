@@ -40,7 +40,7 @@ public class CalendarController{
 		int result = 0;
 		result = calLogic.calINS(calVO);
 		logger.info("result :"+result);
-		return "redirect:calList?gubun=INS";
+		return "forward:calList?gubun=INS";
 	}
 	//캘린더 개인 일정 수정
 	@GetMapping("calUPD")

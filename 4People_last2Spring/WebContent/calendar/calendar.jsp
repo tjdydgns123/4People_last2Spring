@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.util.Map, java.util.List" %>
 <%
+	String mem_id = (String)session.getAttribute("MEM_ID");
 	List<Map<String, Object>> calList = (List<Map<String, Object>>)request.getAttribute("calList");
+	List<Map<String, Object>> calTeamList = (List<Map<String, Object>>)request.getAttribute("calTeamList");
 	//out.print(calList.get(0).get("CAL_TITLE"));
 %>
 <!DOCTYPE html> 
@@ -34,10 +36,10 @@ var g_end;
 		var title = $('#ins_title').val();
 		var start = this.g_start;
 		var end = this.g_end;
-		alert("전송");
+		alert("전송"+mem_id);
 		alert("title :"+title+", startdate :"+start+", enddate :"+end);
 		location.href="./calINS?cal_title="
-				+title+"&mem_id="+"warm_eng@naver.com"
+				+title+"&mem_id="+mem_id
 				+"&cal_startdate="+start.getFullYear()+"/"+(start.getMonth()+1)+"/"+start.getDate()
 				+"&cal_enddate="+end.getFullYear()+"/"+(end.getMonth()+1)+"/"+end.getDate();
 	}
@@ -212,7 +214,9 @@ var g_end;
 			} 
 			,editable: true 
 			// US Holidays 
-			,events: [
+			,eventSources:[
+				{
+					events: [
 			 			<% for(int i =0; i<calList.size(); i++){%>
 							{seq_no : '<%=calList.get(i).get("CAL_NO")%>'
 							,title:'<%=calList.get(i).get("CAL_TITLE")%>'
@@ -222,6 +226,25 @@ var g_end;
 				  		<%}%>
 		  				{title:'바보', start:'2006-03-28', color: '#378006'}
 		  			 ]
+					}
+				,
+				{
+					events: [
+			 			<% for(int i =0; i<calTeamList.size(); i++){%>
+							{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
+							,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
+				  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
+							},
+				  		<%}%>
+		  				{title:'바보', start:'2006-03-28', color: '#378006'}
+		  			 ]
+				   , color : "#FFB2D9"
+
+					}
+
+
+
+			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
       	    		alert('Event:title'+ info.title
