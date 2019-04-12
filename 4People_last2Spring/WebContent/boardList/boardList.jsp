@@ -118,31 +118,31 @@
 }
 
 
-#sidebar { font-size: 14px; z-index: 100; 
--webkit-transform: translate3d(-300px,0,0);
--moz-transform: translate3d(-300px,0,0);
-transform: translate3d(-300px,0,0);
--webkit-transition: all 0.2s;
--moz-transition: all 0.2s;
--ms-transition: all 0.2s;
--o-transition: all 0.2s;
-transition: all 0.2s;
-}
+/* #sidebar { font-size: 14px; z-index: 100;  */
+/* -webkit-transform: translate3d(-300px,0,0); */
+/* -moz-transform: translate3d(-300px,0,0); */
+/* transform: translate3d(-300px,0,0); */
+/* -webkit-transition: all 0.2s; */
+/* -moz-transition: all 0.2s; */
+/* -ms-transition: all 0.2s; */
+/* -o-transition: all 0.2s; */
+/* transition: all 0.2s; */
+/* } */
 
-html.open #sidebar { overflow-y: auto;
--webkit-transform: translate3d(0,0,0);
--moz-transform: translate3d(0,0,0);
-transform: translate3d(0,0,0);
--webkit-transition: all 0.2s;
--moz-transition: all 0.2s;
--ms-transition: all 0.2s;
--o-transition: all 0.2s;
-transition: all 0.2s;
-}
+/* html.open #sidebar { overflow-y: auto; */
+/* -webkit-transform: translate3d(0,0,0); */
+/* -moz-transform: translate3d(0,0,0); */
+/* transform: translate3d(0,0,0); */
+/* -webkit-transition: all 0.2s; */
+/* -moz-transition: all 0.2s; */
+/* -ms-transition: all 0.2s; */
+/* -o-transition: all 0.2s; */
+/* transition: all 0.2s; */
+/* } */
 
-#sidebar-toggle { display: block; position: fixed; left: 10px; bottom: 10px; 
-                  width: 50px; height: 50px; line-height: 55px; text-align: center; 
-                  color: #555; background-color: #f1f1f1; border-radius: 10px; opacity: 0.9; box-shadow: 0 0 10px #aaa; z-index: 101; }
+/* #sidebar-toggle { display: block; position: fixed; left: 10px; bottom: 10px;  */
+/*                   width: 50px; height: 50px; line-height: 55px; text-align: center;  */
+/*                   color: #555; background-color: #f1f1f1; border-radius: 10px; opacity: 0.9; box-shadow: 0 0 10px #aaa; z-index: 101; } */
 
 
 /* Decorations */
@@ -152,9 +152,9 @@ transition: all 0.2s;
 /* .col-sm-2:nth-child(3n+3) { background: #69c; } */
 </style>
 <script type="text/javascript">
-<%-- 	alert("<%=BLISTMap%>"); --%>
-<%-- 	alert("<%=CARDLISTMAP%>"); --%>
-<%-- 	alert("<%=CARD_CODE.size()%>"); --%>
+<%-- 	//alert("<%=BLISTMap%>"); --%>
+<%-- 	//alert("<%=CARDLISTMAP%>"); --%>
+<%-- 	//alert("<%=CARD_CODE.size()%>"); --%>
 var color ="btn-default";
 var temp = new Array();
 var label_code='';
@@ -231,7 +231,7 @@ function label_codee(id){
 				   }
 				  ,error:function(request,status,error){
 					  
-						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 				  }
 				});
 
@@ -263,7 +263,7 @@ function label_codee(id){
 			   
 		   }
 		  ,error:function(request,status,error){
-//				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+//				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 		  }
 		});
 		 }
@@ -277,7 +277,7 @@ function label_codee(id){
   });
 //   .datepicker('update', new Date());
 $('#gihanz').on('change',function () {
- alert($('#gihanz').val());
+ //alert($('#gihanz').val());
  var card_duedate = $('#gihanz').val();
  var param = "card_duedate="+card_duedate+"&card_code="+card_code; 
 	$.ajax({
@@ -303,7 +303,7 @@ e.preventDefault();
 // var count = 0;
 function checkAdd(){
 	var check_text = $('#check_text').val();
-	alert(check_text);
+	//alert(check_text);
 	var param = "check_title="+check_text+"&team_code="+team_code+"&card_code="+card_code+"&check_maker=<%=mem_id%>";
 	$.ajax({
 		type:"POST"
@@ -317,29 +317,29 @@ function checkAdd(){
 		   
 	   }
 	  ,error:function(request,status,error){
-			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	
 }
 function checklistadd(id){
 	check_code = id;
-	alert("checklistadd");
-	alert($('#check_list').children("#cklist_title").length);
-// 	alert($('#check_list').children("input[name=text]").length);
+	//alert("checklistadd");
+	//alert($('#check_list').children("#cklist_title").length);
+// 	//alert($('#check_list').children("input[name=text]").length);
 	if($('#check_list').children("#cklist_title").length==0){
-		alert("hnhn");
+		//alert("hnhn");
 	var $div = "<div id='cklist_title'><input type='text' name='text' id='ckli_text'><button onClick='cklistINS()'>생성</button><button onClick='ck_cancle()'>취소</button></div>"
 	$("#check_addhaja").after($div);
 		}
 }
  function ck_cancle(){
-// 	 alert("취소");
+// 	 //alert("취소");
 		$('#cklist_title').remove();
 	 }
 function cklistINS(){
 	var text = $('#ckli_text').val();
-	alert(text);
+	//alert(text);
 	$('#cklist_title').empty();
 	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code;
 	$.ajax({
@@ -350,20 +350,20 @@ function cklistINS(){
 	   ,success:function(result){
 //			   $("#membergood").html(result);
 		$("#check_list").empty();
-// 		 alert(result);
+// 		 //alert(result);
 		   $("#check_list").append(result);
 		   
 	   }
 	  ,error:function(request,status,error){
-		  alert("에러");
-//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		  //alert("에러");
+//			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	
 }
 
  function checkDEL(id){
-	alert("checkDEL");
+	//alert("checkDEL");
 
 	var param = "check_code="+id;
 	$.ajax({
@@ -375,7 +375,7 @@ function cklistINS(){
 		   $("#check_list").remove();
 	   }
 	  ,error:function(request,status,error){
-			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	 }
@@ -394,8 +394,8 @@ function cklistINS(){
 			   
 		   }
 		  ,error:function(request,status,error){
-			  alert("에러");
-//				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  //alert("에러");
+//				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 		  }
 		});
 	 }
@@ -405,7 +405,7 @@ function cklistINS(){
 
 $('#'+id+'').on('mousedown', function() {
 	if (event.button == 2) {
-		alert(parti_code);
+		//alert(parti_code);
 	}	  
 	});
  
@@ -420,10 +420,10 @@ function allowDrop(event) {
 function drop(event) {
 	    event.preventDefault();
 	    parti_code = event.dataTransfer.getData("text");
-	    alert(parti_code);
-// 	    alert($('parti_code').attr('name'));
-// 		alert("parit_code: "+parti_code);
-// 		alert("event: "+event.dataTransfer.getData("text"));
+	    //alert(parti_code);
+// 	    //alert($('parti_code').attr('name'));
+// 		//alert("parit_code: "+parti_code);
+// 		//alert("event: "+event.dataTransfer.getData("text"));
 
 
 		$('#'+parti_code+'').remove();
@@ -439,10 +439,10 @@ function drop(event) {
 	
 	/* 카드 참여자 초대  */
 	function mem_name_ajax(){
-// 		alert($("#label_text5").val());
-// 	alert("dd");
+// 		//alert($("#label_text5").val());
+// 	//alert("dd");
 	$('#label_text5').keyup(function (){
-// 	alert("df");
+// 	//alert("df");
 		$("#membergood").empty();
 
 		var mem_name =$("#label_text5").val();
@@ -458,7 +458,7 @@ function drop(event) {
 				   
 			   }
 			  ,error:function(request,status,error){
-				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			  }
 			});
 			});
@@ -469,7 +469,7 @@ function drop(event) {
 	
 	function memberinvate(id){
 		var param = "mem_id=<%=mem_id%>&team_code="+team_code+"&card_code="+card_code+"&parti_id="+id;
-// 		alert(id);
+// 		//alert(id);
 // 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
 		$.ajax({
 			type:"POST"
@@ -479,7 +479,7 @@ function drop(event) {
 		   ,success:function(result){
 			   $('#membersja').append(result);
 		   } ,error:function(){
-			   alert("실패에염")
+			   //alert("실패에염")
 				  $("#membersja").text(e.responseText);
 			  }
 		});
@@ -497,7 +497,7 @@ function drop(event) {
 				   
 			   }
 			  ,error:function(request,status,error){
-				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			  }
 			});
 			   $('#label_text5').val("");
@@ -514,7 +514,7 @@ function drop(event) {
 				   
 			   }
 			  ,error:function(request,status,error){
-				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			  }
 			});
 		
@@ -572,7 +572,7 @@ function drop(event) {
  	/*   코멘트   */
 		function comment(){
 			var comment = $('#input_comment').val();
-// 			alert(comment);
+// 			//alert(comment);
 			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code+"&comm_maker=<%=mem_id%>";
 			$.ajax({
 				type:"POST"
@@ -580,7 +580,7 @@ function drop(event) {
 			   ,data:param
 			   ,dataType:"text"
 			   ,success:function(result){
-				   alert(result);
+				   //alert(result);
 				  	$('#comments').empty();
 				  	$('#input_comment').val("");
 				   	$('#comments').append(result);			
@@ -588,37 +588,37 @@ function drop(event) {
 			   }
 			  ,error:function(jqXHR, exception){
 				  if (jqXHR.status === 0) {
-			            alert('Not connect.\n Verify Network.');
+			            //alert('Not connect.\n Verify Network.');
 			        }
 			        else if (jqXHR.status == 400) {
-			            alert('Server understood the request, but request content was invalid. [400]');
+			            //alert('Server understood the request, but request content was invalid. [400]');
 			        }
 			        else if (jqXHR.status == 401) {
-			            alert('Unauthorized access. [401]');
+			            //alert('Unauthorized access. [401]');
 			        }
 			        else if (jqXHR.status == 403) {
-			            alert('Forbidden resource can not be accessed. [403]');
+			            //alert('Forbidden resource can not be accessed. [403]');
 			        }
 			        else if (jqXHR.status == 404) {
-			            alert('Requested page not found. [404]');
+			            //alert('Requested page not found. [404]');
 			        }
 			        else if (jqXHR.status == 500) {
-			            alert('Internal server error. [500]');
+			            //alert('Internal server error. [500]');
 			        }
 			        else if (jqXHR.status == 503) {
-			            alert('Service unavailable. [503]');
+			            //alert('Service unavailable. [503]');
 			        }
 			        else if (exception === 'parsererror') {
-			            alert('Requested JSON parse failed. [Failed]');
+			            //alert('Requested JSON parse failed. [Failed]');
 			        }
 			        else if (exception === 'timeout') {
-			            alert('Time out error. [Timeout]');
+			            //alert('Time out error. [Timeout]');
 			        }
 			        else if (exception === 'abort') {
-			            alert('Ajax request aborted. [Aborted]');
+			            //alert('Ajax request aborted. [Aborted]');
 			        }
 			        else {
-			            alert('Uncaught Error.n' + jqXHR.responseText);
+			            //alert('Uncaught Error.n' + jqXHR.responseText);
 			        }
 
 
@@ -634,7 +634,7 @@ function drop(event) {
 		   ,data:param
 		   ,dataType:"text"
 		   ,success:function(result){
-// 			   alert(result);
+// 			   //alert(result);
 			  	$('#comments').empty();
 			  	$('#input_comment').val("");
 			   	$('#comments').append(result);			
@@ -644,8 +644,8 @@ function drop(event) {
 	}
  	/*   코멘트   */
 	function cardAdd(id){
-// 		alert(id);
-// 		alert($('#'+id+'tt').children('input[type=text]').length);
+// 		//alert(id);
+// 		//alert($('#'+id+'tt').children('input[type=text]').length);
 		if($('#'+id+'tt').children('input[type=text]').length==0){
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
 		if(id=="gg"){
@@ -665,16 +665,16 @@ function drop(event) {
 	 $('#'+id+'bb').empty();
 		}
 	function boardlistAdd(id){
-// 		alert(id);
-		alert("<%=board_no%>");
+// 		//alert(id);
+		//alert("<%=board_no%>");
 		var r_BL_team_code = "<%=t_team_code%>";
-		alert(r_BL_team_code);
-		alert(r_BL_team_code.substring(1,2));
+		//alert(r_BL_team_code);
+		//alert(r_BL_team_code.substring(1,2));
 		var str_team_code = r_BL_team_code.substring(1,2);
 		var input2 = document.getElementById('ggtextval').value;
 // 		var param = "bd_title="+input2;
 		var param = "?team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
-		alert(param);
+		//alert(param);
 		$('#jae').empty();
 <%-- 		location.href="./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2; --%>
 		location.href="./boardListINS"+encodeURI(param);
@@ -709,7 +709,7 @@ function drop(event) {
 		var param = "card_code="+id;
 		//은수
 		card_code =id;  
-		alert(card_code);
+		//alert(card_code);
 		//은수
 			$('#cardmodal').empty();
 			$.ajax({
@@ -724,37 +724,37 @@ function drop(event) {
 						   }
 			,error:function(jqXHR, exception){
 				  if (jqXHR.status === 0) {
-			            alert('Not connect.\n Verify Network.');
+			            //alert('Not connect.\n Verify Network.');
 			        }
 			        else if (jqXHR.status == 400) {
-			            alert('Server understood the request, but request content was invalid. [400]');
+			            //alert('Server understood the request, but request content was invalid. [400]');
 			        }
 			        else if (jqXHR.status == 401) {
-			            alert('Unauthorized access. [401]');
+			            //alert('Unauthorized access. [401]');
 			        }
 			        else if (jqXHR.status == 403) {
-			            alert('Forbidden resource can not be accessed. [403]');
+			            //alert('Forbidden resource can not be accessed. [403]');
 			        }
 			        else if (jqXHR.status == 404) {
-			            alert('Requested page not found. [404]');
+			            //alert('Requested page not found. [404]');
 			        }
 			        else if (jqXHR.status == 500) {
-			            alert('Internal server error. [500]');
+			            //alert('Internal server error. [500]');
 			        }
 			        else if (jqXHR.status == 503) {
-			            alert('Service unavailable. [503]');
+			            //alert('Service unavailable. [503]');
 			        }
 			        else if (exception === 'parsererror') {
-			            alert('Requested JSON parse failed. [Failed]');
+			            //alert('Requested JSON parse failed. [Failed]');
 			        }
 			        else if (exception === 'timeout') {
-			            alert('Time out error. [Timeout]');
+			            //alert('Time out error. [Timeout]');
 			        }
 			        else if (exception === 'abort') {
-			            alert('Ajax request aborted. [Aborted]');
+			            //alert('Ajax request aborted. [Aborted]');
 			        }
 			        else {
-			            alert('Uncaught Error.n' + jqXHR.responseText);
+			            //alert('Uncaught Error.n' + jqXHR.responseText);
 			        }
 
 
@@ -787,37 +787,37 @@ function drop(event) {
 					,error:function(jqXHR, exception){
 // 		 							   $('#cardmodal').modal('show');
 						  if (jqXHR.status === 0) {
-					            alert('Not connect.\n Verify Network.');
+					            //alert('Not connect.\n Verify Network.');
 					        }
 					        else if (jqXHR.status == 400) {
-					            alert('Server understood the request, but request content was invalid. [400]');
+					            //alert('Server understood the request, but request content was invalid. [400]');
 					        }
 					        else if (jqXHR.status == 401) {
-					            alert('Unauthorized access. [401]');
+					            //alert('Unauthorized access. [401]');
 					        }
 					        else if (jqXHR.status == 403) {
-					            alert('Forbidden resource can not be accessed. [403]');
+					            //alert('Forbidden resource can not be accessed. [403]');
 					        }
 					        else if (jqXHR.status == 404) {
-					            alert('Requested page not found. [404]');
+					            //alert('Requested page not found. [404]');
 					        }
 					        else if (jqXHR.status == 500) {
-					            alert('Internal server error. [500]');
+					            //alert('Internal server error. [500]');
 					        }
 					        else if (jqXHR.status == 503) {
-					            alert('Service unavailable. [503]');
+					            //alert('Service unavailable. [503]');
 					        }
 					        else if (exception === 'parsererror') {
-					            alert('Requested JSON parse failed. [Failed]');
+					            //alert('Requested JSON parse failed. [Failed]');
 					        }
 					        else if (exception === 'timeout') {
-					            alert('Time out error. [Timeout]');
+					            //alert('Time out error. [Timeout]');
 					        }
 					        else if (exception === 'abort') {
-					            alert('Ajax request aborted. [Aborted]');
+					            //alert('Ajax request aborted. [Aborted]');
 					        }
 					        else {
-					            alert('Uncaught Error.n' + jqXHR.responseText);
+					            //alert('Uncaught Error.n' + jqXHR.responseText);
 					        }
 
 
@@ -843,12 +843,12 @@ function drop(event) {
 				color ="btn-danger";
 			}
 			function descriptionIns(id){
-				alert(id);
+				//alert(id);
 				des_code = id;
 				var text = '';
 					text = $('#des_text').val();
 					 var param = "des_content="+text+"&des_maker=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
-				alert(text);
+				//alert(text);
 // 				$('#des_con').empty();
 // 				$('#des_bt').empty();
 				$('#card_description').empty();
@@ -861,7 +861,7 @@ function drop(event) {
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
-// 							   alert(result);
+// 							   //alert(result);
 // 						    $('#des_con').append(result);
 						    $('#card_description').append(result);
 						   }
@@ -869,7 +869,7 @@ function drop(event) {
 				}
 			function desUPD(id){
 				des_code = id;
-				alert(id);
+				//alert(id);
 				document.getElementById('des_conss').innerHTML+= "<textarea  id='des_text' style='margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; '/>";
 				document.getElementById('des_bt').innerHTML+=  "<input type='button' style='margin-left:50px; margin-top:10px' class='btn btn-success col-sm-2 col-sm-offset-5' value='저장' onClick='descriptionUPD()'>";
 					
@@ -879,14 +879,14 @@ function drop(event) {
 				var text = '';
 				text = $('#des_text').val();
 				var param = "des_content="+text+"&des_no="+des_code;
-				alert(text);
+				//alert(text);
 				if(text.length==0){
-					alert('빈'+text.length);
+					//alert('빈'+text.length);
 				$('#des_conss').empty();
 				$('#des_bt').empty();
 					}
 				else{
-					alert('찬'+text.length)
+					//alert('찬'+text.length)
 				$('#des_conss').empty();
 				$('#des_cons').empty();
 				$('#des_cons').append("<span><h5>"+text+"</h5></span>");
@@ -905,7 +905,7 @@ function drop(event) {
 				}
 
 				function vison(){
-// 					alert("vison");
+// 					//alert("vison");
 					$('#ccmmdy').attr('style','background-image:url("../images/vison.gif")');
 					}
 				function topMemberAdd(){
@@ -929,17 +929,17 @@ function drop(event) {
 								   
 							   }
 							  ,error:function(request,status,error){
-//				 				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+//				 				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 							  }
 							});
 							});
 
 					}
 				function memberinvate2(id){
-// 				alert(id);
+// 				//alert(id);
 
 				var param = "mem_id="+id+"&team_code="+team_code+"&board_no=<%=board_no%>";
-//		 		alert(id);
+//		 		//alert(id);
 //		 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
 				$.ajax({
 					type:"POST"
@@ -951,39 +951,39 @@ function drop(event) {
 					   $('#top_panel').append(result);
 				   } ,error:function(jqXHR, exception){
 					   if (jqXHR.status === 0) {
-				            alert('Not connect.\n Verify Network.');
+				            //alert('Not connect.\n Verify Network.');
 				        }
 				        else if (jqXHR.status == 400) {
-				            alert('Server understood the request, but request content was invalid. [400]');
+				            //alert('Server understood the request, but request content was invalid. [400]');
 				        }
 				        else if (jqXHR.status == 401) {
-				            alert('Unauthorized access. [401]');
+				            //alert('Unauthorized access. [401]');
 				        }
 				        else if (jqXHR.status == 403) {
-				            alert('Forbidden resource can not be accessed. [403]');
+				            //alert('Forbidden resource can not be accessed. [403]');
 				        }
 				        else if (jqXHR.status == 404) {
-				            alert('Requested page not found. [404]');
+				            //alert('Requested page not found. [404]');
 				        }
 				        else if (jqXHR.status == 500) {
-				            alert('Internal server error. [500]');
+				            //alert('Internal server error. [500]');
 				        }
 				        else if (jqXHR.status == 503) {
-				            alert('Service unavailable. [503]');
+				            //alert('Service unavailable. [503]');
 				        }
 				        else if (exception === 'parsererror') {
-				            alert('Requested JSON parse failed. [Failed]');
+				            //alert('Requested JSON parse failed. [Failed]');
 				        }
 				        else if (exception === 'timeout') {
-				            alert('Time out error. [Timeout]');
+				            //alert('Time out error. [Timeout]');
 				        }
 				        else if (exception === 'abort') {
-				            alert('Ajax request aborted. [Aborted]');
+				            //alert('Ajax request aborted. [Aborted]');
 				        }
 				        else {
-				            alert('Uncaught Error.n' + jqXHR.responseText);
+				            //alert('Uncaught Error.n' + jqXHR.responseText);
 				        }
-// 					   alert("실패에염")
+// 					   //alert("실패에염")
 					  }
 				});
 					   $('#label_text6').val("-");
@@ -1000,7 +1000,7 @@ function drop(event) {
 						   
 					   }
 					  ,error:function(request,status,error){
-						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 					  }
 					});
 					   $('#label_text6').val("");
@@ -1017,7 +1017,7 @@ function drop(event) {
 						   
 					   }
 					  ,error:function(request,status,error){
-						  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 					  }
 					});
 					}

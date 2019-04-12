@@ -73,4 +73,16 @@ public class CalendarDao {
 		}
 		return calTeamList;
 	}
+	public List<Map<String, Object>> calTeamCount(CalendarVO calVO) {
+		logger.info("캘린더 팀 수 조회 호출 성공");
+		List<Map<String, Object>> calTeamCount = new ArrayList<Map<String, Object>>();
+		try {
+			calTeamCount = sqlSessionTemplate.selectList("calTeamCount", calVO);
+			logger.info("calTeamCount :"+calTeamCount);
+			logger.info(calTeamCount.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return calTeamCount;
+	}
 }

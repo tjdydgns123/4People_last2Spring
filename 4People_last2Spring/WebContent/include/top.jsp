@@ -410,7 +410,8 @@ $(function() {
       <div class='col-sm-2'>
       <ul class="nav navbar-nav navbar-left">
         <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
-        	<i class="fas fa-bars"></i>
+<!--         	<i class="fas fa-bars"></i>  -->
+<img src='../images/sideButton.png' width='35px' height='35px'>
         </button>
       </ul>
       <span  id='navChat'>
@@ -420,8 +421,8 @@ $(function() {
       
       
       <!-- 가운데 -->
-      <div class='col-sm-2 col-sm-offset-3'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
+      <div class='col-sm-3 col-sm-offset-3' style='height:60px;'>
+      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
@@ -430,7 +431,7 @@ $(function() {
          </div>
    		<!-- 검색 -->
       <!-- 오른쪽 -->
-      <div class='col-sm-3'>
+      <div class='col-sm-2'>
       <ul class="nav navbar-nav navbar-right">
       <li style="font-size:1.5em;  color: white; margin-top:15px"><%=name %></li>
       <!--  -->

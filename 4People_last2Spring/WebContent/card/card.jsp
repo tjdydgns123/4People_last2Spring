@@ -379,7 +379,10 @@ font-family: 'Candal', sans-serif;
           <div id="des_con">
           <div id="des_conss" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
           <%if(des_content==null){ %>
-         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " />
+         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
+- 3.15 워크샵 준비하기
+- 학회참석하기
+- A4용지 구매하기</textarea>
          <%}%>
           </div>
           <div id="des_cons">
@@ -519,7 +522,7 @@ font-family: 'Candal', sans-serif;
       </div>
       <div class="modal-body" style="background-color:#FAE0D4">
       	<label>Title</label>
-        <input type="text" id="label_text" placeholder="내용을 입력하세요."><br><br>
+        <input type="text" id="label_text" placeholder="내용을 입력하세요." value='내일 정전이 된다해도 나는 오늘 한 줄의 코드를 쓰겠다.'><br><br>
       	<label>Select Color</label><br>
       <input type="button" class="btn btn-default" onClick="defaultt()">
       <input type="button" class="btn btn-success" onClick="success()">
@@ -598,7 +601,7 @@ var count=parseFloat("<%=check_length%>");
 	
 function hihi(check,id){
 
-	alert("count:"+count); 
+// 	alert("count:"+count); 
 	var length ='';
 	var llength ='';
 	var lllength ='';
@@ -615,9 +618,9 @@ function hihi(check,id){
 	 Mllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))-llength);
     
 	if ( check.checked == true ){
-	alert("선택");
+// 	alert("선택");
 	count += 1;
-	 alert("선택후 count: "+count);
+// 	 alert("선택후 count: "+count);
 	 if(count!=length){
 	$('#barbar').attr({
 		"aria-valuenow" : lllength ,
@@ -649,9 +652,9 @@ function hihi(check,id){
 	 
 	 }
 	else{
-	alert("해제");
+// 	alert("해제");
 	count -=1;
-	 alert("해제후 count: "+count);
+// 	 alert("해제후 count: "+count);
 	 if(count!=0){
 	$('#barbar').attr({
 		"aria-valuenow" : Mllength,

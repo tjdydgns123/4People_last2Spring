@@ -34,6 +34,13 @@
       	</where>
   	  ORDER BY TEAM_CODE 
 	</select>
+	<select id="calTeamCount" parameterType="com.vo.CalendarVO" resultType="java.util.Map">
+		SELECT TEAM_MEMBER.TEAM_CODE 
+		  FROM CARD,TEAM_MEMBER 
+		 WHERE TEAM_MEMBER.mem_id=#{mem_id} 
+		   AND CARD.TEAM_CODE = TEAM_MEMBER.TEAM_CODE
+      GROUP BY TEAM_MEMBER.TEAM_CODE
+	</select>
 <!-- 	<select id="calTeam2" parameterType="CALLABLE" resultType="map">
 		{call proc_calendarMyTeam(
 			#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
