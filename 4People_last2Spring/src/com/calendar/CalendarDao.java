@@ -67,13 +67,10 @@ public class CalendarDao {
 			calTeamList = sqlSessionTemplate.selectList("calTeam", calVO);
 
 			logger.info("calTeamList :"+calTeamList);
+			logger.info(calTeamList.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info(calVO.getCard_code()); 
-		logger.info(calVO.getCard_date());
-		logger.info(calVO.getCard_duedate()); 
-		logger.info(calVO.getCard_name()); 
 		return calTeamList;
 	}
 }
