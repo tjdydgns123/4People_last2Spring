@@ -7,12 +7,22 @@
 	List<Map<String, Object>> calTeamList = (List<Map<String, Object>>)request.getAttribute("calTeamList");
 	List<Map<String, Object>> calTeamCount = (List<Map<String, Object>>)request.getAttribute("calTeamCount");
 	int teamCount = calTeamCount.size();
-	String[] colors = new String[5];
-	colors[0] = "#FFB2D9";
-	colors[1] = "#A566FF";
-	colors[2] = "#FF5E00";
-	colors[3] = "#FF5E00";
-	colors[4] = "#FF5E00";
+	   String[] colors = new String[15];
+	   colors[0] = "#FFB2D9";
+	   colors[1] = "#A566FF";
+	   colors[2] = "#FF5E00";
+	   colors[3] = "#C4B73B";
+	   colors[4] = "#6B9900";
+	   colors[5] = "#008299";
+	   colors[6] = "#FF5E00";
+	   colors[7] = "#FF5E00";
+	   colors[8] = "#FF5E00";
+	   colors[9] = "#FF5E00";
+	   colors[10] = "#FF5E00";
+	   colors[11] = "#FF5E00";
+	   colors[12] = "#FF5E00";
+	   colors[13] = "#FF5E00";
+	   colors[14] = "#FF5E00";
 	//out.print(calList.get(0).get("CAL_TITLE"));
 %>
 <!DOCTYPE html> 
@@ -400,7 +410,7 @@ var color2 = "#FF5E00";
 			</div>
       </div>
       <div class="modal-footer">
-        <input type="button" class="btn btn-primary" onClick="sendEvent()" >Save</button>
+        <input type="button" class="btn btn-primary" onClick="sendEvent()" value="Save">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
