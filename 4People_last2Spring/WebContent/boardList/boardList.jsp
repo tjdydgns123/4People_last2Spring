@@ -118,7 +118,31 @@
 }
 
 
+#sidebar { font-size: 14px; z-index: 100; 
+-webkit-transform: translate3d(-300px,0,0);
+-moz-transform: translate3d(-300px,0,0);
+transform: translate3d(-300px,0,0);
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+-ms-transition: all 0.2s;
+-o-transition: all 0.2s;
+transition: all 0.2s;
+}
 
+html.open #sidebar { overflow-y: auto;
+-webkit-transform: translate3d(0,0,0);
+-moz-transform: translate3d(0,0,0);
+transform: translate3d(0,0,0);
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+-ms-transition: all 0.2s;
+-o-transition: all 0.2s;
+transition: all 0.2s;
+}
+
+#sidebar-toggle { display: block; position: fixed; left: 10px; bottom: 10px; 
+                  width: 50px; height: 50px; line-height: 55px; text-align: center; 
+                  color: #555; background-color: #f1f1f1; border-radius: 10px; opacity: 0.9; box-shadow: 0 0 10px #aaa; z-index: 101; }
 
 
 /* Decorations */
@@ -304,6 +328,7 @@ function checklistadd(id){
 	alert($('#check_list').children("#cklist_title").length);
 // 	alert($('#check_list').children("input[name=text]").length);
 	if($('#check_list').children("#cklist_title").length==0){
+		alert("hnhn");
 	var $div = "<div id='cklist_title'><input type='text' name='text' id='ckli_text'><button onClick='cklistINS()'>생성</button><button onClick='ck_cancle()'>취소</button></div>"
 	$("#check_addhaja").after($div);
 		}
@@ -338,7 +363,7 @@ function cklistINS(){
 }
 
  function checkDEL(id){
-	$("#check_list").remove();
+	alert("checkDEL");
 
 	var param = "check_code="+id;
 	$.ajax({
@@ -347,10 +372,10 @@ function cklistINS(){
 	   ,data:param
 	   ,dataType:"html"
 	   ,success:function(result){
-		   
+		   $("#check_list").remove();
 	   }
 	  ,error:function(request,status,error){
-//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	 }
@@ -824,10 +849,11 @@ function drop(event) {
 					text = $('#des_text').val();
 					 var param = "des_content="+text+"&des_maker=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
 				alert(text);
-				$('#des_con').empty();
-				$('#des_bt').empty();
+// 				$('#des_con').empty();
+// 				$('#des_bt').empty();
+				$('#card_description').empty();
 // 				document.getElementById('des_con').innerHTML+="<span><h5>"+text+"</h5></span>";
-				document.getElementById('hth').innerHTML+="<a style='margin-left:20px'>edit</a>";
+// 				document.getElementById('hth').innerHTML+="<a href='#' onclick='desUPD(id)' style='margin-left:20px'>edit</a>";
 				
 				$.ajax({
 					type:"POST"
@@ -836,7 +862,8 @@ function drop(event) {
 						   ,dataType:"html"
 						   ,success:function(result){
 // 							   alert(result);
-						    $('#des_con').append(result);
+// 						    $('#des_con').append(result);
+						    $('#card_description').append(result);
 						   }
 							});
 				}
@@ -994,7 +1021,10 @@ function drop(event) {
 					  }
 					});
 					}
-	
+
+				$("#sidebar-toggle").click(function(){
+					  $("html").toggleClass("open");
+					});
 </script>
 </head>
 <body >
@@ -1008,10 +1038,12 @@ function drop(event) {
         <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
         <%}} %>
         <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
+        <a href="#" style="margin-left:60%">Show History</a>
         </h3>
 		</div>
+
         </div>
- 
+
     <div id="label_modal4" class="modal" role="dialog" style="width:400px;margin-left:350px;margin-top:130px">
   		<div class="modal-dialogg" id="label_dialogg4">
     <div class="modal-content" style="position:relative;">

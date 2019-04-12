@@ -92,7 +92,7 @@ while(b_itr.hasNext()){
 		}
 	  function boardupd(id){
 			alert(id);
-		  location.href="./boardUPD?board_no="+id+"&mem_id=<%=mem_id%>";
+		  location.href="./boardUPD?board_no="+id+"&mem_id=<%=mem_id%>+team_code="+team_code;
 		  
 	  }
 	  function boardmove(id){
@@ -134,7 +134,7 @@ while(b_itr.hasNext()){
 <%} }%>
 	</div>
 	</tr>
-<% for(int i=0;i<t_team_code.size();i++){ %>
+<% for(int i=0;i<t_team_code.size();i++) { %>
 <tr>
 	<div class=" row col-md-offset-1"style="margin-updateboard:700px;" >
 	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/my.png"></span><%=t_team_name.get(i) %> </h3>
@@ -142,11 +142,12 @@ while(b_itr.hasNext()){
 	<input type="button" style="WIDTH: 150pt; HEIGHT: 100pt" id="<%=t_team_code.get(i) %>" class="btn btn-default " data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..." onClick="teamCodeset(id)">
 	</div>
 	<%for(int j=0;j<b_team_code.size();j++) {%>
-	<%if(t_team_code.get(i).equals(b_team_code.get(j))){ %>
+	<%if(t_team_code.get(i).equals(b_team_code.get(j))){ 
+	  if(!b_board_no.get(j).substring(0,2).equals("ne")){%>
 	<div class='col-md-2'>
 	<input type='button' style='WIDTH: 150pt; HEIGHT: 100pt' id="<%=b_board_no.get(j) %>" class="btn <%=b_board_color.get(j) %> " value="<%=b_board_title.get(j) %>" onClick='boardmove(id)'>
 	</div>
-	<% }
+	<% }}
     }	
 	%>
 	</div>

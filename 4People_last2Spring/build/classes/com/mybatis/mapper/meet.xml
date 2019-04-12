@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="meetingRoomInfo" parameterType="map" resultType="map">
-	select mr_no,mr_loc,mr_capacity,mr_name,mr_startTime,mr_endTime,mr_facility,mr_image,mr_detaileloc
+	select mr_no,mr_loc,mr_capacity,mr_name,mr_startTime,mr_endTime,mr_facility,mr_image,mr_detaileloc,mr_memo
 		from meeting_room
 		where mr_no  = #{mr_no}
 	</select>
@@ -95,7 +95,7 @@
 	where mem_id = #{mem_id}
 	)group by mr_no)
 	<if test="searchInwon!=null">
-	and mr_capacity >= #{searchInwon}
+	and mr_capacity >=#{searchInwon}
 	</if>
 	
 	</select>

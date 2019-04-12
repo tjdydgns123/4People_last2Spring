@@ -40,9 +40,8 @@ public class CardDao {
 		List<Map<String,Object>> labelIns = new ArrayList<Map<String,Object>>();
 		sqlSessionTemplate.selectOne("labelIns",pMap);
 		logger.info(pMap.size());
-		labelIns.add(pMap);
 		logger.info(labelIns.size());
-		logger.info(labelIns.get(0).get("r_label_color"));
+		labelIns.add(pMap);
 //		session.commit();
 		return labelIns;
 	}
@@ -52,6 +51,7 @@ public class CardDao {
 		sqlSessionTemplate.selectList("cardSEL",pMap);
 		logger.info(pMap);
 		cardList.add(pMap);
+		
 		return cardList;
 	}
 

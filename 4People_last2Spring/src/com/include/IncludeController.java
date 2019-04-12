@@ -71,7 +71,7 @@ public class IncludeController{
 		HttpSession session = req.getSession();
 		String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
 		pMap.put("mem_id",mem_id);
-		String savePath = "\\\\192.168.0.6\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "\\\\192.168.0.6\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
 		
 		//첨부파일이 있니?
 		if(mem_img !=null) {

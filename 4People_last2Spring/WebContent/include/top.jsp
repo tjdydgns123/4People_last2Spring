@@ -364,16 +364,7 @@ $(function() {
             <h4><%=dept %>/<%=position %></h4>
         </div>
         <ul class="list-unstyled components">
-            <li>
-            <button class="es_dropdown-btn">개인프로젝트 
-   			 <i class="fa fa-caret-down"></i>
-  			</button>
-  			<div class="es_dropdown-container">
-    			<a href="#">Link 1</a>
-    			<a href="#">Link 2</a>
-    			<a href="#">Link 3</a>
-  			</div>
-            </li>
+          
             <li>
             <button class="es_dropdown-btn">참여중인팀 
    			 <i class="fa fa-caret-down"></i>
@@ -391,7 +382,7 @@ $(function() {
                 <a href="../calendar/calList" style='font-size:20px' >캘린더</a>
             </li>
             <li>
-                <a href="#" style='font-size:20px'>내 보드</a>
+                <a href="../note/myBoard" style='font-size:20px'>내 보드</a>
             </li>
             <li class="divider"></li>
             <li>
