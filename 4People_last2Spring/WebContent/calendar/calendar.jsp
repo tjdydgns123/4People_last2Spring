@@ -5,6 +5,14 @@
 	String mem_id = (String)session.getAttribute("MEM_ID");
 	List<Map<String, Object>> calList = (List<Map<String, Object>>)request.getAttribute("calList");
 	List<Map<String, Object>> calTeamList = (List<Map<String, Object>>)request.getAttribute("calTeamList");
+	List<Map<String, Object>> calTeamCount = (List<Map<String, Object>>)request.getAttribute("calTeamCount");
+	int teamCount = calTeamCount.size();
+	String[] colors = new String[5];
+	colors[0] = "#FFB2D9";
+	colors[1] = "#A566FF";
+	colors[2] = "#FF5E00";
+	colors[3] = "#FF5E00";
+	colors[4] = "#FF5E00";
 	//out.print(calList.get(0).get("CAL_TITLE"));
 %>
 <!DOCTYPE html> 
@@ -27,6 +35,9 @@
 <script type="text/javascript">
 var g_start;
 var g_end;
+var color0 = "#FFB2D9";
+var color1 = "#A566FF";
+var color2 = "#FF5E00";
 	function clickEvent(start, end){
 // 		alert("clickEvent호출");
 		 this.g_start = start;
@@ -215,8 +226,7 @@ var g_end;
 			,editable: true 
 			// US Holidays 
 			,eventSources:[
-				{
-					events: [
+				{events: [//내일정
 			 			<% for(int i =0; i<calList.size(); i++){%>
 							{seq_no : '<%=calList.get(i).get("CAL_NO")%>'
 							,title:'<%=calList.get(i).get("CAL_TITLE")%>'
@@ -225,25 +235,30 @@ var g_end;
 							},
 				  		<%}%>
 		  				{title:'바보', start:'2006-03-28', color: '#378006'}
-		  			 ]
-					}
-				,
-				{
-					events: [
-			 			<% for(int i =0; i<calTeamList.size(); i++){%>
-							{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
-							,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
-				  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
-							},
-				  		<%}%>
-		  				{title:'바보', start:'2006-03-28', color: '#378006'}
-		  			 ]
-				   , color : "#FFB2D9"
+		  		]}
+		  		//팀일정
+		  		<%
+		  		if(teamCount!=0){
+		  		%>
+		  		<%for(int j=0; j<teamCount; j++){
+		  			String js = String.valueOf(j);
+		  		%>
+				   ,{events: [
+				 			<% for(int i =0; i<calTeamList.size(); i++){%>
+		  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
+								{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
+								,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
+					  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
+								},
+								<%}%>
+					  		<%}%>
+			  				{title:'바보', start:'2006-03-28', color: '#378006'}
+			  			 ]
+				   ,color : '<%=colors[j]%>'
 
 					}
-
-
-
+					<%}%>
+				<%}%>//end of if
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
@@ -257,14 +272,6 @@ var g_end;
                 deleteEvent(event.seq_no);
       	 	}
 		}); 
-				<%--var event = {
-             			<% for(int i =0; i<calList.size(); i++){%>
-             				{title:'<%=calList.get(i).get("CAL_TITLE")%>'
-            		  	 , start:'<%=calList.get(i).get("CAL_STARTDATE")%>'},
-            		  	 <%}%>
-            		  	{title:'바보'
-               		  	 , start:'2006-03-28' }
-             }; --%>
              calendar.fullCalendar('renderEvent',event,true);
         var startdate = this.start;
         var enddate = this.end;       
@@ -410,7 +417,6 @@ var g_end;
     	 	text:'닫기',
     	 	iconCls : 'icon-help',
     	 	handler:function(){$('#dlg_boardUpd').dialog('close');}
-    	 	
     	 }] -->
     " 
     style="width:600px;height:450px;padding:10px">

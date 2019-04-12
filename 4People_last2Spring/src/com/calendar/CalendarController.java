@@ -25,11 +25,14 @@ public class CalendarController{
 		logger.info("캘린더 조회 호출 성공");
 		List<Map<String, Object>> calList = null;
 		List<Map<String, Object>> calTeamList = null;
+		List<Map<String, Object>> calTeamCount = null;
 		String path = "";
 		calList = calLogic.calList(calVO);
 		calTeamList = calLogic.calTeamList(calVO);
+		calTeamCount = calLogic.calTeamCount(calVO);
 		model.addAttribute("calList", calList);
 		model.addAttribute("calTeamList", calTeamList);
+		model.addAttribute("calTeamCount", calTeamCount);
 		logger.info("calList :"+calList);
 		return "forward:calendar.jsp";
 	}

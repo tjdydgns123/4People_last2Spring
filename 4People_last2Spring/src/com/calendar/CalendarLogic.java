@@ -51,6 +51,13 @@ public class CalendarLogic {
 		logger.info("calTeamList :"+calTeamList);
 		return calTeamList;
 	}
+	public List<Map<String, Object>> calTeamCount(CalendarVO calVO){
+		logger.info("캘린더 팀 수 조회 호출 성공");
+		List<Map<String, Object>> calTeamCount = null;
+		calTeamCount = calDao.calTeamCount(calVO);
+		logger.info("calTeamCount :"+calTeamCount);
+		return calTeamCount;
+	}
 
 
 }
