@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.chart">
-<select id="chartSel" parameterType="String" resultType="map">
-select board_title, blist_title 
-from board, board_list 
-where board.board_no = board_list.board_no and board.board_no = #{board_no}
+<insert id="chartIns">
+insert into chart(no, mem_id, chartname, charttype, label, data, createtime) 
+values(seq_chart_no.nextval, #{mem_id}, #{chartname}, #{charttype}, #{label}, #{data}, to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'))
+</insert>
+
+<select id="chartSel" parameterType="String" resultType="com.vo.ChartVO">
+select no, mem_id, chartname, charttype, label, data, createtime 
+from chart 
+where mem_id = #{mem_id} 
+order by no
 </select>
 </mapper>
