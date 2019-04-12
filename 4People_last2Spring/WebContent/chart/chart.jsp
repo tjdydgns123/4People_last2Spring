@@ -42,38 +42,37 @@ $(document).ready(function(){
 	var aa_chartname = new Array();
 	var aa_charttype = new Array();
 	var aa_data = new Array();
+	var aa_no = new Array();
 	<c:forEach items="${chartList}" var="aaa">
 		aa_label.push("${aaa.label}");
 		aa_chartname.push("${aaa.chartname}");
+		aa_charttype.push("${aaa.charttype}");
+		aa_data.push("${aaa.data}");
+		aa_no.push("${aaa.no}");
 	</c:forEach>
 	
 	for(var i=0; i<${chartList.size()}; i++){
 		
- 		var chartType = "${chartList.get(i).charttype}"; 
+ 		var chartType = aa_charttype[i]; 
 		
 	    var v_x = aa_label[i];   
-		console.log(v_x);
-		console.log(aa_chartname[i]);
-		console.log(i); 
 	    var tokens_x = v_x.split(','); 
 	    var x1 = tokens_x[0];  
 	    var x2 = tokens_x[1];  
 	    var x3 = tokens_x[2];  
 	    var x4 = tokens_x[3]; 
-//	     console.log(${chartList.get(0).no}+","+${chartList.get(1).no}); 
-//	     console.log(${chartList.get(i).no}); 
 	    
-	    var v_y = "${chartList.get(i).data}";
+	    var v_y = aa_data[i];
 	    var tokens_y = v_y.split(',');  
 	    var y1 = tokens_y[0];   
 	    var y2 = tokens_y[1];   
 	    var y3 = tokens_y[2];   
 	    var y4 = tokens_y[3];  
 	    
-	    var chartName = "${chartList.get(i).chartname}";
+	    var chartName = aa_chartname[i];
 
 	    
-	    var ctx = document.getElementById('${chartList.get(i).no}').getContext('2d');
+	    var ctx = document.getElementById(aa_no[i]).getContext('2d'); 
 	    var myBarChart  = new Chart(ctx, {
 	        type: chartType,
 	        data: {
