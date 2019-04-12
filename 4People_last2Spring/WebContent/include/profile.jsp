@@ -158,7 +158,7 @@ function memberDeleteOk(){
 function passwordOk2(){
 	var passwordOk=$('#passwordOk').val();
 	var command = $('#command').val();
-	alert(command);
+// 	alert(command);
 	var param = 'mem_pw='+passwordOk+"&command="+command;
 	 $('#profileInfo').empty();
 	$.ajax({

@@ -144,9 +144,10 @@ var sel_file;
 	function meettingIns(){
 		$("#f_meettingIns").attr("action","./meetRoomIns");
  		$("#f_meettingIns").submit();
+ 		$('#loadingModal2').modal('show');
 		}
 	function fileOpen(){
-			alert('클릭');
+// 			alert('클릭');
 				$('#imgFile').click();
 		}
 </script>
@@ -291,7 +292,7 @@ var sel_file;
 						<div class='col-sm-8 col-sm-offfset-4'>
 							<div class='form-group'
 								style='margin-top: 20px; padding: 20px; padding-bottom: 5px;'>
-								<label for="mr_name">회의실 이름</label><br> <input type="text"
+								<label for="mr_name">회의실 이름</label><br> <input type="text" value='육토피아 회의실'
 									class="form-control" id='mr_name' name='mr_name'
 									placeholder='insert here'>
 							</div>
@@ -313,7 +314,7 @@ var sel_file;
 								style='padding: 20px; padding-top: 0px; padding-bottom: 0;'>
 								<label for="mr_detaileloc">상세주소</label><br> <input
 									type="text" class="form-control" id='mr_detaileloc'
-									name='mr_detaileloc' placeholder='ex) 102호'>
+									name='mr_detaileloc' placeholder='ex) 102호' value='102호'>
 							</div>
 						</div>
 
@@ -329,7 +330,7 @@ var sel_file;
 									<label for="mr_master">담당자</label> <label for="mr_capacity"
 										style='margin-left: 180px;'>수용인원</label><br>
 										 <input type="text" class="form-control" id='mr_master' name='mr_master' readonly value=<%=mem_id %> placeholder='insert'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="text" class="form-control" id='mr_capacity' onKeypress="if(event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+									<input type="text" value='10' class="form-control" id='mr_capacity' onKeypress="if(event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
 										name='mr_capacity' placeholder='insert'>
 								</div>
 							</div>
@@ -340,9 +341,9 @@ var sel_file;
 								<div class='form-group' style='padding: 20px; padding-top: 0;'>
 									<label for="mr_starttime">이용가능 시간</label><br>
 									<!--                     <input type="text" class="form-control" id='mr_starttime' name='mr_starttime'> -->
-									<input id="mr_starttime" readonly width="220" placeholder='클릭--->'
+									<input id="mr_starttime" readonly width="220" placeholder='클릭--->' value='08:00'
 										name='mr_starttime' />&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp; 
-										<input class="form-control" width="220" id='mr_endtime'readonly name='mr_endtime' placeholder='클릭--->'>
+										<input class="form-control" value='18:00' width="220" id='mr_endtime'readonly name='mr_endtime' placeholder='클릭--->'>
 								</div>
 							</div>
 						</div>
@@ -350,7 +351,7 @@ var sel_file;
 							<div class='form-group'
 								style='padding: 20px; padding-top: 0px; padding-bottom: 0;'>
 								<label for="mr_facility">이용 가능 시설</label><br> <input
-									type="text" class="form-control" id='mr_facility'
+									type="text" class="form-control" id='mr_facility' value='빔 프로젝트,pc,WI-FI,프레젠터'
 									name='mr_facility' placeholder='ex)빔 프로젝트,pc,WI-FI,프레젠터'>
 							</div>
 
@@ -358,7 +359,7 @@ var sel_file;
 						<div class='col-sm-8 col-sm-offfset-4'>
 							<div class='form-group'
 								style='padding: 20px; padding-top: 0px; padding-bottom: 0;'>
-								<label for="mr_memo">설명</label><br> <input type="text"
+								<label for="mr_memo">설명</label><br> <input type="text" value='창문있음'
 									class="form-control" id='mr_memo' name='mr_memo'
 									placeholder='ex) 창문있음'>
 							</div>
@@ -485,5 +486,16 @@ $(function () {
 	 });
 
 </script>
+<div class="modal fade" id="loadingModal2" role="dialog" style="backdrop:static; ketboard: false; " >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      
+      <div class="modal-body text-center">
+      <h2>로딩중입니다.</h2>
+         <div id="loading"><img id="loading-image" src="../images/loading2.gif" alt="Loading..." /></div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

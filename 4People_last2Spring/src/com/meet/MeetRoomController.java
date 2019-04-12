@@ -64,6 +64,12 @@ public class MeetRoomController {
 							//첨부파일 크기를 kByte로 계산하여 담기
 							double d_size = Math.floor(size/1024.0);
 							int i_size = (int)d_size;
+							try {
+								Thread.sleep(4500);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

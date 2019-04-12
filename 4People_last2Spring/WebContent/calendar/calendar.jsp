@@ -28,7 +28,7 @@
 var g_start;
 var g_end;
 	function clickEvent(start, end){
-		alert("clickEvent호출");
+// 		alert("clickEvent호출");
 		 this.g_start = start;
 		 this.g_end = end;
 		}
@@ -36,15 +36,15 @@ var g_end;
 		var title = $('#ins_title').val();
 		var start = this.g_start;
 		var end = this.g_end;
-		alert("전송"+mem_id);
-		alert("title :"+title+", startdate :"+start+", enddate :"+end);
+// 		alert("전송"+mem_id);
+// 		alert("title :"+title+", startdate :"+start+", enddate :"+end);
 		location.href="./calINS?cal_title="
 				+title+"&mem_id="+mem_id
 				+"&cal_startdate="+start.getFullYear()+"/"+(start.getMonth()+1)+"/"+start.getDate()
 				+"&cal_enddate="+end.getFullYear()+"/"+(end.getMonth()+1)+"/"+end.getDate();
 	}
 	function deleteEvent(cal_no){
-		alert(cal_no);
+// 		alert(cal_no);
 		location.href="./calDEL?cal_no="+cal_no;
 	}
 	function updateEvent(cal_no){
@@ -247,13 +247,13 @@ var g_end;
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		alert('Event:title'+ info.title
+      	    		/*alert('Event:title'+ info.title
       	      	    	 +'Event Start date :' +info.start.getDate()
-      	      	    	 +'cal_no'+info.seq_no);
+      	      	    	 +'cal_no'+info.seq_no);*/
       	 	}
       	 	,eventDragStop: function(event, jsEvent, ui, view) {
       	 	    calendar.fullCalendar('removeEvents', event.seq_no);
-          	 	alert('삭제'+event.seq_no);
+//           	 	alert('삭제'+event.seq_no);
                 deleteEvent(event.seq_no);
       	 	}
 		}); 

@@ -214,7 +214,7 @@ var mr_no;
 		%>
 	
 	<tr  style='border-top: 1px solid #444444; overflow-x:auto;' class='col-sm-10'>
-	<td ><img src=<%="http://192.168.0.6:9000/4People_last2Spring/pds/"+mr_image%>  width='200px' height='200px;' style='margin:10px;'></td>
+	<td ><img src='<%="http://192.168.0.6:9000/4People_last2Spring/pds/"+mr_image%>' width='200px' height='200px;' style='margin:10px;'></td>
 	<td align="center" style='padding:20px; width:200px; height:200px;'><span style='font-size:25px; font-wighet:bold; '><%=mr_name %></span></td>
 	<input type="hidden"value='<%=mr_loc%>' id='h_address'>
 	<input type="hidden"value='<%=mr_no%>' id='h_mrNo'>
@@ -293,7 +293,7 @@ var mr_no;
 </table>
 </div>
 
-<div class='col-sm-3' style='margin-top:70px; height:800px; box-shadow: 0 3px 6px rgba(0,0,0,.25);'>
+<div class='col-sm-3' style='margin-top:70px; height:1100px; box-shadow: 0 3px 6px rgba(0,0,0,.25);'>
 <div class="page-header text-center" style=" margin-top:20px; height:60px; border-bottom: 1px solid #BDBDBD;'">
 <h2>회의실 예약하기</h2>
 </div>
@@ -403,6 +403,8 @@ if(clickOk=='(예약가능)'){
 	$('#mr_memo').val(clickMemo);
 	$('#re_mr_no').val(mr_no);
 	$('#re_hopedate').val(searchDate);
+	$('#re_participant').val('김은수,서재민,김영성');
+	$('#re_purpose').val('DB설계 검토회의');
 }
 else{
 	alert('예약이 불가능합니다.');
