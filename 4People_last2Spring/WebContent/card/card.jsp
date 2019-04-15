@@ -379,11 +379,14 @@ font-family: 'Candal', sans-serif;
           <div id="des_con">
           <div id="des_conss" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
           <%if(des_content==null){ %>
-         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
+         <textarea  id="des_text" style="margin-left:50px; width:250px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
 - 3.15 워크샵 준비하기
 - 학회참석하기
 - A4용지 구매하기</textarea>
          <%}%>
+         <!-- ===========================차트=========================== -->
+			<input type="button" value="차트">
+		 <!-- ===========================차트=========================== -->
           </div>
           <div id="des_cons">
           <%if(des_content!=null){ %>
@@ -583,6 +586,9 @@ font-family: 'Candal', sans-serif;
         <input type="hidden" id='f_maker' name='f_maker'>
         </div>
         </form>
+        <div>
+			<button type-"button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)">차트</button>
+		</div>
         <br>
         <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="../images/bin.png"></div>
         
