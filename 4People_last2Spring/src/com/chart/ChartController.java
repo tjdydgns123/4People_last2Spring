@@ -22,22 +22,36 @@ public class ChartController {
 	ChartLogic chartLogic = null;
 	Logger logger =  Logger.getLogger(ChartController.class);
 	//차트 메뉴 진입시 차트 목록 불러오기
-	@GetMapping("chartSel")
-	public String ChartSel (@RequestParam("mem_id") String mem_id, Model model) {
-		logger.info("ChartSel 호출");
-		List<ChartVO> chartVO = chartLogic.ChartSel(mem_id);
+	@GetMapping("chartList")
+	public String chartList (@RequestParam("mem_id") String mem_id, Model model) {
+		logger.info("chartList 호출");
+		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
 		model.addAttribute("chartList", chartVO);
-		logger.info(chartVO.get(0).getLabel() + "," + chartVO.get(1).getLabel() );
 		return "forward:./chart.jsp";
 	}
-	//차트 생성시 삽입
+	//차트 생성
 	@PostMapping("chartIns")
-	public String chartIns (@RequestParam("mem_id") String mem_id, @ModelAttribute ChartVO chartVO) {
+	public String chartIns (@ModelAttribute ChartVO chartVO) {
 		logger.info("chartIns 호출");
 		chartLogic.ChartIns(chartVO);
-		logger.info(chartVO.getMem_id());
-		return "forward:./chartSel";
+		return "forward:./chartList";
 	}
+	//선택한 차트 삭제
+	@PostMapping("chartDel")
+	public String chartDel (@RequestParam("no") String no) {
+		logger.info("chartDel 호출");
+		chartLogic.ChartDel(no);
+		return "forward:./chartList";
+	}
+	//선택한 차트 수정
+	@PostMapping("chartUpd")
+	public String chartUpd (@ModelAttribute ChartVO chartVO) {
+		logger.info("chartUpd 호출");
+		chartLogic.chartUpd(chartVO);
+		logger.info(chartVO.getData());
+		return "forward:./chartList";
+	}
+	
 	@GetMapping("test")
 	public String test (Model model) {
 		logger.info("ChartSel 호출");

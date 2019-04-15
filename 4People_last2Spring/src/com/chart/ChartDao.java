@@ -1,7 +1,6 @@
 package com.chart;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,14 +14,21 @@ public class ChartDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate = null;
 	Logger logger = Logger.getLogger(ChartDao.class);
-	public List<ChartVO> ChartSel(String mem_id) {
-		logger.info("ChartSel 호출");
-		List<ChartVO> chartVO = sqlSessionTemplate.selectList("chartSel",mem_id);
-		logger.info(chartVO.get(0).getChartname());
+	public List<ChartVO> chartList(String mem_id) {
+		logger.info("chartList 호출");
+		List<ChartVO> chartVO = sqlSessionTemplate.selectList("chartList",mem_id);
 		return chartVO;
 	}
 	public void ChartIns(ChartVO chartVO) {
 		logger.info("ChartIns 호출");
 		sqlSessionTemplate.insert("chartIns", chartVO);
+	}
+	public void ChartDel(String no) {
+		logger.info("ChartDel 호출");
+		sqlSessionTemplate.delete("ChartDel",no);
+	}
+	public void chartUpd(ChartVO chartVO) {
+		logger.info("chartUpd 호출");
+		sqlSessionTemplate.update("ChartUpd",chartVO);	
 	}
 }
