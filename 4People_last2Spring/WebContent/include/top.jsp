@@ -32,7 +32,6 @@ $(document).ready(function () {
 	$('#memberInfo').on('click',function(e){
 			e.preventDefault();
 		});
-
 		
 	
 	$('#radio3').click(function(){
@@ -123,8 +122,6 @@ $(document).ready(function () {
 		        else {
 		            alert('Uncaught Error.n' + jqXHR.responseText);
 		        }
-
-
 		  }
 });
 	});
@@ -335,15 +332,10 @@ width:95%;
 height:1000px;
 margin-left:2.5%;
 }
-
-
-
-
 </style>
 </head>
 <body>
 <script type="text/javascript">
-
 $(function() {
 	$("#meeting").click(function() {
 		$("#meetdiv").load("../meetRoom/meetRoomAdds.jsp");
@@ -380,6 +372,7 @@ $(function() {
             <li>
                 <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
                 <a href="../calendar/calList?mem_id=<%=id %>" style='font-size:20px' >캘린더</a>
+                <a href="../chart/chartList?mem_id=<%=id %>" style='font-size:20px'>차트</a>
             </li>
             <li>
                 <a href="../note/myBoard" style='font-size:20px'>내 보드</a>
