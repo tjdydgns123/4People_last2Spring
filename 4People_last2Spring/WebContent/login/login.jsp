@@ -146,7 +146,6 @@ session.setAttribute("state", state);
 						</button>
 					</div>
 					<br>
-					  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 					  <a href="./naverLogin"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 				</form>	
 

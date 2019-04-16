@@ -17,7 +17,7 @@
     String clientSecret = "BSIFQC4sFS";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("YOUR_CALLBACK_URL", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:9000/4People_last2Spring/login/callback.jsp", "UTF-8");
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&;";
     apiURL += "client_id=" + clientId;
@@ -59,7 +59,7 @@
   <body>
 
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("fQGI7_Qyq4FUUGzgcRyP", "http://192.168.0.218:9000/4People_last2Spring/login/login.jsp");
+  var naver_id_login = new naver_id_login("fQGI7_Qyq4FUUGzgcRyP", "http://localhost:9000/4People_last2Spring/login/callback");
   // 접근 토큰 값 출력
   alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회

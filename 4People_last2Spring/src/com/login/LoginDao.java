@@ -57,6 +57,17 @@ public class LoginDao {
 		 String idresult = sqlSessionTemplate.selectOne("findpw",pMap);
 		return idresult;
 	}
+	public List<Map<String, Object>> loginCall2(Map<String, Object> pMap) {
+		logger.info("로그인호출");
+		List<Map<String,Object>> loginList2 = null;
+		try {
+			loginList2 = sqlSessionTemplate.selectList("loginCall3", pMap);
+			
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+		return loginList2;
+	}
 
 
 }
