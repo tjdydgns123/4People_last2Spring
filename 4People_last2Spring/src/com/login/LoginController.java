@@ -152,7 +152,15 @@ public class LoginController  {
 	}
 	
 	
-	
+	@RequestMapping(value = "/googleLogin")
+	public String doGoogleSignInActionPage(Model model) throws Exception{
+	  OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+	  String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+	  System.out.println("/member/googleSignIn, url : " + url);
+	  model.addAttribute("google_url",url);
+	  return "redirect:"+url;
+
+	}
 	
 	
 	@RequestMapping(value = "/googleSignInCallback",method = RequestMethod.GET)
@@ -181,6 +189,7 @@ public class LoginController  {
 	  
 //	  System.out.println(profile.getAccountEmail());
 	  String path="";
+	  System.out.println(profile.getAccountEmail()+","+profile.getDisplayName());
 	  List<Map<String, Object>>  memberInfo = l_logic.isMemberOk(profile.getAccountEmail());
 	  if(memberInfo!=null&&memberInfo.size()>0) {
 		  model.addAttribute("loginList",memberInfo);
