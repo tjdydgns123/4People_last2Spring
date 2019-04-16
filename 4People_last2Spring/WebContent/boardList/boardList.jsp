@@ -150,6 +150,54 @@
 /* .col-sm-2:nth-child(3n+1) { background: #c69; } */
 /* .col-sm-2:nth-child(3n+2) { background: #9c6; } */
 /* .col-sm-2:nth-child(3n+3) { background: #69c; } */
+  #page-wrappervv {
+    padding-left: 250px;
+  }
+  
+  #sidebar-wrappervv {
+    position: fixed;
+    width: 310px;
+    height: 100%;
+    margin-left: 72%;
+    background: #FFFFFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  #page-content-wrappervv {
+    width: 100%;
+    padding: 20px;
+  }
+  /* 사이드바 스타일 */
+  
+  .sidebar-navvv {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .sidebar-navvv li {
+    text-indent: 1.5em;
+    line-height: 2.8em;
+  }
+  
+  .sidebar-navvv li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+  }
+  
+  .sidebar-navvv li a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar-navvv > .sidebar-brand {
+    font-size: 1.3em;
+    line-height: 3em;
+  }
+
 </style>
 <script type="text/javascript">
 <%-- 	//alert("<%=BLISTMap%>"); --%>
@@ -1025,6 +1073,16 @@ function drop(event) {
 				$("#sidebar-toggle").click(function(){
 					  $("html").toggleClass("open");
 					});
+				function showhity(){
+				 var cc = 0;
+				 if(cc==0){
+					 }
+				 else{
+					$('#page-wrappervv').attr("style","visibility:hidden");
+						cc=1;
+
+					 }
+					}
 </script>
 </head>
 <body >
@@ -1038,11 +1096,29 @@ function drop(event) {
         <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
         <%}} %>
         <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
-        <a href="#" style="margin-left:60%">Show History</a>
+        <a style="margin-left:60%" href="#" onClick="showhity()" >Show History</a>
         </h3>
 		</div>
 
         </div>
+<div id="page-wrappervv">
+		 <div id="sidebar-wrappervv">
+    <ul class="sidebar-navvv">
+      <li class="sidebar-brand">
+        <a href="#">Activity</a>
+      </li>
+      <li><a href="#">메뉴 1</a></li>
+      <li><a href="#">메뉴 2</a></li>
+      <li><a href="#">메뉴 3</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 5</a></li>
+      <li><a href="#">메뉴 6</a></li>
+      <li><a href="#">메뉴 7</a></li>
+      <li><a href="#">메뉴 8</a></li>
+      <li><a href="#">메뉴 9</a></li>
+    </ul>
+  </div>
+		</div>
 
     <div id="label_modal4" class="modal" role="dialog" style="width:400px;margin-left:350px;margin-top:130px">
   		<div class="modal-dialogg" id="label_dialogg4">

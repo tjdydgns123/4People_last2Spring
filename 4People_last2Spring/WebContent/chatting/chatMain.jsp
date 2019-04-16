@@ -48,6 +48,11 @@ function chatClose(){
 	var append = "<div class='text-center' style='padding:300px;'><span style='font-size:40px; color:#EAEAEA;'>채팅방을 열어주세요<span></div>"
 	$('#chatting').append(append);
 }
+
+function buttonFile(e){
+	e.preventDefault();
+	$('#chat_file').click();
+	}
 //newPrivateChat
 function newPrivateChat(){
 	var senderId = $("#newChattingSearch").val();
@@ -57,6 +62,11 @@ function newPrivateChat(){
 	location.href="./newPrivateChat?senderId="+mem_id;
 // 	alert(mem_id);
 }
+//파일 다운받기
+function fileDown(p_fname){
+	alert('fileDown 호출');
+	location.href="../card/downLoad.jsp?fname="+p_fname;
+	}
 
 //새로운 대화(모달) 검색
 function newChattingSearch (){
@@ -182,6 +192,7 @@ function newChattingSearch (){
 	var msg;
 	var mem_name;
 	var ok;
+	chatSocket.binaryType="arraybuffer";
 	
 	//소켓 접속시
 	chatSocket.onopen = function() {
@@ -198,7 +209,9 @@ function newChattingSearch (){
 		 msg = info.content;
 		var send_room_code = info.room_code;
 		var gubun = info.gubun;
+		
 		 mem_name = info.mem_name;
+		
 		if(ok!="denied"){
 			new Notification(mem_name, {body:msg});
 			}
@@ -230,6 +243,25 @@ function newChattingSearch (){
 						$('#'+send_room_code+"col3content").text(msg);
 					}
 					}
+				else if(gubun=='file'){
+					var fileName = info.fileName;
+					
+					if(room_code==send_room_code){
+						var append = "<li class='clearfix'><div class='message-data'>"
+							 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
+							 +"<div class='message you-message'><span style='font-size:17px;font-weight:bold;'>파일:&nbsp;&nbsp;&nbsp;</span><button id='"+fileName+"'class='btn btn-success btn-lg' onclick='fileDown(id)'>"+fileName+"</button></div></li>";
+						$('#chattingText').append(append);
+						moveScroll('chatScroll');
+						}
+					else if(room_code!=send_room_code){
+						$('#'+send_room_code+"col3mem_name").text('');
+						$('#'+send_room_code+"col3time").text('');
+						$('#'+send_room_code+"col3content").text('');
+						$('#'+send_room_code+"col3mem_name").text(mem_name);
+						$('#'+send_room_code+"col3time").text('방금전');
+						$('#'+send_room_code+"col3content").text('파일');
+						}
+					}
 			}
 		else {
 					if(gubun=='teamMessage'){
@@ -251,7 +283,26 @@ function newChattingSearch (){
 							$('#'+send_room_code+"col3time").text('방금전');
 							$('#'+send_room_code+"col3content").text(msg);
 							}
-								
+						}
+					//파일
+					else if(gubun=='file'){
+						var fileName = info.fileName;
+						
+						if(room_code==send_room_code){
+							var append = "<li class='clearfix'><div class='message-data'>"
+								 +"<span class='message-data-name'><i class='fa fa-circle you'></i>"+mem_name+"</span></div>"
+								 +"<div class='message you-message'><span style='font-size:17px;font-weight:bold;'>파일:&nbsp;&nbsp;&nbsp;</span><button id='"+fileName+"'class='btn btn-success btn-lg' onclick='fileDown(id)'>"+fileName+"</button></div></li>";
+							$('#chattingText').append(append);
+							moveScroll('chatScroll');
+							}
+						else if(room_code!=send_room_code){
+							$('#'+send_room_code+"col3mem_name").text('');
+							$('#'+send_room_code+"col3time").text('');
+							$('#'+send_room_code+"col3content").text('');
+							$('#'+send_room_code+"col3mem_name").text(mem_name);
+							$('#'+send_room_code+"col3time").text('방금전');
+							$('#'+send_room_code+"col3content").text('파일');
+							}
 						}
 			}
 		
