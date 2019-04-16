@@ -57,6 +57,11 @@ public class LoginDao {
 		 String idresult = sqlSessionTemplate.selectOne("findpw",pMap);
 		return idresult;
 	}
+	
+	public List<Map<String, Object>> isMemberOk(String accountEmail) {
+		List<Map<String,Object>> meberInfo = sqlSessionTemplate.selectList("meberInfo",accountEmail);
+		return meberInfo;
+	}
 
 
 }

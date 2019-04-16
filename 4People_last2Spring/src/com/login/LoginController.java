@@ -45,7 +45,12 @@ public class LoginController  {
 	Logger logger =  Logger.getLogger(LoginController.class);
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
 	
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
+
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;

@@ -150,7 +150,7 @@ session.setAttribute("state", state);
 					<!-- 구글 로그인 화면으로 이동 시키는 URL -->
 					<!-- 구글 로그인 화면에서 ID, PW를 올바르게 입력하면 oauth2callback 메소드 실행 요청-->
 					<div id="google_id_login" style="text-align:left; margin-top:6px;">
-					<a href="googleLogin" class='btn btn-danger'>
+					<a href="./googleLogin" class='btn btn-danger'>
 					<img width='27px;' height='27px;' src='../images/googleLogin.png'>
 					<span class='text-center'>google 로그인</span>
 					</a>

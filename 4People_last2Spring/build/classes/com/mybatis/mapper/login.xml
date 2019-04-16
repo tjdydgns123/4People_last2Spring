@@ -31,4 +31,9 @@
 	  where mem_name=#{mem_name}
 	  and mem_id=#{mem_id}
 	</select>
+	<select id="meberInfo" parameterType="java.lang.String" resultType="map">
+		select mem_name,mem_id,mem_companyname,mem_position,mem_image 
+		from member
+		where mem_id = #{accountEmail}
+	</select>
 </mapper>

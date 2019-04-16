@@ -30,4 +30,10 @@ public class LoginLogic {
 		String idresult = l_dao.findpw(pMap);
 		return idresult;
 	}
+	public List<Map<String, Object>> isMemberOk(String accountEmail) {
+		
+		List<Map<String, Object>> memberOk = l_dao.isMemberOk(accountEmail);
+		
+		return memberOk;
+	}
 }
