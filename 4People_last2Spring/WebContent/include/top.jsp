@@ -17,6 +17,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- ==============================폰트============================================================= -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+<!-- =============================================================================================== -->
 <link href="../csss/es_radio.css" rel="stylesheet">
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
@@ -133,7 +136,9 @@ $(document).ready(function () {
 	
 </script>
 <style>
-  
+.css-font {
+font-family: 'Noto Sans KR', sans-serif;  
+}
   /*
     DEMO STYLE
 */
@@ -369,9 +374,6 @@ $(function() {
    			 <i class="fa fa-caret-down"></i>
   			</button>
   			<div class="es_dropdown-container">
-    			<a href="#">Link 1</a>
-    			<a href="#">Link 2</a>
-    			<a href="#">Link 3</a>
   			</div>
             </li>
             <li>
@@ -407,7 +409,7 @@ $(function() {
   <div class="container-fluid">
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -429,8 +431,8 @@ $(function() {
       
       
       <!-- 가운데 -->
-      <div class='col-sm-2 col-sm-offset-3'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
+      <div class='col-sm-2 col-sm-offset-3' style ="font-family:'css-font', Noto Sans KR;">
+      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:2.0em; margin-right:320px;  color: white; ">육토피아</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
