@@ -112,10 +112,35 @@ public class MeetRoomDao {
 		
 	}
 
-	public List<Map<String, Object>> myReserVation(String mem_id) {
-		List<Map<String, Object>> myReserVationList = sqlSessionTemplate.selectList("myReserVation",mem_id);
+	public Map<String, Object> myReserVation(String mem_id) {
+		List<Map<String, Object>> afterSize = sqlSessionTemplate.selectList("myReserVationAfter",mem_id);
+		List<Map<String, Object>> beforeSize = sqlSessionTemplate.selectList("myReserVationBefore",mem_id);
+		Map<String, Object> sizes = new HashMap<String,Object>();
+			sizes.put("after", afterSize.size());
+			sizes.put("before", beforeSize.size());
+		return sizes;
+	}
+
+	public List<Map<String, Object>> afterDate(String mem_id) {
+		List<Map<String, Object>> afterDateList = sqlSessionTemplate.selectList("myReserVationAfter",mem_id);
 		
-		return myReserVationList;
+		
+		return afterDateList;
+	}
+
+	public List<Map<String, Object>> beforeDate(String mem_id) {
+		List<Map<String, Object>> beforeDateList = sqlSessionTemplate.selectList("myReserVationBefore",mem_id);
+		return beforeDateList;
+	}
+
+	public List<Map<String, Object>> hapDate(String mem_id) {
+		List<Map<String, Object>> hapDateList = sqlSessionTemplate.selectList("hapDate",mem_id);
+		return hapDateList;
+	}
+
+	public int reservationCancel(String re_code) {
+		int result = sqlSessionTemplate.delete("reservationCancel",re_code);
+		return result;
 	}
 
 

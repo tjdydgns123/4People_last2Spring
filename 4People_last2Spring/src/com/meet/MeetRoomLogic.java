@@ -58,11 +58,12 @@ public class MeetRoomLogic {
 		mtRoom_dao.reservationOk(pMap);
 		
 	}
-	public List<Map<String, Object>> myReserVation(String mem_id) {
-		List<Map<String, Object>> myReserVationList = mtRoom_dao.myReserVation(mem_id);
+	public Map<String, Object> myReserVation(String mem_id) {
+		Map<String, Object> myReserVationList = mtRoom_dao.myReserVation(mem_id);
 		
 		return myReserVationList;
 	}
+	
 	
 	
 //	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) {

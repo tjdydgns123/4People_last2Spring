@@ -231,10 +231,35 @@ public class MeetRoomController {
 	public String myReserVation(ModelMap mMap,Model model) {
 		String mem_id =(String)mMap.get("MEM_ID");
 		
-		List<Map<String,Object>> myReserVationList = mtRoom_logic.myReserVation(mem_id);
-		model.addAttribute("myReserVationList", myReserVationList);
+		Map<String, Object> sizes = mtRoom_logic.myReserVation(mem_id);
+		model.addAttribute("sizes", sizes);
 		
 		return "forward:myReserVation.jsp";
 	}
-
-}
+//	@PostMapping("afterDate")
+//	public String afterDate(ModelMap mMap,Model model) {
+//		String mem_id =(String)mMap.get("MEM_ID");
+//		List<Map<String, Object>> afterDateList = mtRoom_logic.afterDate(mem_id);
+//		model.addAttribute("afterDateList",afterDateList);
+//		return "forward:afterDateResult.jsp";
+//	}
+//	@PostMapping("beforeDate")
+//	public String beforeDate(ModelMap mMap,Model model) {
+//		String mem_id =(String)mMap.get("MEM_ID");
+//		List<Map<String, Object>> beforeDateList = mtRoom_logic.beforeDate(mem_id);
+//		model.addAttribute("beforeDateList",beforeDateList);
+//		return "forward:beforeDateResult.jsp";
+//	}
+//	@PostMapping("hapDate")
+//	public String hapDate(ModelMap mMap,Model model) {
+//		String mem_id =(String)mMap.get("MEM_ID");
+//		List<Map<String, Object>> hapDateList = mtRoom_logic.hapDate(mem_id);
+//		model.addAttribute("hapDateList",hapDateList);
+//		return "forward:hapDateResult.jsp";
+//	}
+//	@PostMapping("reservationCancel")
+//	@ResponseBody
+//	public int reservationCancel(@RequestParam("re_code") String re_code,Model model) {
+//		int result =mtRoom_logic.reservationCancel(re_code);
+//		return result;
+	}
