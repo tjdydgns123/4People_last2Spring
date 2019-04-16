@@ -34,6 +34,7 @@
 	<context:component-scan base-package="com.note"/>
 	<context:component-scan base-package="com.team"/>
 	<context:component-scan base-package="com.chatting"/>
+	<context:component-scan base-package="com.android"/>
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
 
 	<mybatis:scan base-package="com.mybatis.mapper"/>
@@ -52,7 +53,23 @@
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
+		
+		
 	</bean>
+	
+	
+	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="dudtjd7820@gmail.com" />
+    <property name="password" value="whwlgus1"/>
+    <property name="javaMailProperties">
+    <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+    </props>
+    </property>
+  </bean>
 	
 </beans>
 
