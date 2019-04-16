@@ -134,57 +134,7 @@ public class LoginController  {
 		String idresult = l_logic.findpw(pMap);
 		return idresult;
 	}
-	@GetMapping("personalInfo")
-	@ResponseBody
-		public String loginInfo(HttpServletRequest req,Model model, @RequestParam Map<String,Object> pMap)
-				throws Exception
-				{
-					List<Map<String,Object>> memberInfo = null;
-					//memberInfo = memberLogic.memberInfo(pMap);
-					model.addAttribute("memberInfo", memberInfo);
-				    String clientId = "fQGI7_Qyq4FUUGzgcRyP";//애플리케이션 클라이언트 아이디값";
-				    String clientSecret = "BSIFQC4sFS";//애플리케이션 클라이언트 시크릿값";
-				    String code = req.getParameter("code");
-				    String state = req.getParameter("state");
-				    String redirectURI = URLEncoder.encode("http://192.168.0.218:9000/4People_last2Spring/login/login.jsp", "UTF-8");
-				    String apiURL;
-				    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-				    apiURL += "client_id=" + clientId;
-				    apiURL += "&client_secret=" + clientSecret;
-				    apiURL += "&redirect_uri=" + redirectURI;
-				    apiURL += "&code=" + code;
-				    apiURL += "&state=" + state;
-				    String access_token = code;
-				    String refresh_token = "";
-				    //System.out.println("apiURL="+apiURL);
-				    String result="";
-				    try {
-				      URL url = new URL(apiURL);
-				      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-				      con.setRequestMethod("GET");
-				      int responseCode = con.getResponseCode();
-				      BufferedReader br;
-				      System.out.print("responseCode="+responseCode);
-				      if(responseCode==200) { // 정상 호출
-				        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				      } else {  // 에러 발생
-				        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				      }
-				      String inputLine;
-				      StringBuffer res = new StringBuffer();
-				      while ((inputLine = br.readLine()) != null) {
-				        res.append(inputLine);
-				      }
-				      br.close();
-				      if(responseCode==200) {
-				        //out.println(res.toString());
-				    	  logger.info("res.toString:"+res.toString());
-				      }
-				    } catch (Exception e) {
-				      System.out.println(e);
-				    }		
-					return "forward:./login.callback.jsp";
-		}
+	
 
 
 }

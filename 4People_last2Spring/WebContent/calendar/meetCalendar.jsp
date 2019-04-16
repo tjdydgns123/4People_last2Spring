@@ -7,7 +7,6 @@
 	List<Map<String, Object>> calTeamList = (List<Map<String, Object>>)request.getAttribute("calTeamList");
 	List<Map<String, Object>> calTeamCount = (List<Map<String, Object>>)request.getAttribute("calTeamCount");
 	int teamCount = calTeamCount.size();
-	 
 	String[] colors = new String[15];
 	colors[0] = "#980000";//검붉은색
 	colors[1] = "#DB3A00";//어두운 주황색
@@ -43,8 +42,6 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> 
     <![endif]--> 
     <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script type="text/javascript">
 var g_start;
 var g_end;
@@ -52,7 +49,7 @@ var color0 = "#FFB2D9";
 var color1 = "#A566FF";
 var color2 = "#FF5E00";
 	function clickEvent(start, end){
-// 		alert("clickEvent호출");
+		alert("clickEvent호출");
 		 this.g_start = start;
 		 this.g_end = end;
 		}
@@ -60,15 +57,15 @@ var color2 = "#FF5E00";
 		var title = $('#ins_title').val();
 		var start = this.g_start;
 		var end = this.g_end;
-// 		alert("전송"+mem_id);
-// 		alert("title :"+title+", startdate :"+start+", enddate :"+end);
+		alert("전송"+mem_id);
+		alert("title :"+title+", startdate :"+start+", enddate :"+end);
 		location.href="./calINS?cal_title="
 				+title+"&mem_id="+mem_id
 				+"&cal_startdate="+start.getFullYear()+"/"+(start.getMonth()+1)+"/"+start.getDate()
 				+"&cal_enddate="+end.getFullYear()+"/"+(end.getMonth()+1)+"/"+end.getDate();
 	}
 	function deleteEvent(cal_no){
-// 		alert(cal_no);
+		alert(cal_no);
 		location.href="./calDEL?cal_no="+cal_no;
 	}
 	function updateEvent(cal_no){
@@ -78,8 +75,7 @@ var color2 = "#FF5E00";
 </script>
 </head> 
 <body> 
-
-	<div class="container-fluid" style="float:right">
+	<div class="container-fluid">
 		<div class="row-fluid">         
             <!--/span--> 
 			<div class="span9" id="content"> 
@@ -102,13 +98,12 @@ var color2 = "#FF5E00";
                                      </p> 
                                      </div> -->
                                  </div> 
-							<div class="span10"> 							
-							<div id='calendar'>				
-							</div> 
+							<div class="span10"> 
+							<div id='calendar'></div> 
 							</div> 
 							</div> 
 						</div> 
-                      <!-- /block 이 아래는 캘린더 밑--> 
+                      <!-- /block --> 
 					</div> 
 				</div> 
 			</div> 
@@ -116,93 +111,8 @@ var color2 = "#FF5E00";
 <!--      <footer> 
              <p>&copy; Vincent Gabriel 2013</p> 
           </footer> -->
-<!----------------- 체크박스 시작 -------------------->
-<div class="panel panel-default" style="margin-right:80px">
-	<div class="panel-body">
-	<label style="text-align:center">참여중인 팀</label>
-	<hr>
-<% for(int k=0; k<teamCount;k++){ %>
-<p>
-		    <input  type="checkbox" id="cb1" > 
-		  <label for="cb1" style="color:<%=colors[k]%>">
-		    <%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>
-		   <!--  <span class="checkmark"></span> -->
-		  </label>
-		  </p>
-<%} %>
-</div>
-</div>
-<!----------------- 체크박스 끝 -------------------->
 	</div> 
 <style> 
-	.input[id="cb1"] + label{
-		display : inline-block;
-		width: 20px;
-		height: 20px;
-		border: 2px solid #bcbcbc;
-		cursor: pointer;
-	}
-	.input[id="cb1"]:checked + label{
-		/* background-color: #666666; */
-	}
-	.input[id="cb1"]{
-		display: none;
-	}
-	.container{
-		display: inline-block;
-		horizontal-align:right;
-		position: relative;
-		padding-left: 35px;
-		margin-bottom: 12px;
-		cursor: pointer;
-		font-size: 12px;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-	.container input{
-		position: absolute;
-		opacity: 0;
-		cursor: pointer;
-	}
-	.checkmark{
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 25px;
-		width: 25px;
-		background-color: #eee;
-	}
-	.container:hover input ~ .checkmark{
-		background-color: #ccc;
-	}
-	.container input:checked ~ .checkmark{
-		background-color: #2196F3;
-	}
-	.container input:disabled ~ .checkmark{
-		display: block;
-		background-color : red;
-	}
-	.checkmark:after {
-		content: "";
-		position: absolute;
-		display: none;
-	}
-	.container input:checked ~ .checkmark:after{
-		display: block;
-	}
-	.container .checkmark:after{
-		left: 9px;
-		top: 5px;
-		width: 5px;
-		height: 10px;
-		border: solid white;
-		border-width: 0 3px 3px 0;
-		-webkit-transform: rotate(45deg);
-		-ms-transform: rotate(45deg);
-		transform: rotate(45deg);
-	}
     .btn-red {
 	  color: #fff;
 	  background-color: #f15f5f;
@@ -340,32 +250,35 @@ var color2 = "#FF5E00";
 		  		<%
 		  		if(teamCount!=0){
 		  		%>
-		  			<%for(int j=0; j<teamCount; j++){%>
-						   ,{events: [
-						 			<% for(int i =0; i<calTeamList.size(); i++){%>
-				  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
-										{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
-										,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
-							  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
-										},
-										<%}%>
-							  		<%}%>
-					  				{title:'바보', start:'2006-03-28', color: '#378006'}
-					  			 	]
-						   			,color : '<%=colors[j]%>'
-							}
+		  		<%for(int j=0; j<teamCount; j++){
+		  			String js = String.valueOf(j);
+		  		%>
+				   ,{events: [
+				 			<% for(int i =0; i<calTeamList.size(); i++){%>
+		  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
+								{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
+								,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
+					  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
+								},
+								<%}%>
+					  		<%}%>
+			  				{title:'바보', start:'2006-03-28', color: '#378006'}
+			  			 ]
+				   ,color : '<%=colors[j]%>'
+
+					}
 					<%}%>
 				<%}%>//end of if
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		/*alert('Event:title'+ info.title
+      	    		alert('Event:title'+ info.title
       	      	    	 +'Event Start date :' +info.start.getDate()
-      	      	    	 +'cal_no'+info.seq_no);*/
+      	      	    	 +'cal_no'+info.seq_no);
       	 	}
       	 	,eventDragStop: function(event, jsEvent, ui, view) {
       	 	    calendar.fullCalendar('removeEvents', event.seq_no);
-//           	 	alert('삭제'+event.seq_no);
+          	 	alert('삭제'+event.seq_no);
                 deleteEvent(event.seq_no);
       	 	}
 		}); 
