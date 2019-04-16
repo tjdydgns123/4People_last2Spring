@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vo.MeetRoomVO;
+
 @Service
 public class MeetRoomLogic {
 	@Autowired
@@ -80,6 +82,13 @@ public class MeetRoomLogic {
 		return reuslt;
 	}
 	
+	public List<Map<String, Object>> reservationCal(MeetRoomVO mrVO) {
+		logger.info("회의실 캘린더 호출 성공");
+		List<Map<String, Object>> reCalList = null;
+		reCalList = mtRoom_dao.reservationCal(mrVO);
+		logger.info("reCalList :"+reCalList);
+		return reCalList;
+	}
 	
 	
 //	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) {

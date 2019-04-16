@@ -11,6 +11,9 @@ public class MeetRoomVO {
 	private String mr_memo       = null;
 	private String mr_facility   = null;
 	private String mr_image      = null;
+	private String mem_id 		 = null;
+	private String mr_start		 = null;
+	private String mr_hopedate	 = null;
 	
 	public String getMr_no() {
 		return mr_no;
@@ -71,6 +74,24 @@ public class MeetRoomVO {
 	}
 	public void setMr_image(String mr_image) {
 		this.mr_image = mr_image;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getMr_start() {
+		return mr_start;
+	}
+	public void setMr_start(String mr_start) {
+		this.mr_start = mr_start;
+	}
+	public String getMr_hopedate() {
+		return mr_hopedate;
+	}
+	public void setMr_hopedate(String mr_hopedate) {
+		this.mr_hopedate = mr_hopedate;
 	}
 	
 	
