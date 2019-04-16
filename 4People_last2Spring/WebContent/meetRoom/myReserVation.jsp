@@ -115,7 +115,7 @@ $(document).ready(function (){
 					 alert('취소성공');
 					 $(obj).parent().parent().remove();
 					 }
-				}
+				} 
 				else{
 						alert('실패');
 					}
