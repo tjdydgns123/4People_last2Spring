@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="meetingRoomInfo" parameterType="map" resultType="map">
-	select mr_no,mr_loc,mr_capacity,mr_name,mr_startTime,mr_endTime,mr_facility,mr_image,mr_detaileloc
+	select mr_no,mr_loc,mr_capacity,mr_name,mr_startTime,mr_endTime,mr_facility,mr_image,mr_detaileloc,mr_memo
 		from meeting_room
 		where mr_no  = #{mr_no}
 	</select>
@@ -95,7 +95,7 @@
 	where mem_id = #{mem_id}
 	)group by mr_no)
 	<if test="searchInwon!=null">
-	and mr_capacity >= #{searchInwon}
+	and mr_capacity >=#{searchInwon}
 	</if>
 	
 	</select>
@@ -120,12 +120,43 @@
 			values (#{mr_no},#{re_starttime},seq_mr_reservation.nextval,#{re_howmany},#{mem_name},#{re_endtime},#{re_hopedate},#{re_purpose},#{re_participant},(select TO_CHAR(sysdate,'YYYY-MM-DD') from dual),#{mem_id},#{mr_teamname})
 	</insert>
 	
-	<select id="myReserVation" parameterType="map" resultType="map">
-		select re.re_code,re.re_date,re.re_starttime,re.re_endtime,re.mr_teamname,re.re_howmany,re.re_hopedate,mr.mr_name,mr.mr_detaileloc
+	<select id="myReserVationAfter" parameterType="java.lang.String" resultType="map">
+	<![CDATA[
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
 		from mr_reservation re,meeting_room mr
 		where re.mr_no = mr.mr_no
-		and mem_id =#{mem_id}
+		and re.re_hopedate < (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id = #{mem_id}
+		]]>
 	</select>
+	<select id="myReserVationBefore" parameterType="java.lang.String" resultType="map">
+	<![CDATA[
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and re.re_hopedate >= (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id =#{mem_id}
+		]]>
+	</select>
+	<select id="hapDate" parameterType="java.lang.String" resultType="map">
+	<![CDATA[
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and re.re_hopedate >= (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id =#{mem_id}
+		union all
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and re.re_hopedate < (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id =#{mem_id}
+		]]>
+	</select>
+	<delete id="reservationCancel" parameterType="java.lang.String">
+		delete from mr_reservation
+		where re_code =#{re_code}
+	</delete>
 	<select id="reCalList" parameterType="com.vo.MeetRoomVO" resultType="java.util.Map">
 		SELECT MR_NO, RE_HOPEDATE||'T'||RE_STARTTIME||':00' as RE_HOPEDATE2, RE_HOPEDATE||'T'||RE_ENDTIME||':00' as RE_HOPEDATE3, RE_ENDTIME, MR_TEAMNAME 
 		  FROM MR_RESERVATION 
