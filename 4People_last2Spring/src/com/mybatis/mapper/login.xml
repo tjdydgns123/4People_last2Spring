@@ -19,4 +19,16 @@
 		      VALUES(#{mem_id}, #{mem_name}, #{mem_pw}, #{mem_hp},#{mem_position}, #{mem_addr}, #{mem_companyname},#{mem_companyphone},#{mem_connect},'profile-default.png')
 	
 	</insert>
+	<select id="findId" parameterType="map" resultType="java.lang.String">
+	  select mem_id
+	  from member 
+	  where mem_name=#{mem_name}
+	  and mem_phone=#{mem_phone}
+	</select>
+	<select id="findpw" parameterType="map" resultType="java.lang.String">
+	  select mem_pw
+	  from member 
+	  where mem_name=#{mem_name}
+	  and mem_id=#{mem_id}
+	</select>
 </mapper>

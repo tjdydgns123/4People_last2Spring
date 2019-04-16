@@ -48,6 +48,15 @@ public class LoginDao {
 		}
 		return result;
 	}
+	public String findId(Map<String, Object> pMap) {
+		
+	   String idresult = sqlSessionTemplate.selectOne("findId",pMap);
+		return idresult;
+	}
+	public String findpw(Map<String, Object> pMap) {
+		 String idresult = sqlSessionTemplate.selectOne("findpw",pMap);
+		return idresult;
+	}
 
 
 }

@@ -22,4 +22,12 @@ public class LoginLogic {
 		int result =l_dao.signUp(pMap);
 		return result;
 	}
+	public String findId(Map<String, Object> pMap) {
+		String idresult = l_dao.findId(pMap);
+		return idresult;
+	}
+	public String findpw(Map<String, Object> pMap) {
+		String idresult = l_dao.findpw(pMap);
+		return idresult;
+	}
 }
