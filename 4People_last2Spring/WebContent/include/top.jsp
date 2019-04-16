@@ -5,17 +5,12 @@
  String dept = (String)session.getAttribute("MEM_COMPANYNAME");
  String position = (String)session.getAttribute("MEM_POSITION");
  String id = (String)session.getAttribute("MEM_ID");
- String image = (String)session.getAttribute("MEM_IMAGE");
- String imagePath ="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png";
- if(image!=null){
-	 imagePath="http://192.168.0.6:9000/4People_last2Spring/pds/"+image;
-// 	 imagePath="http://localhost:9000/4People_last2Spring/pds/"+image;
- }
  
 %>   
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <link href="../csss/es_radio.css" rel="stylesheet">
  <%@ include file="../common/common.jsp" %>
@@ -364,7 +359,16 @@ $(function() {
             <h4><%=dept %>/<%=position %></h4>
         </div>
         <ul class="list-unstyled components">
-          
+            <li>
+            <button class="es_dropdown-btn">개인프로젝트 
+   			 <i class="fa fa-caret-down"></i>
+  			</button>
+  			<div class="es_dropdown-container">
+    			<a href="#">Link 1</a>
+    			<a href="#">Link 2</a>
+    			<a href="#">Link 3</a>
+  			</div>
+            </li>
             <li>
             <button class="es_dropdown-btn">참여중인팀 
    			 <i class="fa fa-caret-down"></i>
@@ -379,12 +383,10 @@ $(function() {
             </li>
             <li>
                 <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
-                <a href="../calendar/calList?mem_id=<%=id %>" style='font-size:20px' >캘린더</a>
-<!--                 <a href="../calendar/calList" style='font-size:20px' >캘린더</a> -->
-                <a href="../chart/chartList?mem_id=<%=id %>" style='font-size:20px'>차트</a>
+                <a href="../calendar/calList" style='font-size:20px' >캘린더</a>
             </li>
             <li>
-                <a href="../note/myBoard" style='font-size:20px'>내 보드</a>
+                <a href="#" style='font-size:20px'>내 보드</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -398,6 +400,7 @@ $(function() {
   <div class='col-sm-12'>
 <nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" id='nav_top'>
   <div class="container-fluid">
+  
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
         <span class="sr-only">Toggle navigation</span>
@@ -412,8 +415,7 @@ $(function() {
       <div class='col-sm-2'>
       <ul class="nav navbar-nav navbar-left">
         <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
-<!--         	<i class="fas fa-bars"></i>  -->
-<img src='../images/sideButton.png' width='35px' height='35px'>
+        	<i class="fas fa-bars"></i>
         </button>
       </ul>
       <span  id='navChat'>
@@ -423,8 +425,8 @@ $(function() {
       
       
       <!-- 가운데 -->
-      <div class='col-sm-3 col-sm-offset-3' style='height:60px;'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
+      <div class='col-sm-2 col-sm-offset-3'>
+      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
@@ -433,18 +435,19 @@ $(function() {
          </div>
    		<!-- 검색 -->
       <!-- 오른쪽 -->
-      <div class='col-sm-2'>
+      <div class='col-sm-3'>
       <ul class="nav navbar-nav navbar-right">
       <li style="font-size:1.5em;  color: white; margin-top:15px"><%=name %></li>
       <!--  -->
       <li class="dropdown" style='height:55px;margin-bottom:5px;'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id='memberInfo'>
-              <img src=<%=imagePath %>  alt="Cinque Terre" width="35" height="35" >
+              <img src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png"  alt="Cinque Terre" width="35" height="35" >
               <b class="caret"></b></a>
               <ul class="dropdown-menu">
               
-                <li ><a href="../include/profile.jsp" style='background-color:white;'>프로필</a></li>
+                <li ><a href="#" style='background-color:white;'>프로필</a></li>
                 <li><a href="../note/myBoard" style='background-color:white;'>쪽지함</a></li>
+                <li><a href="#" style='background-color:white;'>설정</a></li>
                 <li class="divider"></li>
                 <li><a href="../login/logout" style='background-color:white;'>로그아웃</a></li>
               </ul>
@@ -566,7 +569,7 @@ function dismiss(){
 			
 		}
 		socket.onerror = function() {
-			//alert('에러가 발생 했습니다.')
+			alert('에러가 발생 했습니다.')
 		}
 		socket.onclose = function() {
 			

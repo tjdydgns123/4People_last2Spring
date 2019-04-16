@@ -14,6 +14,7 @@
 <%
    String mem_id = (String)session.getAttribute("MEM_ID");
 	String board_no = (String)request.getAttribute("board_no");
+	String titlee ="자바팀";
 	
  List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("b_boardList");
 		List<String> BLIST_NO =new ArrayList<String>();
@@ -22,18 +23,11 @@
 		List<String> C_BLIST_NO =new ArrayList<String>();
 		List<String> CARD_CODE =new ArrayList<String>();
 		List<String> CARD_NAME =new ArrayList<String>();
-		List<String> profile_image =new ArrayList<String>();
 	    String t_team_code= null;  
-	    String t_team_name = null;
-	    String top_board_name = null;
 		List<String> BLISTMap = null;
 		List<String> CARDLISTMAP = null;
-		List<String> profileMap = null;
 		if(board_List!=null){
 	    		t_team_code=board_List.get(0).get("r_team_code").toString();
-	    		t_team_name=board_List.get(0).get("team_name").toString();
-	    		top_board_name=board_List.get(0).get("board_name").toString();
-	    		profileMap =(List<String>) board_List.get(0).get("porfileMap");
 				BLISTMap =(List<String>) board_List.get(0).get("BLISTMAP");
 				CARDLISTMAP =(List<String>) board_List.get(0).get("CARDLISTMAP");
 		}
@@ -73,17 +67,6 @@
 				
 			}
 		}}
-		if(profileMap!=null){
-		Iterator porfiletr = profileMap.iterator();
-		while(porfiletr.hasNext()){
-			Map<String,Object> pMap = (Map<String,Object>)porfiletr.next();
-			Object keys[] = pMap.keySet().toArray();
-			for(int j=0;j<keys.length;j++){
-				if(keys[j].equals("mem_image")){
-					profile_image.add(pMap.get(keys[j]).toString());
-				}
-			}
-		}}
 		
 		
 %>
@@ -113,37 +96,6 @@
 	background-color:transparent ; !important;
 }
 
- body{
- background-color:rgb(51, 181, 229);
-}
-
-
-/* #sidebar { font-size: 14px; z-index: 100;  */
-/* -webkit-transform: translate3d(-300px,0,0); */
-/* -moz-transform: translate3d(-300px,0,0); */
-/* transform: translate3d(-300px,0,0); */
-/* -webkit-transition: all 0.2s; */
-/* -moz-transition: all 0.2s; */
-/* -ms-transition: all 0.2s; */
-/* -o-transition: all 0.2s; */
-/* transition: all 0.2s; */
-/* } */
-
-/* html.open #sidebar { overflow-y: auto; */
-/* -webkit-transform: translate3d(0,0,0); */
-/* -moz-transform: translate3d(0,0,0); */
-/* transform: translate3d(0,0,0); */
-/* -webkit-transition: all 0.2s; */
-/* -moz-transition: all 0.2s; */
-/* -ms-transition: all 0.2s; */
-/* -o-transition: all 0.2s; */
-/* transition: all 0.2s; */
-/* } */
-
-/* #sidebar-toggle { display: block; position: fixed; left: 10px; bottom: 10px;  */
-/*                   width: 50px; height: 50px; line-height: 55px; text-align: center;  */
-/*                   color: #555; background-color: #f1f1f1; border-radius: 10px; opacity: 0.9; box-shadow: 0 0 10px #aaa; z-index: 101; } */
-
 
 /* Decorations */
 /* .col-sm-2 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; } */
@@ -152,17 +104,16 @@
 /* .col-sm-2:nth-child(3n+3) { background: #69c; } */
 </style>
 <script type="text/javascript">
-<%-- 	//alert("<%=BLISTMap%>"); --%>
-<%-- 	//alert("<%=CARDLISTMAP%>"); --%>
-<%-- 	//alert("<%=CARD_CODE.size()%>"); --%>
+<%-- 	alert("<%=BLISTMap%>"); --%>
+<%-- 	alert("<%=CARDLISTMAP%>"); --%>
+<%-- 	alert("<%=CARD_CODE.size()%>"); --%>
 var color ="btn-default";
 var temp = new Array();
 var label_code='';
 var card_code=''; 
 var team_code = '<%=t_team_code%>';
 var des_code = '';
-var parti_code ='';
-var check_code = '';
+var parti_code='';
 
 function mo_close(){
 	$('#label_modal2').modal('hide');
@@ -176,134 +127,19 @@ function mo_close3(){
 function mo_close4(){
 	$('#checkModal').modal('hide');
 }
-function mo_close5(){
-	$('#label_modal4').modal('hide');
-}
 function label_codee(id){
 	label_code= id;
 	
 }
-
-
-/* 첨부파일 */
-	function akakl(e){
-		e.preventDefault();
-		
-		$('#fname').click();
-
-
-
-		}
-
-	function fileINS(){
-// 		  var form = $('#fileBoxform')[0];
-// 		  var formData = new FormData(form);
-		var uploadFile = $('.fileBox .uploadBtn');
-		uploadFile.on('change', function(){
-			if(window.FileReader){
-				var filename = $(this)[0].files[0].name;
-			} else {
-				var filename = $(this).val().split('/').pop().split('\\').pop();
-			}
-			$(this).siblings('.fileName').val(filename);
-			 $(this).siblings('.upload-name').val(filename);
-			 var formData = new FormData();
- 		formData.append("fname", $("input[name=fname]")[0].files[0]);
- 		formData.append("card_code", card_code);
- 		formData.append("f_team_code", team_code);
- 		formData.append("f_maker", "<%=mem_id%>");
- 		
-//  		$('#f_card_code').attr('value',card_code);
-// 		$('#f_team_code').attr('value',team_code);
-<%-- 		$('#f_maker').attr('value',"<%=mem_id%>"); --%>
-			 $.ajax({
-					type:"POST"
-				   ,url:"../card/fileINS"
-				   ,data:formData
-					,processData: false
-					, contentType: false
-				   ,success:function(result){
-//						   $("#membergood").html(result);
-					   $("#card_c_file").append(result);
-// 					   parent.opener.location.reload();
-// 					   window.open('', '_self', '').close();
-					   
-				   }
-				  ,error:function(request,status,error){
-					  
-						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-				  }
-				});
-
-			   $("#fname").val("");
-
-// 			   $("#fileBoxform").attr("method","post");
-// 	           $("#fileBoxform").attr("action","../card/fileINS");
-// 	           window.open('about:blank','hoho','width=400,height=300');
-// 	           $("#fileBoxform").submit();
-// 	           $('#cardmodal').modal('show');
-			
-	       	           
-		});
-
-		
-		}
-	function filedown(p_fname){
-		location.href="../card/downLoad.jsp?fname="+p_fname;
-		}
-	 function file_del(id){
-		$('#'+id+'').remove();
-		var param = "att_no="+id;
-		$.ajax({
-			type:"POST"
-		   ,url:"../card/fileDEL"
-		   ,data:param
-		   ,dataType:"html"
-		   ,success:function(result){
-			   
-		   }
-		  ,error:function(request,status,error){
-//				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-		  }
-		});
-		 }
-/* 첨부파일 */
-
-/* 기한설정 */
-	function gihan(e){ 
-  $("#datepicker").datepicker({ 
-        autoclose: true, 
-        todayHighlight: true
-  });
-//   .datepicker('update', new Date());
-$('#gihanz').on('change',function () {
- //alert($('#gihanz').val());
- var card_duedate = $('#gihanz').val();
- var param = "card_duedate="+card_duedate+"&card_code="+card_code; 
-	$.ajax({
-		type:"POST"
-	   ,url:"../card/cardDueDateUPD"
-	   ,data:param
-	   ,dataType:"html"
-	   ,success:function(result){
-		   $('#myModalLabel').empty();
-		   $('#myModalLabel').append(result);
-	   }
-	});
-
-//  $('#gihanz').val("");
-e.preventDefault();
-
-});
-}
-/* 기한설정 */
-
 /* 체크리스트 */
-
-// var count = 0;
+var length ='';
+var llength ='';
+var lllength ='';
+var Mllength ='';
+var count = 0;
 function checkAdd(){
 	var check_text = $('#check_text').val();
-	//alert(check_text);
+	alert(check_text);
 	var param = "check_title="+check_text+"&team_code="+team_code+"&card_code="+card_code+"&check_maker=<%=mem_id%>";
 	$.ajax({
 		type:"POST"
@@ -312,107 +148,86 @@ function checkAdd(){
 	   ,dataType:"html"
 	   ,success:function(result){
 //			   $("#membergood").html(result);
-		   $("#check_list").empty();
 		   $("#check_list").append(result);
 		   
 	   }
 	  ,error:function(request,status,error){
-			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+//			  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 	  }
 	});
 	
 }
-function checklistadd(id){
-	check_code = id;
-	//alert("checklistadd");
-	//alert($('#check_list').children("#cklist_title").length);
-// 	//alert($('#check_list').children("input[name=text]").length);
-	if($('#check_list').children("#cklist_title").length==0){
-		//alert("hnhn");
-	var $div = "<div id='cklist_title'><input type='text' name='text' id='ckli_text'><button onClick='cklistINS()'>생성</button><button onClick='ck_cancle()'>취소</button></div>"
-	$("#check_addhaja").after($div);
+function hihi(check,id){
+// 	 if($('#'+id+'').is(".checked")==true){
+// 		count +=1;
+// 		 }
+	 alert("tt: "+$('#check_list').children(check.checked).length);
+	 length = $('#check_list').children('.checkbox').length;
+	
+	 llength = 100/length;
+	 lllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))+llength);
+	 Mllength = Math.round(parseFloat($("#barbar").attr("aria-valuenow"))-llength);
+	alert(	parseFloat($("#barbar").attr("aria-valuenow"))+50);
+	if ( check.checked == true )
+	{
+	alert("선택");
+	count += 1;
+	 alert(count);
+	 if(count!=length){
+	$('#barbar').attr({
+		"aria-valuenow" : lllength ,
+		"style" : "width:"+lllength+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(lllength+"%");
+	}
+	 else{
+		 var lilength = Math.round(parseFloat($("#barbar").attr("aria-valuenow")));
+		 var halength = 100-lilength;
+	$('#barbar').attr({
+		"aria-valuenow" : 100 ,
+		"style" : "width:"+100+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(100+"%");
+		 }
+	 }
+	else{
+	alert("해제");
+	count -=1;
+	 alert(count);
+	 if(count!=0){
+	$('#barbar').attr({
+		"aria-valuenow" : Mllength,
+		"style" : "width:"+Mllength+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(Mllength+"%");
+		 }
+	 else{
+	$('#barbar').attr({
+		"aria-valuenow" : 0,
+		"style" : "width:"+0+"%"
+		});
+	$('#barbar').empty();
+	$('#barbar').append(0+"%");
+
+		 }
 		}
 }
- function ck_cancle(){
-// 	 //alert("취소");
-		$('#cklist_title').remove();
-	 }
-function cklistINS(){
-	var text = $('#ckli_text').val();
-	//alert(text);
-	$('#cklist_title').empty();
-	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code;
-	$.ajax({
-		type:"POST"
-	   ,url:"../card/checklistINS"
-	   ,data:param
-	   ,dataType:"html"
-	   ,success:function(result){
-//			   $("#membergood").html(result);
-		$("#check_list").empty();
-// 		 //alert(result);
-		   $("#check_list").append(result);
-		   
-	   }
-	  ,error:function(request,status,error){
-		  //alert("에러");
-//			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	  }
-	});
-	
-}
-
- function checkDEL(id){
-	//alert("checkDEL");
-
-	var param = "check_code="+id;
-	$.ajax({
-		type:"POST"
-	   ,url:"../card/checkDEL"
-	   ,data:param
-	   ,dataType:"html"
-	   ,success:function(result){
-		   $("#check_list").remove();
-	   }
-	  ,error:function(request,status,error){
-			  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	  }
-	});
-	 }
- function ck_con_del(id){
-// 	 $('#'+id+'').remove();
-	 var param = "card_code="+card_code+"&check_con_code="+id;
-		$.ajax({
-			type:"POST"
-		   ,url:"../card/checklistDEL"
-		   ,data:param
-		   ,dataType:"html"
-		   ,success:function(result){
-//				   $("#membergood").html(result);
-			$("#check_list").empty();
-			   $("#check_list").append(result);
-			   
-		   }
-		  ,error:function(request,status,error){
-			  //alert("에러");
-//				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-		  }
-		});
-	 }
-
 /* 체크리스트 */
  function mouse(id){
 
 $('#'+id+'').on('mousedown', function() {
 	if (event.button == 2) {
-		//alert(parti_code);
+		alert(parti_code);
 	}	  
 	});
  
 	 }
  function drag(event) {
 	   event.dataTransfer.setData("Text", event.target.id);
-// 	   event.target.style.color = 'green';
+	   event.target.style.color = 'green';
 	}
 function allowDrop(event) {  
 	    event.preventDefault();
@@ -420,12 +235,8 @@ function allowDrop(event) {
 function drop(event) {
 	    event.preventDefault();
 	    parti_code = event.dataTransfer.getData("text");
-	    //alert(parti_code);
-// 	    //alert($('parti_code').attr('name'));
-// 		//alert("parit_code: "+parti_code);
-// 		//alert("event: "+event.dataTransfer.getData("text"));
-
-
+// 		alert("event: "+event.dataTransfer.getData("text"));
+// 		alert("parit_code: "+parti_code);
 		$('#'+parti_code+'').remove();
 		var param ="parti_code="+parti_code;
 
@@ -434,15 +245,18 @@ function drop(event) {
 		   ,url:"../card/partiDEL"
 		   ,data:param
 		   ,dataType:"html"
+		   ,success:function(result){
+			   
+			   
+		   }
 		});
 	}
+// 		$(document).ready( function (){
+// 	function mem_name_ajax(){
 	
-	/* 카드 참여자 초대  */
 	function mem_name_ajax(){
-// 		//alert($("#label_text5").val());
-// 	//alert("dd");
+// 		alert($("#label_text5").val());
 	$('#label_text5').keyup(function (){
-// 	//alert("df");
 		$("#membergood").empty();
 
 		var mem_name =$("#label_text5").val();
@@ -454,22 +268,23 @@ function drop(event) {
 			   ,data:param
 			   ,dataType:"html"
 			   ,success:function(result){
-				   $("#membergood34").html(result);
+				   $("#membergood").html(result);
 				   
 			   }
 			  ,error:function(request,status,error){
-				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+// 				  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			  }
 			});
 			});
 		
 		}
 		
+// 		}
 	
 	
 	function memberinvate(id){
 		var param = "mem_id=<%=mem_id%>&team_code="+team_code+"&card_code="+card_code+"&parti_id="+id;
-// 		//alert(id);
+		alert(id);
 // 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
 		$.ajax({
 			type:"POST"
@@ -479,45 +294,11 @@ function drop(event) {
 		   ,success:function(result){
 			   $('#membersja').append(result);
 		   } ,error:function(){
-			   //alert("실패에염")
+			   alert("실패에염")
 				  $("#membersja").text(e.responseText);
 			  }
+		   
 		});
-			   $('#label_text5').val("-");
-		var mem_name =$("#label_text5").val();
-		var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
-
-			$.ajax({
-				type:"POST"
-			   ,url:"../team/member2"
-			   ,data:param
-			   ,dataType:"html"
-			   ,success:function(result){
-				   $("#membergood34").html(result);
-				   
-			   }
-			  ,error:function(request,status,error){
-				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-			  }
-			});
-			   $('#label_text5').val("");
-		var mem_name =$("#label_text5").val();
-		var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
-
-			$.ajax({
-				type:"POST"
-			   ,url:"../team/member2"
-			   ,data:param
-			   ,dataType:"html"
-			   ,success:function(result){
-				   $("#membergood34").html(result);
-				   
-			   }
-			  ,error:function(request,status,error){
-				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-			  }
-			});
-		
 	}
 
 
@@ -532,17 +313,49 @@ function drop(event) {
  
  	function label_del(){
  		var param = "label_code="+label_code;
-			   $('#'+label_code+'').remove();
 		$.ajax({
 			type:"POST"
-		   ,url:"../card/labelDEL"
+		   ,url:"../card/labelDEL?"
 		   ,data:param
 		   ,dataType:"html"
 		   ,success:function(data){
-// 			   $('#cardmodal').modal('show');
+			   $('#'+label_code+'').remove();
+			   $('#cardmodal').modal('show');
 		   }
 		  ,error:function(jqXHR, exception){
-			
+			  if (jqXHR.status === 0) {
+		            alert('Not connect.\n Verify Network.');
+		        }
+		        else if (jqXHR.status == 400) {
+		            alert('Server understood the request, but request content was invalid. [400]');
+		        }
+		        else if (jqXHR.status == 401) {
+		            alert('Unauthorized access. [401]');
+		        }
+		        else if (jqXHR.status == 403) {
+		            alert('Forbidden resource can not be accessed. [403]');
+		        }
+		        else if (jqXHR.status == 404) {
+		            alert('Requested page not found. [404]');
+		        }
+		        else if (jqXHR.status == 500) {
+		            alert('Internal server error. [500]');
+		        }
+		        else if (jqXHR.status == 503) {
+		            alert('Service unavailable. [503]');
+		        }
+		        else if (exception === 'parsererror') {
+		            alert('Requested JSON parse failed. [Failed]');
+		        }
+		        else if (exception === 'timeout') {
+		            alert('Time out error. [Timeout]');
+		        }
+		        else if (exception === 'abort') {
+		            alert('Ajax request aborted. [Aborted]');
+		        }
+		        else {
+		            alert('Uncaught Error.n' + jqXHR.responseText);
+		        }
 
 
 		  }
@@ -569,112 +382,108 @@ function drop(event) {
 						   }
 						   });
  	}
- 	/*   코멘트   */
 		function comment(){
 			var comment = $('#input_comment').val();
-// 			//alert(comment);
-			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code+"&comm_maker=<%=mem_id%>";
+			alert(comment);
+			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code;
 			$.ajax({
 				type:"POST"
-			   ,url:"../card/commentIns"
+			   ,url:"../card/card.for?crud=commentIns"
 			   ,data:param
-			   ,dataType:"text"
-			   ,success:function(result){
-				   //alert(result);
-				  	$('#comments').empty();
-				  	$('#input_comment').val("");
-				   	$('#comments').append(result);			
+			   ,dataType:"json"
+			   ,success:function(data){
+				   var comment_code =data;
+				   
+				   var today = new Date();
+				   var dd = today.getDate();
+				   var mm = today.getMonth()+1; //January is 0!
+				   var yyyy = today.getFullYear();
+				   var sigan = today.getHours()+":"+today.getMinutes();
+				   var week = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일','일요일');
+				   var day = week[today.getDay()];
+				   if(dd<10) {
+				       dd='0'+dd
+				   } 
+
+				   if(mm<10) {
+				       mm='0'+mm
+				   } 
+				   today = yyyy+'-'+mm+'-'+dd;
+				   
+				   var mem_name ='<%=session.getAttribute("MEM_NAME")%>'
+				   alert(mem_name);
+				   var append = "<div class='es_comment' style='background-color: #D9D9D9;'>"
+				   				+"<img  width='30px' height='30px'  src='../images/comment.png'>"
+				   				+"<label><span style='font-size:20px; color:#4374D9; font_weight:bold; margin:5px;'>"+mem_name+"</span><span style='font-size:8px;'>"+today+"&nbsp;&nbsp;"+day+" &nbsp;&nbsp;"+sigan+"</span></label>"
+				   				+"<a href='javascript:commentDeletModal()' style='margin-left:300px;'> <img  width='15px' height='15px'  src='../images/commentDelete.png'></a>"
+				   				+"<div class='es_contant' style='padding-left:40px;'><span>"+comment+"</span></div></div></div>"
+					
+				   	$('#coment').append(append);			
+				   	$('#input_comment').val("");
 				   
 			   }
 			  ,error:function(jqXHR, exception){
 				  if (jqXHR.status === 0) {
-			            //alert('Not connect.\n Verify Network.');
+			            alert('Not connect.\n Verify Network.');
 			        }
 			        else if (jqXHR.status == 400) {
-			            //alert('Server understood the request, but request content was invalid. [400]');
+			            alert('Server understood the request, but request content was invalid. [400]');
 			        }
 			        else if (jqXHR.status == 401) {
-			            //alert('Unauthorized access. [401]');
+			            alert('Unauthorized access. [401]');
 			        }
 			        else if (jqXHR.status == 403) {
-			            //alert('Forbidden resource can not be accessed. [403]');
+			            alert('Forbidden resource can not be accessed. [403]');
 			        }
 			        else if (jqXHR.status == 404) {
-			            //alert('Requested page not found. [404]');
+			            alert('Requested page not found. [404]');
 			        }
 			        else if (jqXHR.status == 500) {
-			            //alert('Internal server error. [500]');
+			            alert('Internal server error. [500]');
 			        }
 			        else if (jqXHR.status == 503) {
-			            //alert('Service unavailable. [503]');
+			            alert('Service unavailable. [503]');
 			        }
 			        else if (exception === 'parsererror') {
-			            //alert('Requested JSON parse failed. [Failed]');
+			            alert('Requested JSON parse failed. [Failed]');
 			        }
 			        else if (exception === 'timeout') {
-			            //alert('Time out error. [Timeout]');
+			            alert('Time out error. [Timeout]');
 			        }
 			        else if (exception === 'abort') {
-			            //alert('Ajax request aborted. [Aborted]');
+			            alert('Ajax request aborted. [Aborted]');
 			        }
 			        else {
-			            //alert('Uncaught Error.n' + jqXHR.responseText);
+			            alert('Uncaught Error.n' + jqXHR.responseText);
 			        }
 
 
 			  }
 	});
 		}
-
-	function commDEL(id){
-		var param = "comm_no="+id+"&card_code="+card_code;
-		$.ajax({
-			type:"POST"
-		   ,url:"../card/commentDEL"
-		   ,data:param
-		   ,dataType:"text"
-		   ,success:function(result){
-// 			   //alert(result);
-			  	$('#comments').empty();
-			  	$('#input_comment').val("");
-			   	$('#comments').append(result);			
-			   
-		   }
-		});
-	}
- 	/*   코멘트   */
+ 
 	function cardAdd(id){
-// 		//alert(id);
-// 		//alert($('#'+id+'tt').children('input[type=text]').length);
-		if($('#'+id+'tt').children('input[type=text]').length==0){
+// 		alert(id);
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
 		if(id=="gg"){
-		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='boardlistAdd("+id+")'><input type='button' class='btn btn-danger' value='취소' onClick='boardlist_cancle("+id+")'>";
+		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='boardlistAdd("+id+")'>";
 		}
 		else{
-		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='cardlist("+id+")'><input type='button' class='btn btn-danger' value='취소' onClick='cardlist_cancle("+id+")'>   ";
+		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='cardlist("+id+")'>";
 		}
-			}
 	}
-	function boardlist_cancle(id){
-	 $('#ggtt').empty();
-	 $('#ggbb').empty();
-		}
-	function cardlist_cancle(id){
-	 $('#'+id+'tt').empty();
-	 $('#'+id+'bb').empty();
-		}
 	function boardlistAdd(id){
-// 		//alert(id);
-		//alert("<%=board_no%>");
+// 		alert(id);
+		alert("<%=board_no%>");
 		var r_BL_team_code = "<%=t_team_code%>";
-		//alert(r_BL_team_code);
-		//alert(r_BL_team_code.substring(1,2));
+		alert(r_BL_team_code);
+		alert(r_BL_team_code.substring(1,2));
 		var str_team_code = r_BL_team_code.substring(1,2);
 		var input2 = document.getElementById('ggtextval').value;
+		<%=titlee%> = input2;
 // 		var param = "bd_title="+input2;
 		var param = "?team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
-		//alert(param);
+		alert(param);
 		$('#jae').empty();
 <%-- 		location.href="./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2; --%>
 		location.href="./boardListINS"+encodeURI(param);
@@ -709,7 +518,6 @@ function drop(event) {
 		var param = "card_code="+id;
 		//은수
 		card_code =id;  
-		//alert(card_code);
 		//은수
 			$('#cardmodal').empty();
 			$.ajax({
@@ -724,37 +532,37 @@ function drop(event) {
 						   }
 			,error:function(jqXHR, exception){
 				  if (jqXHR.status === 0) {
-			            //alert('Not connect.\n Verify Network.');
+			            alert('Not connect.\n Verify Network.');
 			        }
 			        else if (jqXHR.status == 400) {
-			            //alert('Server understood the request, but request content was invalid. [400]');
+			            alert('Server understood the request, but request content was invalid. [400]');
 			        }
 			        else if (jqXHR.status == 401) {
-			            //alert('Unauthorized access. [401]');
+			            alert('Unauthorized access. [401]');
 			        }
 			        else if (jqXHR.status == 403) {
-			            //alert('Forbidden resource can not be accessed. [403]');
+			            alert('Forbidden resource can not be accessed. [403]');
 			        }
 			        else if (jqXHR.status == 404) {
-			            //alert('Requested page not found. [404]');
+			            alert('Requested page not found. [404]');
 			        }
 			        else if (jqXHR.status == 500) {
-			            //alert('Internal server error. [500]');
+			            alert('Internal server error. [500]');
 			        }
 			        else if (jqXHR.status == 503) {
-			            //alert('Service unavailable. [503]');
+			            alert('Service unavailable. [503]');
 			        }
 			        else if (exception === 'parsererror') {
-			            //alert('Requested JSON parse failed. [Failed]');
+			            alert('Requested JSON parse failed. [Failed]');
 			        }
 			        else if (exception === 'timeout') {
-			            //alert('Time out error. [Timeout]');
+			            alert('Time out error. [Timeout]');
 			        }
 			        else if (exception === 'abort') {
-			            //alert('Ajax request aborted. [Aborted]');
+			            alert('Ajax request aborted. [Aborted]');
 			        }
 			        else {
-			            //alert('Uncaught Error.n' + jqXHR.responseText);
+			            alert('Uncaught Error.n' + jqXHR.responseText);
 			        }
 
 
@@ -771,7 +579,7 @@ function drop(event) {
 // 				document.getElementById("card_label").innerHTML+="<input type='button' class='btn "+color+" ' value='"+temp+"'>";
 // 				$("#card_label").append("<input type='button' class='btn "+color+" ' value='"+temp+"' data-toggle='modal' data-target=''#label_modal2' onClick='label_codee(id)''>");
 <%-- 				  location.href="../card/card.for?crud=labelins&label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code; --%>
-					$('#label_text').val("");
+				  
 // 				  $('#card_label').empty();
 					$.ajax({
 							type:"POST"
@@ -783,41 +591,40 @@ function drop(event) {
 		// // 							   $('#myModal').modal()  
 // 		 							   $('#cardmodal').modal('show');
 								   }
-					  
 					,error:function(jqXHR, exception){
 // 		 							   $('#cardmodal').modal('show');
 						  if (jqXHR.status === 0) {
-					            //alert('Not connect.\n Verify Network.');
+					            alert('Not connect.\n Verify Network.');
 					        }
 					        else if (jqXHR.status == 400) {
-					            //alert('Server understood the request, but request content was invalid. [400]');
+					            alert('Server understood the request, but request content was invalid. [400]');
 					        }
 					        else if (jqXHR.status == 401) {
-					            //alert('Unauthorized access. [401]');
+					            alert('Unauthorized access. [401]');
 					        }
 					        else if (jqXHR.status == 403) {
-					            //alert('Forbidden resource can not be accessed. [403]');
+					            alert('Forbidden resource can not be accessed. [403]');
 					        }
 					        else if (jqXHR.status == 404) {
-					            //alert('Requested page not found. [404]');
+					            alert('Requested page not found. [404]');
 					        }
 					        else if (jqXHR.status == 500) {
-					            //alert('Internal server error. [500]');
+					            alert('Internal server error. [500]');
 					        }
 					        else if (jqXHR.status == 503) {
-					            //alert('Service unavailable. [503]');
+					            alert('Service unavailable. [503]');
 					        }
 					        else if (exception === 'parsererror') {
-					            //alert('Requested JSON parse failed. [Failed]');
+					            alert('Requested JSON parse failed. [Failed]');
 					        }
 					        else if (exception === 'timeout') {
-					            //alert('Time out error. [Timeout]');
+					            alert('Time out error. [Timeout]');
 					        }
 					        else if (exception === 'abort') {
-					            //alert('Ajax request aborted. [Aborted]');
+					            alert('Ajax request aborted. [Aborted]');
 					        }
 					        else {
-					            //alert('Uncaught Error.n' + jqXHR.responseText);
+					            alert('Uncaught Error.n' + jqXHR.responseText);
 					        }
 
 
@@ -843,17 +650,16 @@ function drop(event) {
 				color ="btn-danger";
 			}
 			function descriptionIns(id){
-				//alert(id);
+				alert(id);
 				des_code = id;
 				var text = '';
 					text = $('#des_text').val();
 					 var param = "des_content="+text+"&des_maker=<%=mem_id%>&team_code=<%=t_team_code%>&card_code="+card_code;
-				//alert(text);
-// 				$('#des_con').empty();
-// 				$('#des_bt').empty();
-				$('#card_description').empty();
+				alert(text);
+				$('#des_con').empty();
+				$('#des_bt').empty();
 // 				document.getElementById('des_con').innerHTML+="<span><h5>"+text+"</h5></span>";
-// 				document.getElementById('hth').innerHTML+="<a href='#' onclick='desUPD(id)' style='margin-left:20px'>edit</a>";
+				document.getElementById('hth').innerHTML+="<a style='margin-left:20px'>edit</a>";
 				
 				$.ajax({
 					type:"POST"
@@ -861,15 +667,14 @@ function drop(event) {
 					,data:param
 						   ,dataType:"html"
 						   ,success:function(result){
-// 							   //alert(result);
-// 						    $('#des_con').append(result);
-						    $('#card_description').append(result);
+// 							   alert(result);
+						    $('#des_con').append(result);
 						   }
 							});
 				}
 			function desUPD(id){
 				des_code = id;
-				//alert(id);
+				alert(id);
 				document.getElementById('des_conss').innerHTML+= "<textarea  id='des_text' style='margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; '/>";
 				document.getElementById('des_bt').innerHTML+=  "<input type='button' style='margin-left:50px; margin-top:10px' class='btn btn-success col-sm-2 col-sm-offset-5' value='저장' onClick='descriptionUPD()'>";
 					
@@ -879,14 +684,14 @@ function drop(event) {
 				var text = '';
 				text = $('#des_text').val();
 				var param = "des_content="+text+"&des_no="+des_code;
-				//alert(text);
+				alert(text);
 				if(text.length==0){
-					//alert('빈'+text.length);
+					alert('빈'+text.length);
 				$('#des_conss').empty();
 				$('#des_bt').empty();
 					}
 				else{
-					//alert('찬'+text.length)
+					alert('찬'+text.length)
 				$('#des_conss').empty();
 				$('#des_cons').empty();
 				$('#des_cons').append("<span><h5>"+text+"</h5></span>");
@@ -903,165 +708,17 @@ function drop(event) {
 							});
 					}
 				}
-
-				function vison(){
-// 					//alert("vison");
-					$('#ccmmdy').attr('style','background-image:url("../images/vison.gif")');
-					}
-				function topMemberAdd(){
-				location.href="../team/member3?team_code=<%=t_team_code%>";
-					}
-
-				function mem_name_ajax2(){
-					$('#label_text6').keyup(function (){
-						$("#membergood").empty();
-
-						var mem_name =$("#label_text6").val();
-						var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
-
-							$.ajax({
-								type:"POST"
-							   ,url:"../team/member3"
-							   ,data:param
-							   ,dataType:"html"
-							   ,success:function(result){
-								   $("#membergood").html(result);
-								   
-							   }
-							  ,error:function(request,status,error){
-//				 				  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-							  }
-							});
-							});
-
-					}
-				function memberinvate2(id){
-// 				//alert(id);
-
-				var param = "mem_id="+id+"&team_code="+team_code+"&board_no=<%=board_no%>";
-//		 		//alert(id);
-//		 		$('#membersja').append("<button style='background-color:#FFFFFF;height:33px;margin-right:5px'>"+id+"</button>");
-				$.ajax({
-					type:"POST"
-				   ,url:"./team_memberINS"
-				   ,data:param
-				   ,dataType:"html"
-				   ,success:function(result){
-					   $('#top_panel').empty();
-					   $('#top_panel').append(result);
-				   } ,error:function(jqXHR, exception){
-					   if (jqXHR.status === 0) {
-				            //alert('Not connect.\n Verify Network.');
-				        }
-				        else if (jqXHR.status == 400) {
-				            //alert('Server understood the request, but request content was invalid. [400]');
-				        }
-				        else if (jqXHR.status == 401) {
-				            //alert('Unauthorized access. [401]');
-				        }
-				        else if (jqXHR.status == 403) {
-				            //alert('Forbidden resource can not be accessed. [403]');
-				        }
-				        else if (jqXHR.status == 404) {
-				            //alert('Requested page not found. [404]');
-				        }
-				        else if (jqXHR.status == 500) {
-				            //alert('Internal server error. [500]');
-				        }
-				        else if (jqXHR.status == 503) {
-				            //alert('Service unavailable. [503]');
-				        }
-				        else if (exception === 'parsererror') {
-				            //alert('Requested JSON parse failed. [Failed]');
-				        }
-				        else if (exception === 'timeout') {
-				            //alert('Time out error. [Timeout]');
-				        }
-				        else if (exception === 'abort') {
-				            //alert('Ajax request aborted. [Aborted]');
-				        }
-				        else {
-				            //alert('Uncaught Error.n' + jqXHR.responseText);
-				        }
-// 					   //alert("실패에염")
-					  }
-				});
-					   $('#label_text6').val("-");
-				var mem_name =$("#label_text6").val();
-				var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
-
-					$.ajax({
-						type:"POST"
-					   ,url:"../team/member3"
-					   ,data:param
-					   ,dataType:"html"
-					   ,success:function(result){
-						   $("#membergood").html(result);
-						   
-					   }
-					  ,error:function(request,status,error){
-						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-					  }
-					});
-					   $('#label_text6').val("");
-				var mem_name =$("#label_text6").val();
-				var param ="mem_name="+mem_name+"&team_code="+team_code+"&card_code="+card_code;
-
-					$.ajax({
-						type:"POST"
-					   ,url:"../team/member3"
-					   ,data:param
-					   ,dataType:"html"
-					   ,success:function(result){
-						   $("#membergood").html(result);
-						   
-					   }
-					  ,error:function(request,status,error){
-						  //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-					  }
-					});
-					}
-
-				$("#sidebar-toggle").click(function(){
-					  $("html").toggleClass("open");
-					});
+	
 </script>
 </head>
-<body >
+<body style="background-color:2489F8;">
 
 
 	<div id="haha" class="panel panel-primary"  >
-    <div class="panel-heading" id="top_panel">
-        <h3 class="panel-title"><img src="../images/meeting.png">&nbsp;&nbsp;<%=t_team_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=top_board_name %>&nbsp;&nbsp;|&nbsp;&nbsp;
-        <%if(profileMap!=null){
-        	for(int i=0;i<profile_image.size();i++){%>
-        <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
-        <%}} %>
-        <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
-        <a href="#" style="margin-left:60%">Show History</a>
-        </h3>
-		</div>
-
-        </div>
-
-    <div id="label_modal4" class="modal" role="dialog" style="width:400px;margin-left:350px;margin-top:130px">
-  		<div class="modal-dialogg" id="label_dialogg4">
-    <div class="modal-content" style="position:relative;">
-      <div class="modal-header">
-        <button type="button" class="close" onClick="mo_close5()">&times;</button>
-        <h4 class="modal-title">초대하기</h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="label_text6">
-      </div>
-      <div class="modal-footer">
-      <div id="membergood">
-      </div>
-      	</div>
-    	</div>
-    	   </div>
+    <div class="panel-heading">
+        <h3 class="panel-title"><img src="../images/team.png"> <%=titlee%></h3>
     </div>
-    <!-- Modal content-->
+    </div>
     
     <!--===================== 리스트들============================= -->
      <div  id="jae" class="testimonial-group">

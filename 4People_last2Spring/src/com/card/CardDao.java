@@ -40,8 +40,9 @@ public class CardDao {
 		List<Map<String,Object>> labelIns = new ArrayList<Map<String,Object>>();
 		sqlSessionTemplate.selectOne("labelIns",pMap);
 		logger.info(pMap.size());
-		logger.info(labelIns.size());
 		labelIns.add(pMap);
+		logger.info(labelIns.size());
+		logger.info(labelIns.get(0).get("r_label_color"));
 //		session.commit();
 		return labelIns;
 	}
@@ -49,9 +50,8 @@ public class CardDao {
 	public List<Map<String, Object>> cardSEL(Map<String, Object> pMap) {
 		List<Map<String,Object>> cardList = new ArrayList<Map<String,Object>>();
 		sqlSessionTemplate.selectList("cardSEL",pMap);
-		logger.info(pMap);
+		logger.info(pMap.get("labelMap"));
 		cardList.add(pMap);
-		
 		return cardList;
 	}
 
@@ -89,51 +89,6 @@ public class CardDao {
 	public void checkINS(Map<String, Object> pMap) {
 		logger.info("checkINS호출");
 		sqlSessionTemplate.insert("checkINS",pMap);
-	}
-	public void checkListINS(Map<String, Object> pMap) {
-		logger.info("checkListINS호출");
-		sqlSessionTemplate.insert("checkListINS",pMap);
-	}
-
-	public void checkListUPD(Map<String, Object> pMap) {
-		logger.info("checkListUPD호출");
-		sqlSessionTemplate.update("checkListUPD",pMap);
-	}
-	public void checkListUPD2(Map<String, Object> pMap) {
-		logger.info("checkListUPD호출");
-		sqlSessionTemplate.update("checkListUPD2",pMap);
-	}
-
-	public void checklistDEL(Map<String, Object> pMap) {
-		logger.info("checklistDEL호출");
-		sqlSessionTemplate.delete("checklistDEL",pMap);
-	}
-
-	public void checkDEL(Map<String, Object> pMap) {
-		logger.info("checkDEL호출");
-		sqlSessionTemplate.delete("checkDEL2",pMap);
-		sqlSessionTemplate.delete("checkDEL",pMap);
-	}
-
-	public void fileINS(Map<String, Object> pMap) {
-		sqlSessionTemplate.insert("fileINS",pMap);
-	}
-
-	public void fileDEL(Map<String, Object> pMap) {
-		sqlSessionTemplate.insert("fileDEL",pMap);
-	}
-
-	public void cardDueDateUPD(Map<String, Object> pMap) {
-		logger.info("cardDueDateUPD호출");
-		sqlSessionTemplate.update("cardDueDateUPD",pMap);
-	}
-
-	public void commentIns(Map<String, Object> pMap) {
-		sqlSessionTemplate.update("commentIns",pMap);
-	}
-
-	public void commentDEL(Map<String, Object> pMap) {
-		sqlSessionTemplate.delete("commentDEL",pMap);
 	}
 
 }

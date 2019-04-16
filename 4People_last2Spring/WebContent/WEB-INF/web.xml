@@ -4,7 +4,7 @@
   		context-param 태그안에 환경 설정을 하면 서버 기동시 최초 한 번 읽어서 계속 유지가능함 
   
   -->
-<filter>
+  <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>
             org.springframework.web.filter.CharacterEncodingFilter

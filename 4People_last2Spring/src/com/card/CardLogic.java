@@ -88,7 +88,7 @@ public class CardLogic {
 	public List<Map<String, Object>> cardDueDateUPD(Map<String, Object> pMap) {
 		List<Map<String,Object>> cardList = null;
 		c_Dao.cardDueDateUPD(pMap);
-		cardList = c_Dao.cardSEL(pMap);
+		cardList = c_Dao.cardSEL(pMap); 
 		return cardList;
 	}
 	public List<Map<String, Object>> commentIns(Map<String, Object> pMap) {
