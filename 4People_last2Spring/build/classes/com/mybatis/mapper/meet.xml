@@ -157,4 +157,10 @@
 		delete from mr_reservation
 		where re_code =#{re_code}
 	</delete>
+	<select id="reCalList" parameterType="com.vo.MeetRoomVO" resultType="java.util.Map">
+		SELECT MR_NO, RE_HOPEDATE||'T'||RE_STARTTIME||':00' as RE_HOPEDATE2, RE_HOPEDATE||'T'||RE_ENDTIME||':00' as RE_HOPEDATE3, RE_ENDTIME, MR_TEAMNAME 
+		  FROM MR_RESERVATION 
+		 WHERE MR_NO=#{mr_no}
+	</select>
+	
 </mapper>
