@@ -1073,13 +1073,16 @@ function drop(event) {
 				$("#sidebar-toggle").click(function(){
 					  $("html").toggleClass("open");
 					});
-				function showhity(){
 				 var cc = 0;
+				function showhity(){
+// 					alert(cc);
 				 if(cc==0){
+					$('#page-wrappervv').attr("style","");
+						cc=1;
 					 }
 				 else{
 					$('#page-wrappervv').attr("style","visibility:hidden");
-						cc=1;
+						cc=0;
 
 					 }
 					}
