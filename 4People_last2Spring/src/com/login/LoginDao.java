@@ -68,6 +68,10 @@ public class LoginDao {
 		}
 		return loginList2;
 	}
+	public List<Map<String, Object>> isMemberOk(String accountEmail) {
+		List<Map<String,Object>> meberInfo = sqlSessionTemplate.selectList("meberInfo",accountEmail);
+		return meberInfo;
+	}
 
 
 }

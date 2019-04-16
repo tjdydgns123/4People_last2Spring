@@ -37,7 +37,20 @@
 	<context:component-scan base-package="com.chart"/>
 	<bean id="naverLoginBO" class="com.login.NaverLoginBO" />
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
-
+		<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
+	<!-- google Class Bean설정 추가 -->
+<!-- 클라이언트ID와 보안비밀 세팅-->
+<bean id="googleConnectionFactory"
+	class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	<constructor-arg value="736734092169-rgr18ugfmpuf2lhajgp68and5g3nid6f.apps.googleusercontent.com" />
+	<constructor-arg value="zQtSPOeCUKPsjsI6KHYnhy9Q" />
+</bean>
+<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+	<property name="scope" value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/>
+	<property name="redirectUri" value="http://localhost:9000/4People_last2Spring/login/googleSignInCallback" />
+</bean>
+	
 	<mybatis:scan base-package="com.mybatis.mapper"/>
 	<mvc:resources location="/csss/" mapping="/csss/**"/>
 	<mvc:resources location="/images/" mapping="/images/**"/>

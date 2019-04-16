@@ -36,4 +36,10 @@ public class LoginLogic {
 		loginList2=l_dao.loginCall2(pMap);
 		return loginList2;
 	}
+	public List<Map<String, Object>> isMemberOk(String accountEmail) {
+		
+		List<Map<String, Object>> memberOk = l_dao.isMemberOk(accountEmail);
+		
+		return memberOk;
+	}
 }

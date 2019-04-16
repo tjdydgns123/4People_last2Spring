@@ -6,8 +6,18 @@
 %>
 <%
 	List<Map<String,Object>> signList = (List<Map<String,Object>>)request.getAttribute("loginList");
-	String mem_id = (String)signList.get(0).get("mem_id");
-	String mem_name = (String)signList.get(0).get("mem_name");
+	String mem_id =null;
+	String mem_name="";
+if(signList!=null){
+		
+	 mem_id = (String)signList.get(0).get("mem_id");
+	mem_name = (String)signList.get(0).get("mem_name");
+	}
+else{
+	mem_id = (String)request.getAttribute("mem_id");
+	mem_name = (String)request.getAttribute("mem_name");
+	
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +47,7 @@
            
             });
    
+        	
         	function signUp(){
         		
         		if(result==1){
