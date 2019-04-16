@@ -10,7 +10,7 @@
 		
 	</select>
 	<select id="getPrivate" parameterType="map" resultType="map">
-		select mem_name,val.pvroom_code,val.pvlog_content,val.pvlog_time,member.mem_id,member.mem_image
+		select mem_name,val.pvroom_code,val.pvlog_content,val.pvlog_time,member.mem_id
         from member,(select chat.mem_id,chat.pvroom_code,(select pvlog_content from pv_chat_log where  pvroom_code=#{PVROOM_CODE} and pvlog_time = (select max(pvlog_time) from pv_chat_log where pvroom_code=#{PVROOM_CODE})) pvlog_content
                      ,(select pvlog_time from pv_chat_log where pvroom_code=#{PVROOM_CODE} and pvlog_time = (select max(pvlog_time) from pv_chat_log where pvroom_code=#{PVROOM_CODE})) pvlog_time
         from private_chatroom chat,member
@@ -29,11 +29,11 @@
 	
 	<select id="chatLogIns" parameterType="map">
 		insert into pv_chat_log(pvlog_seqno,mem_id,pvroom_code,pvlog_time,pvlog_content,pvlog_confirm)
-		values(seq_pvchat_log.nextval,#{mem_id},#{pvroom_code},(select TO_CHAR(systimestamp,'YYYY.MM.DD.HH24.MI.SS.FF2') from dual),#{pvlog_content},'0')
+		values(seq_pvchat_log.nextval,#{mem_id},#{pvroom_code},(select TO_CHAR(sysdate,'YYYY.MM.DD.HH24.MI.SS') from dual),#{pvlog_content},'0')
 	</select>
 	<select id="teamLogIns" parameterType="map">
 		insert into team_chat_log(tlog_seqno,mem_id,tlog_content,team_code,tlog_confirm,tlog_time)
-        values (SEQ_TLGO_SEQNO.nextval,#{mem_id},#{tlog_content},#{team_code},'0',(select TO_CHAR(systimestamp,'YYYY.MM.DD.HH24.MI.SS.FF2') from dual))
+        values (SEQ_TLGO_SEQNO.nextval,#{mem_id},#{tlog_content},#{team_code},'0',(select TO_CHAR(sysdate,'YYYY.MM.DD.HH24.MI.SS') from dual))
 	</select>
 	<select id="getTeam" parameterType="map" resultType="map">
 		select log.team_code,log.tlog_time,log.tlog_content,team.team_name

@@ -28,6 +28,7 @@
 	</bean>
 	
 	<!-- 물리적으로 떨어져 있는 DB서버와 커넥션을 맺는데 필요한 정보를 로딩(Connection생성)하기 -->
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="WEB-INF/mybatis-config.xml"/>
 		<property name="dataSource" ref="data-source-target"/>

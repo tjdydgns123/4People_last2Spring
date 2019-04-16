@@ -19,44 +19,4 @@
 		AND mb_check = '0'
 		</where>
 	</select>
-	<select id="profile" parameterType="java.lang.String" resultType="map">
-		select mem_name,mem_phone,mem_companyname,mem_position,mem_id
-		from member
-		where mem_id=#{mem_id}
-	</select>
-	<select id="passwordOk" parameterType="map" resultType="java.lang.String">
-		select mem_id
-		from member
-		<where>
-		<if test="mem_id!=null">
-					AND mem_id = #{mem_id}
-		</if>
-		<if test="mem_pw!=null">
-			        AND mem_pw = #{mem_pw}
-		</if>
-		</where>
-	</select>
-	<update id="newPasswordUpd" parameterType="map">
-	<if test="mem_image!=null">
-		update member set mem_image =#{mem_image}, mem_pw=#{mem_pw}
-		where mem_id = #{mem_id}
-	</if>
-	<if test="mem_image==null">
-		update member set mem_pw=#{mem_pw}
-		where mem_id = #{mem_id}
-	</if>
-	</update>
-	<update id="profileUpd" parameterType="map">
-	<if test="mem_image!=null">
-		update member set mem_image =#{mem_image},mem_name=#{profile_name},MEM_COMPANYNAME=#{profile_companyName},MEM_PHONE=#{profile_hp},MEM_POSITION=#{profile_position}
-		where mem_id = #{profile_id}
-	</if>
-	<if test="mem_image==null">
-		update member set mem_name=#{profile_name},MEM_COMPANYNAME=#{profile_companyName},MEM_PHONE=#{profile_hp},MEM_POSITION=#{profile_position}
-		where mem_id = #{profile_id}
-	</if>
-	</update>
-	<delete id="memberDelete" parameterType="java.lang.String">
-		
-	</delete>
 </mapper>
