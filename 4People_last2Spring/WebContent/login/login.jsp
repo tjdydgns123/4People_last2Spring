@@ -146,14 +146,16 @@ session.setAttribute("state", state);
 						</button>
 					</div>
 					<br>
-					  <a href="./naverLogin"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+					<div class='col-sm-12' align="center">
+					  <a  href="./naverLogin"><img width="45%;"height="45" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 					<!-- 구글 로그인 화면으로 이동 시키는 URL -->
 					<!-- 구글 로그인 화면에서 ID, PW를 올바르게 입력하면 oauth2callback 메소드 실행 요청-->
-					<div id="google_id_login" style="text-align:left; margin-top:6px;">
-					<a href="./googleLogin" class='btn btn-danger'>
-					<img width='27px;' height='27px;' src='../images/googleLogin.png'>
-					<span class='text-center'>google 로그인</span>
+					<span class='text-right' id="google_id_login" style="text-align:right; margin-top:6px;">
+					<a href="./googleLogin" class='btn btn-default' style='width:45%; background-color:#FFF; border: 1px solid #BDBDBD;'>
+					<img width='27px;' height='27px;' src='../images/googleLogin2.png'>
+					<span class='text-center'>로그인</span>
 					</a>
+					</span>
 					</div>
 				</form>	
 
