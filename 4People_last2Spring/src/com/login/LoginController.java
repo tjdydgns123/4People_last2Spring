@@ -12,6 +12,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
+import org.springframework.stereotype.Controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -134,6 +145,52 @@ public class LoginController  {
 		String idresult = l_logic.findpw(pMap);
 		return idresult;
 	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/googleSignInCallback",method = RequestMethod.GET)
+	public String doSessionAssignActionPage(HttpServletRequest request,Model model)throws Exception{
+	  String code = request.getParameter("code");
+	  System.out.println("code="+code);
+
+	  OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+	  AccessGrant accessGrant = oauthOperations.exchangeForAccess(code,googleOAuth2Parameters.getRedirectUri(),null);
+
+	  String accessToken = accessGrant.getAccessToken();
+	  System.out.println("accessToken="+accessToken);
+	  Long expireTime = accessGrant.getExpireTime();
+	  if (expireTime != null && expireTime < System.currentTimeMillis()) {
+		  System.out.println("code5="+code);
+	    accessToken = accessGrant.getRefreshToken();
+	    System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+	  }
+	  Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+	  Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+
+	  PlusOperations plusOperations = google.plusOperations();
+	  Person profile = plusOperations.getGoogleProfile();
+	  
+	  
+	  
+//	  System.out.println(profile.getAccountEmail());
+	  String path="";
+	  List<Map<String, Object>>  memberInfo = l_logic.isMemberOk(profile.getAccountEmail());
+	  if(memberInfo!=null&&memberInfo.size()>0) {
+		  model.addAttribute("loginList",memberInfo);
+		  path = "forward:loginAction.jsp";
+	  }
+	  else {
+		  path = "forward:signUP.jsp";
+		  model.addAttribute("mem_id",profile.getAccountEmail());
+		  model.addAttribute("mem_name",profile.getDisplayName());
+	  }
+//	  System.out.println(profile.getDisplayName());
+
+	  return path;
+	}
+
 	
 	
 
