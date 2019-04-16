@@ -77,7 +77,7 @@ public class MeetRoomLogic {
 	}
 	public int reservationCancel(String re_code) {
 		int reuslt = mtRoom_dao.reservationCancel(re_code);
-		return 0;
+		return reuslt;
 	}
 	
 	

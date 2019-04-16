@@ -28,9 +28,14 @@ th {
 
 
 <script type="text/javascript">
+var afterSize = '<%=afterSize%>';
+var beforeSize = '<%=beforeSize%>';
+var hapSize = '<%=hapSize%>';
 	
+$(document).ready(function (){
+	beforeDate();
 	
-
+});
 	function afterDate(){
 		$.ajax({
 			 type:'POST'
@@ -50,7 +55,7 @@ th {
 			 ,url:'./beforeDate'
 			 ,dataType:'html'
 			 ,success:function(data){
-				 
+				 $('#t_reservation').html(data);
 			 }
 		 	 ,error:function(e){
 		 		 
@@ -72,18 +77,50 @@ th {
 		});
 
 	}
-	function reservationCancel(id){
+	function reservationCancel(obj){
+		
+		var id = $(obj).attr('id');
+		var str = id.split(':');
+		var re_code = str[1];
+		var gubun = str[0];
+		var param = "re_code="+re_code;
 		
 		$.ajax({
 			 type:'POST'
-			 ,url:'./hapDate'
-			 ,dataType:'html'
+			 ,url:'./reservationCancel'
+			 ,data: param
+			 ,dataType:'json'
 			 ,success:function(data){
-				
+				 alert(data);
+				if(data==1){ 
+				 if(gubun=='after'){
+					 
+					 var afterSizeResult= afterSize-1;
+					 afterSize = afterSizeResult;
+					 var hapSizeResult =hapSize-1;
+					 hapSize = hapSizeResult;
+						$('#s_after').text("이용완료( "+afterSizeResult+" )");
+						$('#s_hap').text("종합( "+hapSizeResult+" )");
+						alert('삭제성공');
+						$(obj).parent().parent().remove();
+					 }
+				 else if(gubun=='before'){
+					 $('#'+id).parent().remove();
+					 var beforeSizeResult= beforeSize-1;
+					 beforeSize = beforeSizeResult;
+					 var hapSizeResult =hapSize-1;
+					 hapSize = hapSizeResult;
+					 $('#s_before').text("이용예정( "+beforeSize+" )");
+					 $('#s_hap').text("종합( "+hapSizeResult+" )");
+					 alert('취소성공');
+					 $(obj).parent().parent().remove();
+					 }
+				}
+				else{
+						alert('실패');
+					}
 			 }
-		 	 ,error:function(e){
-		 		 
-		 	 }
+		 	 
 		});
 		
 		}
@@ -108,7 +145,7 @@ th {
        		
        		<div class='col-sm-3' style='padding:20px;'>
        			<a href='javascript:hapDate()'>
-       			<div class='text-center' style='font-size:25px; font-weight:bold;'><%="종합( "+hapSize+" )"%><br>
+       			<div class='text-center' style='font-size:25px; font-weight:bold;'><span id='s_hap'><%="종합( "+hapSize+" )"%></span><br>
        				<img src='../images/myReservation1.png' width='80px' height='80px'>
        			</div>
        			</a>
@@ -116,7 +153,7 @@ th {
        		
        		<div class='col-sm-3' style='padding:20px;'>
        			<a href='javascript:beforeDate()'>
-       			<div class='text-center' style='font-size:25px; font-weight:bold;'><%="이용예정( "+beforeSize+" )"%><br>
+       			<div class='text-center' style='font-size:25px; font-weight:bold;'><span id='s_before'><%="이용예정( "+beforeSize+" )"%></span><br>
        				<img src='../images/myReservation2.png' width='80px' height='80px'>
        			</div>
        			
@@ -125,7 +162,7 @@ th {
        		
        		<div class='col-sm-3' style='padding:20px;'>
        			<a href='javascript:afterDate()'>
-       			<div class='text-center' style='font-size:25px; font-weight:bold;'><%="이용완료( "+afterSize+" )"%><br>
+       			<div class='text-center' style='font-size:25px; font-weight:bold;'><span id='s_after'><%="이용완료( "+afterSize+" )"%></span><br>
        				<img src='../images/myReservation3.png' width='80px' height='80px'>
        			</div>
        			

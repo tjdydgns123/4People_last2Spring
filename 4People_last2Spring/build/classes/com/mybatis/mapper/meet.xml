@@ -138,5 +138,23 @@
 		and re.mem_id =#{mem_id}
 		]]>
 	</select>
-	
+	<select id="hapDate" parameterType="java.lang.String" resultType="map">
+	<![CDATA[
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and re.re_hopedate >= (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id =#{mem_id}
+		union all
+		select re.re_starttime,re.re_endtime,re.re_code,re.re_howmany,mr.mr_name,re.re_date,re.re_hopedate,re.mr_teamname
+		from mr_reservation re,meeting_room mr
+		where re.mr_no = mr.mr_no
+		and re.re_hopedate < (select to_char(sysdate,'yyyy-mm-dd') from dual)
+		and re.mem_id =#{mem_id}
+		]]>
+	</select>
+	<delete id="reservationCancel" parameterType="java.lang.String">
+		delete from mr_reservation
+		where re_code =#{re_code}
+	</delete>
 </mapper>

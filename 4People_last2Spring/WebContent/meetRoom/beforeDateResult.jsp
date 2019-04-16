@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import='java.util.*'%>
 <%
-List<Map<String, Object>> afterDateList =(List<Map<String, Object>>)request.getAttribute("afterDateList");
+List<Map<String, Object>> beforeDateList =(List<Map<String, Object>>)request.getAttribute("beforeDateList");
 	String re_starttime ="";
 	String re_endtime ="";
 	String re_code="";
@@ -24,8 +24,8 @@ List<Map<String, Object>> afterDateList =(List<Map<String, Object>>)request.getA
 		    </tr>
       	</thead>
       	<tbody>
- <%if(afterDateList.size()>0&&afterDateList!=null){
-	 for(Map<String,Object> rMap:afterDateList){
+ <%if(beforeDateList.size()>0&&beforeDateList!=null){
+	 for(Map<String,Object> rMap:beforeDateList){
 		 	 re_starttime =(String)rMap.get("RE_STARTTIME");
 			 re_endtime =(String)rMap.get("RE_ENDTIME");
 			 re_code=(String)rMap.get("RE_CODE");
@@ -43,7 +43,7 @@ List<Map<String, Object>> afterDateList =(List<Map<String, Object>>)request.getA
       			<td><%=re_howmany %></td>
       			<td><%=re_hopedate %></td>
       			<td><%=re_starttime+" ~ "+re_endtime %></td>
-      			<td><button id='<%=re_code%>' class='btn btn-danger' onclick='reservationCancel(id)'>삭제</button></td>
+      			<td><button id='<%="before:"+re_code%>' class='btn btn-danger' onclick='reservationCancel(this)'>예약취소</button></td>
       		</tr>
  
  
