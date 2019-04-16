@@ -10,6 +10,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.vo.MeetRoomVO;
+
 @Repository
 public class MeetRoomDao {
 	@Autowired
@@ -116,6 +118,19 @@ public class MeetRoomDao {
 		List<Map<String, Object>> myReserVationList = sqlSessionTemplate.selectList("myReserVation",mem_id);
 		
 		return myReserVationList;
+	}
+
+	public List<Map<String, Object>> reservationCal(MeetRoomVO mrVO) {
+		logger.info("회의실 캘린더 호출 성공");
+		List<Map<String, Object>> reCalList = new ArrayList<Map<String, Object>>();
+		try {
+			reCalList = sqlSessionTemplate.selectList("reCalList", mrVO);
+			logger.info("reCalList :"+reCalList);
+			logger.info(reCalList.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reCalList;
 	}
 
 
