@@ -21,7 +21,7 @@
 	<tx:annotation-driven/>
 	<!-- 첨부파일 관련 설정 추가 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="10485760"/>
+		<property name="maxUploadSize" value="999999999999999"/>
 	</bean>
 	<context:component-scan base-package="com.board"/>
 	<context:component-scan base-package="com.boardlist"/>
@@ -29,12 +29,13 @@
 	<context:component-scan base-package="com.card"/>
 	<context:component-scan base-package="com.include"/>
 	<context:component-scan base-package="com.login"/>
-	<context:component-scan base-package="com.meetRoom"/>
+	<context:component-scan base-package="com.meet"/>
 	<context:component-scan base-package="com.models"/>
 	<context:component-scan base-package="com.note"/>
 	<context:component-scan base-package="com.team"/>
 	<context:component-scan base-package="com.chatting"/>
-	<context:component-scan base-package="com.android"/>
+	<context:component-scan base-package="com.chart"/>
+	<bean id="naverLoginBO" class="com.login.NaverLoginBO" />
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
 
 	<mybatis:scan base-package="com.mybatis.mapper"/>
@@ -45,6 +46,10 @@
 	<mvc:resources location="/images/" mapping="/images/**"/>
 	<mvc:resources location="/intro/" mapping="/intro/**"/>
 	<mvc:resources location="/calendar/" mapping="/calendar/**"/>
+	<mvc:resources location="/pds/" mapping="/pds/**"/>
+	<mvc:resources location="/card/" mapping="/card/**"/>
+	<mvc:resources location="/meetRoom/" mapping="/meetRoom/**"/>
+	<mvc:resources location="/chart/" mapping="/chart/**"/>
 <!-- 	<context:component-scan base-package="com.web"/> -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -53,23 +58,7 @@
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
-		
-		
 	</bean>
-	
-	
-	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-    <property name="host" value="smtp.gmail.com" />
-    <property name="port" value="587" />
-    <property name="username" value="dudtjd7820@gmail.com" />
-    <property name="password" value="whwlgus1"/>
-    <property name="javaMailProperties">
-    <props>
-      <prop key="mail.smtp.auth">true</prop>
-      <prop key="mail.smtp.starttls.enable">true</prop>
-    </props>
-    </property>
-  </bean>
 	
 </beans>
 
