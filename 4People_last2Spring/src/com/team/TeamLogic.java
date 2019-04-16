@@ -51,5 +51,9 @@ public class TeamLogic {
 		String team_code=t_dao.newTeam(pMap);
 		return team_code;
 	}
+	public void teamOut(Map<String, Object> pMap) {
+		logger.info("teamOut호출");
+		t_dao.teamOut(pMap);
+	}
 
 }

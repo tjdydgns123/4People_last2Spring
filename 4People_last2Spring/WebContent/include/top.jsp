@@ -380,6 +380,8 @@ $(function() {
             <li>
                 <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
                 <a href="../calendar/calList?mem_id=<%=id %>" style='font-size:20px' >캘린더</a>
+<!--                 <a href="../calendar/calList" style='font-size:20px' >캘린더</a> -->
+                <a href="../chart/chartList?mem_id=<%=id %>" style='font-size:20px'>차트</a>
             </li>
             <li>
                 <a href="../note/myBoard" style='font-size:20px'>내 보드</a>

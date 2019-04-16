@@ -117,6 +117,10 @@ while(b_itr.hasNext()){
 	function danger(){
 		color ="btn-danger";
 	}	 
+
+	
+
+	
 	</script>
 </head>
 <body>

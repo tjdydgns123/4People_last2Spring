@@ -1,74 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-	<jsp:include page="../include/top.jsp"  flush="false">
-		<jsp:param value="" name="top" />
-	</jsp:include> 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> --%>
+<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> --%>
+<!-- <html> -->
+<!-- <head> -->
+<!-- 	<title>kuzuro 게시판</title> -->
+	
+<!-- 	<!-- 제이쿼리 --> -->
+<!-- 	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script> -->
+	
+<!-- </head> -->
+<!-- <body> -->
 
-</head>
-<body>
+<!-- <div id="root"> -->
+<!-- 	<header> -->
+<%-- 		<%@include file="../../include/header.jsp" %> --%>
+<!-- 	</header> -->
+<!-- 	<nav> -->
+<%-- 		<%@include file="../../include/nav.jsp" %> --%>
+<!-- 	</nav> -->
+<!-- 	<section id="container"> -->
+	
+<!-- 		<form role="form" method="post" autocomplete="off"> -->
+		
+		
+<!-- 			<p> -->
+<!-- 				<label for="bno">글 번호</label> -->
+<%-- 				<input type="text" id="bno" name="bno" value="${modify.bno}" readonly="readonly" /> --%>
+<!-- 			</p> -->
+			
+<!-- 			<p> -->
+<!-- 				<label for="title">글 제목</label> -->
+<%-- 				<input type="text" id="title" name="title" value="${modify.title}" /> --%>
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				<label for="content">글 내용</label> -->
+<%-- 				<textarea id="content" name="content" >${modify.content}</textarea> --%>
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				<label for="writer">작성자</label> -->
+<%-- 				<input type="text" id="writer" name="writer" value="${modify.writer}" readonly="readonly"/><br /> --%>
+<!-- 				<label>작성 날짜</label> -->
+<%-- 				<span><fmt:formatDate value="${modify.regDate}" pattern="yyyy-MM-dd" /></span> --%>
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				<button type="submit">수정</button> -->
+<!-- 				<button type="button" id="cancel_btn">취소</button> -->
+				
+<!-- 				<script> -->
+// 				// 폼을 변수에 저장
+// 				var formObj = $("form[role='form']");  
+				
+// 				// 취소 버튼 클릭
+// 				$("#cancel_btn").click(function(){			
+// self.location = "/board/read?bno=${modify.bno}"
+// 			+ "&page=${scri.page}"
+// 			+ "&perPageNum=${scri.perPageNum}"
+// 			+ "&searchType=${scri.searchType}"
+// 			+ "&keyword=${scri.keyword}";
+					
+// 				});
+<!-- 				</script> -->
+<!-- 			</p>	 -->
+			
+<!-- 		</form> -->
 
-<script type="text/javascript">	
-$(document).ready(function(){
-  $('#aaa').on('click', function () {
-	  var ctx = document.getElementById('myChart').getContext('2d');
+<!-- 	</section> -->
 
-	//For a pie chart
-	var myBarChart  = new Chart(ctx, {
-	    type: 'bar',
-	    data: {
-	    	labels: ["1월", "2월", "3월"],
-			datasets: [
-				{
-					label: "막대 그래프 테스트",
-					fillColor: "rgba(150,200,250,0.5)",
-					strokeColor: "rgba(150,200,250,0.8)",
-					highlightFill: "rgba(150,200,250,0.75)",
-					highlightStroke: "rgba(150,200,250,1)",
-					data: [65, 59, 80] 
-				}
-			]
-	    },
-	    	
-	    options: {
-	    	 responsive: false
-	        }
-	});
-  });
-});
-</script>
+<!-- 	<footer> -->
+<%-- 		<%@include file="include/footer.jsp" %>		 --%>
+<!-- 	</footer> -->
 
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-  <i class="fas fa-chart-bar" style="font-size:50px"></i><br>
-    <input type="radio" name="options" id="option1" autocomplete="off" checked> 라디오 1 (기본선택)
-  </label>
-  <label class="btn btn-secondary">
-  <i class="fas fa-chart-bar" style="font-size:50px"></i><br>
-    <input type="radio" name="options" id="option2" autocomplete="off"> 라디오 2
-  </label>
-  <label class="btn btn-secondary">
-  <i class="fas fa-chart-bar" style="font-size:50px"></i><br>
-    <input type="radio" name="options" id="option3" autocomplete="off"> 라디오 3
-  </label>
-</div>
+<!-- </div> -->
+
+<!-- </body> -->
+<!-- </html> -->
 
 
-<div class="container" style="position: relative; height:40vh; width:80vw">
-<button type="button" style="width:500px; height:300px" class="btn btn-default" id="aaa">
-<canvas id="myChart" ></canvas>
-버튼</button>
 
-<button type="button" class="btn btn-secondary btn-lg item-space" data-dismiss="modal">
-			<i class="fas fa-edit" style="font-size:50px"></i><br>
-			삭제</button>
-			<button type="button" class="btn btn-secondary btn-lg item-space" data-dismiss="modal">
-			<i class="far fa-edit" style="font-size:50px"></i><br>
-			수정</button>
 
-</div> 
-</body>
+
+

@@ -13,10 +13,27 @@
 		</if>
 		</where>
 	</select>
+	<select id="loginCall3" parameterType="map" resultType="map">
+	    select mem_name,mem_id,mem_companyname,mem_position,mem_image 
+		from member
+		where mem_id = #{mem_id}
+	</select>
 	
 	<insert id="signUp" parameterType="java.util.Map">
 		INSERT INTO member (mem_id,mem_name,mem_pw,mem_phone,mem_position,mem_companyaddr,mem_companyname,mem_companyphone,mem_connect,mem_image)
 		      VALUES(#{mem_id}, #{mem_name}, #{mem_pw}, #{mem_hp},#{mem_position}, #{mem_addr}, #{mem_companyname},#{mem_companyphone},#{mem_connect},'profile-default.png')
 	
 	</insert>
+	<select id="findId" parameterType="map" resultType="java.lang.String">
+	  select mem_id
+	  from member 
+	  where mem_name=#{mem_name}
+	  and mem_phone=#{mem_phone}
+	</select>
+	<select id="findpw" parameterType="map" resultType="java.lang.String">
+	  select mem_pw
+	  from member 
+	  where mem_name=#{mem_name}
+	  and mem_id=#{mem_id}
+	</select>
 </mapper>

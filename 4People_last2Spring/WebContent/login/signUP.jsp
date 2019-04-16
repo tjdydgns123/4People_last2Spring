@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.List, java.util.Map, java.util.ArrayList, java.lang.Integer, java.util.Iterator" %>
 <%!
 	int check =0;
+%>
+<%
+	List<Map<String,Object>> signList = (List<Map<String,Object>>)request.getAttribute("loginList");
+	String mem_id = (String)signList.get(0).get("mem_id");
+	String mem_name = (String)signList.get(0).get("mem_name");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +19,24 @@
         <%@ include file="../common/common.jsp" %>
         <script type="text/javascript">
         var result =0;
+        $(document).ready(function (){
+            var mem_id = '<%=mem_id%>';
+            var mem_name = '<%=mem_name%>';
+            var str = mem_id.split('@');
+            if(mem_id!='null'&&mem_name!='null'){
+               $('#InputEmail').val(str[0]);
+               $('#InputEmail').attr('readonly','readonly');
+               $('#dropdownMenu1').text(str[1]);
+               $('#dropdownMenu1').attr('disabled','disabled');
+               $('#inputName').val(mem_name);
+               $('#inputName').attr('readonly','readonly');
+               $('#ppww').attr('type','hidden');
+               $('#ppwwpw').attr('type','hidden');
+               	result=1;
+                }
+           
+            });
+   
         	function signUp(){
         		
         		if(result==1){
@@ -95,12 +119,12 @@
                     </div><br>
                     <div class="form-group">
                         <label for="inputPassword">비밀번호</label>
-                        <input type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
+                        <input id="ppww" type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
                     	&nbsp;&nbsp;<span id="check"></span>
                     </div>
                     <div class="form-group">
                         <label for="inputPasswordCheck">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
+                        <input id="ppwwpw" type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
                     	&nbsp;&nbsp;<span id="same"></span>
                     </div>
                     

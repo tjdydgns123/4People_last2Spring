@@ -35,6 +35,7 @@
 	<context:component-scan base-package="com.team"/>
 	<context:component-scan base-package="com.chatting"/>
 	<context:component-scan base-package="com.chart"/>
+	<bean id="naverLoginBO" class="com.login.NaverLoginBO" />
 	<!-- 컨트롤계층의 클래스를 url로 요청하기 위해서는 반드시 component-scan태그에 패키지 등록할것. -->
 
 	<mybatis:scan base-package="com.mybatis.mapper"/>
