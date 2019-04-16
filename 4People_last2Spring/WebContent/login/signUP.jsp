@@ -19,12 +19,15 @@
             var mem_id = '<%=mem_id%>';
             var mem_name = '<%=mem_name%>';
             var str = mem_id.split('@');
-        	$('#InputEmail').val(str[0]);
-        	$('#InputEmail').attr('readonly','readonly');
-        	$('#dropdownMenu1').text(str[1]);
-        	$('#dropdownMenu1').attr('disabled','disabled');
-        	$('#inputName').val(mem_name);
-        	$('#inputName').attr('readonly','readonly');
+            if(mem_id!='null'&&mem_name!='null'){
+            	$('#InputEmail').val(str[0]);
+            	$('#InputEmail').attr('readonly','readonly');
+            	$('#dropdownMenu1').text(str[1]);
+            	$('#dropdownMenu1').attr('disabled','disabled');
+            	$('#inputName').val(mem_name);
+            	$('#inputName').attr('readonly','readonly');
+                }
+        	
             });
         	function signUp(){
         		
