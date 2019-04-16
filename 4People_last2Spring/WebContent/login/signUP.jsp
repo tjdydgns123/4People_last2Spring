@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%!
+<%
 	int check =0;
+	String mem_id = (String)request.getAttribute("mem_id");
+	String mem_name = (String)request.getAttribute("mem_name");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +15,17 @@
         <%@ include file="../common/common.jsp" %>
         <script type="text/javascript">
         var result =0;
+        $(document).ready(function (){
+            var mem_id = '<%=mem_id%>';
+            var mem_name = '<%=mem_name%>';
+            var str = mem_id.split('@');
+        	$('#InputEmail').val(str[0]);
+        	$('#InputEmail').attr('readonly','readonly');
+        	$('#dropdownMenu1').text(str[1]);
+        	$('#dropdownMenu1').attr('disabled','disabled');
+        	$('#inputName').val(mem_name);
+        	$('#inputName').attr('readonly','readonly');
+            });
         	function signUp(){
         		
         		if(result==1){
