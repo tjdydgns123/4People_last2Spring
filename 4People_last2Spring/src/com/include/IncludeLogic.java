@@ -48,6 +48,11 @@ public class IncludeLogic {
 		i_Dao.memberDelete(mem_id);
 		
 	}
+	public List<Map<String, Object>> sidebarMeet(String mem_id) {
+		
+		List<Map<String, Object>> sidebarMeet = i_Dao.sidebarMeet(mem_id);
+		return sidebarMeet;
+	}
 
 }
 
