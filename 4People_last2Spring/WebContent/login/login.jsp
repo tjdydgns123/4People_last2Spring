@@ -226,7 +226,7 @@ session.setAttribute("state", state);
       </div>
       <div class="modal-footer">
       <div id="pwresult">
-      </div>
+      </div>	
          </div>
        </div>
         </div>
