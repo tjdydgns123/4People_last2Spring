@@ -157,31 +157,30 @@ var sel_file;
 
 
 
-	<div class='row'>
-		<div class='col-sm-4' style='padding: 30px;'>
+	<div class='row' style=' margin-bottom:10px;'>
+		<div class='col-sm-2' style='padding: 30px;'>
 			<a href='javascript:newMeetroomModal()'> <img
-				src="../images/meetingCheck.png" width='80px' height='80px'> <span
+				src="../images/meetingCheck.png" width='70px' height='70px'> <span
 				class='es_font'
-				style='font-size: 25px; font-weight: bold; color: #99004C;'>회의실
+				style='font-size: 25px; font-weight: bold;'>회의실
 					등록하기</span>
 			</a>
 		</div>
-			
-		<div class='col-sm-2 col-sm-offset-6' style='padding: 30px;'>
-			<a href='./myReserVation' class='btn btn-danger'>
-				<span style='font-size: 25px; font-weight: bold;'>내 예약 목록</span>
+		<div class='col-sm-2' style='padding: 30px; padding-right:0;'>
+		<a href='./myMeetingRoom' >
+			<img src='../images/myMeetingRoom.png'width='70px' height='70px'><span class='es_font' style='font-size: 25px; font-weight: bold;'>내가 등록한 회의실</span>
+			</a>
+	</div>	
+		<div class='col-sm-2' style='padding: 30px;'>
+			<a href='./myReserVation' >
+			<img src='../images/myReservation.png'width='70px' height='70px'><span class='es_font' style='font-size: 25px; font-weight: bold;'>내 예약 목록</span>
 			</a>
 		</div>
 	</div>
 
 	<div class='row'>
-	<div class='col-sm-3' style='padding: 30px;'>
-		<a href='./myMeetingRoom' >
-			<img src='../images/myMeetingRoom.png'width='80px' height='80px'><span class='es_font' style='font-size: 25px; font-weight: bold;'>내가 등록한 회의실</span>
-			</a>
-	</div>
-		<div class='col-sm-6'>
-		
+	
+		<div class='col-sm-6 col-sm-offset-3'>
 			<div class="panel panel-info">
 				<div class="panel-heading">회의실 검색하기</div>
 				<div class="panel-body">

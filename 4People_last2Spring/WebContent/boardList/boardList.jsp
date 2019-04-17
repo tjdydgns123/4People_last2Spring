@@ -99,7 +99,7 @@
     float: none;   
  } 
 .es_info-color {
-    background-color: rgb(51, 181, 229) !important;
+   background-color: rgb(0, 51, 102) !important;
 }
 .navbar-default .navbar-nav>li>a {
     color: #FFF;
@@ -114,7 +114,8 @@
 }
 
  body{
- background-color:rgb(51, 181, 229);
+ background-color: rgb(0, 51, 102) !important;
+/*  font-color:#FFF; */
 }
 
 
@@ -1104,7 +1105,7 @@ function drop(event) {
 <body >
 
 
-	<div id="haha" class="panel panel-primary"  >
+	<div id="haha" class="panel" style='background-color:#FFF8DC'  >
     <div class="panel-heading" id="top_panel">
         <h3 class="panel-title"><img src="../images/meeting.png">&nbsp;&nbsp;<%=t_team_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=top_board_name %>&nbsp;&nbsp;|&nbsp;&nbsp;
         <%if(profileMap!=null){
