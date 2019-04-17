@@ -578,6 +578,7 @@ font-family: 'Candal', sans-serif;
         <div class="fileBox">
         <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">첨부파일</button>
         <input id="fname" name="fname" type="file" class="uploadBtn" style="width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="fileINS()">
+        <button type="button" id="btn-chart" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">차트</button>
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>

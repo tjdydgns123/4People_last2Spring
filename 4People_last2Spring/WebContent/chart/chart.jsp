@@ -37,6 +37,7 @@ function chartSave(){
 //선택된 차트 번호, 사용자 아이디를 전역변수로 선언
 	var selectChartNo;
 	var mem_id;
+	var myChart2;
 $(document).ready(function(){
 	//DB의 차트 테이블 값 담을 배열 선언 
 	var arr_label = new Array();
@@ -76,14 +77,14 @@ $(document).ready(function(){
 	    var chartName = arr_chartname[i];
 		//차트 넘버 로 구분하여 생성 시작
 	    var ctx = document.getElementById(arr_no[i]).getContext('2d'); 
-	    var myChart  = new Chart(ctx, {
+	    var myChart1  = new Chart(ctx, {
 	        type: chartType,
 	        data: {
 	        	labels: [x1, x2, x3, x4],
 	    		datasets: [
 	    			{
 	    				label:chartName, 
-	    				backgroundColor:["red","orange","yellow","green"], 
+	    				backgroundColor:["red","orange","yellow","green"],  
 	    				data: [y1, y2, y3, y4] 
 	    			}
 	    		]
@@ -137,7 +138,7 @@ $(document).ready(function(){
 		var y4 = tokens_data[3];
 		
 		var ctx = document.getElementById('chartDetail').getContext('2d');
-		var myChart  = new Chart(ctx, {
+		myChart2  = new Chart(ctx, {
 	        type: chartType,
 	        data: {
 	        	labels: [x1, x2, x3, x4],
@@ -145,7 +146,7 @@ $(document).ready(function(){
 	    			{
 	    				label:chartName, 
 	    				backgroundColor:["red","orange","yellow","green"],
-	    				data: [y1, y2, y3, y4] 
+	    				data: [y1, y2, y3, y4]
 	    			}
 	    		]
 	        },
@@ -176,10 +177,11 @@ $(document).ready(function(){
                 	 fontSize:20 
                 	 }
                  }]
-            	}
+            	},
+            	 chartArea: { backgroundColor: 'red' } 
 		        }
 		});
-
+		
 });
 	//삭제 버튼 누르면 삭제하기
 	$("#btn_chartDel").click(function(){
@@ -200,22 +202,13 @@ $(document).ready(function(){
  	    $("#chartDetail").get(0).toBlob(function(blob) {
     		saveAs(blob, selectChartNo+".png");
 		}); 
-});
-
-	document.onpaste = function(event){ 
-		  var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-		  console.log(JSON.stringify(items)); // will give you the mime types
-		  for (index in items) {
-		    var item = items[index];
-		    if (item.kind === 'file') {
-		      var blob = item.getAsFile();
-		      var reader = new FileReader();
-		      reader.onload = function(event){
-		        console.log(event.target.result)}; // data url!
-		      reader.readAsDataURL(blob);
-		    }
-		  }
-		}
+	});
+	//차트 상세보기 모달에서 마우스오버하면 이전 차트 보이는 버그 수정
+	$('#modal_myChartView').on('hide.bs.modal', function(e){
+		myChart2.destroy();
+		e.stopImmediatePropagation();
+	});
+	
 
 	
 });	

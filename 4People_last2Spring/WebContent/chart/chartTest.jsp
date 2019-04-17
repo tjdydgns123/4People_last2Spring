@@ -34,7 +34,7 @@ $(".copy-img").click(function() {
 <div class="copyable">
     <img src="image/bubble_chart.png" alt="Copy Image to Clipboard via Javascript."/>
 </div>
-
+ 
 </div>
 </body>
 </html>
