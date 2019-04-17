@@ -27,7 +27,21 @@
    <link rel="stylesheet" type="text/css" href="./css/util.css">   
    <link rel="stylesheet" type="text/css" href="./css/main.css">
 <!--===============================================================================================-->
+<link href="https://fonts.googleapis.com/css?family=Cute+Font|Noto+Sans+KR|Noto+Serif+KR" rel="stylesheet">
+<style type="text/css">
 
+	.es_login100-form-title {
+	  font-family: 'Noto Sans KR', sans-serif;
+	  font-size: 50px;
+	  font-weight:bold;
+	  line-height: 1.2;
+	  text-align: center;
+	  color: #003366;
+	  width: 100%;
+	  display: block;
+	  padding-bottom: 54px;
+}
+</style>
 <script type="text/javascript">
        function ID(){
           alert($("#name").val());
@@ -116,13 +130,13 @@ session.setAttribute("state", state);
 
       <div class="container-login100">
          <div class="wrap-login100">
-            <div class="login100-pic js-tilt" data-tilt>
-               <img src="images/img-01.png" alt="IMG">
+            <div class="login100-pic js-tilt" data-tilt style='padding:30px; padding-top:60px;'>
+               <img class="rounded-circle" width='250px;'height='250px;'src="https://media.licdn.com/dms/image/C510BAQF831qXpG4I0Q/company-logo_200_200/0?e=2159024400&v=beta&t=Cx2Wf0Yt1sW2as-Zu0ZGv8SPRyTMnNoKYjOG5fzLaBY" alt="IMG">
             </div>
 
-            <div class="login100-form validate-form">
-               <span class="login100-form-title">
-                  Login
+            <div class="login100-form validate-form" style='background:#FFF' >
+               <span class="es_login100-form-title">
+                  	육토피아
                </span>
             <form id="f_login" class="form-signin" method="POST">
                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -141,7 +155,7 @@ session.setAttribute("state", state);
                   </span>
                </div>
                <div class="container-login100-form-btn">
-                  <button class="login100-form-btn" onclick="loginCall()">
+                  <button class="login100-form-btn" onclick="loginCall()" style='background: #003366;'>
                      로그인
                   </button>
                </div>

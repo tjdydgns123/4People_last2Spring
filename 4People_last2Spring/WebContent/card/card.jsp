@@ -199,13 +199,14 @@
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
 .modal-body{
  overflow-y:auto;
 }
 
-.modal-body{
-    overflow-y: auto;
+.modal-dialog{
+	font-family: 'Noto Serif KR', serif;
 }
 .es_comment {
     border-bottom: 1px solid rgba(9,45,66,.13);
@@ -296,7 +297,7 @@ font-family: 'Candal', sans-serif;
     <div class="modal-content" style="width:808px; height:750px;">
       <div class="modal-header" style="background-color:#D9D9D9">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title-jm" id="myModalLabel" style="text-aling:center"><%if(card_duedate!=null){out.print(card_duedate+"  -  ");}  %>  <%=card_name %></h4>
+        <h3 class="modal-title-jm" id="myModalLabel" style="font-weight:bodl;text-aling:center"><%if(card_duedate!=null){out.print(card_duedate+"  -  ");}  %>  <%=card_name %></h3>
       </div>
       <div class="modal-body" id="ccmmdy" style="width:100%; height:100%; background-color:#D9D9D9;">
         <div  class="col-sm-10">
@@ -342,7 +343,7 @@ font-family: 'Candal', sans-serif;
          <div id="card_member" style="margin-left:20px; margin-bottom:50px;">
          <h3>참여자</h3>
          <div id="membersja" style="position:absolute;" ondrop="drop(event)" >
-         <button style="background-color:#FFFFFF"  name="parti" onClick="mem_name_ajax()" data-target="#label_modal3" data-toggle="modal" ><img src="../images/plus.png" style="width:25px;height:25px;"></button>
+         <button style="background-color:#D9D9D9;border:0;"  name="parti" onClick="mem_name_ajax()" data-target="#label_modal3" data-toggle="modal" ><img src="../images/c_memberIns.png" style="width:39px;height:39px;"></button>
          <%if(partiList!=null){
         	 for(int i=0;i<partiList.size();i++){
         	 %>
@@ -371,8 +372,8 @@ font-family: 'Candal', sans-serif;
         <!-- 참여자 div -->
     
         <!-- 요약 div -->
-         <div id="card_description" style=" margin-bottom:50px;">
-         <h3 id="hth"><img src="../images/description2.png">요약    <%if(des_content!=null){ %>
+         <div id="card_description" style=" margin-bottom:50px;padding-top:10px;">
+         <h3 id="hth"><img src="../images/description4.png" width='32px'height='32px'>요약    <%if(des_content!=null){ %>
            <a id="<%=des_no%>" href="#" onclick="desUPD(id)" style="margin-left:20px">edit</a>
 		<%}%>     </h3>
        
@@ -401,7 +402,7 @@ font-family: 'Candal', sans-serif;
       
         <!-- 첨부파일 div -->
          <div id="card_c_file" style=" margin-bottom:50px;">
-         <h3><img src="../images/c_file2.png">첨부파일</h3>
+         <h3><img src="../images/c_file4.png"width='32px'height='32px'>첨부파일</h3>
          <%if(fileList!=null) {
          	for(int i=0;i<att_no.size();i++){%>
          <div id="<%=att_no.get(i) %>">
@@ -473,7 +474,7 @@ font-family: 'Candal', sans-serif;
         <!-- 체크리스트 -->
         <!-- 한마디 div -->
          <div id="card_hanmadi" style=" margin-bottom:50px;">
-         <h3><img src="../images/hanmadi.png">한마디</h3>
+         <h3><img src="../images/hanmadi2.png"width='32px'height='32px'>한마디</h3>
          <div>
          <textarea  id='input_comment' style="border: 1px solid #8C8C8C;margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px;"/>
          </div>
@@ -507,11 +508,9 @@ font-family: 'Candal', sans-serif;
            </div>
          <!-- col- sm -10 끝  -->
         <div class="col-sm-2">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" onClick="vison()" ><img src="../images/description.png">요약</butuon>
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
         <!-- 모달  -->
         <div style="position:absolute;">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img width='23px;' height='20px;'src="../images/label2.png">라벨</butuon>
         <div id="label_modal" class="modal" role="dialog" style="position:relative; left:-90px;">
   		<div class="modal-dialogg">
     <!-- Modal content-->
@@ -542,9 +541,9 @@ font-family: 'Candal', sans-serif;
         <!-- 모달  -->
         
         
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="checkAdd()"><img src="../images/checklist.png">체크리스트</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="checkAdd()"><img width='23px;' height='20px;'src="../images/checklist2.png">체크리스트</butuon>
         <div style="position:absolute;">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"  data-target="#checkModal" data-toggle="modal"><img src="../images/checklist.png">체크리스트</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"  data-target="#checkModal" data-toggle="modal"><img width='23px;' height='20px;' src="../images/checklist2.png">체크리스트</butuon>
         <!-- 모달  -->
          <div id="checkModal" class="modal" role="dialog" style="position:relative; left:-90px">
   		<div class="modal-dialogg">
@@ -566,17 +565,17 @@ font-family: 'Candal', sans-serif;
         <!-- 모달  -->
         </div>
         
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/gihan.png">기한설정</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img width='23px;' height='20px;'src="../images/gihan3.png">기한설정</butuon>
         
         <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-d DD">
          <input id="gihanz" class="form-control" type="text" readonly />
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)"><img src="../images/gihan.png"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>기한설정</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)"><img width='23px;' height='20px;' src="../images/gihan3.png"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>기한설정</butuon>
 		</div>
         
         
          <form id="fileBoxform" name="fileBoxform" method="post" enctype="multipart/form-data">
         <div class="fileBox">
-        <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">첨부파일</button>
+        <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img width='23px;' height='20px;'src="../images/c_file3.png">첨부파일</button>
         <input id="fname" name="fname" type="file" class="uploadBtn" style="width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="fileINS()">
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
