@@ -152,6 +152,7 @@
 /* .col-sm-2:nth-child(3n+3) { background: #69c; } */
   #page-wrappervv {
     padding-left: 250px;
+    
   }
   
   #sidebar-wrappervv {
@@ -162,6 +163,7 @@
     background: #FFFFFF;
     overflow-x: hidden;
     overflow-y: auto;
+     z-index: 8;
   }
   
   #page-content-wrappervv {
@@ -301,7 +303,7 @@ function label_codee(id){
 		}
 	 function file_del(id){
 		$('#'+id+'').remove();
-		var param = "att_no="+id;
+		var param = "att_no="+id+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/fileDEL"
@@ -327,7 +329,7 @@ function label_codee(id){
 $('#gihanz').on('change',function () {
  //alert($('#gihanz').val());
  var card_duedate = $('#gihanz').val();
- var param = "card_duedate="+card_duedate+"&card_code="+card_code; 
+ var param = "card_duedate="+card_duedate+"&card_code="+card_code+"&team_code="+team_code+"&mem_id=<%=mem_id%>"; 
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/cardDueDateUPD"
@@ -389,7 +391,7 @@ function cklistINS(){
 	var text = $('#ckli_text').val();
 	//alert(text);
 	$('#cklist_title').empty();
-	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code;
+	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code+"&team_code="+team_code;
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/checklistINS"
@@ -413,7 +415,7 @@ function cklistINS(){
  function checkDEL(id){
 	//alert("checkDEL");
 
-	var param = "check_code="+id;
+	var param = "check_code="+id+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/checkDEL"
@@ -429,7 +431,7 @@ function cklistINS(){
 	 }
  function ck_con_del(id){
 // 	 $('#'+id+'').remove();
-	 var param = "card_code="+card_code+"&check_con_code="+id;
+	 var param = "card_code="+card_code+"&check_con_code="+id+"&team_code="+team_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/checklistDEL"
@@ -475,7 +477,7 @@ function drop(event) {
 
 
 		$('#'+parti_code+'').remove();
-		var param ="parti_code="+parti_code;
+		var param ="parti_code="+parti_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 
 		$.ajax({
 			type:"POST"
@@ -579,7 +581,7 @@ function drop(event) {
   }
  
  	function label_del(){
- 		var param = "label_code="+label_code;
+ 		var param = "label_code="+label_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 			   $('#'+label_code+'').remove();
 		$.ajax({
 			type:"POST"
@@ -599,7 +601,7 @@ function drop(event) {
  	function label_Upd(){
  		var text =''; 
  			text = document.getElementById('label_text2').value;
-		 var param = "label_content="+text+"&label_color="+color+"&label_code="+label_code;
+		 var param = "label_content="+text+"&label_color="+color+"&label_code="+label_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 		 if(text.length<1){
 		 $('#'+label_code+'').attr('class','btn '+color+'');
 		 } else{
@@ -675,7 +677,7 @@ function drop(event) {
 		}
 
 	function commDEL(id){
-		var param = "comm_no="+id+"&card_code="+card_code;
+		var param = "comm_no="+id+"&card_code="+card_code+"&team_code="+team_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/commentDEL"
@@ -926,7 +928,7 @@ function drop(event) {
 					
 				var text = '';
 				text = $('#des_text').val();
-				var param = "des_content="+text+"&des_no="+des_code;
+				var param = "des_content="+text+"&des_no="+des_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 				//alert(text);
 				if(text.length==0){
 					//alert('빈'+text.length);
@@ -1079,7 +1081,18 @@ function drop(event) {
 				 if(cc==0){
 					$('#page-wrappervv').attr("style","");
 						cc=1;
-					 }
+						var param = "board_no=<%=board_no%>&team_code="+team_code;
+						$.ajax({
+							type:"POST"
+						   ,url:"../boardList/historySel"
+						   ,data:param
+						   ,dataType:"html"
+						   ,success:function(data){
+								$('#historyside').empty();		
+									 $('#historyside').append(data);	
+						   }
+					 });
+				 }
 				 else{
 					$('#page-wrappervv').attr("style","visibility:hidden");
 						cc=0;
@@ -1104,9 +1117,9 @@ function drop(event) {
 		</div>
 
         </div>
-<div id="page-wrappervv">
+<div id="page-wrappervv" style="visibility:hidden">
 		 <div id="sidebar-wrappervv">
-    <ul class="sidebar-navvv">
+    <ul class="sidebar-navvv" id="historyside">
       <li class="sidebar-brand">
         <a href="#">Activity</a>
       </li>

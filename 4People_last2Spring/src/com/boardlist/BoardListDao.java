@@ -60,5 +60,14 @@ public class BoardListDao {
 			e.printStackTrace();
 		}
 	}
-
+	public List<Map<String, Object>> historySel(Map<String, Object> pMap) {
+		List<Map<String, Object>> historyList = new ArrayList<Map<String,Object>>();
+		try {
+			sqlSessionTemplate.selectList("historySel",pMap);
+			historyList.add(pMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return historyList;
+	}
 }
