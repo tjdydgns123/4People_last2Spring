@@ -44,7 +44,7 @@
           </li>
           <%for(int i=0;i<history_content.size();i++){%>
              <li>
-             <div class=col-sm-2><img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=h_mem_image.get(i)%>"></div>
+             <div class=col-sm-2><img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=h_mem_image.get(i)%>" style="width:30px;height:30px"></div>
              <div class=col-sm-10>
              <div><a id="<%=h_card_code.get(i) %>" href="#" onClick="cardOpen(id)" data-toggle="modal" data-target="#cardmodal" style="font-size:15px"><%=h_mem_name.get(i) %><%=history_content.get(i) %></a>
              </div>

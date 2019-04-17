@@ -147,8 +147,10 @@ public class CardDao {
 	public void fileINS(Map<String, Object> pMap) {
 		sqlSessionTemplate.insert("fileINS",pMap);
 		String mem_id = pMap.get("f_maker").toString();
+		String team_code = pMap.get("f_team_code").toString();
 		pMap.put("history_content", "님이 첨부파일을 업로드했습니다.");
 		pMap.put("mem_id",mem_id);
+		pMap.put("team_code",team_code);
 		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 

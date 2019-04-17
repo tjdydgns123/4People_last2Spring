@@ -157,20 +157,20 @@
   }
   
   #sidebar-wrappervv {
-    position: fixed;
+        top: 120px;
+    bottom:0;
+     position: fixed; 
     width: 310px;
-    height: 100%;
-    margin-left: 72%;
+    height: 100%; 
+    margin-left: 70.5%;
     background: #FFFFFF;
     overflow-x: hidden;
     overflow-y: auto;
      z-index: 8;
+  
   }
   
-  #page-content-wrappervv {
-    width: 100%;
-    padding: 20px;
-  }
+
   /* 사이드바 스타일 */
   
   .sidebar-navvv {
@@ -698,7 +698,7 @@ function drop(event) {
 // 		//alert(id);
 // 		//alert($('#'+id+'tt').children('input[type=text]').length);
 		if($('#'+id+'tt').children('input[type=text]').length==0){
-		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
+		document.getElementById(id+'tt').innerHTML+="<textarea style='height:35px;width:275px' id='"+id+"textval'>";
 		if(id=="gg"){
 		document.getElementById(id+'bb').innerHTML+="<input type='button' class='btn btn-success' value='생성' onClick='boardlistAdd("+id+")'><input type='button' class='btn btn-danger' value='취소' onClick='boardlist_cancle("+id+")'>";
 		}
@@ -722,7 +722,7 @@ function drop(event) {
 		//alert(r_BL_team_code);
 		//alert(r_BL_team_code.substring(1,2));
 		var str_team_code = r_BL_team_code.substring(1,2);
-		var input2 = document.getElementById('ggtextval').value;
+		var input2 = $('#ggtextval').val();
 // 		var param = "bd_title="+input2;
 		var param = "?team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
 		//alert(param);
@@ -1113,12 +1113,12 @@ function drop(event) {
         <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
         <%}} %>
         <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
-        <a style="margin-left:60%" href="#" onClick="showhity()" >Show History</a>
+        <a style="margin-left:950px" href="#" onClick="showhity()" >Show History</a>
         </h3>
 		</div>
 
         </div>
-<div id="page-wrappervv" style="visibility:hidden">
+<div id="page-wrappervv" style="visibility:hidden;">
 		 <div id="sidebar-wrappervv">
     <ul class="sidebar-navvv" id="historyside">
       <li class="sidebar-brand">
