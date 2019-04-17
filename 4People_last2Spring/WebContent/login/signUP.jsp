@@ -56,6 +56,7 @@ else{
 //             		 $("#f_signUp").attr("method","POST");
 					var mem_id2=$("#dropdownMenu1").text();
              		$("#f_signUp").attr("action","./signUp?mem_id2="+mem_id2);
+             		$("#f_signUp").attr("onsubmit","return true");
              		$("#f_signUp").submit();
         		}
         		else{
@@ -104,7 +105,7 @@ else{
             
         <div class="row align-items-center justify-content-center" style="height:100vh;"> 
             <div class="col-sm-6 col-md-offset-3" >
-                <form id="f_signUp" role="form" method="POST">
+                <form id="f_signUp" method="POST" onsubmit='return false'>
                     <div class="form-group" >
                         <label for="inputName">성명</label>
                         <input type="text" class="form-control" id="inputName" name="mem_name" placeholder="이름을 입력해 주세요">
@@ -127,6 +128,72 @@ else{
             </ul>
     			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button>
                     </div>
+                     <div class='form-inline' style='margin-top:10px;' id="emailCheck">
+                 <input type="text" class="form-control" id="inputemailkey" style='ime-mode:disabled'  placeholder="인증 번호 를 입력해 주세요" />
+                <button class='btn btn-info' id='btn_emailsend' onclick='sendemail()' style='margin-left:20px;'>인증번호 전송 </button>
+                
+                </div>   
+                   <script type="text/javascript">
+                   var email_key;
+                  
+                   function sendemail(){ 
+                    $('#emailCheck').empty();  
+                       $('#btn_emailsend').hide();
+                       var append="<input type='text' class='form-control' id='inputemailkey' style='ime-mode:disabled'  placeholder='인증 번호 를 입력해 주세요' />"
+                           +"<button id='btn_emailOk'class='btn btn-info' onclick='check_email()' style='margin-left:20px;'>인증번호 확인 </button>"
+                     +"<a id='a_emailOk' href='javascript:sendemail()' class='pull-right'> 재전송</a>";
+                       $('#emailCheck').append(append);
+                      email_key = Math.floor(Math.random() * 10000) + 1000;
+
+                      var email = document.getElementById("InputEmail").value;
+                        var selectedText =  $('#dropdownMenu1').text();
+                        var send_email=email+"@"+selectedText;
+
+                        alert(email_key);
+                        alert(send_email);
+                        
+                  var param = "email_key="+email_key+"&send_email="+send_email;
+                         $.ajax({      
+                             type:"POST",  
+                             data: param,
+                             url:"../mail/mailSending"
+                                ,success:function(data){
+                                 var notes=$('#notes').html();
+                                 var datas = data+notes;
+                                 $('#notes').empty();
+                              $('#notes').append(datas);
+                           } 
+                       ,error:function(jqXHR, exception){
+                  } 
+                         });     
+                        
+                     }
+
+
+                   function check_email(){
+                      var inputemailkey =  $('#inputemailkey').val();
+                      if(email_key==inputemailkey){
+                          
+                         alert(email_key)
+                         alert(inputemailkey)
+                          alert("맞습니다");
+                         $('#btn_emailOk').hide();
+                         $('#a_emailOk').hide();
+                         $('#inputemailkey').attr('readonly','readonly');
+                         $('#InputEmail').attr('readonly','readonly');
+                         $('#dropdownMenu1').attr('disabled','disabled');
+                          }
+                      
+                      else{
+                          
+                         alert(email_key)
+                         alert(inputemailkey)
+                         alert("틀립니다")
+                          }
+                      
+                   }
+                   
+                   </script>
                     </div><br>
                     <div class="form-group">
                         <label for="inputPassword">비밀번호</label>
