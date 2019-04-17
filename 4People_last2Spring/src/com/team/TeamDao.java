@@ -84,6 +84,10 @@ public class TeamDao {
 		}
 		return team_code;
 	}
+	public void teamOut(Map<String, Object> pMap) {
+		sqlSessionTemplate.delete("teamOut",pMap);
+		logger.info("teamOut호출");
+	}
 	
 
 }

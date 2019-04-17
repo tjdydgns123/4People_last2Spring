@@ -379,7 +379,7 @@ font-family: 'Candal', sans-serif;
           <div id="des_con">
           <div id="des_conss" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
           <%if(des_content==null){ %>
-         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
+         <textarea  id="des_text" style="border: 1px solid #8C8C8C;margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px;  " ><회의내용>
 - 3.15 워크샵 준비하기
 - 학회참석하기
 - A4용지 구매하기</textarea>
@@ -475,7 +475,7 @@ font-family: 'Candal', sans-serif;
          <div id="card_hanmadi" style=" margin-bottom:50px;">
          <h3><img src="../images/hanmadi.png">한마디</h3>
          <div>
-         <textarea  id='input_comment' style="margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px; border:0;"/>
+         <textarea  id='input_comment' style="border: 1px solid #8C8C8C;margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px;"/>
          </div>
          <div>
          <input type="button"  style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick='comment()'>
@@ -578,7 +578,6 @@ font-family: 'Candal', sans-serif;
         <div class="fileBox">
         <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">첨부파일</button>
         <input id="fname" name="fname" type="file" class="uploadBtn" style="width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="fileINS()">
-        <button type="button" id="btn-chart" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">차트</button>
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>
@@ -594,6 +593,8 @@ font-family: 'Candal', sans-serif;
   <!-- 모달 컨텐츠 끝  -->
   </div>
   <!-- 모달 다이얼로끝그 -->
+  </div>
+  </div>
   </div>
   
 <script>

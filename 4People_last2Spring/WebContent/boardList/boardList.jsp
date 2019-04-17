@@ -99,7 +99,7 @@
     float: none;   
  } 
 .es_info-color {
-    background-color: rgb(51, 181, 229) !important;
+   background-color: rgb(0, 51, 102) !important;
 }
 .navbar-default .navbar-nav>li>a {
     color: #FFF;
@@ -114,7 +114,8 @@
 }
 
  body{
- background-color:rgb(51, 181, 229);
+ background-color: rgb(0, 51, 102) !important;
+/*  font-color:#FFF; */
 }
 
 
@@ -150,6 +151,56 @@
 /* .col-sm-2:nth-child(3n+1) { background: #c69; } */
 /* .col-sm-2:nth-child(3n+2) { background: #9c6; } */
 /* .col-sm-2:nth-child(3n+3) { background: #69c; } */
+  #page-wrappervv {
+    padding-left: 250px;
+    
+  }
+  
+  #sidebar-wrappervv {
+    position: fixed;
+    width: 310px;
+    height: 100%;
+    margin-left: 72%;
+    background: #FFFFFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+     z-index: 8;
+  }
+  
+  #page-content-wrappervv {
+    width: 100%;
+    padding: 20px;
+  }
+  /* 사이드바 스타일 */
+  
+  .sidebar-navvv {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .sidebar-navvv li {
+    text-indent: 1.5em;
+    line-height: 2.8em;
+  }
+  
+  .sidebar-navvv li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+  }
+  
+  .sidebar-navvv li a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar-navvv > .sidebar-brand {
+    font-size: 1.3em;
+    line-height: 3em;
+  }
+
 </style>
 <script type="text/javascript">
 <%-- 	//alert("<%=BLISTMap%>"); --%>
@@ -253,7 +304,7 @@ function label_codee(id){
 		}
 	 function file_del(id){
 		$('#'+id+'').remove();
-		var param = "att_no="+id;
+		var param = "att_no="+id+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/fileDEL"
@@ -279,7 +330,7 @@ function label_codee(id){
 $('#gihanz').on('change',function () {
  //alert($('#gihanz').val());
  var card_duedate = $('#gihanz').val();
- var param = "card_duedate="+card_duedate+"&card_code="+card_code; 
+ var param = "card_duedate="+card_duedate+"&card_code="+card_code+"&team_code="+team_code+"&mem_id=<%=mem_id%>"; 
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/cardDueDateUPD"
@@ -341,7 +392,7 @@ function cklistINS(){
 	var text = $('#ckli_text').val();
 	//alert(text);
 	$('#cklist_title').empty();
-	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code;
+	var param = "check_con_name="+text+"&check_con_maker=<%=mem_id%>&check_code="+check_code+"&card_code="+card_code+"&team_code="+team_code;
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/checklistINS"
@@ -365,7 +416,7 @@ function cklistINS(){
  function checkDEL(id){
 	//alert("checkDEL");
 
-	var param = "check_code="+id;
+	var param = "check_code="+id+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 	$.ajax({
 		type:"POST"
 	   ,url:"../card/checkDEL"
@@ -381,7 +432,7 @@ function cklistINS(){
 	 }
  function ck_con_del(id){
 // 	 $('#'+id+'').remove();
-	 var param = "card_code="+card_code+"&check_con_code="+id;
+	 var param = "card_code="+card_code+"&check_con_code="+id+"&team_code="+team_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/checklistDEL"
@@ -427,7 +478,7 @@ function drop(event) {
 
 
 		$('#'+parti_code+'').remove();
-		var param ="parti_code="+parti_code;
+		var param ="parti_code="+parti_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 
 		$.ajax({
 			type:"POST"
@@ -531,7 +582,7 @@ function drop(event) {
   }
  
  	function label_del(){
- 		var param = "label_code="+label_code;
+ 		var param = "label_code="+label_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 			   $('#'+label_code+'').remove();
 		$.ajax({
 			type:"POST"
@@ -551,7 +602,7 @@ function drop(event) {
  	function label_Upd(){
  		var text =''; 
  			text = document.getElementById('label_text2').value;
-		 var param = "label_content="+text+"&label_color="+color+"&label_code="+label_code;
+		 var param = "label_content="+text+"&label_color="+color+"&label_code="+label_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 		 if(text.length<1){
 		 $('#'+label_code+'').attr('class','btn '+color+'');
 		 } else{
@@ -627,7 +678,7 @@ function drop(event) {
 		}
 
 	function commDEL(id){
-		var param = "comm_no="+id+"&card_code="+card_code;
+		var param = "comm_no="+id+"&card_code="+card_code+"&team_code="+team_code+"&mem_id=<%=mem_id%>";
 		$.ajax({
 			type:"POST"
 		   ,url:"../card/commentDEL"
@@ -878,7 +929,7 @@ function drop(event) {
 					
 				var text = '';
 				text = $('#des_text').val();
-				var param = "des_content="+text+"&des_no="+des_code;
+				var param = "des_content="+text+"&des_no="+des_code+"&team_code="+team_code+"&card_code="+card_code+"&mem_id=<%=mem_id%>";
 				//alert(text);
 				if(text.length==0){
 					//alert('빈'+text.length);
@@ -1025,12 +1076,36 @@ function drop(event) {
 				$("#sidebar-toggle").click(function(){
 					  $("html").toggleClass("open");
 					});
+				 var cc = 0;
+				function showhity(){
+// 					alert(cc);
+				 if(cc==0){
+					$('#page-wrappervv').attr("style","");
+						cc=1;
+						var param = "board_no=<%=board_no%>&team_code="+team_code;
+						$.ajax({
+							type:"POST"
+						   ,url:"../boardList/historySel"
+						   ,data:param
+						   ,dataType:"html"
+						   ,success:function(data){
+								$('#historyside').empty();		
+									 $('#historyside').append(data);	
+						   }
+					 });
+				 }
+				 else{
+					$('#page-wrappervv').attr("style","visibility:hidden");
+						cc=0;
+
+					 }
+					}
 </script>
 </head>
 <body >
 
 
-	<div id="haha" class="panel panel-primary"  >
+	<div id="haha" class="panel" style='background-color:#FFF8DC'  >
     <div class="panel-heading" id="top_panel">
         <h3 class="panel-title"><img src="../images/meeting.png">&nbsp;&nbsp;<%=t_team_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=top_board_name %>&nbsp;&nbsp;|&nbsp;&nbsp;
         <%if(profileMap!=null){
@@ -1038,11 +1113,29 @@ function drop(event) {
         <img src="http://192.168.0.6:9000/4People_last2Spring/pds/<%=profile_image.get(i)%>" style="width:40px;height:40px">&nbsp;
         <%}} %>
         <button style="background-color:#FFFFFF; color:#000000;height:40px; border-radius: 8px 8px 8px 10px; border:0;" onClick="mem_name_ajax2()" data-target="#label_modal4" data-toggle="modal">+추가</button>
-        <a href="#" style="margin-left:60%">Show History</a>
+        <a style="margin-left:60%" href="#" onClick="showhity()" >Show History</a>
         </h3>
 		</div>
 
         </div>
+<div id="page-wrappervv" style="visibility:hidden">
+		 <div id="sidebar-wrappervv">
+    <ul class="sidebar-navvv" id="historyside">
+      <li class="sidebar-brand">
+        <a href="#">Activity</a>
+      </li>
+      <li><a href="#">메뉴 1</a></li>
+      <li><a href="#">메뉴 2</a></li>
+      <li><a href="#">메뉴 3</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 5</a></li>
+      <li><a href="#">메뉴 6</a></li>
+      <li><a href="#">메뉴 7</a></li>
+      <li><a href="#">메뉴 8</a></li>
+      <li><a href="#">메뉴 9</a></li>
+    </ul>
+  </div>
+		</div>
 
     <div id="label_modal4" class="modal" role="dialog" style="width:400px;margin-left:350px;margin-top:130px">
   		<div class="modal-dialogg" id="label_dialogg4">
