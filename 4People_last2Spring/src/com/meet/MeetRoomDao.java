@@ -144,21 +144,21 @@ public class MeetRoomDao {
 		int result = sqlSessionTemplate.delete("reservationCancel",re_code);
 		return result;
 	}
+	 public List<Map<String, Object>> reservationCal(MeetRoomVO mrVO) {
+	      logger.info("회의실 캘린더 호출 성공");
+	      List<Map<String, Object>> reCalList = new ArrayList<Map<String, Object>>();
+	      try {
+	         reCalList = sqlSessionTemplate.selectList("reCalList", mrVO);
+	         logger.info("reCalList :"+reCalList);
+	         logger.info(reCalList.size());
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return reCalList;
+	   }
 
-	public List<Map<String, Object>> reservationCal(MeetRoomVO mrVO) {
-		logger.info("회의실 캘린더 호출 성공");
-		List<Map<String, Object>> reCalList = new ArrayList<Map<String, Object>>();
-		try {
-			reCalList = sqlSessionTemplate.selectList("reCalList", mrVO);
-			logger.info("reCalList :"+reCalList);
-			logger.info(reCalList.size());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return reCalList;
 	}
 
 
 
 	
-}

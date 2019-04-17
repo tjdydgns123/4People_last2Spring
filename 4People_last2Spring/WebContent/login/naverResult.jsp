@@ -12,13 +12,13 @@
 <script type="text/javascript">
 // alert("gg");
 // 	$(document).ready(function() {
-		alert("찍힘?");
+// 		alert("찍힘?");
 <%-- 		alert("<%=result%>"); --%>
-		alert(${result}.response.id);
+// 		alert(${result}.response.id);
 		var name = ${result}.response.name;
 		var email = ${result}.response.email;
-		alert(name);
-		alert(email);
+// 		alert(name);
+// 		alert(email);
 		location.href="./navergogo?mem_id="+email+"&mem_name="+name;
 // 		$("#name").html("환영합니다. "+name+"님");
 // 		$("#email").html(email);

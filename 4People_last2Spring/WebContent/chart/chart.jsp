@@ -12,7 +12,7 @@
 	<jsp:include page="../include/top.jsp"  flush="false">
 		<jsp:param value="" name="top" />
 	</jsp:include> 
-<style type="text/css">
+<style type="text/css"> 
 /* 항목 사이 간격 주기 */
 .item-space {
     margin-right: 10px;
@@ -22,13 +22,14 @@
 .hanna {font-family: 'Nanum Gothic', sans-serif; font-size:30px; color:black} 
 </style>
 <script type="text/javascript">
-/* 차트 등록 */
+//차트 등록
 function chartSave(){
 	//폼 전송 처리함.
 	$("#form_chartIns").attr("method", "POST");
 	$("#form_chartIns").attr("action", "chartIns");
 	$("#form_chartIns").submit();
 }
+
 </script>
 </head>
 <body>
@@ -36,6 +37,7 @@ function chartSave(){
 //선택된 차트 번호, 사용자 아이디를 전역변수로 선언
 	var selectChartNo;
 	var mem_id;
+	var myChart2;
 $(document).ready(function(){
 	//DB의 차트 테이블 값 담을 배열 선언 
 	var arr_label = new Array();
@@ -75,14 +77,14 @@ $(document).ready(function(){
 	    var chartName = arr_chartname[i];
 		//차트 넘버 로 구분하여 생성 시작
 	    var ctx = document.getElementById(arr_no[i]).getContext('2d'); 
-	    var myChart  = new Chart(ctx, {
+	    var myChart1  = new Chart(ctx, {
 	        type: chartType,
 	        data: {
 	        	labels: [x1, x2, x3, x4],
 	    		datasets: [
 	    			{
 	    				label:chartName, 
-	    				backgroundColor:["red","orange","yellow","green"], 
+	    				backgroundColor:["red","orange","yellow","green"],  
 	    				data: [y1, y2, y3, y4] 
 	    			}
 	    		]
@@ -136,7 +138,7 @@ $(document).ready(function(){
 		var y4 = tokens_data[3];
 		
 		var ctx = document.getElementById('chartDetail').getContext('2d');
-		var myChart  = new Chart(ctx, {
+		myChart2  = new Chart(ctx, {
 	        type: chartType,
 	        data: {
 	        	labels: [x1, x2, x3, x4],
@@ -144,7 +146,7 @@ $(document).ready(function(){
 	    			{
 	    				label:chartName, 
 	    				backgroundColor:["red","orange","yellow","green"],
-	    				data: [y1, y2, y3, y4] 
+	    				data: [y1, y2, y3, y4]
 	    			}
 	    		]
 	        },
@@ -163,18 +165,23 @@ $(document).ready(function(){
                  yAxes: [{
                      ticks: {
                          beginAtZero:true,  //Y축의 값이 0부터 시작
-                         fontColor:"blacks"
+                         fontColor:"black",
+                         fontStyle:"bold",
+                         fontSize:20
                      }
                  }],
                  xAxes: [{
                 	 ticks: {
-                	 fontColor:"blacks"
+                	 fontColor:"black",
+                	 fontStyle:"bold", 
+                	 fontSize:20 
                 	 }
                  }]
-            	}
+            	},
+            	 chartArea: { backgroundColor: 'red' } 
 		        }
 		});
-
+		
 });
 	//삭제 버튼 누르면 삭제하기
 	$("#btn_chartDel").click(function(){
@@ -195,10 +202,18 @@ $(document).ready(function(){
  	    $("#chartDetail").get(0).toBlob(function(blob) {
     		saveAs(blob, selectChartNo+".png");
 		}); 
-});
+	});
+	//차트 상세보기 모달에서 마우스오버하면 이전 차트 보이는 버그 수정
+	$('#modal_myChartView').on('hide.bs.modal', function(e){
+		myChart2.destroy();
+		e.stopImmediatePropagation();
+	});
+	 
+  
+	
 });	
 </script>
-<div class=" row col-md-offset-1" style="position: relative; height:30vh; width:95vw"><br>
+<div class=" row col-md-offset-1" style="position: relative; height:30vh; width:90vw"><br>
 <!-- 차트 등록 버튼 시작 -->
 <button type="button" data-toggle="modal" class="btn btn-default item-space" style="width:200px; height:200px" data-target="#modal_createChart">
   <i class="fas fa-plus-circle" style="color:rgb(92,209,229); font-size:50px"></i>
@@ -218,7 +233,7 @@ value="${chartList.mem_id}+${chartList.no}+${chartList.chartname}+${chartList.ch
 <!-- 차트 리스트 자동생성 버튼 끝 -->
 </div>
 <!-- 차트 등록 Modal 시작-->
-  <div class="modal fade" id="modal_createChart" role="dialog" style="width:'500px'">
+  <div class="modal fade" id="modal_createChart" role="dialog" style="width:'500px'" data-backdrop="static">
     <div class="modal-dialog modal-lg">
      
       <!-- Modal content-->
@@ -276,7 +291,7 @@ value="${chartList.mem_id}+${chartList.no}+${chartList.chartname}+${chartList.ch
   </div></div></div>
   <!-- 차트 등록 Modal 끝-->
   <!-- 차트보기 선택 Modal 시작-->
-  <div class="modal fade" id="modal_myChartView" role="dialog" style="width:'500px'; height:'auto'">
+  <div class="modal fade" id="modal_myChartView" role="dialog" style="width:'500px'; height:'auto'" data-backdrop="static">
     <div class="modal-dialog modal-lg">
       <!-- Modal content--> 
       <div class="modal-content" style="background-color:#D9D9D9">
@@ -293,7 +308,7 @@ value="${chartList.mem_id}+${chartList.no}+${chartList.chartname}+${chartList.ch
 			<button type="button" class="btn btn-secondary btn-lg item-space" data-toggle="modal" style="background-color:#D9D9D9" data-target="#modal_editChart">
 			<i class="fas fa-edit" style="font-size:50px"></i><br>
 			<strong>수정</strong></button>
-			<button type="button" class="btn btn-secondary btn-lg item-space" data-dismiss="modal" style="background-color:#D9D9D9">
+			<button type="button" id="btn_imageCopy" class="btn btn-secondary btn-lg item-space" data-dismiss="modal" style="background-color:#D9D9D9">
 			<i class="fas fa-copy" style="font-size:50px"></i><br>
 			<strong>복사</strong></button>
 			<button type="button" id="btn_imageSave" class="btn btn-secondary btn-lg" style="background-color:#D9D9D9">

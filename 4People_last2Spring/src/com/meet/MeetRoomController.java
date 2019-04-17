@@ -257,21 +257,20 @@ public class MeetRoomController {
 		return result;
 	}
 	@GetMapping("reCalList")
-	public String reservationCal(HttpServletRequest req,@ModelAttribute MeetRoomVO mrVO, Model model) {
-		logger.info("회의실 캘린더 호출 성공");
-		HttpSession session = req.getSession();
-		//String mr_no = String.valueOf(req.getAttribute("MR_NO"));
-		//mrVO.setMr_no(mr_no);
-		//logger.info("mr_no: "+mr_no);
-		logger.info(mrVO.getMr_no());
-		String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
-		mrVO.setMem_id(mem_id);
-		List<Map<String, Object>> reCalList = null;
-		reCalList = mtRoom_logic.reservationCal(mrVO);
-		mrVO.setMr_start(mrVO.getMr_hopedate()+" "+mrVO.getMr_starttime());
-		model.addAttribute("reCalList", reCalList);
-		logger.info("reCalList :"+reCalList);
-		return "forward:calendar.jsp";
+	   public String reservationCal(HttpServletRequest req,@ModelAttribute MeetRoomVO mrVO, Model model) {
+	      logger.info("회의실 캘린더 호출 성공");
+	      HttpSession session = req.getSession();
+	      //String mr_no = String.valueOf(req.getAttribute("MR_NO"));
+	      //mrVO.setMr_no(mr_no);
+	      //logger.info("mr_no: "+mr_no);
+	      logger.info(mrVO.getMr_no());
+	      String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+	      mrVO.setMem_id(mem_id);
+	      List<Map<String, Object>> reCalList = null;
+	      reCalList = mtRoom_logic.reservationCal(mrVO);
+	      mrVO.setMr_start(mrVO.getMr_hopedate()+" "+mrVO.getMr_starttime());
+	      model.addAttribute("reCalList", reCalList);
+	      logger.info("reCalList :"+reCalList);
+	      return "forward:calendar.jsp";
+	   }
 	}
-
-}

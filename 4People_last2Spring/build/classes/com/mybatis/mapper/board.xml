@@ -39,6 +39,15 @@
 	<result property="mem_image" column="mem_image"/>
 	<result property="mem_name" column="mem_name"/>
 	</resultMap>
+	<resultMap id="HistoryMap" type="java.util.Map">
+	<result property="card_code" column="card_code"/>
+	<result property="histroy_time" column="histroy_time"/>
+	<result property="history_content" column="history_content"/>
+	<result property="history_no" column="history_no"/>
+	<result property="history_maker" column="history_maker"/>
+	<result property="mem_name" column="mem_name"/>
+	<result property="mem_image" column="mem_image"/>
+	</resultMap>
 	<select id="BoardSel"  statementType="CALLABLE" parameterType="map"   >
 		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 		               ,#{teamMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=teamMap  }
@@ -66,6 +75,12 @@
 		                          ,#{BLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=BLISTMAP}
 		                          ,#{CARDLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=CARDLISTMAP}
 		                          
+		)}
+	</select>
+	<select id="historySel" parameterType="map" statementType="CALLABLE">
+		{call proc_history_sel(#{board_no,mode=IN,jdbcType=VARCHAR,javaType=java.lang.String}
+								,#{team_code,mode=IN,jdbcType=VARCHAR,javaType=java.lang.String}
+							   ,#{HistoryMap,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet, resultMap=HistoryMap}
 		)}
 	</select>
 	<insert id="team_memberINS" parameterType="map">

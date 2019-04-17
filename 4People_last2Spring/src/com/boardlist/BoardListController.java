@@ -53,6 +53,11 @@ public class BoardListController  {
 			model.addAttribute("b_boardList", b_boardList);
 			return "forward:./team_memberINSResult.jsp";
 		}
-	
+	@PostMapping("historySel")
+	  String historySel(Model model,@RequestParam Map<String,Object> pMap) {
+		List<Map<String,Object>>HistoryList =Bdlist_logic.historySel(pMap);
+		model.addAttribute("HistoryList", HistoryList);
+		return"forward:./historySelResult.jsp";
+	}
 
 }
