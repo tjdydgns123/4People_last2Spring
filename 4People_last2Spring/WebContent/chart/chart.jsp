@@ -12,7 +12,7 @@
 	<jsp:include page="../include/top.jsp"  flush="false">
 		<jsp:param value="" name="top" />
 	</jsp:include> 
-<style type="text/css">
+<style type="text/css"> 
 /* 항목 사이 간격 주기 */
 .item-space {
     margin-right: 10px;
@@ -208,8 +208,8 @@ $(document).ready(function(){
 		myChart2.destroy();
 		e.stopImmediatePropagation();
 	});
-	
-
+	 
+  
 	
 });	
 </script>
