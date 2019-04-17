@@ -33,7 +33,6 @@ $(document).ready(function () {
 	$('#memberInfo').on('click',function(e){
 			e.preventDefault();
 		});
-
 		
 	
 	$('#radio3').click(function(){
@@ -186,8 +185,6 @@ $(document).ready(function () {
 		        else {
 		            alert('Uncaught Error.n' + jqXHR.responseText);
 		        }
-
-
 		  }
 });
 	});
@@ -406,15 +403,10 @@ width:95%;
 height:1000px;
 margin-left:2.5%;
 }
-
-
-
-
 </style>
 </head>
 <body>
 <script type="text/javascript">
-
 $(function() {
 	$("#meeting").click(function() {
 		$("#meetdiv").load("../meetRoom/meetRoomAdds.jsp");
