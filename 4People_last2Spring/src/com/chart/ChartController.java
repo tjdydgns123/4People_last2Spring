@@ -2,6 +2,7 @@ package com.chart;
 
 import java.util.List;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,14 @@ public class ChartController {
 	ChartLogic chartLogic = null;
 	Logger logger =  Logger.getLogger(ChartController.class);
 	
-	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
-	@GetMapping("chartCall")
-	public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
-		logger.info("chartCall 호출");
-		List<ChartVO> chartVO = chartLogic.chartCall(mem_id);
-		model.addAttribute("chartCall", chartVO);
-		return "forward:./card.jsp";
-	}
+//	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
+//	@GetMapping("chartCall")
+//	public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
+//		logger.info("chartCall 호출");
+//		List<ChartVO> chartVO = chartLogic.chartCall(mem_id);
+//		model.addAttribute("chartCall", chartVO);
+//		return "forward:./card.jsp";
+//	}
 	
 	//차트 메뉴 진입시 차트 목록 불러오기
 	@GetMapping("chartList")
@@ -37,6 +38,7 @@ public class ChartController {
 		logger.info("chartList 호출");
 		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
 		model.addAttribute("chartList", chartVO);
+		logger.info("chartName : "+chartVO.get(0).getChartname());
 		return "forward:./chart.jsp";
 	}
 	//차트 생성

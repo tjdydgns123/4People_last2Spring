@@ -1,9 +1,15 @@
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.Map, java.util.List, java.util.Iterator, java.util.ArrayList" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.vo.ChartVO, java.util.Map, java.util.List, java.util.Iterator, java.util.ArrayList" %>
+
     <%
     String mem_id = (String)session.getAttribute("MEM_ID");
      List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
+     
+     
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
      List<String> labelList = ( List<String>)cardList.get(0).get("labelMap");
@@ -12,6 +18,7 @@
      List<String> partiList = (List<String>)cardList.get(0).get("partiMap");
      List<String> checkList = (List<String>)cardList.get(0).get("checkMap");
      List<String> check_con_List = (List<String>)cardList.get(0).get("checklistMap");
+     List<String> chartList = (List<String>)cardList.get(0).get("chartMap");
      List<String> fileList = (List<String>)cardList.get(0).get("fileMap");
  
      List<String> label_color = new ArrayList<String>(); 
@@ -34,7 +41,16 @@
      List<String> att_no = new ArrayList<String>(); 
      List<String> att_name = new ArrayList<String>(); 
      List<String> sub_att_name = new ArrayList<String>(); 
-     List<String> att_date = new ArrayList<String>(); 
+     List<String> att_date = new ArrayList<String>();
+     
+     List<String> no = new ArrayList<String>();
+     List<String> c_mem_id = new ArrayList<String>();
+     List<String> chartname = new ArrayList<String>();
+     List<String> charttype = new ArrayList<String>();
+     List<String> label = new ArrayList<String>();
+     List<String> data = new ArrayList<String>();
+     List<String> createtime = new ArrayList<String>();
+     
      String des_content = null; 
      String des_no = null; 
      
@@ -56,6 +72,38 @@
 				
 			}
 		}
+     }
+     
+     if(chartList != null){
+    	 Iterator cltr = chartList.iterator();
+//     	 while(cltr.hasNext()){
+    		 Map<String,Object> pMap = (Map<String,Object>)cltr.next();
+    		 Object keys[] = pMap.keySet().toArray();
+    		 for(int j=0; j<keys.length; j++){
+    			 if(keys[j].equals("no")){
+    				 no.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("mem_id")){
+    				 c_mem_id.add(pMap.get(keys[j]).toString());
+    				 out.print("c_mem_id : "+c_mem_id);
+    			 }
+    			 else if(keys[j].equals("chartname")){
+    				 chartname.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("charttype")){
+    				 charttype.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("label")){
+    				 label.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("data")){
+    				 data.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("createtime")){
+    				 createtime.add(pMap.get(keys[j]).toString());
+    			 }
+    		 }
+//     	 }
      }
      
 		if(commentsList!=null){
@@ -195,7 +243,10 @@
 				}
 		}
     %>
-   
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+</head>   
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
@@ -291,7 +342,9 @@ font-family: 'Candal', sans-serif;
         }
 
 </style>
- 
+<body>
+
+
  <div class="modal-dialog" style="ovewflow-y:auto">
     <div class="modal-content" style="width:808px; height:750px;">
       <div class="modal-header" style="background-color:#D9D9D9">
@@ -379,14 +432,11 @@ font-family: 'Candal', sans-serif;
           <div id="des_con">
           <div id="des_conss" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
           <%if(des_content==null){ %>
-         <textarea  id="des_text" style="margin-left:50px; width:250px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
+         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
 - 3.15 워크샵 준비하기
 - 학회참석하기
 - A4용지 구매하기</textarea>
          <%}%>
-         <!-- ===========================차트=========================== -->
-			<input type="button" value="차트">
-		 <!-- ===========================차트=========================== -->
           </div>
           <div id="des_cons">
           <%if(des_content!=null){ %>
@@ -401,6 +451,16 @@ font-family: 'Candal', sans-serif;
          </div>
          </div>
         <!-- 요약 div -->
+      
+      
+        <!-- 차트 시작 -->
+        <button id="chartbutton" type="button" class="btn btn-default item-space"></button>
+<!--         <input id="chartbutton" type="button" class="btn btn-default btn-block"> -->
+        <% if(chartList != null){ %>
+          <input  id=<%=c_mem_id.get(0) %> type="button" class="btn btn-default btn-block" value="차트삽입" data-toggle="modal"  data-backdrop="static" data-target="#chartmodal" onClick="chartCall(id)">
+        <% } %>
+          <!-- 차트 끝 -->
+      
       
         <!-- 첨부파일 div -->
          <div id="card_c_file" style=" margin-bottom:50px;">
@@ -584,14 +644,13 @@ font-family: 'Candal', sans-serif;
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>
+        
+        <button type-"button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)">차트</button>
+        
         </div>
         </form>
-        <div>
-			<button type-"button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)">차트</button>
-		</div>
         <br>
         <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="../images/bin.png"></div>
-        
         <!-- col sm-2 끝  -->
         </div>
   <!--모달바디 끝  -->
@@ -688,11 +747,54 @@ function hihi(check,id){
 			   
 		   }
 		});
-		}
+	}
 	
 }
 
-
+/* 차트삽입 버튼 누르면 차트 가져오기 */
+function chartCall(id){
+	alert("chartCall");
+	var param = "mem_id="+id;
+		$('#chartbutton').empty();
+		$.ajax({
+				type:"get"
+				,url:"../card/chartCall"
+				,data:param
+					   ,dataType:"html"
+					   ,success:function(result){
+					   	 $('#chartbutton').append(result);
+					   }
+		,error:function(jqXHR, exception){
+			  if (jqXHR.status === 0) {
+		        }
+		        else if (jqXHR.status == 400) {
+		        }
+		        else if (jqXHR.status == 401) {
+		        }
+		        else if (jqXHR.status == 403) {
+		        }
+		        else if (jqXHR.status == 404) {
+		        }
+		        else if (jqXHR.status == 500) {
+		        }
+		        else if (jqXHR.status == 503) {
+		        }
+		        else if (exception === 'parsererror') {
+		        }
+		        else if (exception === 'timeout') {
+		        }
+		        else if (exception === 'abort') {
+		        }
+		        else {
+		        }
+		  }
+		});
+}
+/* 차트삽입버튼 끝 */
 
 </script>
-  
+<div class="modal fade" id="chartmodal" tabindex="-1" role="dialog" aria-labelledby="chartmodal" aria-hidden="true" >
+</div>
+
+</body>
+</html>
