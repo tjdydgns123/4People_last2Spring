@@ -23,15 +23,6 @@ public class ChartController {
 	ChartLogic chartLogic = null;
 	Logger logger =  Logger.getLogger(ChartController.class);
 	
-//	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
-//	@GetMapping("chartCall")
-//	public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
-//		logger.info("chartCall 호출");
-//		List<ChartVO> chartVO = chartLogic.chartCall(mem_id);
-//		model.addAttribute("chartCall", chartVO);
-//		return "forward:./card.jsp";
-//	}
-	
 	//차트 메뉴 진입시 차트 목록 불러오기
 	@GetMapping("chartList")
 	public String chartList (@RequestParam("mem_id") String mem_id, Model model) {

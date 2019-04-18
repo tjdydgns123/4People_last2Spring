@@ -164,15 +164,19 @@ $(document).ready(function(){
 
 });
 </script>
-<!-- 차트 리스트 자동생성 버튼 시작  forEach 돌면서 DB에 저장된 차트 갯수만큼 버튼 만들어줌.-->
-<c:forEach items="${chartCall}" var="chartCall">
-<button type="button" id="btn_myChart${chartCall.no}" name="btn_myChart" data-toggle="modal" class="btn btn-default item-space" style="width:330px; height:200px" data-target="#modal_myChartView" 
-value="${chartCall.mem_id}+${chartCall.no}+${chartCall.chartname}+${chartCall.charttype}+${chartCall.label}+${chartCall.data}">
+<h3 id="hth"><img src="../images/description2.png">차트</h3>
+<button type="button" id="btn_myChart<%=chartCall.get(0).getNo() %>" name="btn_myChart" data-toggle="modal" class="btn btn-default item-space" style="width:330px; height:200px" data-target="#modal_myChartView" 
+value="<%=chartCall.get(0).getMem_id() %>+<%=chartCall.get(0).getNo() %>+<%=chartCall.get(0).getChartname() %>+<%=chartCall.get(0).getCharttype() %>+<%=chartCall.get(0).getLabel() %>+<%=chartCall.get(0).getData() %>">
 <!-- 스크립트문에서 이 넘버와 일치하는 차트 생성됨-->
-<canvas id="${chartCall.no}" ></canvas> 
- <h4><strong>${chartCall.chartname}</strong></h4>
+<canvas id="<%=chartCall.get(0).getNo() %>" ></canvas> 
+ <h4><strong><%=chartCall.get(0).getChartname() %></strong></h4>
 </button>
-</c:forEach>
-<!-- 차트 리스트 자동생성 버튼 끝 -->
+<textarea  id="chart_text" style="background-color:lightgrey; margin-left:50px; width:200px; height:110px;  border:0; " >
+x1 : 
+x2 : 
+x3 : 
+x4 : 
+</textarea>
+
 </body>
 </html>

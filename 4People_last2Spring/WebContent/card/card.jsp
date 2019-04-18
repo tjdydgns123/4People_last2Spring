@@ -454,12 +454,8 @@ font-family: 'Candal', sans-serif;
       
       
         <!-- 차트 시작 -->
-        <button id="chartbutton" type="button" class="btn btn-default item-space"></button>
-<!--         <input id="chartbutton" type="button" class="btn btn-default btn-block"> -->
-        <% if(chartList != null){ %>
-          <input  id=<%=c_mem_id.get(0) %> type="button" class="btn btn-default btn-block" value="차트삽입" data-toggle="modal"  data-backdrop="static" data-target="#chartmodal" onClick="chartCall(id)">
-        <% } %>
-          <!-- 차트 끝 -->
+        <div id="chartbutton" type="hidden"></div>
+        <!-- 차트 끝 -->
       
       
         <!-- 첨부파일 div -->
@@ -645,7 +641,11 @@ font-family: 'Candal', sans-serif;
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>
         
-        <button type-"button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)">차트</button>
+        <!-- 차트 -->
+        <% if(chartList != null){ %>
+          <button  id=<%=c_mem_id.get(0) %> type="button" class="btn btn-default es_shadow" data-toggle="modal"  data-backdrop="static" data-target="#chartmodal" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="chartCall(id)"><img src="../images/description.png">최신차트</button>
+        <% } %>
+        <!-- 차트 끝 -->
         
         </div>
         </form>
@@ -793,8 +793,9 @@ function chartCall(id){
 /* 차트삽입버튼 끝 */
 
 </script>
-<div class="modal fade" id="chartmodal" tabindex="-1" role="dialog" aria-labelledby="chartmodal" aria-hidden="true" >
-</div>
+
+<!-- <div class="modal fade" id="chartmodal" tabindex="-1" role="dialog" aria-labelledby="chartmodal" aria-hidden="true" > -->
+<!-- </div> -->
 
 </body>
 </html>
