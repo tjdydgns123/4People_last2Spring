@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chart.ChartLogic;
+import com.vo.ChartVO;
+
 
 @Controller
 @RequestMapping("/card/")
@@ -24,6 +27,8 @@ public class CardController {
 //		String mem_id = req.getParameter("mem_id");
 	@Autowired	
 	CardLogic c_Logic = null;
+	@Autowired
+	ChartLogic chartLogic = null;
 //		HttpSession session = req.getSession();
 	@PostMapping("cardSel")
 	public String CareSel(Model model, @RequestParam Map<String,Object>pMap) {
@@ -33,6 +38,16 @@ public class CardController {
 			logger.info(cardList);
 			model.addAttribute("cardList", cardList);
 			return"forward:../card/card.jsp";
+		}
+	
+	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
+		@PostMapping("chartCall")
+		public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
+			logger.info("chartCall 호출");
+			List<ChartVO> chartVO = chartLogic.chartList(mem_id);
+			model.addAttribute("chartCall", chartVO);
+			logger.info("chartVO.chartname : "+chartVO.get(0).getChartname());
+			return "forward:../chart/chartCall.jsp";
 		}
 	
 	@PostMapping("commentIns")

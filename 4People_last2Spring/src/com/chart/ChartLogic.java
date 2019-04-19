@@ -30,4 +30,9 @@ public class ChartLogic {
 		logger.info("chartUpd 호출");
 		chartDao.chartUpd(chartVO);
 	}
+	public ChartVO chartDetail(String no) {
+		logger.info("chartDetail 호출");
+		ChartVO chartVO = chartDao.chartDetail(no);
+		return chartVO; 
+	}
 }
