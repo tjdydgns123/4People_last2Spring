@@ -49,8 +49,15 @@ public class ChartController {
 	public String chartUpd (@ModelAttribute ChartVO chartVO) {
 		logger.info("chartUpd 호출");
 		chartLogic.chartUpd(chartVO);
-		logger.info(chartVO.getData());
 		return "forward:./chartList";
+	}
+	//선택한 차트 보여주기
+	@PostMapping("chartDetail")
+	public String chartDetail (@RequestParam("no") String no, Model model) {
+		logger.info("chartDetail 호출" + no);
+		ChartVO chartVO = chartLogic.chartDetail(no);
+		model.addAttribute("chartDetail", chartVO);
+		return "forward:chartDetail.jsp";
 	}
 	
 	@GetMapping("test")
