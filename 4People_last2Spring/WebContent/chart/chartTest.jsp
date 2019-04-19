@@ -1,55 +1,116 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>kuzuro 게시판</title>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-	<!-- 제이쿼리 -->
-	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-	<jsp:include page="../include/top.jsp"  flush="false">
-		<jsp:param value="" name="top" />
-	</jsp:include> 
-</head>
-<body>
+<!-- //기본적으로 필요한 자바스크립트 -->
 
-<!-- 	</section> -->
+<script type="text/javascript" src="/public/common/js/common.js"></script>
+<script type="text/javascript" src="/public/common/js/jquery-1.10.2.min.js" /></script>
+<script type="text/javascript" src="/public/front/plugin/chartjs/Chart.js"></script>
+
+
+
+
+
+<!-- //레전드 사용시 아래의 css추가 -->
+
+<style type="text/css"> 
+
+ .legend { 
+  width: 10em; 
+  border: 1px solid black; 
+    width: 10em; 
+    border: 1px solid black; 
+  }
+   
+  .legend .title { 
+      display: block; 
+      margin: 0.5em; 
+      border-style: solid; 
+      border-width: 0 0 0 1em; 
+      padding: 0 0.3em; 
+}
+.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+
+
+</style>
+</head>
+
+
+
 <script type="text/javascript">
 
-<!-- 	<footer> -->
-<%-- 		<%@include file="include/footer.jsp" %>		 --%>
-<!-- 	</footer> -->
-
-<!-- </div> -->
-
-<!-- </body> -->
-<!-- </html> -->
-$(".copy-img").each(function() {
-	  $(this).wrap("<span></span>"),
-	  $(this).parents("span").append("<input type=\"text\" value=" + $(this).attr("src") + ">")
-	})
-$(".copy-img").click(function() {
-  var b = $(this).parents("span").children("input");
-  b.select(),
-  document.execCommand("copy"),
-  alert("copied! " + b.attr("value"))
-});
-</script> 
-<div class="container">
-<div class="copyable">
-    <img src="image/bar-chart.png" alt="Copy Image to Clipboard via Javascript."/>
-</div>
-<div class="copyable">
-    <img src="image/bubble_chart.png" alt="Copy Image to Clipboard via Javascript."/>
-</div>
+//예시 라인 차트 (jstl은 동적으로 뿌리기 위함.)
  
-</div>
+$(document).ready(function() {  
+        
+    
+   
+        var chartData = {
+            
+        labels : ${labelList},
+        datasets : [
+             
+
+       <c:forEach var="data" items="${dataList}" varStatus="i">
+       <c:if test="${i.index > 0}">,</c:if>
+       {
+        
+           label: "${data.processName}", 
+           fillColor : "rgba(${data.color},0.5)",
+           strokeColor : "rgba( ${data.color},0.8)",           
+           pointColor:   "rgba(${data.color},7.5)",
+                    pointStrokeColor:   "rgba(${data.color},1)",
+                    color: "rgba(${data.color},0.5)", //레전드 컬러값 추가
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#fff",
+                    data : ${data.statiList},
+             
+          }
+         
+       </c:forEach>
+     
+      
+           ]};
+     
+     
+        window.onload = function(){
+         
+        var ctx = document.getElementById("canvas").getContext("2d");           
+        var myLineChart = new Chart(ctx).Line(chartData, 
+         {
+          responsive : true,
+          showInLegend: true,
+          
+         });
+  
+          document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend(); 
+
+         //레전트 생성
+        };
+        
+       }); 
+       
+
+  </script>
+
+</head>
+<body>  
+
+  <div id="chart-area" >
+   <canvas id="canvas"></canvas>  
+  </div>
+ <div id="legendDiv"  class="chart-legend"></div>
 </body>
 </html>
-
-
-
-
-
 

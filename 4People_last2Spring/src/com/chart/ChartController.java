@@ -27,6 +27,7 @@ public class ChartController {
 		logger.info("chartList 호출");
 		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
 		model.addAttribute("chartList", chartVO);
+		model.addAttribute("mem_id", mem_id);
 		return "forward:./chart.jsp";
 	}
 	//차트 생성
