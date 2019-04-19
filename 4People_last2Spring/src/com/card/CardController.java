@@ -43,7 +43,7 @@ public class CardController {
 		}
 	
 	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
-	@GetMapping("chartCall")
+	@PostMapping("chartCall")
 	public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
 		logger.info("chartCall 호출");
 		List<ChartVO> chartVO = chartLogic.chartList(mem_id);

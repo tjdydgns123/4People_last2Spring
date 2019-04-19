@@ -9,6 +9,14 @@
     String mem_id = (String)session.getAttribute("MEM_ID");
      List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
      
+     Cookie[] cookies = request.getCookies();
+ 	if (cookies != null) {
+ 	  for (Cookie cookie : cookies) {
+ 	    out.print("쿠키 이름 : "+cookie.getName()+", 쿠키 값 : "+cookie.getValue()); 
+ 	  }
+ 	} else {
+ 	  out.println("쿠키가 한 개도 없습니다.");
+ 	}
      
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
@@ -74,6 +82,7 @@
 		}
      }
      
+    
      if(chartList != null){
     	 Iterator cltr = chartList.iterator();
 //     	 while(cltr.hasNext()){
@@ -454,7 +463,9 @@ font-family: 'Candal', sans-serif;
       
       
         <!-- 차트 시작 -->
-        <div id="chartbutton" type="hidden"></div>
+        <% if(no.size()!=0) {%>
+        <div id="chartbutton" style=" margin-bottom:50px;"></div>
+        <% } %>
         <!-- 차트 끝 -->
       
       
@@ -631,8 +642,6 @@ font-family: 'Candal', sans-serif;
          <input id="gihanz" class="form-control" type="text" readonly />
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)"><img src="../images/gihan.png"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>기한설정</butuon>
 		</div>
-        
-        
          <form id="fileBoxform" name="fileBoxform" method="post" enctype="multipart/form-data">
         <div class="fileBox">
         <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">첨부파일</button>
@@ -640,14 +649,14 @@ font-family: 'Candal', sans-serif;
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>
-        
+        </div>
         <!-- 차트 -->
+        <div>
         <% if(chartList != null){ %>
           <button  id=<%=c_mem_id.get(0) %> type="button" class="btn btn-default es_shadow" data-toggle="modal"  data-backdrop="static" data-target="#chartmodal" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="chartCall(id)"><img src="../images/description.png">최신차트</button>
         <% } %>
-        <!-- 차트 끝 -->
-        
         </div>
+        <!-- 차트 끝 -->
         </form>
         <br>
         <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="../images/bin.png"></div>
@@ -753,11 +762,10 @@ function hihi(check,id){
 
 /* 차트삽입 버튼 누르면 차트 가져오기 */
 function chartCall(id){
-	alert("chartCall");
 	var param = "mem_id="+id;
 		$('#chartbutton').empty();
 		$.ajax({
-				type:"get"
+				type:"post"
 				,url:"../card/chartCall"
 				,data:param
 					   ,dataType:"html"

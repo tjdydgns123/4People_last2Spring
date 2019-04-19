@@ -29,6 +29,7 @@ public class ChartController {
 		logger.info("chartList 호출");
 		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
 		model.addAttribute("chartList", chartVO);
+		model.addAttribute("mem_id", mem_id);
 		logger.info("chartName : "+chartVO.get(0).getChartname());
 		return "forward:./chart.jsp";
 	}
@@ -53,6 +54,15 @@ public class ChartController {
 		chartLogic.chartUpd(chartVO);
 		logger.info(chartVO.getData());
 		return "forward:./chartList";
+	}
+	
+	//선택한 차트 보여주기
+	@PostMapping("chartDetail")
+	public String chartDetail (@RequestParam("no") String no, Model model) {
+		logger.info("chartDetail 호출" + no);
+		ChartVO chartVO = chartLogic.chartDetail(no);
+		model.addAttribute("chartDetail", chartVO);
+		return "forward:chartDetail.jsp";
 	}
 	
 	@GetMapping("test")
