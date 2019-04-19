@@ -29,12 +29,12 @@
 		$('#radio4').prop('checked',false);
 		$('#newTeamModal').modal('show');
 		}
+
 $(document).ready(function () {
 	$('#memberInfo').on('click',function(e){
 			e.preventDefault();
 		});
-		
-	
+
 	$('#radio3').click(function(){
 		$('#radio4').prop('checked',false);
 		});
@@ -504,8 +504,19 @@ $(function() {
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
-   		<div class='col-sm-2' style='margin-top:9px;'>
-   		 <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
+   		<div class='col-sm-2' style='margin-top:0px;'>
+<script>
+  (function() {
+    var cx = '017166172904477820079:btu6_etctw4';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search disableWebSearch='false' enableAutoComplete="true" defaultToImageSearch="false"></gcse:search>
          </div>
    		<!-- 검색 -->
       <!-- 오른쪽 -->
@@ -531,6 +542,7 @@ $(function() {
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger" id='messageCount'></span>
         </a>
+
       </div>
       
     </div><!-- /.navbar-collapse -->

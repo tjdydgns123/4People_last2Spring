@@ -99,7 +99,7 @@ else{
         <article class="container" >
             <div class="page-header" align="center" style='font-color:#2489EE;'>
                 <div class="col-md-6 col-md-offset-3">
-                <h3>회원가입</h3>
+                <h2>회원가입</h2>
                 </div>
             </div>
             
