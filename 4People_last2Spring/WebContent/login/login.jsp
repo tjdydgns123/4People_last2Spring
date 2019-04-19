@@ -36,11 +36,17 @@
 	  font-weight:bold;
 	  line-height: 1.2;
 	  text-align: center;
-	  color: #003366;
+/* 	  color: #003366; */
+/*      background:linear-gradient( to right, #003366, #5CD1E5 ); */
+    background: linear-gradient(to right, #003366, #5CD1E5);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 	  width: 100%;
 	  display: block;
 	  padding-bottom: 54px;
+
 }
+ 
 </style>
 <script type="text/javascript">
        function ID(){
@@ -189,7 +195,7 @@ session.setAttribute("state", state);
                   </a>
                </div>
                <div class="text-center p-t-136">
-                  <a class="txt2" href="./signUp-confirm.jsp" style='font-size:20px;'>
+                  <a id="ghldnjsrkdlq" class="txt2" href="./signUp-confirm.jsp" style='font-size:20px;'>
                      회원가입
                      <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                   </a>

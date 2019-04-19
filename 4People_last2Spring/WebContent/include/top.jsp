@@ -403,6 +403,16 @@ width:95%;
 height:1000px;
 margin-left:2.5%;
 }
+
+
+ #utopia{
+ text-transform: uppercase;
+	color: #fff;
+	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 
+	             0 0 40px #ff00de, 0 0 70px #ff00de, 
+	             0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 120px #ff00de;
+ }
+
 </style>
 </head>
 <body>
@@ -500,7 +510,7 @@ $(function() {
       
       <!-- 가운데 -->
       <div class='col-sm-3 col-sm-offset-3' style='height:60px;'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
+      <a id="utopia" href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
