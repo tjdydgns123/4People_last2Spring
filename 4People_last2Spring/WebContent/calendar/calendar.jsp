@@ -273,6 +273,7 @@ var color2 = "#FF5E00";
     	var title;
         var start;
         var end;
+        var eventss;
          // Easy pie charts 
 		var calendar = $('#calendar').fullCalendar({
 			header: { 
@@ -342,7 +343,7 @@ var color2 = "#FF5E00";
 		  		%>
 		  			<%for(int j=0; j<teamCount; j++){%>
 						   ,{id : '<%=calTeamCount.get(j).get("MAX(TEAM_NAME)")%>',
-							   events: [
+							     events: [
 						 			<% for(int i =0; i<calTeamList.size(); i++){%>
 				  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
 										{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
@@ -378,12 +379,16 @@ var color2 = "#FF5E00";
  	function scheduleChoice(num, id){
  	 	alert('캘린더 선택 호출 :'+id+ ', num: '+num);
 		if($(".swingBar").eq(num).is(":checked")){
-				$("#calendar").fullCalendar('addEventSource',id);  
+// 				$("#calendar").fullCalendar('addEventSource',id);  
+				$("#calendar").fullCalendar('renderEvent',id);  
+				$('#calendar').fullCalendar('render');
 				$('#calendar').fullCalendar( 'refetchEvents' );
 			}
 		else {
-				$("#calendar").fullCalendar('removeEventSource',id);
+// 				$("#calendar").fullCalendar('removeEvents',id);
+				$("#calendar").fullCalendar('removeEventSources',id);
 				$('#calendar').fullCalendar( 'refetchEvents' );
+// 				$('#calendar').fullCalendar( 'refresh' );
 			}
 		} 
     $('#external-events div.external-event').each(function() { 
