@@ -75,6 +75,7 @@ var color2 = "#FF5E00";
 		alert(cal_no);
 		location.href="./calUPD?cal_no="+cal_no;
 	}
+
 </script>
 </head> 
 <body> 
@@ -122,13 +123,13 @@ var color2 = "#FF5E00";
 	<label style="text-align:center">참여중인 팀</label>
 	<hr>
 <% for(int k=0; k<teamCount;k++){ %>
-<p>
-		    <input  type="checkbox" id="cb1" > 
+		<p>
+		  <input  type="checkbox" class="swingBar" id="cb1" onChange="scheduleChoice('<%=k %>','<%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>');" checked/> 
 		  <label for="cb1" style="color:<%=colors[k]%>">
 		    <%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>
 		   <!--  <span class="checkmark"></span> -->
 		  </label>
-		  </p>
+		</p>
 <%} %>
 </div>
 </div>
@@ -324,7 +325,6 @@ var color2 = "#FF5E00";
 	             	} 
 			} 
 			,editable: true 
-			// US Holidays 
 			,eventSources:[
 				{events: [//내일정
 			 			<% for(int i =0; i<calList.size(); i++){%>
@@ -341,7 +341,8 @@ var color2 = "#FF5E00";
 		  		if(teamCount!=0){
 		  		%>
 		  			<%for(int j=0; j<teamCount; j++){%>
-						   ,{events: [
+						   ,{id : '<%=calTeamCount.get(j).get("MAX(TEAM_NAME)")%>',
+							   events: [
 						 			<% for(int i =0; i<calTeamList.size(); i++){%>
 				  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
 										{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
@@ -359,9 +360,10 @@ var color2 = "#FF5E00";
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		/*alert('Event:title'+ info.title
+      	    		alert('Event:title'+ info.title
       	      	    	 +'Event Start date :' +info.start.getDate()
-      	      	    	 +'cal_no'+info.seq_no);*/
+      	      	    	 +'cal_no :'+info.seq_no
+      	      	    	 +'calendarId :'+info.id);
       	 	}
       	 	,eventDragStop: function(event, jsEvent, ui, view) {
       	 	    calendar.fullCalendar('removeEvents', event.seq_no);
@@ -373,6 +375,17 @@ var color2 = "#FF5E00";
         var startdate = this.start;
         var enddate = this.end;       
     }); 
+ 	function scheduleChoice(num, id){
+ 	 	alert('캘린더 선택 호출 :'+id+ ', num: '+num);
+		if($(".swingBar").eq(num).is(":checked")){
+				$("#calendar").fullCalendar('addEventSource',id);  
+				$('#calendar').fullCalendar( 'refetchEvents' );
+			}
+		else {
+				$("#calendar").fullCalendar('removeEventSource',id);
+				$('#calendar').fullCalendar( 'refetchEvents' );
+			}
+		} 
     $('#external-events div.external-event').each(function() { 
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/) 
         // it doesn't need to have a start or end 
@@ -386,7 +399,7 @@ var color2 = "#FF5E00";
             zIndex: 999999999, 
             revert: true,      // will cause the event to go back to its 
             revertDuration: 0  //  original position after the drag 
-        }); 
+        });
     }); 
 </script>
 <div  id="dlg_calIns" class="modal fade">
