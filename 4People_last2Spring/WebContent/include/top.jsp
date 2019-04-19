@@ -29,12 +29,12 @@
 		$('#radio4').prop('checked',false);
 		$('#newTeamModal').modal('show');
 		}
+
 $(document).ready(function () {
 	$('#memberInfo').on('click',function(e){
 			e.preventDefault();
 		});
-		
-	
+
 	$('#radio3').click(function(){
 		$('#radio4').prop('checked',false);
 		});
@@ -403,6 +403,16 @@ width:95%;
 height:1000px;
 margin-left:2.5%;
 }
+
+
+/*  #utopia{ */
+/*  text-transform: uppercase; */
+/* 	color: #fff; */
+/* 	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff,  */
+/* 	             0 0 40px #ff00de, 0 0 70px #ff00de,  */
+/* 	             0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 120px #ff00de; */
+/*  } */
+
 </style>
 </head>
 <body>
@@ -500,12 +510,23 @@ $(function() {
       
       <!-- 가운데 -->
       <div class='col-sm-3 col-sm-offset-3' style='height:60px;'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
+      <a id="utopia" href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
-   		<div class='col-sm-2' style='margin-top:9px;'>
-   		 <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
+   		<div class='col-sm-2' style='margin-top:0px;'>
+<script>
+  (function() {
+    var cx = '017166172904477820079:btu6_etctw4';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search disableWebSearch='false' enableAutoComplete="true" defaultToImageSearch="false"></gcse:search>
          </div>
    		<!-- 검색 -->
       <!-- 오른쪽 -->
@@ -531,6 +552,7 @@ $(function() {
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger" id='messageCount'></span>
         </a>
+
       </div>
       
     </div><!-- /.navbar-collapse -->

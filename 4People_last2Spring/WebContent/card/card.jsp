@@ -290,7 +290,31 @@ font-family: 'Candal', sans-serif;
         text-align:center ;
         color:#17375E;
         }
+/*         #checkModal2{ */
+/*           background: linear-gradient(to right, #FF0000, #FFD8D8); */
+/*   -webkit-animation: example 4s linear 2s infinite alternate;; /* Safari 4.0 - 8.0 */ */
+/*   animation: example 4s linear 2s infinite alternate;; */
+/*         } */
+        #checkModal3{
+          background: linear-gradient(to right, #FF0000, #FFD8D8);
+  -webkit-animation: example 5s linear 2s infinite alternate; /* Safari 4.0 - 8.0 */
+  animation: example 5s linear 2s infinite alternate;;
+        }
+        /* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+   0%   {background:linear-gradient(to right, #FF0000, #FFD8D8);} 
+   25%  {background:linear-gradient(to right, #FF5E00, #FAE0D4);} 
+   50%  {background:linear-gradient(to right, #FFE400, #E5D85C);} 
+   100% {background:linear-gradient(to right, #1DDB16, #050099);} 
+}
 
+/* Standard syntax */
+@keyframes example {
+  0%   {background:linear-gradient(to right, #FF0000, #FFD8D8);} 
+  25%  {background:linear-gradient(to right, #FF5E00, #FAE0D4);} 
+  50%  {background:linear-gradient(to right, #FFE400, #E5D85C);} 
+  100% {background:linear-gradient(to right, #1DDB16, #050099);} 
+}
 </style>
  
  <div class="modal-dialog" style="ovewflow-y:auto">
@@ -545,15 +569,15 @@ font-family: 'Candal', sans-serif;
         <div style="position:absolute;">
         <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"  data-target="#checkModal" data-toggle="modal"><img width='23px;' height='20px;' src="../images/checklist2.png">체크리스트</butuon>
         <!-- 모달  -->
-         <div id="checkModal" class="modal" role="dialog" style="position:relative; left:-90px">
+         <div id="checkModal" class="modal" role="dialog" style="position:relative; left:-120px">
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-image:url('../images/snow.gif')">
-        <button type="button" class="close" onClick="mo_close4()">&times;</button>
+      <div class="modal-header"  id="checkModal3" style="background-image:url('../images/zxc.jpg')">
+        <a href="#" onClick="mo_close4()" style="float:right"><img src="../images/close-cross.png"></a>
         <h4 class="modal-title"><img src="../images/notepad.png"></h4>
       </div>
-      <div class="modal-body" style="background-image:url('../images/snow.gif')">
+      <div class="modal-body" id="checkModal2" style="background-image:url('../images/zxc.jpg')" >
       	<label style="color:#FFFFFF">Title</label>
         <input type="text" id="check_text" placeholder="내용을 입력하세요.">
         <br><br>
