@@ -17,7 +17,7 @@
  	} else {
  	  out.println("쿠키가 한 개도 없습니다.");
  	}
-     
+     	String card_maker = (String)cardList.get(0).get("card_maker");
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
      List<String> labelList = ( List<String>)cardList.get(0).get("labelMap");

@@ -84,6 +84,7 @@
 	{call proc_card_sel_test(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
 						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
 						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}

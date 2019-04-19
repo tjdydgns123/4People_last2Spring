@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,7 @@ import com.vo.ChartVO;
 
 
 @Controller
-@RequestMapping("/card/")
+@RequestMapping(value="/card/", method = { RequestMethod.GET, RequestMethod.POST })
 public class CardController {
 	Logger logger = Logger.getLogger(CardController.class);
 //		String crud = req.getParameter("crud");

@@ -9,7 +9,7 @@
 	Cookie chartC = new Cookie("chartC","mem_id=eun@naver.com");
 	chartC.setMaxAge(60);
   	response.addCookie(chartC);
-
+  	
 %>
 <!DOCTYPE html>
 <html>
@@ -64,12 +64,13 @@ $(document).ready(function(){
           } 
             } 
     });
+});
 
 </script>
 <h3 id="hth"><img src="../images/description2.png">차트</h3>
 <button type="button" data-toggle="modal" class="btn btn-default item-space" style="width:330px; height:200px" data-target="#modal_myChartView">
-<!-- 스크립트문에서 이 넘버와 일치하는 차트 생성됨-->
 <canvas id="detail" ></canvas> 
+<%--  <h4><strong><%=chartCall.get(0).getChartname() %></strong></h4> --%>
  <h4><strong><%=chartCall.get(0).getChartname() %></strong></h4>
 </button>
 </body>
