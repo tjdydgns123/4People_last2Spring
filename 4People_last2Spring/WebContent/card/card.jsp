@@ -9,14 +9,7 @@
     String mem_id = (String)session.getAttribute("MEM_ID");
      List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
      
-     Cookie[] cookies = request.getCookies();
- 	if (cookies != null) {
- 	  for (Cookie cookie : cookies) {
- 	    out.print("쿠키 이름 : "+cookie.getName()+", 쿠키 값 : "+cookie.getValue()); 
- 	  }
- 	} else {
- 	  out.println("쿠키가 한 개도 없습니다.");
- 	}
+
      	String card_maker = (String)cardList.get(0).get("card_maker");
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
