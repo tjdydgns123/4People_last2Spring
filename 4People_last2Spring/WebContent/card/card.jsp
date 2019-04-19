@@ -9,14 +9,7 @@
     String mem_id = (String)session.getAttribute("MEM_ID");
      List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
      
-     Cookie[] cookies = request.getCookies();
- 	if (cookies != null) {
- 	  for (Cookie cookie : cookies) {
- 	    out.print("쿠키 이름 : "+cookie.getName()+", 쿠키 값 : "+cookie.getValue()); 
- 	  }
- 	} else {
- 	  out.println("쿠키가 한 개도 없습니다.");
- 	}
+
      	String card_maker = (String)cardList.get(0).get("card_maker");
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
@@ -263,7 +256,6 @@
 .modal-body{
  overflow-y:auto;
 }
-
 .modal-body{
     overflow-y: auto;
 }
@@ -290,7 +282,6 @@ font-family: 'Candal', sans-serif;
 /*     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25); */
 /*     -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25); */
 }
-
 .filebox label {
     display: inline-block;
     padding: .5em .75em;
@@ -335,7 +326,6 @@ font-family: 'Candal', sans-serif;
 .glyphicon { display:none; } 
 #gihanz { display:none; } 
 .glyphicon-calendar  { display:none; } 
-
  /* iframe을 숨기기 위한 css*/
         #if{
             width: 0px;
@@ -349,7 +339,6 @@ font-family: 'Candal', sans-serif;
         text-align:center ;
         color:#17375E;
         }
-
 </style>
 <body>
 
@@ -674,7 +663,6 @@ font-family: 'Candal', sans-serif;
 var count=parseFloat("<%=check_length%>"); 
 	
 function hihi(check,id){
-
 // 	alert("count:"+count); 
 	var length ='';
 	var llength ='';
@@ -744,7 +732,6 @@ function hihi(check,id){
 		});
 	$('#barbar').empty();
 	$('#barbar').append(0+"%");
-
 		 }
 	 var param = "check_con_code="+id;
 		$.ajax({
@@ -759,7 +746,6 @@ function hihi(check,id){
 	}
 	
 }
-
 /* 차트삽입 버튼 누르면 차트 가져오기 */
 function chartCall(id){
 	var param = "mem_id="+id;
@@ -799,7 +785,6 @@ function chartCall(id){
 		});
 }
 /* 차트삽입버튼 끝 */
-
 </script>
 
 <!-- <div class="modal fade" id="chartmodal" tabindex="-1" role="dialog" aria-labelledby="chartmodal" aria-hidden="true" > -->
