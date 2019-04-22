@@ -2,6 +2,10 @@ package com.calendar;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.vo.CalendarVO;
 
 @Controller
@@ -20,9 +25,12 @@ public class CalendarController{
 	
 	//캘린더 개인 일정 조회
 	@GetMapping("calList")
-	public String calList(@ModelAttribute CalendarVO calVO
+	public String calList(HttpServletRequest req, @ModelAttribute CalendarVO calVO
 						 , Model model) {
 		logger.info("캘린더 조회 호출 성공");
+		HttpSession session = req.getSession();
+	    String mem_id= String.valueOf(session.getAttribute("MEM_ID"));
+	    calVO.setMem_id(mem_id);
 		List<Map<String, Object>> calList = null;
 		List<Map<String, Object>> calTeamList = null;
 		List<Map<String, Object>> calTeamCount = null;
@@ -43,7 +51,7 @@ public class CalendarController{
 		int result = 0;
 		result = calLogic.calINS(calVO);
 		logger.info("result :"+result);
-		return "forward:calList?gubun=INS";
+		return "redirect:calList?gubun=INS";
 	}
 	//캘린더 개인 일정 수정
 	@GetMapping("calUPD")

@@ -23,6 +23,10 @@
 /* 글씨 폰트 변경 */
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 .hanna {font-family: 'Nanum Gothic', sans-serif; font-size:30px; color:black} 
+/* 추가 버튼 간격 주기 */
+.addItem-space {
+    margin-right: 30px;
+}
 </style>
 <script type="text/javascript">
 //차트 등록
@@ -135,7 +139,6 @@ $(document).ready(function(){
 		
 		
 });
-	btn_chartUpd
 	$("#btn_chartUpd").click(function(){
 	//라벨 각 값에 큰 따옴표 붙이기
 		 var label_size = $("#form_chartUpd textarea[name = 'label']").length;
@@ -247,8 +250,8 @@ $(document).ready(function(){
 			</label></div><br>
 		
 			 <h3>[데이터 입력]</h3> 
-			 <h4 class="item-space" style="white-space:nowrap;">X축 (항목명 또는 값)
-			 <button type="button" class="btn btn-primary btn-lg item-space" id="btn_add" onClick="textarea_add()">추가</button></h4>
+			 <h4 class="addItem-space" style="white-space:nowrap;">X축 (항목명 또는 값)
+			 <button type="button" class="btn btn-primary btn-lg" id="btn_add" onClick="textarea_add()">추가</button></h4>
 			 <span id="btn_x">
 			 <textarea class="item-space" id="x1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
 			 <textarea class="item-space" id="x2" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>			
@@ -314,7 +317,7 @@ $(document).ready(function(){
           <input type="hidden" id="no2" name="no" value="">
 			 <h3>[데이터 입력]</h3> 
 			 <h4>X축 (항목명 또는 값)
-			 <button type="button" class="btn btn-primary btn-lg item-space" id="btn_add" onClick="textarea_add2()">추가</button></h4>
+			 <button type="button" class="btn btn-primary btn-lg" id="btn_add" onClick="textarea_add2()">추가</button></h4>
 			 <span id="btn_x2">
 			 <textarea class="item-space" id="x1_1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
 			 <textarea class="item-space" id="x2_1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>			
@@ -336,3 +339,4 @@ $(document).ready(function(){
   <!-- 차트 수정 Modal 끝 -->
 </body>
 </html>
+

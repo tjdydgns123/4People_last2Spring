@@ -1,16 +1,9 @@
-<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.vo.ChartVO, java.util.Map, java.util.List, java.util.Iterator, java.util.ArrayList" %>
-
+    <%@ page import="java.util.Map, java.util.List, java.util.Iterator, java.util.ArrayList" %>
     <%
     String mem_id = (String)session.getAttribute("MEM_ID");
      List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
-     
-
-     	String card_maker = (String)cardList.get(0).get("card_maker");
     	String card_name = (String)cardList.get(0).get("card_name");
     	String card_duedate = (String)cardList.get(0).get("card_duedate");
      List<String> labelList = ( List<String>)cardList.get(0).get("labelMap");
@@ -19,8 +12,8 @@
      List<String> partiList = (List<String>)cardList.get(0).get("partiMap");
      List<String> checkList = (List<String>)cardList.get(0).get("checkMap");
      List<String> check_con_List = (List<String>)cardList.get(0).get("checklistMap");
-     List<String> chartList = (List<String>)cardList.get(0).get("chartMap");
      List<String> fileList = (List<String>)cardList.get(0).get("fileMap");
+     List<String> chartList = (List<String>)cardList.get(0).get("chartMap");
  
      List<String> label_color = new ArrayList<String>(); 
      List<String> label_content = new ArrayList<String>(); 
@@ -42,7 +35,7 @@
      List<String> att_no = new ArrayList<String>(); 
      List<String> att_name = new ArrayList<String>(); 
      List<String> sub_att_name = new ArrayList<String>(); 
-     List<String> att_date = new ArrayList<String>();
+     List<String> att_date = new ArrayList<String>(); 
      
      List<String> no = new ArrayList<String>();
      List<String> c_mem_id = new ArrayList<String>();
@@ -75,7 +68,6 @@
 		}
      }
      
-    
      if(chartList != null){
     	 Iterator cltr = chartList.iterator();
 //     	 while(cltr.hasNext()){
@@ -245,19 +237,18 @@
 				}
 		}
     %>
-<head>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-</head>   
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
 .modal-body{
  overflow-y:auto;
 }
-.modal-body{
-    overflow-y: auto;
+.modal-dialog{
+	font-family: 'Noto Serif KR', serif;
 }
 .es_comment {
     border-bottom: 1px solid rgba(9,45,66,.13);
@@ -339,15 +330,83 @@ font-family: 'Candal', sans-serif;
         text-align:center ;
         color:#17375E;
         }
+/*         #checkModal2{ */
+/*           background: linear-gradient(to right, #FF0000, #FFD8D8); */
+/*   -webkit-animation: example 4s linear 2s infinite alternate;; /* Safari 4.0 - 8.0 */ */
+/*   animation: example 4s linear 2s infinite alternate;; */
+/*         } */
+        #checkModal3{
+          background: linear-gradient(to right, #FF0000, #FFD8D8);
+  -webkit-animation: example 5s linear 2s infinite alternate; /* Safari 4.0 - 8.0 */
+  animation: example 5s linear 2s infinite alternate;;
+        }
+        /* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+   0%   {background:linear-gradient(to right, #FF0000, #FFD8D8);} 
+   25%  {background:linear-gradient(to right, #FF5E00, #FAE0D4);} 
+   50%  {background:linear-gradient(to right, #FFE400, #E5D85C);} 
+   100% {background:linear-gradient(to right, #1DDB16, #050099);} 
+}
+/* Standard syntax */
+@keyframes example {
+  0%   {background:linear-gradient(to right, #FF0000, #FFD8D8);} 
+  25%  {background:linear-gradient(to right, #FF5E00, #FAE0D4);} 
+  50%  {background:linear-gradient(to right, #FFE400, #E5D85C);} 
+  100% {background:linear-gradient(to right, #1DDB16, #050099);} 
+}
 </style>
 <body>
+<script type="text/javascript">
+$(document).ready(function(){
+	var id = $("button[name = 'btn_chart']").val();
+$.ajax({
+	type:"GET",
+	url:"../card/chartCall?mem_id="+id,
+	data : id,
+	dataType:"HTML",
+	success : function(result) {
+	//통신이 성공적으로 이루어졌을 때 처리하고 싶은 함수
+		$('#chartBody').append(result);
+		$("button[name = 'btn_myChart']").click(function(){
+			var selectChartNo = $(this).attr('value');
+			$.ajax({
+				type:"GET",
+				url:"../card/cardInsert?no="+selectChartNo, 
+				data : selectChartNo,
+				dataType:"HTML",
+				success : function(result) {
+				//통신이 성공적으로 이루어졌을 때 처리하고 싶은 함수
+					$('#chartbutton').append(result);
+					$('#modal_chartList').modal('hide'); 
+				},
+				complete : function(result){
+				//통신이 실패했어도 완료가 되었을 때 처리하고 싶은 함수
+				},
+				error : function(xhr, status, error) {
+				//에러가 발생했을 때 처리하고 싶은 함수
+				alert("error");    //경고창 띄움
+				} 
+				});
+			
+		}); 
+	},
+	complete : function(result){
+	//통신이 실패했어도 완료가 되었을 때 처리하고 싶은 함수
+	},
+	error : function(xhr, status, error) {
+	//에러가 발생했을 때 처리하고 싶은 함수
+	alert("error");    //경고창 띄움
+	} 
+	});
 
-
+});
+</script>
+ 
  <div class="modal-dialog" style="ovewflow-y:auto">
     <div class="modal-content" style="width:808px; height:750px;">
       <div class="modal-header" style="background-color:#D9D9D9">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title-jm" id="myModalLabel" style="text-aling:center"><%if(card_duedate!=null){out.print(card_duedate+"  -  ");}  %>  <%=card_name %></h4>
+        <h3 class="modal-title-jm" id="myModalLabel" style="font-weight:bodl;text-aling:center"><%if(card_duedate!=null){out.print(card_duedate+"  -  ");}  %>  <%=card_name %></h3>
       </div>
       <div class="modal-body" id="ccmmdy" style="width:100%; height:100%; background-color:#D9D9D9;">
         <div  class="col-sm-10">
@@ -393,7 +452,7 @@ font-family: 'Candal', sans-serif;
          <div id="card_member" style="margin-left:20px; margin-bottom:50px;">
          <h3>참여자</h3>
          <div id="membersja" style="position:absolute;" ondrop="drop(event)" >
-         <button style="background-color:#FFFFFF"  name="parti" onClick="mem_name_ajax()" data-target="#label_modal3" data-toggle="modal" ><img src="../images/plus.png" style="width:25px;height:25px;"></button>
+         <button style="background-color:#D9D9D9;border:0;"  name="parti" onClick="mem_name_ajax()" data-target="#label_modal3" data-toggle="modal" ><img src="../images/c_memberIns.png" style="width:39px;height:39px;"></button>
          <%if(partiList!=null){
         	 for(int i=0;i<partiList.size();i++){
         	 %>
@@ -422,15 +481,15 @@ font-family: 'Candal', sans-serif;
         <!-- 참여자 div -->
     
         <!-- 요약 div -->
-         <div id="card_description" style=" margin-bottom:50px;">
-         <h3 id="hth"><img src="../images/description2.png">요약    <%if(des_content!=null){ %>
+         <div id="card_description" style=" margin-bottom:50px;padding-top:10px;">
+         <h3 id="hth"><img src="../images/description4.png" width='32px'height='32px'>요약    <%if(des_content!=null){ %>
            <a id="<%=des_no%>" href="#" onclick="desUPD(id)" style="margin-left:20px">edit</a>
 		<%}%>     </h3>
        
           <div id="des_con">
           <div id="des_conss" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
           <%if(des_content==null){ %>
-         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " ><회의내용>
+         <textarea  id="des_text" style="border: 1px solid #8C8C8C;margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px;  " ><회의내용>
 - 3.15 워크샵 준비하기
 - 학회참석하기
 - A4용지 구매하기</textarea>
@@ -449,18 +508,17 @@ font-family: 'Candal', sans-serif;
          </div>
          </div>
         <!-- 요약 div -->
-      
-      
+        <br>
         <!-- 차트 시작 -->
+        <h3 id="hth"><img src="../images/chart.jpg" width="50px">차트</h3>
         <% if(no.size()!=0) {%>
         <div id="chartbutton" style=" margin-bottom:50px;"></div>
         <% } %>
         <!-- 차트 끝 -->
       
-      
         <!-- 첨부파일 div -->
          <div id="card_c_file" style=" margin-bottom:50px;">
-         <h3><img src="../images/c_file2.png">첨부파일</h3>
+         <h3><img src="../images/c_file4.png"width='32px'height='32px'>첨부파일</h3>
          <%if(fileList!=null) {
          	for(int i=0;i<att_no.size();i++){%>
          <div id="<%=att_no.get(i) %>">
@@ -532,9 +590,9 @@ font-family: 'Candal', sans-serif;
         <!-- 체크리스트 -->
         <!-- 한마디 div -->
          <div id="card_hanmadi" style=" margin-bottom:50px;">
-         <h3><img src="../images/hanmadi.png">한마디</h3>
+         <h3><img src="../images/hanmadi2.png"width='32px'height='32px'>한마디</h3>
          <div>
-         <textarea  id='input_comment' style="margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px; border:0;"/>
+         <textarea  id='input_comment' style="border: 1px solid #8C8C8C;margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px;"/>
          </div>
          <div>
          <input type="button"  style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick='comment()'>
@@ -566,11 +624,9 @@ font-family: 'Candal', sans-serif;
            </div>
          <!-- col- sm -10 끝  -->
         <div class="col-sm-2">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" onClick="vison()" ><img src="../images/description.png">요약</butuon>
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
         <!-- 모달  -->
         <div style="position:absolute;">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-target="#label_modal"><img width='23px;' height='20px;'src="../images/label2.png">라벨</butuon>
         <div id="label_modal" class="modal" role="dialog" style="position:relative; left:-90px;">
   		<div class="modal-dialogg">
     <!-- Modal content-->
@@ -601,19 +657,19 @@ font-family: 'Candal', sans-serif;
         <!-- 모달  -->
         
         
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="checkAdd()"><img src="../images/checklist.png">체크리스트</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="checkAdd()"><img width='23px;' height='20px;'src="../images/checklist2.png">체크리스트</butuon>
         <div style="position:absolute;">
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"  data-target="#checkModal" data-toggle="modal"><img src="../images/checklist.png">체크리스트</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"  data-target="#checkModal" data-toggle="modal"><img width='23px;' height='20px;' src="../images/checklist2.png">체크리스트</butuon>
         <!-- 모달  -->
-         <div id="checkModal" class="modal" role="dialog" style="position:relative; left:-90px">
+         <div id="checkModal" class="modal" role="dialog" style="position:relative; left:-120px">
   		<div class="modal-dialogg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-image:url('../images/snow.gif')">
-        <button type="button" class="close" onClick="mo_close4()">&times;</button>
+      <div class="modal-header"  id="checkModal3" style="background-image:url('../images/zxc.jpg')">
+        <a href="#" onClick="mo_close4()" style="float:right"><img src="../images/close-cross.png"></a>
         <h4 class="modal-title"><img src="../images/notepad.png"></h4>
       </div>
-      <div class="modal-body" style="background-image:url('../images/snow.gif')">
+      <div class="modal-body" id="checkModal2" style="background-image:url('../images/zxc.jpg')" >
       	<label style="color:#FFFFFF">Title</label>
         <input type="text" id="check_text" placeholder="내용을 입력하세요.">
         <br><br>
@@ -625,30 +681,45 @@ font-family: 'Candal', sans-serif;
         <!-- 모달  -->
         </div>
         
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/gihan.png">기한설정</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img width='23px;' height='20px;'src="../images/gihan3.png">기한설정</butuon>
         
         <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-d DD">
          <input id="gihanz" class="form-control" type="text" readonly />
-        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)"><img src="../images/gihan.png"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>기한설정</butuon>
+        <butuon type="button" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="gihan(event)"><img width='23px;' height='20px;' src="../images/gihan3.png"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>기한설정</butuon>
 		</div>
+        
+        
          <form id="fileBoxform" name="fileBoxform" method="post" enctype="multipart/form-data">
         <div class="fileBox">
-        <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img src="../images/c_file.png">첨부파일</button>
+        <button type="button" id="btn-upload" class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="akakl(event)"><img width='23px;' height='20px;'src="../images/c_file3.png">첨부파일</button>
         <input id="fname" name="fname" type="file" class="uploadBtn" style="width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="fileINS()">
         <input type="hidden" id='card_code' name='card_code'>
         <input type="hidden" id='f_team_code' name='f_team_code'>
         <input type="hidden" id='f_maker' name='f_maker'>
         </div>
-        <!-- 차트 -->
-        <div>
-        <% if(chartList != null){ %>
-          <button  id=<%=c_mem_id.get(0) %> type="button" class="btn btn-default es_shadow" data-toggle="modal"  data-backdrop="static" data-target="#chartmodal" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="chartCall(id)"><img src="../images/description.png">최신차트</button>
-        <% } %>
-        </div>
-        <!-- 차트 끝 -->
         </form>
+        <!-- 차트 -->
+        <% if(chartList != null){ %>
+          <button id=<%=c_mem_id.get(0) %> type="button" name="btn_chart" value=<%=c_mem_id.get(0) %> class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" data-target="#modal_chartList" data-toggle="modal"><img src="../images/description.png">차트</button>
+        <% } %>
+        <!-- 차트 끝 -->
+        <!-- 차트 버튼 클릭시 발생되는 모달 시작-->
+        <div style="position:absolute;">
+  		<div class="modal" id="modal_chartList" role="dialog" data-backdrop="static" style="position:relative; width:550px; left:-420px">
+    	<div class="modal-dialogg">  
+      <!-- Modal content-->
+      <div class="modal-content"> 
+        <div class="modal-header" style="background-color:#D9D9D9">
+          <button type="button" class="close" onClick="mo_close6()">&times;</button> 
+          <h4 class="modal-title" style="background-color:#D9D9D9" align="center"><strong>차트 리스트</strong> </h4>
+        </div>
+        <div class="modal-body" style="background-color:#D9D9D9" id="chartBody">
+   		 </div>
+ 	 </div></div></div></div>
+  <!-- 차트 버튼 클릭시 발생되는 모달 끝-->
         <br>
         <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="../images/bin.png"></div>
+        
         <!-- col sm-2 끝  -->
         </div>
   <!--모달바디 끝  -->
@@ -656,6 +727,8 @@ font-family: 'Candal', sans-serif;
   <!-- 모달 컨텐츠 끝  -->
   </div>
   <!-- 모달 다이얼로끝그 -->
+  </div>
+  </div>
   </div>
   
 <script>
@@ -743,52 +816,7 @@ function hihi(check,id){
 			   
 		   }
 		});
-	}
+		}
 	
 }
-/* 차트삽입 버튼 누르면 차트 가져오기 */
-function chartCall(id){
-	var param = "mem_id="+id;
-		$('#chartbutton').empty();
-		$.ajax({
-				type:"post"
-				,url:"../card/chartCall"
-				,data:param
-					   ,dataType:"html"
-					   ,success:function(result){
-					   	 $('#chartbutton').append(result);
-					   }
-		,error:function(jqXHR, exception){
-			  if (jqXHR.status === 0) {
-		        }
-		        else if (jqXHR.status == 400) {
-		        }
-		        else if (jqXHR.status == 401) {
-		        }
-		        else if (jqXHR.status == 403) {
-		        }
-		        else if (jqXHR.status == 404) {
-		        }
-		        else if (jqXHR.status == 500) {
-		        }
-		        else if (jqXHR.status == 503) {
-		        }
-		        else if (exception === 'parsererror') {
-		        }
-		        else if (exception === 'timeout') {
-		        }
-		        else if (exception === 'abort') {
-		        }
-		        else {
-		        }
-		  }
-		});
-}
-/* 차트삽입버튼 끝 */
 </script>
-
-<!-- <div class="modal fade" id="chartmodal" tabindex="-1" role="dialog" aria-labelledby="chartmodal" aria-hidden="true" > -->
-<!-- </div> -->
-
-</body>
-</html>

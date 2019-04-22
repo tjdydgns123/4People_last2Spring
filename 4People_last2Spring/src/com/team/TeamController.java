@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/team/")
@@ -187,5 +186,14 @@ public class TeamController {
 			path="forward:inviteMemberResult.jsp";
 		}
 		return path;
+	}
+	@GetMapping("teamOut")
+	public String teamOut(HttpServletRequest req,@RequestParam Map<String,Object> pMap) {
+		logger.info("teamOut호출");
+		logger.info("mem_id : " + pMap.get("mem_id"));
+			String mem_id = (String) pMap.get("mem_id");
+			
+		t_logic.teamOut(pMap);
+		return "forward:../board/boardlist?mem_id="+mem_id;
 	}
 }

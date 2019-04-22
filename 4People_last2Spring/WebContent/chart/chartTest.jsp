@@ -14,8 +14,17 @@
 </head>
 <body>
 
+<!-- 	</section> -->
 <script type="text/javascript">
 
+<!-- 	<footer> -->
+<%-- 		<%@include file="include/footer.jsp" %>		 --%>
+<!-- 	</footer> -->
+
+<!-- </div> -->
+
+<!-- </body> -->
+<!-- </html> -->
 $(".copy-img").each(function() {
 	  $(this).wrap("<span></span>"),
 	  $(this).parents("span").append("<input type=\"text\" value=" + $(this).attr("src") + ">")
@@ -34,7 +43,7 @@ $(".copy-img").click(function() {
 <div class="copyable">
     <img src="image/bubble_chart.png" alt="Copy Image to Clipboard via Javascript."/>
 </div>
-
+ 
 </div>
 </body>
 </html>

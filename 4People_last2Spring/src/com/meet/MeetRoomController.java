@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vo.MeetRoomVO;
+
 
 @Controller
 @SessionAttributes(value= {"MEM_ID","MEM_NAME"})
@@ -32,17 +38,11 @@ public class MeetRoomController {
 	public String meetRoomIns(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
 		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
-		
-		
-		
-		
 		//첨부파일이 있니?
 				if(mr_img !=null) {
-					
 					//실제 존재하는 파일이름을 객체로 생성해주는 클래스
 					//File이름만 객체로 생성해 줄 뿐 실제 파일안에 들어있는 내용까지 포함하지는 않음.
 					//파일 내용을 처리하는 코드는 따로 처리해야 함.(OutputStream사용)
-				
 					if(!mr_img.isEmpty()) {
 						String filename = mr_name+mr_img.getOriginalFilename();
 						pMap.put("mr_image", filename);
@@ -75,9 +75,6 @@ public class MeetRoomController {
 						}
 					}//////////end of if - 첨부파일 처리끝
 				}
-		
-		
-		
 		for(String key:pMap.keySet()) {
 			System.out.println("key=="+key+" value=="+pMap.get(key));
 		}
@@ -115,7 +112,6 @@ public class MeetRoomController {
 		model.addAttribute("myMeetingRoomNames", myMeetingRoomNames);
 		return "forward:myMeetingRoom.jsp";
 	}
-	
 	@PostMapping("changeRoom")
 	public String changeRoom(Model model,ModelMap mMap,@RequestParam Map<String,Object> pMap) {
 		String mem_id =(String)mMap.get("MEM_ID");
@@ -130,9 +126,8 @@ public class MeetRoomController {
 	@PostMapping("roomUpd")
 	public String roomUpd(Model model,@RequestParam Map<String,Object> pMap,@RequestParam("mr_image") MultipartFile mr_img ) {
 		
-		String savePath = "C:\\Users\\kosmo05-15\\git\\4People_last2Spring\\4People_last2Spring\\WebContent\\pds\\";//첨부파일이 다운로드될 물리적인 경로 등록
+		String savePath = "\\\\192.168.0.6\\\\pds";//첨부파일이 다운로드될 물리적인 경로 등록
 		String mr_name = (String)pMap.get("mr_name");
-		
 		//첨부파일이 있니?
 		if(mr_img !=null) {
 			//실제 존재하는 파일이름을 객체로 생성해주는 클래스
@@ -170,8 +165,6 @@ public class MeetRoomController {
 				}
 			}//////////end of if - 첨부파일 처리끝
 		}
-		
-		
 		for(String key:pMap.keySet()) {
 			System.out.println("key=="+key+" value=="+pMap.get(key));
 		}
@@ -231,10 +224,53 @@ public class MeetRoomController {
 	public String myReserVation(ModelMap mMap,Model model) {
 		String mem_id =(String)mMap.get("MEM_ID");
 		
-		List<Map<String,Object>> myReserVationList = mtRoom_logic.myReserVation(mem_id);
-		model.addAttribute("myReserVationList", myReserVationList);
+		Map<String, Object> sizes = mtRoom_logic.myReserVation(mem_id);
+		model.addAttribute("sizes", sizes);
 		
 		return "forward:myReserVation.jsp";
 	}
-
-}
+	@PostMapping("afterDate")
+	public String afterDate(ModelMap mMap,Model model) {
+		String mem_id =(String)mMap.get("MEM_ID");
+		List<Map<String, Object>> afterDateList = mtRoom_logic.afterDate(mem_id);
+		model.addAttribute("afterDateList",afterDateList);
+		return "forward:afterDateResult.jsp";
+	}
+	@PostMapping("beforeDate")
+	public String beforeDate(ModelMap mMap,Model model) {
+		String mem_id =(String)mMap.get("MEM_ID");
+		List<Map<String, Object>> beforeDateList = mtRoom_logic.beforeDate(mem_id);
+		model.addAttribute("beforeDateList",beforeDateList);
+		return "forward:beforeDateResult.jsp";
+	}
+	@PostMapping("hapDate")
+	public String hapDate(ModelMap mMap,Model model) {
+		String mem_id =(String)mMap.get("MEM_ID");
+		List<Map<String, Object>> hapDateList = mtRoom_logic.hapDate(mem_id);
+		model.addAttribute("hapDateList",hapDateList);
+		return "forward:hapDateResult.jsp";
+	}
+	@PostMapping("reservationCancel")
+	@ResponseBody
+	public int reservationCancel(@RequestParam("re_code") String re_code,Model model) {
+		int result =mtRoom_logic.reservationCancel(re_code);
+		return result;
+	}
+	@GetMapping("reCalList")
+	   public String reservationCal(HttpServletRequest req,@ModelAttribute MeetRoomVO mrVO, Model model) {
+	      logger.info("회의실 캘린더 호출 성공");
+	      HttpSession session = req.getSession();
+	      //String mr_no = String.valueOf(req.getAttribute("MR_NO"));
+	      //mrVO.setMr_no(mr_no);
+	      //logger.info("mr_no: "+mr_no);
+	      logger.info(mrVO.getMr_no());
+	      String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+	      mrVO.setMem_id(mem_id);
+	      List<Map<String, Object>> reCalList = null;
+	      reCalList = mtRoom_logic.reservationCal(mrVO);
+	      mrVO.setMr_start(mrVO.getMr_hopedate()+" "+mrVO.getMr_starttime());
+	      model.addAttribute("reCalList", reCalList);
+	      logger.info("reCalList :"+reCalList);
+	      return "forward:calendar.jsp";
+	   }
+	}

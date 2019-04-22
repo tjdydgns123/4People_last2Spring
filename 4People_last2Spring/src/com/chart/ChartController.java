@@ -2,7 +2,6 @@ package com.chart;
 
 import java.util.List;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ public class ChartController {
 	@Autowired
 	ChartLogic chartLogic = null;
 	Logger logger =  Logger.getLogger(ChartController.class);
-	
 	//차트 메뉴 진입시 차트 목록 불러오기
 	@GetMapping("chartList")
 	public String chartList (@RequestParam("mem_id") String mem_id, Model model) {
@@ -30,7 +28,6 @@ public class ChartController {
 		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
 		model.addAttribute("chartList", chartVO);
 		model.addAttribute("mem_id", mem_id);
-		logger.info("chartName : "+chartVO.get(0).getChartname());
 		return "forward:./chart.jsp";
 	}
 	//차트 생성
@@ -52,10 +49,8 @@ public class ChartController {
 	public String chartUpd (@ModelAttribute ChartVO chartVO) {
 		logger.info("chartUpd 호출");
 		chartLogic.chartUpd(chartVO);
-		logger.info(chartVO.getData());
 		return "forward:./chartList";
 	}
-	
 	//선택한 차트 보여주기
 	@PostMapping("chartDetail")
 	public String chartDetail (@RequestParam("no") String no, Model model) {

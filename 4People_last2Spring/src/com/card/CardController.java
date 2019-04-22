@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +21,7 @@ import com.vo.ChartVO;
 
 
 @Controller
-@RequestMapping(value="/card/", method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping("/card/")
 public class CardController {
 	Logger logger = Logger.getLogger(CardController.class);
 //		String crud = req.getParameter("crud");
@@ -31,7 +30,6 @@ public class CardController {
 	CardLogic c_Logic = null;
 	@Autowired
 	ChartLogic chartLogic = null;
-	
 //		HttpSession session = req.getSession();
 	@PostMapping("cardSel")
 	public String CareSel(Model model, @RequestParam Map<String,Object>pMap) {
@@ -43,15 +41,24 @@ public class CardController {
 			return"forward:../card/card.jsp";
 		}
 	
-	//카드에서 차트 버튼 누를 때 최근 차트 불러오기
-	@PostMapping("chartCall")
-	public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
-		logger.info("chartCall 호출");
-		List<ChartVO> chartVO = chartLogic.chartList(mem_id);
-		model.addAttribute("chartCall", chartVO);
-		logger.info("chartVO.chartname : "+chartVO.get(0).getChartname());
-		return "forward:../chart/chartCall.jsp";
-	}
+	//카드에서 차트 버튼 누를 때 차트 리스트 불러오기
+		@GetMapping("chartCall")
+		public String chartCall (@RequestParam("mem_id") String mem_id, Model model) {
+			logger.info("chartCall 호출");
+			List<ChartVO> chartVO = chartLogic.chartList(mem_id);
+			model.addAttribute("chartCall", chartVO);
+			logger.info("chartVO.chartname : "+chartVO.get(0).getChartname());
+			return "forward:../chart/chartCall.jsp";
+		}
+	//차트 리스트에서 한개 선택하기
+		@GetMapping("cardInsert")
+		public String cardInsert (@RequestParam("no") String no, Model model) {
+			logger.info("cardInsert 호출");
+			ChartVO chartVO = chartLogic.chartDetail(no);
+			model.addAttribute("cardInsert", chartVO);
+			logger.info("chartVO.no : "+chartVO.getNo());
+			return "forward:../chart/cardInsert.jsp";
+		}
 	
 	@PostMapping("commentIns")
 	public String commentIns(Model model,@RequestParam Map<String,Object> pMap) {

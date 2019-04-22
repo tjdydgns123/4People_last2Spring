@@ -131,9 +131,9 @@ div#frame a:hover.note {
 }
 /*  */
 
-.es_info-color {
-    background-color: rgb(51, 181, 229) !important;
-}
+/* .es_info-color { */
+/*     background-color: rgb(51, 181, 229) !important; */
+/* } */
 .navbar-default .navbar-nav>li>a {
     color: #FFF;
     margin-bottom:5px;

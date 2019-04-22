@@ -7,22 +7,23 @@
 	List<Map<String, Object>> calTeamList = (List<Map<String, Object>>)request.getAttribute("calTeamList");
 	List<Map<String, Object>> calTeamCount = (List<Map<String, Object>>)request.getAttribute("calTeamCount");
 	int teamCount = calTeamCount.size();
-	   String[] colors = new String[15];
-	   colors[0] = "#FFB2D9";
-	   colors[1] = "#A566FF";
-	   colors[2] = "#FF5E00";
-	   colors[3] = "#C4B73B";
-	   colors[4] = "#6B9900";
-	   colors[5] = "#008299";
-	   colors[6] = "#FF5E00";
-	   colors[7] = "#FF5E00";
-	   colors[8] = "#FF5E00";
-	   colors[9] = "#FF5E00";
-	   colors[10] = "#FF5E00";
-	   colors[11] = "#FF5E00";
-	   colors[12] = "#FF5E00";
-	   colors[13] = "#FF5E00";
-	   colors[14] = "#FF5E00";
+	 
+	String[] colors = new String[15];
+	colors[0] = "#980000";//검붉은색
+	colors[1] = "#DB3A00";//어두운 주황색
+	colors[2] = "#997000";//황색
+	colors[3] = "#476600";//녹색
+	colors[4] = "#002266";//남색
+	colors[5] = "#008299";//어두운 하늘색
+	colors[6] = "#050099";//청색
+	colors[7] = "#2A0066";//보라색
+	colors[8] = "#990085";//자주색
+	colors[9] = "#D9418C";//분홍색
+	colors[10] = "#212121";//회색
+	colors[11] = "#FF007F";//핫핑크색
+	colors[12] = "#0054FF";//맑은 파란색
+	colors[13] = "#6B9900";//밀림녹색
+	colors[14] = "#4641D9";//청보라색
 	//out.print(calList.get(0).get("CAL_TITLE"));
 %>
 <!DOCTYPE html> 
@@ -42,6 +43,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> 
     <![endif]--> 
     <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script type="text/javascript">
 var g_start;
 var g_end;
@@ -75,7 +78,8 @@ var color2 = "#FF5E00";
 </script>
 </head> 
 <body> 
-	<div class="container-fluid">
+
+	<div class="container-fluid" style="float:right">
 		<div class="row-fluid">         
             <!--/span--> 
 			<div class="span9" id="content"> 
@@ -98,12 +102,13 @@ var color2 = "#FF5E00";
                                      </p> 
                                      </div> -->
                                  </div> 
-							<div class="span10"> 
-							<div id='calendar'></div> 
+							<div class="span10"> 							
+							<div id='calendar'>				
+							</div> 
 							</div> 
 							</div> 
 						</div> 
-                      <!-- /block --> 
+                      <!-- /block 이 아래는 캘린더 밑--> 
 					</div> 
 				</div> 
 			</div> 
@@ -111,8 +116,93 @@ var color2 = "#FF5E00";
 <!--      <footer> 
              <p>&copy; Vincent Gabriel 2013</p> 
           </footer> -->
+<!----------------- 체크박스 시작 -------------------->
+<div class="panel panel-default" style="margin-right:80px">
+	<div class="panel-body">
+	<label style="text-align:center">참여중인 팀</label>
+	<hr>
+<% for(int k=0; k<teamCount;k++){ %>
+<p>
+		    <input  type="checkbox" id="cb1" > 
+		  <label for="cb1" style="color:<%=colors[k]%>">
+		    <%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>
+		   <!--  <span class="checkmark"></span> -->
+		  </label>
+		  </p>
+<%} %>
+</div>
+</div>
+<!----------------- 체크박스 끝 -------------------->
 	</div> 
 <style> 
+	.input[id="cb1"] + label{
+		display : inline-block;
+		width: 20px;
+		height: 20px;
+		border: 2px solid #bcbcbc;
+		cursor: pointer;
+	}
+	.input[id="cb1"]:checked + label{
+		/* background-color: #666666; */
+	}
+	.input[id="cb1"]{
+		display: none;
+	}
+	.container{
+		display: inline-block;
+		horizontal-align:right;
+		position: relative;
+		padding-left: 35px;
+		margin-bottom: 12px;
+		cursor: pointer;
+		font-size: 12px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.container input{
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+	}
+	.checkmark{
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 25px;
+		width: 25px;
+		background-color: #eee;
+	}
+	.container:hover input ~ .checkmark{
+		background-color: #ccc;
+	}
+	.container input:checked ~ .checkmark{
+		background-color: #2196F3;
+	}
+	.container input:disabled ~ .checkmark{
+		display: block;
+		background-color : red;
+	}
+	.checkmark:after {
+		content: "";
+		position: absolute;
+		display: none;
+	}
+	.container input:checked ~ .checkmark:after{
+		display: block;
+	}
+	.container .checkmark:after{
+		left: 9px;
+		top: 5px;
+		width: 5px;
+		height: 10px;
+		border: solid white;
+		border-width: 0 3px 3px 0;
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
     .btn-red {
 	  color: #fff;
 	  background-color: #f15f5f;
@@ -250,23 +340,20 @@ var color2 = "#FF5E00";
 		  		<%
 		  		if(teamCount!=0){
 		  		%>
-		  		<%for(int j=0; j<teamCount; j++){
-		  			String js = String.valueOf(j);
-		  		%>
-				   ,{events: [
-				 			<% for(int i =0; i<calTeamList.size(); i++){%>
-		  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
-								{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
-								,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
-					  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
-								},
-								<%}%>
-					  		<%}%>
-			  				{title:'바보', start:'2006-03-28', color: '#378006'}
-			  			 ]
-				   ,color : '<%=colors[j]%>'
-
-					}
+		  			<%for(int j=0; j<teamCount; j++){%>
+						   ,{events: [
+						 			<% for(int i =0; i<calTeamList.size(); i++){%>
+				  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
+										{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
+										,title:'<%=calTeamList.get(i).get("CARD_NAME")%>'
+							  			,start:'<%=calTeamList.get(i).get("CARD_DATE")%>'
+										},
+										<%}%>
+							  		<%}%>
+					  				{title:'바보', start:'2006-03-28', color: '#378006'}
+					  			 	]
+						   			,color : '<%=colors[j]%>'
+							}
 					<%}%>
 				<%}%>//end of if
 			]
@@ -353,7 +440,7 @@ var color2 = "#FF5E00";
 			    <li><a href="#">50</a></li>
 			  	</ul>
 			</div>
-			<p style="float:left; margin-right:1px">
+			<p style="float:left; margin-right:1px"> 
 			분&nbsp;~&nbsp;
 			</p>
 			<!-- timepicker 끝//cal_starttime xx분 -->
@@ -398,16 +485,7 @@ var color2 = "#FF5E00";
 			<p>
 			분
 			</p>
-			<p>배경설정</p>
 			<!-- timepicker 끝//cal_endtime xx분  -->
-			<div class="btn-group" role="group" aria-label="..." >
-			  <button type="button" class="btn btn-red" id="btn_red" value="#f15f5f" style="width:30px;height:30px;"></button>
-			  <button type="button" class="btn btn-orange" id="btn_orange" value="#F29661" style="width:30px;height:30px;"></button>
-			  <button type="button" class="btn btn-green" id="btn_green" value="#2F9D27" style="width:30px;height:30px;"></button>
-			  <button type="button" class="btn btn-blue" id="btn_blue" value="#4374D9" style="width:30px;height:30px;"></button>
-			  <button type="button" class="btn btn-default" style="width:30px;height:30px;"></button>
-			  <button type="button" class="btn btn-purple" id="btn_purple" value="#8041D9" style="width:30px;height:30px;"></button>
-			</div>
       </div>
       <div class="modal-footer">
         <input type="button" class="btn btn-primary" onClick="sendEvent()" value="Save">

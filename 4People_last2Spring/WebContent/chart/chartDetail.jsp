@@ -11,7 +11,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>
 <script src="https://unpkg.com/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>
 <meta charset="UTF-8">
- <%@ include file="../common/common.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
 var ctx = document.getElementById('chartDetail').getContext('2d');
@@ -62,4 +61,4 @@ myChart2  = new Chart(ctx, {
 <body>
 <canvas id="chartDetail" ></canvas>  
 </body>
-</html>
+

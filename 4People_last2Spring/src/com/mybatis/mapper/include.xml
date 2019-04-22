@@ -59,4 +59,14 @@
 	<delete id="memberDelete" parameterType="java.lang.String">
 		
 	</delete>
+	<select id="sidebarMeet" parameterType="java.lang.String" resultType="map">
+		select mr_no,mr_name,mr_detaileloc
+    from meeting_room
+    where mr_no in(select mr_no
+    from MR_AUTHORITY
+    where team_code in (select team_code
+    from team_member
+    where mem_id =#{mem_id}
+    ))
+	</select>
 </mapper>

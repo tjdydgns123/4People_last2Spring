@@ -37,15 +37,15 @@
 	<result property="check_con_name" column="check_con_name"/>
 	<result property="check_con_confirm" column="check_con_confirm"/>
 	</resultMap>
-<resultMap id="chartMap" type="java.util.Map">
-	<result property="no" column="no"/>
-	<result property="mem_id" column="mem_id"/>
-	<result property="chartname" column="chartname"/>
-	<result property="charttype" column="charttype"/>
-	<result property="label" column="label"/>
-	<result property="data" column="data"/>
-	<result property="creaetetime" column="creaetetime"/>
-</resultMap>
+	<resultMap id="chartMap" type="java.util.Map">
+		<result property="no" column="no"/>
+		<result property="mem_id" column="mem_id"/>
+		<result property="chartname" column="chartname"/>
+		<result property="charttype" column="charttype"/>
+		<result property="label" column="label"/>
+		<result property="data" column="data"/>
+		<result property="creaetetime" column="creaetetime"/>
+	</resultMap>
 	
 	<select id="labelIns" parameterType="map" statementType="CALLABLE">
 	{call proc_label_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -81,7 +81,7 @@
 	</delete>
 	
 	<select id="cardSEL" parameterType="map" statementType="CALLABLE">
-	{call proc_card_sel_test(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+	{call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 						 ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -119,6 +119,10 @@
 	<insert id="commentIns" parameterType="map" statementType="CALLABLE">
 	 INSERT INTO comments(comm_no,comm_time,comm_content,card_code,team_code,comm_maker)
 	        values(seq_comments_no.nextval,to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{comment},#{card_code},#{team_code},#{comm_maker})
+	</insert>
+	<insert id="historyIns" parameterType="map">
+		INSERT INTO history(card_code , histroy_time, history_content, history_no, team_code, history_maker)
+		             values(#{card_code},to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{history_content},seq_history_no.nextval,#{team_code},#{mem_id})
 	</insert>
 	<update id="desUPD">
 		update description set des_content = #{des_content}

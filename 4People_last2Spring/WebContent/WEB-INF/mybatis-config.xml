@@ -14,5 +14,6 @@
 		<mapper resource="com/mybatis/mapper/card.xml" />
 		<mapper resource="com/mybatis/mapper/chatting.xml" />
 		<mapper resource="com/mybatis/mapper/chart.xml" />
+		<mapper resource="com/mybatis/mapper/android.xml" />
 	</mappers>
 </configuration>

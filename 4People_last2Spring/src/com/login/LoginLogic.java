@@ -22,4 +22,24 @@ public class LoginLogic {
 		int result =l_dao.signUp(pMap);
 		return result;
 	}
+	public String findId(Map<String, Object> pMap) {
+		String idresult = l_dao.findId(pMap);
+		return idresult;
+	}
+	public String findpw(Map<String, Object> pMap) {
+		String idresult = l_dao.findpw(pMap);
+		return idresult;
+	}
+	public List<Map<String, Object>> loginCall2(Map<String, Object> pMap) {
+		logger.info("로그인2호출");
+		List<Map<String,Object>> loginList2 =null;
+		loginList2=l_dao.loginCall2(pMap);
+		return loginList2;
+	}
+	public List<Map<String, Object>> isMemberOk(String accountEmail) {
+		
+		List<Map<String, Object>> memberOk = l_dao.isMemberOk(accountEmail);
+		
+		return memberOk;
+	}
 }

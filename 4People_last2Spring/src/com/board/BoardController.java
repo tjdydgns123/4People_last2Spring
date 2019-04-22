@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,6 +47,7 @@ public class BoardController  {
 			@GetMapping("boardlist")
 			String BoardList (Model model, @RequestParam Map<String,Object> pMap) {
 			List<Map<String,Object>> BoardList=Bo_logic.BoardSel(pMap);
+			logger.info("BoardList호출 : " +BoardList.get(0) );
 			model.addAttribute("BoardList", BoardList);
 			return "forward:./board.jsp";
 			

@@ -65,5 +65,9 @@ public class IncludeDao {
 		sqlSessionTemplate.delete("memberDelete",mem_id);
 		
 	}
+	public List<Map<String, Object>> sidebarMeet(String mem_id) {
+		List<Map<String, Object>> sidebarMeet=sqlSessionTemplate.selectList("sidebarMeet",mem_id);
+		return sidebarMeet;
+	}
 
 }

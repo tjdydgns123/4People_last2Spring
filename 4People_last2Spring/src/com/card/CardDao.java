@@ -42,6 +42,8 @@ public class CardDao {
 		logger.info(pMap.size());
 		logger.info(labelIns.size());
 		labelIns.add(pMap);
+		pMap.put("history_content", "님이 라벨을 생성했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 //		session.commit();
 		return labelIns;
 	}
@@ -58,41 +60,64 @@ public class CardDao {
 	public void labelDel(Map<String, Object> pMap) {
 		sqlSessionTemplate.delete("labelDel",pMap);
 		logger.info("del호출");
+		pMap.put("history_content", "님이 라벨을 삭제했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void labelUpd(Map<String, Object> pMap) {
 		sqlSessionTemplate.update("labelUpd",pMap);
 		logger.info("upd호출");
+		pMap.put("history_content", "님이 라벨을 수정했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 		
 	}
 	public void desIns(Map<String, Object> pMap) {
 		logger.info("desIns호출");
 		sqlSessionTemplate.insert("desIns",pMap);
+		String mem_id = pMap.get("des_maker").toString();
+		pMap.put("history_content", "님이 요약을 작성했습니다.");
+		pMap.put("mem_id",mem_id);
+		sqlSessionTemplate.insert("historyIns",pMap);
+		
 	}
 
 	public void desUPD(Map<String, Object> pMap) {
 		logger.info("desUPD호출");
 		sqlSessionTemplate.update("desUPD",pMap);
-		
+		pMap.put("history_content", "님이 요약을 수정했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void memberINS(Map<String, Object> pMap) {
 		logger.info("memberINS호출");
 		sqlSessionTemplate.insert("memberINS",pMap);
+		pMap.put("history_content", "님이 참여자를 추가했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 		
 	}
 
 	public void partiDEL(Map<String, Object> pMap) {
 		sqlSessionTemplate.delete("partiDEL",pMap);
+		pMap.put("history_content", "님이 참여자를 삭제했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void checkINS(Map<String, Object> pMap) {
 		logger.info("checkINS호출");
 		sqlSessionTemplate.insert("checkINS",pMap);
+		String mem_id = pMap.get("check_maker").toString();
+		pMap.put("history_content", "님이 체크리스트 타이틀을 작성했습니다.");
+		pMap.put("mem_id",mem_id);
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 	public void checkListINS(Map<String, Object> pMap) {
 		logger.info("checkListINS호출");
 		sqlSessionTemplate.insert("checkListINS",pMap);
+		String mem_id = pMap.get("check_con_maker").toString();
+		pMap.put("mem_id",mem_id);
+		pMap.put("history_content", "님이 체크리스트 아이콘을 생성했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
+		
 	}
 
 	public void checkListUPD(Map<String, Object> pMap) {
@@ -107,33 +132,68 @@ public class CardDao {
 	public void checklistDEL(Map<String, Object> pMap) {
 		logger.info("checklistDEL호출");
 		sqlSessionTemplate.delete("checklistDEL",pMap);
+		pMap.put("history_content", "님이 체크리스트 아이콘을 삭제했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void checkDEL(Map<String, Object> pMap) {
 		logger.info("checkDEL호출");
 		sqlSessionTemplate.delete("checkDEL2",pMap);
 		sqlSessionTemplate.delete("checkDEL",pMap);
+		pMap.put("history_content", "님이 체크리스트를 삭제했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void fileINS(Map<String, Object> pMap) {
 		sqlSessionTemplate.insert("fileINS",pMap);
+		String mem_id = pMap.get("f_maker").toString();
+		String team_code = pMap.get("f_team_code").toString();
+		pMap.put("history_content", "님이 첨부파일을 업로드했습니다.");
+		pMap.put("mem_id",mem_id);
+		pMap.put("team_code",team_code);
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void fileDEL(Map<String, Object> pMap) {
 		sqlSessionTemplate.insert("fileDEL",pMap);
+		pMap.put("history_content", "님이 첨부파일을 삭제했습니다.");
+		sqlSessionTemplate.insert("historyIns",pMap);
 	}
 
 	public void cardDueDateUPD(Map<String, Object> pMap) {
 		logger.info("cardDueDateUPD호출");
-		sqlSessionTemplate.update("cardDueDateUPD",pMap);
+try {
+	sqlSessionTemplate.update("cardDueDateUPD",pMap);
+	pMap.put("history_content", "님이 카드 기한설정을 작성했습니다.");
+	sqlSessionTemplate.insert("historyIns",pMap);
+	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void commentIns(Map<String, Object> pMap) {
-		sqlSessionTemplate.update("commentIns",pMap);
+try {
+	sqlSessionTemplate.update("commentIns",pMap);
+	String mem_id = pMap.get("comm_maker").toString();
+	pMap.put("history_content", "님이 댓글을 작성했습니다.");
+	pMap.put("mem_id",mem_id);
+	sqlSessionTemplate.insert("historyIns",pMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void commentDEL(Map<String, Object> pMap) {
-		sqlSessionTemplate.delete("commentDEL",pMap);
+try {
+	sqlSessionTemplate.delete("commentDEL",pMap);
+	pMap.put("history_content", "님이 댓글을 삭제했습니다.");
+	sqlSessionTemplate.insert("historyIns",pMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

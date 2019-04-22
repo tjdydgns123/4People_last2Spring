@@ -18,6 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="../csss/es_radio.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cute+Font" rel="stylesheet">
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -28,12 +29,12 @@
 		$('#radio4').prop('checked',false);
 		$('#newTeamModal').modal('show');
 		}
+
 $(document).ready(function () {
 	$('#memberInfo').on('click',function(e){
 			e.preventDefault();
 		});
-		
-	
+
 	$('#radio3').click(function(){
 		$('#radio4').prop('checked',false);
 		});
@@ -72,6 +73,68 @@ $(document).ready(function () {
 		});
 	}
 	$('#sidebarToggle').click(function(){
+		
+// 		<a href="../meetRoom/meetMain.jsp" id="meeting" style="font-size:20px">회의실 페이지로 이동</a>
+		
+		$.ajax({
+					type:"POST"
+				   ,url:"../include/sidebarMeet"
+				   ,dataType:"json"
+				   ,success:function(data){
+					   $('#sideMeetList').empty();
+					   var append = '<a href="../meetRoom/meetMain.jsp"  style="font-size:20px; color:#FFA7A7;">회의실 페이지로 이동</a>';
+					   $('#sideMeetList').append(append);
+					   $.each(data , function( key,  val){
+						  	var mr_no = val.MR_NO;
+						  	var mr_name = val.MR_NAME;
+						  	var mr_detaileloc = val.MR_DETAILELOC;
+						  	var append = "<a href='../meetRoom/reCalList?mr_no="+mr_no+"'>"
+						  				  +mr_name+'&nbsp;&nbsp;'+mr_detaileloc+"</a>";
+						  	$('#sideMeetList').append(append);
+					   });
+					   }
+		 ,error:function(jqXHR, exception){
+			  if (jqXHR.status === 0) {
+		            alert('Not connect.\n Verify Network.');
+		        }
+		        else if (jqXHR.status == 400) {
+		            alert('Server understood the request, but request content was invalid. [400]');
+		        }
+		        else if (jqXHR.status == 401) {
+		            alert('Unauthorized access. [401]');
+		        }
+		        else if (jqXHR.status == 403) {
+		            alert('Forbidden resource can not be accessed. [403]');
+		        }
+		        else if (jqXHR.status == 404) {
+		            alert('Requested page not found. [404]');
+		        }
+		        else if (jqXHR.status == 500) {
+		            alert('Internal server error. [500]');
+		        }
+		        else if (jqXHR.status == 503) {
+		            alert('Service unavailable. [503]');
+		        }
+		        else if (exception === 'parsererror') {
+		        	$('#sideMeetList').empty();
+		        	var append = "<a href='#'>사용가능 회의실이 없습니다.</a>";
+		        	$('#sideMeetList').append(append);
+		        }
+		        else if (exception === 'timeout') {
+		            alert('Time out error. [Timeout]');
+		        }
+		        else if (exception === 'abort') {
+		            alert('Ajax request aborted. [Aborted]');
+		        }
+		        else {
+		            alert('Uncaught Error.n' + jqXHR.responseText);
+		        }
+
+
+		  }
+		
+			});
+		
 		$.ajax({
 			type:"POST"
 		   ,url:"../include/sidebarTeam"
@@ -136,7 +199,7 @@ $(document).ready(function () {
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 .es_info-color {
-    background-color: rgb(51, 181, 229) !important;
+    background-color: rgb(0, 51, 102) !important;
 }
 body {
     font-family: 'Poppins', sans-serif;
@@ -231,15 +294,21 @@ a, a:hover, a:focus {
     border-bottom: 1px solid #47748b;
     
 }
+#sidebar ul{
+	font-family: 'Cute Font', cursive;
+	font-family: 'Noto Sans KR', sans-serif;
+	
+}
 #sidebar ul p {
     color: #fff;
     padding: 10px;
 }
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1.1em; !important;
     display: block;
 }
+
 #sidebar ul li a:hover {
     color: #7386D5;
     background: #fff;
@@ -310,17 +379,19 @@ a.article, a.article:hover {
   padding-left: 8px;
 }
 .es_dropdown-btn {
-  padding: 6px 8px 6px 16px;
+/*   padding: 6px 8px 6px 16px; */
   text-decoration: none;
-  font-size: 20px;
+  font-size: 25px;
   display: block;
   border: none;
   background: none;
-  width:100%;
-  text-align: left;
+     width:100%; 
+   text-align: left; 
   cursor: pointer;
   outline: none;
+  margin-bottom:8px;
 }
+
 .es_active {
   background-color:#376092;
   color: white;
@@ -332,6 +403,16 @@ width:95%;
 height:1000px;
 margin-left:2.5%;
 }
+
+
+/*  #utopia{ */
+/*  text-transform: uppercase; */
+/* 	color: #fff; */
+/* 	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff,  */
+/* 	             0 0 40px #ff00de, 0 0 70px #ff00de,  */
+/* 	             0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 120px #ff00de; */
+/*  } */
+
 </style>
 </head>
 <body>
@@ -352,13 +433,16 @@ $(function() {
         </button>
 
         <div class="sidebar-header">
-            <h3><%=name %></h3><br>
-            <h4><%=dept %>/<%=position %></h4>
+            <h2 style='margin-bottom:0;font-weight:bold;'><img src='<%=imagePath %>' width='40' height='40'><%=name %></h2><br>
+            <h4  style='position:relative; margin-top:3px;font-weight:bold; color:#FFF;'><%=dept %>/<%=position %></h4>
         </div>
         <ul class="list-unstyled components">
           
             <li>
-            <button class="es_dropdown-btn">참여중인팀 
+            
+            <button class="es_dropdown-btn">
+            <img src='../images/sideTeam.png' width='35' height='35'>
+            	&nbsp;&nbsp;참여중인팀
    			 <i class="fa fa-caret-down"></i>
   			</button>
   			<div class="es_dropdown-container" id="sideTeamList">
@@ -367,19 +451,30 @@ $(function() {
             </li>
             
             <li>
-                <a href="../meetRoom/meetMain.jsp" id="meeting" style='font-size:20px'>회의실</a>
+                
+            	 <button class="es_dropdown-btn">
+	            <img src='../images/sideMeet.png' width='35' height='35'>
+	            	&nbsp;&nbsp;회의실 
+	   			 <i class="fa fa-caret-down"></i>
+	  			</button>
+	  			<div class="es_dropdown-container" id="sideMeetList">
+    			
+  			</div>
+            
+            
+            </li>
+            <li style='font-size:30px;'>
+                <a href="../chatting/chatMain.jsp"  style='font-size:20px'><h3 style='margin:0'><img src='../images/sideChat.png'width='35' height='35'>&nbsp;&nbsp;채팅</h3></a>
+                <a href="../calendar/calList?mem_id=<%=id %>" style='font-size:20px' ><h3 style='margin:0'><img src='../images/sideCalender.png'width='35' height='35'>&nbsp;&nbsp;캘린더</h3></a>
+<!--                 <a href="../calendar/calList" style='font-size:20px' >캘린더</a> -->
+                <a href="../chart/chartList?mem_id=<%=id %>" style='font-size:20px'><h3 style='margin:0'><img src='../images/sideChart.png'width='35' height='35'>&nbsp;&nbsp;차트</h3></a>
             </li>
             <li>
-                <a href="../chatting/chatMain.jsp"  style='font-size:20px'>채팅</a>
-                <a href="../calendar/calList?mem_id=<%=id %>" style='font-size:20px' >캘린더</a>
-                <a href="../chart/chartList?mem_id=<%=id %>" style='font-size:20px'>차트</a>
-            </li>
-            <li>
-                <a href="../note/myBoard" style='font-size:20px'>내 보드</a>
+                <a href="../note/myBoard" style='font-size:20px'><h3 style='margin:0'><img src='../images/sideNote.png'width='35' height='35'>&nbsp;&nbsp;내 보드</h3></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="javascript:newTeamModal()" style='font-size:20px'>팀 만들기</a>
+                <a href="javascript:newTeamModal()" style='font-size:20px'><h3 style='margin:0'><img src='../images/sideCreateTeam.png'width='35' height='35'>&nbsp;&nbsp;팀 만들기</h3></a>
             </li>
         </ul>
     </nav>
@@ -387,7 +482,7 @@ $(function() {
     
     <!-- 상단 -->
   <div class='col-sm-12'>
-<nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" id='nav_top'>
+<nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(0, 51, 102);" id='nav_top'>
   <div class="container-fluid">
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
@@ -402,9 +497,9 @@ $(function() {
       <!-- 왼쪽 -->
       <div class='col-sm-2'>
       <ul class="nav navbar-nav navbar-left">
-        <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
+        <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(0, 51, 102);">
 <!--         	<i class="fas fa-bars"></i>  -->
-<img src='../images/sideButton.png' width='35px' height='35px'>
+<img src='../images/sideButton5.png' style='background-color:#003366' width='35px' height='35px'>
         </button>
       </ul>
       <span  id='navChat'>
@@ -415,12 +510,23 @@ $(function() {
       
       <!-- 가운데 -->
       <div class='col-sm-3 col-sm-offset-3' style='height:60px;'>
-      <a href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
+      <a id="utopia" href="../board/boardlist?mem_id=<%=id %>" style="font-size:3.0em; font-weight:bold; margin-right:250px; margin-top:7px;  color: white; ">육토피아</a>
       </div>
       <!-- 가운데 -->
    		<!-- 검색 -->
-   		<div class='col-sm-2' style='margin-top:9px;'>
-   		 <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
+   		<div class='col-sm-2' style='margin-top:0px;'>
+<script>
+  (function() {
+    var cx = '017166172904477820079:btu6_etctw4';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search disableWebSearch='false' enableAutoComplete="true" defaultToImageSearch="false"></gcse:search>
          </div>
    		<!-- 검색 -->
       <!-- 오른쪽 -->
@@ -446,6 +552,7 @@ $(function() {
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger" id='messageCount'></span>
         </a>
+
       </div>
       
     </div><!-- /.navbar-collapse -->
@@ -528,6 +635,7 @@ function dismiss(){
         }
       });
     }
+
     
     $('ul.nav li.dropdown').hover(function() {
     	  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);

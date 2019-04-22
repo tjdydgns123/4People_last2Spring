@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vo.MeetRoomVO;
+
 @Service
 public class MeetRoomLogic {
 	@Autowired
@@ -58,11 +60,35 @@ public class MeetRoomLogic {
 		mtRoom_dao.reservationOk(pMap);
 		
 	}
-	public List<Map<String, Object>> myReserVation(String mem_id) {
-		List<Map<String, Object>> myReserVationList = mtRoom_dao.myReserVation(mem_id);
+	public Map<String, Object> myReserVation(String mem_id) {
+		Map<String, Object> myReserVationList = mtRoom_dao.myReserVation(mem_id);
 		
 		return myReserVationList;
 	}
+	public List<Map<String, Object>> afterDate(String mem_id) {
+		List<Map<String, Object>> afterDate = mtRoom_dao.afterDate(mem_id);
+		return afterDate;
+	}
+	public List<Map<String, Object>> beforeDate(String mem_id) {
+		List<Map<String, Object>> beforeDate = mtRoom_dao.beforeDate(mem_id);
+		return beforeDate;
+	}
+	public List<Map<String, Object>> hapDate(String mem_id) {
+		List<Map<String, Object>> hapDate = mtRoom_dao.hapDate(mem_id);
+		return hapDate;
+	}
+	public int reservationCancel(String re_code) {
+		int reuslt = mtRoom_dao.reservationCancel(re_code);
+		return reuslt;
+	}
+	  public List<Map<String, Object>> reservationCal(MeetRoomVO mrVO) {
+	      logger.info("회의실 캘린더 호출 성공");
+	      List<Map<String, Object>> reCalList = null;
+	      reCalList = mtRoom_dao.reservationCal(mrVO);
+	      logger.info("reCalList :"+reCalList);
+	      return reCalList;
+	   }
+	
 	
 	
 //	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) {

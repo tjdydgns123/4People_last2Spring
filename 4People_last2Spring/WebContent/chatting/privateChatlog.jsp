@@ -78,7 +78,12 @@ String chat_name = (String)request.getAttribute("chat_name");%>
     	<textarea  id ='chat_text' style=' height:90px; margin-left:15px; margin-top:20px; width:100%; font-size:18px;' placeholder="insert here"></textarea>
     	</div>
     	<div class='col-sm-2'>
-    	<button id='chat_btn' class='btn btn-success' style='margin-top:40px; width:200px; height:50px;' onclick='btn_chat()'>전송</button>
+    	<button type="button"class="btn btn-default pull-right" style="text-align:left; margin-top:5px; width:100%; background-color:#FFF;" onClick="buttonFile(event)"><img src="../images/folder.png">
+    	<span style='font-size:20px; color:#F15F5F; font-weight:bolder;'>첨부파일</span>
+    	</button>
+    	<input id="chat_file" type="file" class="uploadBtn" style="display:none;">
+    	<button id='chat_btn' class='btn btn-success' style='margin-top:6px; width:200px; height:50px;' onclick='btn_chat()'>전송</button>
+    	
     	</div>
     </div>
 	</div>
@@ -89,31 +94,44 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 	$(document).ready(function (){
 		moveScroll('chatScroll');
 		});
+	 $("#chat_file").change(function(e){
+		 var file = document.getElementById('chat_file').files[0];
+		 $('#chat_text').val('파일: '+file.name);
+		 });
 	function moveScroll (id) { 
 	    var el = document.getElementById(id); 
 	if (el.scrollHeight > 0) el.scrollTop = el.scrollHeight; 
 	} 
 	function btn_chat(){
-		var content = $('#chat_text').val();
-		var chat_id = '<%=chat_id%>';
-		var pvRoom_code = '<%=pvRoom_code%>';
-		var mem_name = '<%=mem_name%>';
-		chatLogIns(content,pvRoom_code,mem_name);
-			var obj ={
-	  			 id : chat_id,
-	  			 gubun : 'privateMessage',
-	  			 content : content,
-	  			 room_code : pvRoom_code,
-	  			 mem_name : mem_name
-	  		}
-			var json = JSON.stringify(obj);
-			chatSocket.send(json);
-			var append = "<li class='clearfix'><div class='message-data align-right'>"
-						+"<span class='message-data-name'>"+mem_name+"</span> <i class='fa fa-circle me'></i></div>"
-						+"<div class='message me-message float-right'>"+content+"</div></li>";
-			$('#chattingText').append(append);
-			moveScroll('chatScroll');
-			$('#chat_text').val('');
+		var file = document.getElementById('chat_file').files[0];
+	   
+	    if(file==null){
+	    	var content = $('#chat_text').val();
+			var chat_id = '<%=chat_id%>';
+			var pvRoom_code = '<%=pvRoom_code%>';
+			var mem_name = '<%=mem_name%>';
+			chatLogIns(content,pvRoom_code,mem_name);
+				var obj ={
+		  			 id : chat_id,
+		  			 gubun : 'privateMessage',
+		  			 content : content,
+		  			 room_code : pvRoom_code,
+		  			 mem_name : mem_name
+		  		}
+				var json = JSON.stringify(obj);
+				chatSocket.send(json);
+				var append = "<li class='clearfix'><div class='message-data align-right'>"
+							+"<span class='message-data-name'>"+mem_name+"</span> <i class='fa fa-circle me'></i></div>"
+							+"<div class='message me-message float-right'>"+content+"</div></li>";
+				$('#chattingText').append(append);
+		    }
+	    else{
+	    	$('#chat_text').val('파일:'+file.name);
+	    	 sendFile(file);
+		    }
+				moveScroll('chatScroll');
+				$('#chat_text').val('');
+	
 	}
 	$("#chat_text").keydown(function(key) {
 		
@@ -161,6 +179,66 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 			$('#'+pvRoom_code+"col3time").text('방금전');
 			$('#'+pvRoom_code+"col3content").text(content);
 		}
-	
+	//파일전송 부분
+	function sendFile(file){
+		
+		 alert(file.name);
+		 var chat_id = '<%=chat_id%>';
+		 var pvRoom_code = '<%=pvRoom_code%>';
+		 var mem_name = '<%=mem_name%>';
+		 var pvRoom_code = '<%=pvRoom_code%>';
+	var obj ={
+ 			 id : chat_id,
+ 			 gubun : 'file',
+ 			 content : file.name,
+ 			 room_code : pvRoom_code,
+ 			 mem_name : mem_name
+ 		}
+		var json = JSON.stringify(obj);
+	chatSocket.send(json);
+// 	alert('test');
+	var reader = new FileReader();
+	var rawData = new ArrayBuffer(); 
+	reader.loadend = function() {
+	}
+
+	reader.onload = function(e) {
+	rawData = e.target.result;
+	chatSocket.send(rawData);
+	alert("파일 전송이 완료 되었습니다.")
+	var obj ={
+			 id : chat_id,
+			 gubun : 'file',
+			 content : 'end',
+			 room_code : pvRoom_code,
+			 fileName : file.name,
+			 mem_name : mem_name,
+			 roomGubun : 'pv_room'
+		}
+		var json = JSON.stringify(obj);
+	chatSocket.send(json);
+	}
+
+	reader.readAsArrayBuffer(file);
+
+		 var append = "<li class='clearfix'><div class='message-data align-right'>"
+				+"<span class='message-data-name'>"+mem_name+"</span> <i class='fa fa-circle me'></i></div>"
+				+"<div class='message me-message float-right'><span style='font-size:17px;font-weight:bold;'>파일:&nbsp;&nbsp;&nbsp;</span><button id='"+file.name+"'class='btn btn-success btn-lg' onclick='fileDown(id)'>"+file.name+"</button></div></li>";	 
+	$('#chattingText').append(append);
+	moveScroll('chatScroll');
+	$('#chat_text').val('');
+	 $('#'+pvRoom_code+"col3mem_name").text('');
+		$('#'+pvRoom_code+"col3time").text('');
+		$('#'+pvRoom_code+"col3content").text('');
+		$('#'+pvRoom_code+"col3mem_name").text(mem_name);
+		$('#'+pvRoom_code+"col3time").text('방금전');
+		$('#'+pvRoom_code+"col3content").text('파일');
+	}
+
+// 	function addEvent(){
+// 	    document.getElementById("send").addEventListener("click", sendFile, false);
+// 	}
+
+// 	window.addEventListener("load", addEvent, false);
 	
 </script>
