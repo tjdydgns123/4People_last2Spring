@@ -63,7 +63,7 @@ String time="";
 		</div>
 		<div class='col-sm-9'>
 		<div class='col-sm-8'>
-		<span id=<%=team_code+"col3mem_name"%>style='font-weight:bold; font-size:15px;'><%=team_name %></span>
+		<span id=<%=team_code+"col3mem_name"%>style='font-weight:bold; font-size:17px;'><%=team_name %></span>
 		</div>
 		<div class='col-sm-4 text-right'>
 		<span id=<%=team_code+"col3time"%> style='color:#8C8C8C;'><%=time%></span>
