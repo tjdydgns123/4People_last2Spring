@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="EUC-KR"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.android">
+
+<resultMap id="labelMap" type="java.util.Map">
+	<result property="label_color" column="label_color"/>
+	<result property="label_content" column="label_content"/>
+	<result property="label_code" column="label_code"/>
+	</resultMap>
+	<resultMap id="commentsMap" type="java.util.Map">
+	<result property="comm_no" column="comm_no"/>
+	<result property="comm_time" column="comm_time"/>
+	<result property="comm_content" column="comm_content"/>
+	<result property="mem_name" column="mem_name"/>
+	<result property="comm_maker" column="comm_maker"/>
+	<result property="mem_image" column="mem_image"/>
+	</resultMap>
+	<resultMap id="desMap" type="java.util.Map">
+	<result property="des_no" column="des_no"/>
+	<result property="des_content" column="des_contentt"/>
+	</resultMap>
+	<resultMap id="partiMap" type="java.util.Map">
+	<result property="mem_name" column="mem_name"/>
+	<result property="parti_code" column="parti_code"/>
+	<result property="mem_image" column="mem_image"/>
+	</resultMap>
+	<resultMap id="checkMap" type="java.util.Map">
+	<result property="check_code" column="check_code"/>
+	<result property="check_title" column="check_title"/>
+	</resultMap>
+	<resultMap id="fileMap" type="java.util.Map">
+	<result property="att_no" column="att_no"/>
+	<result property="att_name" column="att_name"/>
+	<result property="att_date" column="att_date"/>
+	</resultMap>
+	<resultMap id="checklistMap" type="java.util.Map">
+	<result property="check_con_code" column="check_con_code"/>
+	<result property="check_con_name" column="check_con_name"/>
+	<result property="check_con_confirm" column="check_con_confirm"/>
+	</resultMap>
+	<resultMap id="chartMap" type="java.util.Map">
+		<result property="no" column="no"/>
+		<result property="mem_id" column="mem_id"/>
+		<result property="chartname" column="chartname"/>
+		<result property="charttype" column="charttype"/>
+		<result property="label" column="label"/>
+		<result property="data" column="data"/>
+		<result property="creaetetime" column="creaetetime"/>
+	</resultMap>
+	
 	
 	<select id="andlogin" parameterType="map" resultType="map">
 		select mem_name,mem_id,mem_companyname,mem_position  
@@ -15,12 +62,33 @@
 		</where>
 	</select>
 	
-		<select id="BoardListSel_AND" parameterType="map" statementType="CALLABLE">
-		{call proc_board_list_sel_and(#{board_no ,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		
+	
+	<select id="BoardListSel_AND" parameterType="map" statementType="CALLABLE">
+		{call proc_board_list_sel(#{board_no ,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 		                          ,#{r_team_code, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{team_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{board_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{porfileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=porfileMap}
 		                          ,#{BLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=BLISTMAP}
 		                          ,#{CARDLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=CARDLISTMAP}
 		                          
 		)}
+	</select>
+	
+	<select id="cardSEL_and" parameterType="map" statementType="CALLABLE">
+	{call proc_card_sel_test(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
+						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
+						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
+						 ,#{partiMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=partiMap}
+						 ,#{checkMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checkMap}
+						 ,#{checklistMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checklistMap}
+						 ,#{chartMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chartMap}
+						 ,#{fileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=fileMap}
+						  )}
 	</select>
 </mapper>
