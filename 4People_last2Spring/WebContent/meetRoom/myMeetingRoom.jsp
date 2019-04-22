@@ -165,7 +165,7 @@
 			}
 	
 	function roomUpd(){
-		var append = "<input type='hideen'name='mr_no'value="+mr_no+">";
+		var append = "<input type='hidden'name='mr_no'value="+mr_no+">";
 		$('#f_roomUpd').append(append);
 		$('#f_roomUpd').attr('onsubmit','return true');
 		$('#f_roomUpd').submit();
