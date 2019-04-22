@@ -1,9 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+    <%@ page import="java.util.List, java.util.Map, java.util.ArrayList, java.lang.Integer, java.util.Iterator" %>
+<%!
 	int check =0;
-	String mem_id = (String)request.getAttribute("mem_id");
-	String mem_name = (String)request.getAttribute("mem_name");
+%>
+<%
+	List<Map<String,Object>> signList = (List<Map<String,Object>>)request.getAttribute("loginList");
+	String mem_id =null;
+	String mem_name="";
+if(signList!=null){
+		
+	 mem_id = (String)signList.get(0).get("mem_id");
+	mem_name = (String)signList.get(0).get("mem_name");
+	}
+else{
+	mem_id = (String)request.getAttribute("mem_id");
+	mem_name = (String)request.getAttribute("mem_name");
+	
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -20,15 +34,20 @@
             var mem_name = '<%=mem_name%>';
             var str = mem_id.split('@');
             if(mem_id!='null'&&mem_name!='null'){
-            	$('#InputEmail').val(str[0]);
-            	$('#InputEmail').attr('readonly','readonly');
-            	$('#dropdownMenu1').text(str[1]);
-            	$('#dropdownMenu1').attr('disabled','disabled');
-            	$('#inputName').val(mem_name);
-            	$('#inputName').attr('readonly','readonly');
+               $('#InputEmail').val(str[0]);
+               $('#InputEmail').attr('readonly','readonly');
+               $('#dropdownMenu1').text(str[1]);
+               $('#dropdownMenu1').attr('disabled','disabled');
+               $('#inputName').val(mem_name);
+               $('#inputName').attr('readonly','readonly');
+               $('#inputPassword').attr('type','hidden');
+               $('#inputPasswordCheck').attr('type','hidden');
+               	result=1;
                 }
-        	
+           
             });
+   
+        	
         	function signUp(){
         		
         		if(result==1){
@@ -37,6 +56,7 @@
 //             		 $("#f_signUp").attr("method","POST");
 					var mem_id2=$("#dropdownMenu1").text();
              		$("#f_signUp").attr("action","./signUp?mem_id2="+mem_id2);
+             		$("#f_signUp").attr("onsubmit","return true");
              		$("#f_signUp").submit();
         		}
         		else{
@@ -79,13 +99,13 @@
         <article class="container" >
             <div class="page-header" align="center" style='font-color:#2489EE;'>
                 <div class="col-md-6 col-md-offset-3">
-                <h3>회원가입</h3>
+                <h2>회원가입</h2>
                 </div>
             </div>
             
         <div class="row align-items-center justify-content-center" style="height:100vh;"> 
             <div class="col-sm-6 col-md-offset-3" >
-                <form id="f_signUp" role="form" method="POST">
+                <form id="f_signUp" method="POST" onsubmit='return false'>
                     <div class="form-group" >
                         <label for="inputName">성명</label>
                         <input type="text" class="form-control" id="inputName" name="mem_name" placeholder="이름을 입력해 주세요">
@@ -106,17 +126,83 @@
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-    			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button>
+<!--     			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button> -->
                     </div>
+                     <div class='form-inline' style='margin-top:10px;' id="emailCheck">
+                 <input type="text" class="form-control" id="inputemailkey" style='ime-mode:disabled'  placeholder="인증 번호 를 입력해 주세요" />
+                <button class='btn btn-info' id='btn_emailsend' onclick='sendemail()' style='margin-left:20px;'>인증번호 전송 </button>
+                
+                </div>   
+                   <script type="text/javascript">
+                   var email_key;
+                  
+                   function sendemail(){ 
+                    $('#emailCheck').empty();  
+                       $('#btn_emailsend').hide();
+                       var append="<input type='text' class='form-control' id='inputemailkey' style='ime-mode:disabled'  placeholder='인증 번호 를 입력해 주세요' />"
+                           +"<button id='btn_emailOk'class='btn btn-info' onclick='check_email()' style='margin-left:20px;'>인증번호 확인 </button>"
+                     +"<a id='a_emailOk' href='javascript:sendemail()' class='pull-right'> 재전송</a>";
+                       $('#emailCheck').append(append);
+                      email_key = Math.floor(Math.random() * 10000) + 1000;
+
+                      var email = document.getElementById("InputEmail").value;
+                        var selectedText =  $('#dropdownMenu1').text();
+                        var send_email=email+"@"+selectedText;
+
+                        alert(email_key);
+                        alert(send_email);
+                        
+                  var param = "email_key="+email_key+"&send_email="+send_email;
+                         $.ajax({      
+                             type:"POST",  
+                             data: param,
+                             url:"../mail/mailSending"
+                                ,success:function(data){
+                                 var notes=$('#notes').html();
+                                 var datas = data+notes;
+                                 $('#notes').empty();
+                              $('#notes').append(datas);
+                           } 
+                       ,error:function(jqXHR, exception){
+                  } 
+                         });     
+                        
+                     }
+
+
+                   function check_email(){
+                      var inputemailkey =  $('#inputemailkey').val();
+                      if(email_key==inputemailkey){
+                          
+                         alert(email_key)
+                         alert(inputemailkey)
+                          alert("맞습니다");
+                         $('#btn_emailOk').hide();
+                         $('#a_emailOk').hide();
+                         $('#inputemailkey').attr('readonly','readonly');
+                         $('#InputEmail').attr('readonly','readonly');
+                         $('#dropdownMenu1').attr('disabled','disabled');
+                          }
+                      
+                      else{
+                          
+                         alert(email_key)
+                         alert(inputemailkey)
+                         alert("틀립니다")
+                          }
+                      
+                   }
+                   
+                   </script>
                     </div><br>
                     <div class="form-group">
                         <label for="inputPassword">비밀번호</label>
-                        <input type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
+                        <input  type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
                     	&nbsp;&nbsp;<span id="check"></span>
                     </div>
                     <div class="form-group">
                         <label for="inputPasswordCheck">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
+                        <input  type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
                     	&nbsp;&nbsp;<span id="same"></span>
                     </div>
                     

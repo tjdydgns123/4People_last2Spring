@@ -26,7 +26,7 @@
 <%--       <%if(des_content!=null){ %> --%>
 <%--          <span><h5 style="margin-left:45px;"><%=des_content.replace("#","<br>") %></h5></span> --%>
 <%--          <%} %> --%>
-<h3 id="hth"><img src="../images/description2.png">요약    <%if(des_content!=null){ %>
+<h3 id="hth"><img src="../images/description4.png">요약    <%if(des_content!=null){ %>
            <a id="<%=des_no%>" href="#" onclick="desUPD(id)" style="margin-left:20px">edit</a>
 		<%}%>     </h3>
        

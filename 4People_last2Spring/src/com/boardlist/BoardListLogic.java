@@ -34,5 +34,10 @@ public class BoardListLogic {
 		b_boardList = Bdlist_dao.BdlistSel(pMap);
 		return b_boardList;
 	}
+	public List<Map<String, Object>> historySel(Map<String, Object> pMap) {
+		List<Map<String,Object>> HistoryList = null;
+		HistoryList = Bdlist_dao.historySel(pMap);
+		return HistoryList;
+	}
 
 }

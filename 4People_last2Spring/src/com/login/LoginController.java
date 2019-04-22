@@ -1,11 +1,7 @@
 package com.login;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +23,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.util.HangulConversion;
 
 
 @Controller
@@ -79,15 +75,36 @@ public class LoginController  {
         //로그인 사용자 정보를 읽어온다.
 	    apiResult = naverLoginBO.getUserProfile(oauthToken);
 		model.addAttribute("result", apiResult);
-		System.out.println(apiResult.toString());
-
+		System.out.println(oauthToken.toString());
+        System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+		
         /* 네이버 로그인 성공 페이지 View 호출 */
-		return "forward:../board/board.jsp";
+		return "forward:./naverResult.jsp";
 	}
 
 
-
-	
+	@RequestMapping(value = "/navergogo", method = { RequestMethod.GET, RequestMethod.POST })
+	public String navergogo(Model model, @RequestParam Map<String,Object>pMap,HttpServletRequest req) {
+		String path =null;
+		logger.info(pMap);
+		pMap.get("mem_id");
+		String mem_id = pMap.get("mem_id").toString();
+		String [] s_mem_id = mem_id.split("@");
+		String mmem_id = mem_id.replace(s_mem_id[1], "naver.com");
+		pMap.put("mem_id",mmem_id);
+		List<Map<String,Object>> loginList=l_logic.loginCall2(pMap);
+		if(loginList!=null && loginList.size()>0) {
+			logger.info(loginList);
+			path = "forward:loginAction.jsp";
+		}
+		else {
+			loginList = new ArrayList<Map<String,Object>>();
+			loginList.add(pMap);
+			path="forward:signUP.jsp";
+		}
+		model.addAttribute("loginList",loginList);
+		return path; 
+	}
 	
 	@PostMapping("login")
 	public String login(Model model, @RequestParam Map<String,Object> pMap) {

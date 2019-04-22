@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.android">
+
+	
+	<select id="andlogin" parameterType="map" resultType="map">
+		select mem_name,mem_id,mem_companyname,mem_position  
+		from member 
+		<where>
+		<if test="mem_id!=null">
+					AND mem_id = #{mem_id}
+		</if>
+		<if test="mem_pw!=null">
+			        AND mem_pw = #{mem_pw}
+		</if>
+		</where>
+	</select>
+	
+		
+	
+	<select id="BoardListSel_AND" parameterType="map" statementType="CALLABLE">
+		{call proc_board_list_sel(#{board_no ,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{r_team_code, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{team_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{board_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                          ,#{porfileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=porfileMap}
+		                          ,#{BLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=BLISTMAP}
+		                          ,#{CARDLISTMAP, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=CARDLISTMAP}
+		                          
+		)}
+	</select>
+	
+	<select id="cardSEL_and" parameterType="map" statementType="CALLABLE">
+	{call proc_card_sel_test(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
+						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
+						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
+						 ,#{partiMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=partiMap}
+						 ,#{checkMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checkMap}
+						 ,#{checklistMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checklistMap}
+						 ,#{chartMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chartMap}
+						 ,#{fileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=fileMap}
+						  )}
+	</select>
+</mapper>

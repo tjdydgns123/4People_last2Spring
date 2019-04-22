@@ -13,6 +13,11 @@
 		</if>
 		</where>
 	</select>
+	<select id="loginCall3" parameterType="map" resultType="map">
+	    select mem_name,mem_id,mem_companyname,mem_position,mem_image 
+		from member
+		where mem_id = #{mem_id}
+	</select>
 	
 	<insert id="signUp" parameterType="java.util.Map">
 		INSERT INTO member (mem_id,mem_name,mem_pw,mem_phone,mem_position,mem_companyaddr,mem_companyname,mem_companyphone,mem_connect,mem_image)

@@ -15,7 +15,7 @@
 //메모를 클릭했을때
 $('.mymemo').click(function(){
     note_id = $(this).attr("id");
-    alert(note_id);
+//     alert(note_id);
 });
 
 </script>
