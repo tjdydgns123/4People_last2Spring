@@ -31,4 +31,9 @@ public class ChartDao {
 		logger.info("chartUpd 호출");
 		sqlSessionTemplate.update("ChartUpd",chartVO);	
 	}
+	public ChartVO chartDetail(String no) {
+		logger.info("chartDetail 호출");
+		ChartVO chartVO = sqlSessionTemplate.selectOne("chartDetail",no);	
+		return chartVO;
+	}
 }

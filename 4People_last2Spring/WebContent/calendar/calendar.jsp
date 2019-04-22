@@ -123,6 +123,7 @@ var color2 = "#FF5E00";
 	<label style="text-align:center">참여중인 팀</label>
 	<hr>
 <% for(int k=0; k<teamCount;k++){ %>
+<<<<<<< HEAD
 		<p>
 		  <input  type="checkbox" class="swingBar" id="cb1" onChange="scheduleChoice('<%=k %>','<%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>');" checked/> 
 		  <label for="cb1" style="color:<%=colors[k]%>">
@@ -130,6 +131,15 @@ var color2 = "#FF5E00";
 		   <!--  <span class="checkmark"></span> -->
 		  </label>
 		</p>
+=======
+<p>
+		    <input  type="checkbox" id="cb1" > 
+		  <label for="cb1" style="color:<%=colors[k]%>">
+		    <%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>
+		   <!--  <span class="checkmark"></span> -->
+		  </label>
+		  </p>
+>>>>>>> refs/heads/seulgi6
 <%} %>
 </div>
 </div>

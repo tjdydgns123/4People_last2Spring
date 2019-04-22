@@ -40,8 +40,8 @@ else{
                $('#dropdownMenu1').attr('disabled','disabled');
                $('#inputName').val(mem_name);
                $('#inputName').attr('readonly','readonly');
-               $('#ppww').attr('type','hidden');
-               $('#ppwwpw').attr('type','hidden');
+               $('#inputPassword').attr('type','hidden');
+               $('#inputPasswordCheck').attr('type','hidden');
                	result=1;
                 }
            
@@ -202,7 +202,7 @@ else{
                     </div>
                     <div class="form-group">
                         <label for="inputPasswordCheck">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
+                        <input  type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
                     	&nbsp;&nbsp;<span id="same"></span>
                     </div>
                     

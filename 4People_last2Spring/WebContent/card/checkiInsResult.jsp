@@ -21,7 +21,7 @@
 					}
 					else if(keys[j].equals("check_code")){
 						check_code.add(pMap.get(keys[j]).toString());
-					}
+					} 
 					
 				}
 			}
