@@ -86,6 +86,7 @@
 	
 	   <select id="cardSEL" parameterType="map" statementType="CALLABLE">
    {call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{mem_id2,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
                    ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
                    ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
                    ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}

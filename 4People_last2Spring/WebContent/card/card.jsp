@@ -70,7 +70,7 @@
      
      if(chartList != null){
     	 Iterator cltr = chartList.iterator();
-//     	 while(cltr.hasNext()){
+     	 while(cltr.hasNext()){
     		 Map<String,Object> pMap = (Map<String,Object>)cltr.next();
     		 Object keys[] = pMap.keySet().toArray();
     		 for(int j=0; j<keys.length; j++){
@@ -97,7 +97,7 @@
     				 createtime.add(pMap.get(keys[j]).toString());
     			 }
     		 }
-//     	 }
+     	 }
      }
      
 		if(commentsList!=null){
@@ -386,21 +386,12 @@ $.ajax({
 				},
 				error : function(xhr, status, error) {
 				//에러가 발생했을 때 처리하고 싶은 함수
-				alert("error");    //경고창 띄움
+// 				alert("error");    //경고창 띄움
 				} 
-				});
-			
 		}); 
-	},
-	complete : function(result){
-	//통신이 실패했어도 완료가 되었을 때 처리하고 싶은 함수
-	},
-	error : function(xhr, status, error) {
-	//에러가 발생했을 때 처리하고 싶은 함수
-	alert("error");    //경고창 띄움
-	} 
-	});
-
+		}); 
+	}
+});
 });
 </script>
  
@@ -701,7 +692,7 @@ $.ajax({
         </div>
         </form>
         <!-- 차트 -->
-        <% if(chartList != null){ %>
+        <% if(chartList != null &&c_mem_id.size()>0 ){ %>
           <button id=<%=c_mem_id.get(0) %> type="button" name="btn_chart" value=<%=c_mem_id.get(0) %> class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" data-target="#modal_chartList" data-toggle="modal"><img src="../images/description.png">차트</button>
         <% } %>
         <!-- 차트 끝 -->
