@@ -215,7 +215,7 @@ var sel_file;
 
 	<div class='row' style='margin-top: 50px;'>
 		<div class='col-sm-8 col-sm-offset-4'>
-			<span style='font-size: 40px; font-weight: bold; color: #2489EE;'>4People</span>
+			<span style='font-size: 40px; font-weight: bold; color: #2489EE;'>육토피아</span>
 			<span style='font-size: 20px; color: #003399;'>&nbsp;&nbsp;회의실
 				커스텀 마이징 서비스를 이용해보세요!!!</span>
 		</div>
@@ -226,7 +226,7 @@ var sel_file;
 			<span style='color: black; font-size: 20px; font-weight: bold;'>회의실
 				예약기능</span>
 			<div>
-				<h4>4people에서는 회의실 예약기능을 제공하고 있습니다. 회의실을 등록해주세요.</h4>
+				<h4>육토피아에서는 회의실 예약기능을 제공하고 있습니다. 회의실을 등록해주세요.</h4>
 			</div>
 		</div>
 		<div class='row'>

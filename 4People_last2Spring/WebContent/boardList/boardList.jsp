@@ -230,6 +230,9 @@ function mo_close4(){
 function mo_close5(){
 	$('#label_modal4').modal('hide');
 }
+function mo_close6(){
+	$('#modal_chartList').modal('hide');
+}
 function label_codee(id){
 	label_code= id;
 	

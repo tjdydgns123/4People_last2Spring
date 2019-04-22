@@ -257,6 +257,49 @@ public class androidController {
 	return b_boardList;
 	
 }
+	@ResponseBody
+	@RequestMapping(value ="chatList", produces="text/plain;charset=utf-8")
+	Map<String,List<Map<String,Object>>> chatList(@RequestParam String mem_id){
+		
+		
+		Map<String,List<Map<String,Object>>>  chatList = new HashMap<String,List<Map<String,Object>>> ();
+		
+		List<Map<String,Object>> getPrivate = androidDao.getPrivate(mem_id);
+		List<Map<String,Object>> getTeam = androidDao.getTeam(mem_id);
+		chatList.put("team",getTeam);
+		chatList.put("private",getPrivate);
+		
+		return chatList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "teamChatLog",produces="text/plain;charset=utf-8")
+	String teamChatLogList(@RequestParam Map<String,Object> pMap){
+		
+		Gson gson = new Gson();
+		Map<String,List<Map<String,Object>>>  teamChatLogList = new HashMap<String,List<Map<String,Object>>> ();
+			
+		List<Map<String,Object>> teamChatlog =androidDao.teamChatlog(pMap);
+		List<Map<String,Object>> teamChatMember =androidDao.teamChatMember(pMap);
+		
+		teamChatLogList.put("chatMember",teamChatMember);
+		teamChatLogList.put("chatlog",teamChatMember);
+		
+		String teamLogJson = gson.toJson(teamChatLogList);
+		
+		return teamLogJson;
+	}
+	@ResponseBody
+	@RequestMapping(value = "privateChatLog",produces="text/plain;charset=utf-8")
+	String privateChatLogList(@RequestParam Map<String,Object> pMap){
+		
+		Gson gson = new Gson();
+		List<Map<String, Object>> privateChatlog =androidDao.privateChatlog(pMap);
+		
+		String teamLogJson = gson.toJson(privateChatlog);
+		
+		return teamLogJson;
+	}
 	
 	
 	

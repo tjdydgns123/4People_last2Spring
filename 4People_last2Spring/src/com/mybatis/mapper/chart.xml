@@ -23,4 +23,10 @@ where no = #{no}
 update chart set label = #{label}, data = #{data} 
 where no = #{no}
 </update>
+<!-- 선택한 차트 상세보기 -->
+<select id="chartDetail" parameterType="com.vo.ChartVO" resultType="com.vo.ChartVO">
+select no, mem_id, chartname, charttype, label, data, createtime 
+from chart 
+where no = #{no}
+</select>
 </mapper>

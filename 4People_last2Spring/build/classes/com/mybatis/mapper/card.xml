@@ -37,6 +37,19 @@
 	<result property="check_con_name" column="check_con_name"/>
 	<result property="check_con_confirm" column="check_con_confirm"/>
 	</resultMap>
+	<resultMap id="chartMap" type="java.util.Map">
+      <result property="no" column="no"/>
+      <result property="mem_id" column="mem_id"/>
+      <result property="chartname" column="chartname"/>
+      <result property="charttype" column="charttype"/>
+      <result property="label" column="label"/>
+      <result property="data" column="data"/>
+      <result property="creaetetime" column="creaetetime"/>
+   </resultMap>
+	
+
+
+   
 	
 	<select id="labelIns" parameterType="map" statementType="CALLABLE">
 	{call proc_label_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -71,19 +84,22 @@
 	   DELETE FROM LABEL WHERE label_code = #{label_code}
 	</delete>
 	
-	<select id="cardSEL" parameterType="map" statementType="CALLABLE">
-	{call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						 ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
-						 ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
-						 ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
-						 ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
-						 ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
-						 ,#{partiMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=partiMap}
-						 ,#{checkMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checkMap}
-						 ,#{checklistMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checklistMap}
-						 ,#{fileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=fileMap}
-						  )}
-	</select>
+	   <select id="cardSEL" parameterType="map" statementType="CALLABLE">
+   {call proc_card_sel(#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{mem_id2,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{card_name, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{card_duedate, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{card_maker, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                   ,#{labelMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=labelMap}
+                   ,#{commentsMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=commentsMap}
+                   ,#{desMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=desMap}
+                   ,#{partiMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=partiMap}
+                   ,#{checkMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checkMap}
+                   ,#{checklistMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=checklistMap}
+                   ,#{chartMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chartMap}
+                   ,#{fileMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=fileMap}
+                    )}
+   </select>
 	<insert id="desIns" parameterType="map">
 		INSERT INTO description(des_content,card_code,des_no,team_code,des_maker) 
 		VALUES(#{des_content},#{card_code},seq_des_no.nextval,#{team_code},#{des_maker})

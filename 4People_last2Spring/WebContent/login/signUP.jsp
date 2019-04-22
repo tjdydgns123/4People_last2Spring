@@ -40,8 +40,8 @@ else{
                $('#dropdownMenu1').attr('disabled','disabled');
                $('#inputName').val(mem_name);
                $('#inputName').attr('readonly','readonly');
-               $('#ppww').attr('type','hidden');
-               $('#ppwwpw').attr('type','hidden');
+               $('#inputPassword').attr('type','hidden');
+               $('#inputPasswordCheck').attr('type','hidden');
                	result=1;
                 }
            
@@ -126,7 +126,7 @@ else{
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-    			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button>
+<!--     			<button class='btn btn-info' onclick='confirm()' style='margin-left:20px;'>중복체크</button> -->
                     </div>
                      <div class='form-inline' style='margin-top:10px;' id="emailCheck">
                  <input type="text" class="form-control" id="inputemailkey" style='ime-mode:disabled'  placeholder="인증 번호 를 입력해 주세요" />
@@ -197,12 +197,12 @@ else{
                     </div><br>
                     <div class="form-group">
                         <label for="inputPassword">비밀번호</label>
-                        <input id="ppww" type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
+                        <input  type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
                     	&nbsp;&nbsp;<span id="check"></span>
                     </div>
                     <div class="form-group">
                         <label for="inputPasswordCheck">비밀번호 확인</label>
-                        <input id="ppwwpw" type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
+                        <input  type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
                     	&nbsp;&nbsp;<span id="same"></span>
                     </div>
                     

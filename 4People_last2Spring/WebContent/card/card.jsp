@@ -13,6 +13,7 @@
      List<String> checkList = (List<String>)cardList.get(0).get("checkMap");
      List<String> check_con_List = (List<String>)cardList.get(0).get("checklistMap");
      List<String> fileList = (List<String>)cardList.get(0).get("fileMap");
+     List<String> chartList = (List<String>)cardList.get(0).get("chartMap");
  
      List<String> label_color = new ArrayList<String>(); 
      List<String> label_content = new ArrayList<String>(); 
@@ -35,6 +36,15 @@
      List<String> att_name = new ArrayList<String>(); 
      List<String> sub_att_name = new ArrayList<String>(); 
      List<String> att_date = new ArrayList<String>(); 
+     
+     List<String> no = new ArrayList<String>();
+     List<String> c_mem_id = new ArrayList<String>();
+     List<String> chartname = new ArrayList<String>();
+     List<String> charttype = new ArrayList<String>();
+     List<String> label = new ArrayList<String>();
+     List<String> data = new ArrayList<String>();
+     List<String> createtime = new ArrayList<String>();
+     
      String des_content = null; 
      String des_no = null; 
      
@@ -56,6 +66,38 @@
 				
 			}
 		}
+     }
+     
+     if(chartList != null){
+    	 Iterator cltr = chartList.iterator();
+     	 while(cltr.hasNext()){
+    		 Map<String,Object> pMap = (Map<String,Object>)cltr.next();
+    		 Object keys[] = pMap.keySet().toArray();
+    		 for(int j=0; j<keys.length; j++){
+    			 if(keys[j].equals("no")){
+    				 no.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("mem_id")){
+    				 c_mem_id.add(pMap.get(keys[j]).toString());
+    				 out.print("c_mem_id : "+c_mem_id);
+    			 }
+    			 else if(keys[j].equals("chartname")){
+    				 chartname.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("charttype")){
+    				 charttype.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("label")){
+    				 label.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("data")){
+    				 data.add(pMap.get(keys[j]).toString());
+    			 }
+    			 else if(keys[j].equals("createtime")){
+    				 createtime.add(pMap.get(keys[j]).toString());
+    			 }
+    		 }
+     	 }
      }
      
 		if(commentsList!=null){
@@ -195,7 +237,8 @@
 				}
 		}
     %>
-   
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
@@ -231,7 +274,6 @@ font-family: 'Candal', sans-serif;
 /*     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25); */
 /*     -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25); */
 }
-
 .filebox label {
     display: inline-block;
     padding: .5em .75em;
@@ -276,7 +318,6 @@ font-family: 'Candal', sans-serif;
 .glyphicon { display:none; } 
 #gihanz { display:none; } 
 .glyphicon-calendar  { display:none; } 
-
  /* iframe을 숨기기 위한 css*/
         #if{
             width: 0px;
@@ -316,6 +357,43 @@ font-family: 'Candal', sans-serif;
   100% {background:linear-gradient(to right, #1DDB16, #050099);} 
 }
 </style>
+<body>
+<script type="text/javascript">
+$(document).ready(function(){
+	var id = $("button[name = 'btn_chart']").val();
+$.ajax({
+	type:"GET",
+	url:"../card/chartCall?mem_id="+id,
+	data : id,
+	dataType:"HTML",
+	success : function(result) {
+	//통신이 성공적으로 이루어졌을 때 처리하고 싶은 함수
+		$('#chartBody').append(result);
+		$("button[name = 'btn_myChart']").click(function(){
+			var selectChartNo = $(this).attr('value');
+			$.ajax({
+				type:"GET",
+				url:"../card/cardInsert?no="+selectChartNo, 
+				data : selectChartNo,
+				dataType:"HTML",
+				success : function(result) {
+				//통신이 성공적으로 이루어졌을 때 처리하고 싶은 함수
+					$('#chartbutton').append(result);
+					$('#modal_chartList').modal('hide'); 
+				},
+				complete : function(result){
+				//통신이 실패했어도 완료가 되었을 때 처리하고 싶은 함수
+				},
+				error : function(xhr, status, error) {
+				//에러가 발생했을 때 처리하고 싶은 함수
+// 				alert("error");    //경고창 띄움
+				} 
+		}); 
+		}); 
+	}
+});
+});
+</script>
  
  <div class="modal-dialog" style="ovewflow-y:auto">
     <div class="modal-content" style="width:808px; height:750px;">
@@ -423,6 +501,13 @@ font-family: 'Candal', sans-serif;
          </div>
          </div>
         <!-- 요약 div -->
+        <br>
+        <!-- 차트 시작 -->
+        <h3 id="hth"><img src="../images/chart.jpg" width="50px">차트</h3>
+        <% if(no.size()!=0) {%>
+        <div id="chartbutton" style=" margin-bottom:50px;"></div>
+        <% } %>
+        <!-- 차트 끝 -->
       
         <!-- 첨부파일 div -->
          <div id="card_c_file" style=" margin-bottom:50px;">
@@ -606,6 +691,25 @@ font-family: 'Candal', sans-serif;
         <input type="hidden" id='f_maker' name='f_maker'>
         </div>
         </form>
+        <!-- 차트 -->
+        <% if(chartList != null &&c_mem_id.size()>0 ){ %>
+          <button id=<%=c_mem_id.get(0) %> type="button" name="btn_chart" value=<%=c_mem_id.get(0) %> class="btn btn-default es_shadow" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" data-target="#modal_chartList" data-toggle="modal"><img src="../images/description.png">차트</button>
+        <% } %>
+        <!-- 차트 끝 -->
+        <!-- 차트 버튼 클릭시 발생되는 모달 시작-->
+        <div style="position:absolute;">
+  		<div class="modal" id="modal_chartList" role="dialog" data-backdrop="static" style="position:relative; width:550px; left:-420px">
+    	<div class="modal-dialogg">  
+      <!-- Modal content-->
+      <div class="modal-content"> 
+        <div class="modal-header" style="background-color:#D9D9D9">
+          <button type="button" class="close" onClick="mo_close6()">&times;</button> 
+          <h4 class="modal-title" style="background-color:#D9D9D9" align="center"><strong>차트 리스트</strong> </h4>
+        </div>
+        <div class="modal-body" style="background-color:#D9D9D9" id="chartBody">
+   		 </div>
+ 	 </div></div></div></div>
+  <!-- 차트 버튼 클릭시 발생되는 모달 끝-->
         <br>
         <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><img src="../images/bin.png"></div>
         
@@ -625,7 +729,6 @@ font-family: 'Candal', sans-serif;
 var count=parseFloat("<%=check_length%>"); 
 	
 function hihi(check,id){
-
 // 	alert("count:"+count); 
 	var length ='';
 	var llength ='';
@@ -695,7 +798,6 @@ function hihi(check,id){
 		});
 	$('#barbar').empty();
 	$('#barbar').append(0+"%");
-
 		 }
 	 var param = "check_con_code="+id;
 		$.ajax({
@@ -710,8 +812,4 @@ function hihi(check,id){
 		}
 	
 }
-
-
-
 </script>
-  
