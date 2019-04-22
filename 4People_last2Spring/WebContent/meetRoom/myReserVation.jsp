@@ -91,7 +91,7 @@ $(document).ready(function (){
 			 ,data: param
 			 ,dataType:'json'
 			 ,success:function(data){
-				 alert(data);
+// 				 alert(data);
 				if(data==1){ 
 				 if(gubun=='after'){
 					 

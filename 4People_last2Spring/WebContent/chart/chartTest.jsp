@@ -33,7 +33,7 @@ $(".copy-img").click(function() {
   var b = $(this).parents("span").children("input");
   b.select(),
   document.execCommand("copy"),
-  alert("copied! " + b.attr("value"))
+//   alert("copied! " + b.attr("value"))
 });
 </script> 
 <div class="container">
