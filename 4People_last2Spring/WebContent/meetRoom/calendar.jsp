@@ -255,7 +255,7 @@
 	         } 
 	         ,droppable: true//드래그해서 삭제할 수 있는지
 	         ,drop: function(date, allDay) { //삭제가 발생하면 호출되는 함수
-		         alert('drop');
+// 		         alert('drop');
 	        	 //$('#calendar').fullCalendar('removeEvent', date.title); 
 	             // retrieve the dropped element's stored Event Object 
 	             var originalEventObject = $(this).data('eventObject'); 
@@ -304,14 +304,14 @@
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		alert('title'+ info.title
-      	      	    	 +'Start :' +info.start
-      	      	    	 +'End :'+info.end
-      	      	    	 );
+//       	    		alert('title'+ info.title
+//       	      	    	 +'Start :' +info.start
+//       	      	    	 +'End :'+info.end
+//       	      	    	 );
       	 	}
       	 	,eventDragStop: function(event, jsEvent, ui, view) {
       	 	    calendar.fullCalendar('removeEvents', event.mr_no);
-          	 	alert('삭제'+event.mr_no);
+//           	 	alert('삭제'+event.mr_no);
                 deleteEvent(event.mr_no);
       	 	}
 		}); 

@@ -72,7 +72,7 @@ var color2 = "#FF5E00";
 		location.href="./calDEL?cal_no="+cal_no;
 	}
 	function updateEvent(cal_no){
-		alert(cal_no);
+// 		alert(cal_no);
 		location.href="./calUPD?cal_no="+cal_no;
 	}
 
@@ -123,7 +123,6 @@ var color2 = "#FF5E00";
 	<label style="text-align:center">참여중인 팀</label>
 	<hr>
 <% for(int k=0; k<teamCount;k++){ %>
-<<<<<<< HEAD
 		<p>
 		  <input  type="checkbox" class="swingBar" id="cb1" onChange="scheduleChoice('<%=k %>','<%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>');" checked/> 
 		  <label for="cb1" style="color:<%=colors[k]%>">
@@ -131,15 +130,6 @@ var color2 = "#FF5E00";
 		   <!--  <span class="checkmark"></span> -->
 		  </label>
 		</p>
-=======
-<p>
-		    <input  type="checkbox" id="cb1" > 
-		  <label for="cb1" style="color:<%=colors[k]%>">
-		    <%=calTeamCount.get(k).get("MAX(TEAM_NAME)") %>
-		   <!--  <span class="checkmark"></span> -->
-		  </label>
-		  </p>
->>>>>>> refs/heads/seulgi6
 <%} %>
 </div>
 </div>
@@ -283,7 +273,6 @@ var color2 = "#FF5E00";
     	var title;
         var start;
         var end;
-        var eventss;
          // Easy pie charts 
 		var calendar = $('#calendar').fullCalendar({
 			header: { 
@@ -317,7 +306,7 @@ var color2 = "#FF5E00";
 	         } 
 	         ,droppable: true//드래그해서 삭제할 수 있는지
 	         ,drop: function(date, allDay) { //삭제가 발생하면 호출되는 함수
-		         alert('drop');
+// 		         alert('drop');
 	        	 //$('#calendar').fullCalendar('removeEvent', date.title); 
 	             // retrieve the dropped element's stored Event Object 
 	             var originalEventObject = $(this).data('eventObject'); 
@@ -353,7 +342,7 @@ var color2 = "#FF5E00";
 		  		%>
 		  			<%for(int j=0; j<teamCount; j++){%>
 						   ,{id : '<%=calTeamCount.get(j).get("MAX(TEAM_NAME)")%>',
-							     events: [
+							   events: [
 						 			<% for(int i =0; i<calTeamList.size(); i++){%>
 				  						<%if(calTeamCount.get(j).get("TEAM_CODE").equals(calTeamList.get(i).get("TEAM_CODE"))) {%>
 										{card_code : '<%=calTeamList.get(i).get("CARD_CODE")%>'
@@ -371,10 +360,10 @@ var color2 = "#FF5E00";
 			]
 			/* 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic' */ 
       		,eventClick: function(info) {
-      	    		alert('Event:title'+ info.title
-      	      	    	 +'Event Start date :' +info.start.getDate()
-      	      	    	 +'cal_no :'+info.seq_no
-      	      	    	 +'calendarId :'+info.id);
+//       	    		alert('Event:title'+ info.title
+//       	      	    	 +'Event Start date :' +info.start.getDate()
+//       	      	    	 +'cal_no :'+info.seq_no
+//       	      	    	 +'calendarId :'+info.id);
       	 	}
       	 	,eventDragStop: function(event, jsEvent, ui, view) {
       	 	    calendar.fullCalendar('removeEvents', event.seq_no);
@@ -387,18 +376,14 @@ var color2 = "#FF5E00";
         var enddate = this.end;       
     }); 
  	function scheduleChoice(num, id){
- 	 	alert('캘린더 선택 호출 :'+id+ ', num: '+num);
+//  	 	alert('캘린더 선택 호출 :'+id+ ', num: '+num);
 		if($(".swingBar").eq(num).is(":checked")){
-// 				$("#calendar").fullCalendar('addEventSource',id);  
-				$("#calendar").fullCalendar('renderEvent',id);  
-				$('#calendar').fullCalendar('render');
+				$("#calendar").fullCalendar('addEventSource',id);  
 				$('#calendar').fullCalendar( 'refetchEvents' );
 			}
 		else {
-// 				$("#calendar").fullCalendar('removeEvents',id);
-				$("#calendar").fullCalendar('removeEventSources',id);
+				$("#calendar").fullCalendar('removeEventSource',id);
 				$('#calendar').fullCalendar( 'refetchEvents' );
-// 				$('#calendar').fullCalendar( 'refresh' );
 			}
 		} 
     $('#external-events div.external-event').each(function() { 
@@ -427,7 +412,7 @@ var color2 = "#FF5E00";
       <div class="modal-body">
 		    <div style="margin-bottom:10px">
 		    <p>제목</p>
-		    	<input id="ins_title" type="text" class="form-control" placeholder="일정을 입력해주세요." style="width:250px;height:30px;">
+		    	<input id="ins_title" value='제주도 워크샵' type="text" class="form-control" placeholder="일정을 입력해주세요." style="width:250px;height:30px;">
 			</div>
 			<p>시간</p>
 			<!-- timepicker 시작//cal_starttime xx시 -->

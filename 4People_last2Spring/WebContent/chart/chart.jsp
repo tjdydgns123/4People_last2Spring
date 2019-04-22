@@ -253,20 +253,20 @@ $(document).ready(function(){
 			 <h4 class="addItem-space" style="white-space:nowrap;">X축 (항목명 또는 값)
 			 <button type="button" class="btn btn-primary btn-lg" id="btn_add" onClick="textarea_add()">추가</button></h4>
 			 <span id="btn_x">
-			 <textarea class="item-space" id="x1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="x2" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>			
-			 <textarea class="item-space" id="x3" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea></span>			
-			 <textarea id="x4" name="label" style="width:80px; height:50px; font-size:30px; resize: none"></textarea><br>			
+			 <textarea class="item-space" id="x1" name="label" style="width:80px; height:50px; font-size:15px; resize:none">재민이</textarea>		
+			 <textarea class="item-space" id="x2" name="label" style="width:80px; height:50px; font-size:15px; resize:none">영성이형</textarea>			
+			 <textarea class="item-space" id="x3" name="label" style="width:80px; height:50px; font-size:15px; resize:none">윤정이누나</textarea></span>			
+			 <textarea id="x4" name="label" style="width:80px; height:50px; font-size:15px; resize: none">슬기누나</textarea><br>			
 			 
 			 
 			 <h4>Y축 (값)</h4>
 			 <span id="btn_y">
-			 <textarea class="item-space" id="y1" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="y2" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="y3" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea></span>		
-			 <textarea id="y4" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea><br> 
+			 <textarea class="item-space" id="y1" name="data" style="width:80px; height:50px; font-size:15px; resize:none">100</textarea>		
+			 <textarea class="item-space" id="y2" name="data" style="width:80px; height:50px; font-size:15px; resize:none">50</textarea>		
+			 <textarea class="item-space" id="y3" name="data" style="width:80px; height:50px; font-size:15px; resize:none">80</textarea></span>		
+			 <textarea id="y4" name="data" style="width:80px; height:50px; font-size:15px; resize:none">30</textarea><br> 
 			 <h3>차트 제목</h3>
-			 <textarea id="chartName" name="chartname" style="width:500px; height:50px; font-size:30px; resize:none"></textarea><br><br>			
+			 <textarea id="chartName" name="chartname" style="width:500px; height:50px; font-size:30px; resize:none">나와의 친밀도 ㅎ</textarea><br><br>			
           <button type="button" class="btn btn-primary btn-lg item-space" id="btn_chartCreate" data-dismiss="modal" onClick="chartSave()">등록</button>
           <button type="button" class="btn btn-dark btn-lg" data-dismiss="modal" style="background-color:#8C8C8C">취소</button>
           </form>
@@ -319,16 +319,16 @@ $(document).ready(function(){
 			 <h4>X축 (항목명 또는 값)
 			 <button type="button" class="btn btn-primary btn-lg" id="btn_add" onClick="textarea_add2()">추가</button></h4>
 			 <span id="btn_x2">
-			 <textarea class="item-space" id="x1_1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="x2_1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>			
-			 <textarea class="item-space" id="x3_1" name="label" style="width:80px; height:50px; font-size:30px; resize:none"></textarea></span>			
-			 <textarea id="x4_1" name="label" style="width:80px; height:50px; font-size:30px; resize: none"></textarea><br>			
+			 <textarea class="item-space" id="x1_1" name="label" style="width:80px; height:50px; font-size:15px; resize:none">영은이누나</textarea>		
+			 <textarea class="item-space" id="x2_1" name="label" style="width:80px; height:50px; font-size:15px; resize:none">영성이형</textarea>			
+			 <textarea class="item-space" id="x3_1" name="label" style="width:80px; height:50px; font-size:15px; resize:none">슬기누나</textarea></span>			
+			 <textarea id="x4_1" name="label" style="width:80px; height:50px; font-size:15px; resize: none">윤정이누나</textarea><br>			
 			 <h4>Y축 (값)</h4>
 			 <span id="btn_y2">
-			 <textarea class="item-space" id="y1_1" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="y2_1" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea>		
-			 <textarea class="item-space" id="y3_1" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea></span>		
-			 <textarea id="y4_1" name="data" style="width:80px; height:50px; font-size:30px; resize:none"></textarea><br>
+			 <textarea class="item-space" id="y1_1" name="data" style="width:80px; height:50px; font-size:15px; resize:none">100</textarea>		
+			 <textarea class="item-space" id="y2_1" name="data" style="width:80px; height:50px; font-size:15px; resize:none">100</textarea>		
+			 <textarea class="item-space" id="y3_1" name="data" style="width:80px; height:50px; font-size:15px; resize:none">100</textarea></span>		
+			 <textarea id="y4_1" name="data" style="width:80px; height:50px; font-size:15px; resize:none">100</textarea><br>
           <button type="button" class="btn btn-primary btn-lg item-space" id="btn_chartUpd" data-dismiss="modal">수정</button>
           <button type="button" class="btn btn-dark btn-lg" data-dismiss="modal" style="background-color:#8C8C8C">취소</button>
           </form>

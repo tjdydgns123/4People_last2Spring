@@ -605,7 +605,7 @@ $(document).ready(function () {
             <div class="control-group form-group">
               <div class="controls">
                 <label for="content">내용</label>
-                <textarea id="editcontent" class="form-control" maxlength="999" rows="10" cols="100" required style="resize: none;"></textarea>
+                <textarea id="editcontent" class="form-control" maxlength="999" rows="10" cols="100" required style="resize: none;">서대리 아이디:dydgns11@naver.com</textarea>
               </div>
             </div>
             <div class="modal-footer" id="create">
@@ -659,7 +659,7 @@ $(document).ready(function () {
 			  </div>
          	<div class='form-group'>
          		<label for="send_contents">내용(50자 이하 입력)</label>
-         		<textarea  class='form-control'id='send_contents' style='height:100px;'></textarea>
+         		<textarea  class='form-control'id='send_contents' style='height:100px;'>뭐해....같이 밥먹을까....?</textarea>
          	</div>
         </div>
         <div class="modal-footer">

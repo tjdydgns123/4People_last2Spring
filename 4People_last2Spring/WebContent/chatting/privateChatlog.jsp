@@ -182,7 +182,7 @@ String chat_name = (String)request.getAttribute("chat_name");%>
 	//파일전송 부분
 	function sendFile(file){
 		
-		 alert(file.name);
+// 		 alert(file.name);
 		 var chat_id = '<%=chat_id%>';
 		 var pvRoom_code = '<%=pvRoom_code%>';
 		 var mem_name = '<%=mem_name%>';

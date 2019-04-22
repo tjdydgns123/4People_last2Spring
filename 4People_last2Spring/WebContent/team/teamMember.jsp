@@ -103,7 +103,7 @@ String pm = null;
 					  }
 					});//end of ajax
 					$("#btn_invite").bind("click", function(){
-						alert($('#tb_member').child.val());
+// 						alert($('#tb_member').child.val());
 					});
 					
 				}

@@ -420,7 +420,7 @@ $.ajax({
       </div>
       <div class="modal-body" style="background-color:#FAE0D4">
       	<label>Title</label><br>
-        <input type="text" id="label_text2">
+        <input type="text" id="label_text2" value='내일 정전이 된다면 집에가야지;;'>
         <Br>
         <br>
         <label>Select Color</label>
@@ -664,7 +664,7 @@ $.ajax({
       </div>
       <div class="modal-body" id="checkModal2" style="background-image:url('../images/zxc.jpg')" >
       	<label style="color:#FFFFFF">Title</label>
-        <input type="text" id="check_text" placeholder="내용을 입력하세요.">
+        <input type="text" id="check_text" value='설계' placeholder="내용을 입력하세요.">
         <br><br>
         <button type="button" class="btn btn-default"  onClick="checkAdd()">생성</button>
       </div>
